@@ -1,4 +1,6 @@
 {
+  "name": "WeShareAShare",
+  "displayName": "WeShareAShare",
   "expo": {
     "sdkVersion": "21.0.0"
   }
