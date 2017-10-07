@@ -16,6 +16,6 @@
 module.exports.datastores = {
   default: {
     adapter: 'sails-postgresql',
-    url: 'postgres://user:password@localhost:6789/weshareashare_development',
+    url: 'postgresql://123456:123456@db:5432/weshareashare',
   },
 };

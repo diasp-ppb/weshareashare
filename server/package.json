@@ -2,7 +2,7 @@
   "name": "server",
   "private": true,
   "version": "0.0.0",
-  "description": "a Sails application",
+  "description": "We Share a Share",
   "keywords": [],
   "dependencies": {
     "async": "2.0.1",
@@ -27,9 +27,9 @@
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/renato/server.git"
+    "url": "git@gitlab.com:weshareashare/weshareashare.git"
   },
-  "author": "renato",
+  "author": "weshareashare",
   "license": "",
   "engines": {
     "node": "8"
