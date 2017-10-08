@@ -16,3 +16,5 @@ function ReduxNavigation(props) {
 
 const mapStateToProps = (state) => ({ nav: state.nav });
 export default connect(mapStateToProps)(ReduxNavigation);
+
+//https://github.com/reactjs/react-redux/issues/57

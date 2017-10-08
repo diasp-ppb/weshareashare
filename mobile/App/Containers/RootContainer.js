@@ -1,21 +1,23 @@
 import React, { Component } from 'react';
-import { View, StatusBar } from 'react-native';
-import ReduxNavigation from '../Navigation/ReduxNavigation';
-
+import { View, Text, StatusBar } from 'react-native';
+//import ReduxNavigation from '../Navigation/ReduxNavigation';
+import LaunchScreen from './LaunchScreen';
 
 // Styles
 import styles from './Styles/RootContainerStyles';
 
-class RootContainer extends Component {
+export default class RootContainer extends Component {
   render() {
     return (
-      <View style={styles.applicationView}>
+      <View >
         <StatusBar barStyle="light-content" />
-        <ReduxNavigation />
+        <Text style={styles.sectionText}>
+          This probably isn't what your app is going to look like.
+          Unless your designer handed you this screen and, in that case, congrats!
+          You're ready to ship. For everyone else,
+          this is where you'll see a live preview of your fully functioning app using Ignite.
+        </Text>
       </View>
     );
   }
 }
-
-
-export default (RootContainer);
