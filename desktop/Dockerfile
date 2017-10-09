@@ -5,4 +5,4 @@ WORKDIR /usr/src/app
 ADD package.json /usr/src/app
 RUN npm install
 COPY . /usr/src/app
-CMD [ "node", "app" ]
+CMD [ "npm", "start" ]
