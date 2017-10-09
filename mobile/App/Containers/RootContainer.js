@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, Text, StatusBar } from 'react-native';
-//import ReduxNavigation from '../Navigation/ReduxNavigation';
 import LaunchScreen from './LaunchScreen';
 
 // Styles

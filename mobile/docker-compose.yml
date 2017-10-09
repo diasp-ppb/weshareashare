@@ -1,0 +1,11 @@
+version: "2"
+
+services:
+  mobile:
+    build: .
+    ports:
+         - '19000:19000'
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    network_mode: "host"
