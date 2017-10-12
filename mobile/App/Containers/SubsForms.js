@@ -79,12 +79,16 @@ var Subscription = React.createClass({
         return (
           <View style={styles.container}>
             {/* display */}
+            <TextInput style={styles.message} editable={false} multiline={true}
+                value="   Hello, Luis Jordao!
+         Choose your method of payment. "/>
             <Form
               ref="form"
               type={this.state.type}
               value={this.state.value}
               onChange={this.onChange}
             />
+
           </View>
         );
     }
@@ -116,6 +120,16 @@ var styles = StyleSheet.create({
     marginBottom: 10,
     alignSelf: 'stretch',
     justifyContent: 'center'
+  },
+  message: {
+    borderRadius: 10,
+    height: 70,
+    borderColor: '#80deea',
+    borderWidth: 1,
+    backgroundColor: "#80deea",
+    color: "#455a64",
+    elevation: 20,
+
   }
 });
 
