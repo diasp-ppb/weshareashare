@@ -2,7 +2,6 @@ import { StyleSheet, View, Text, TouchableHighlight } from 'react-native';
 
 var React = require('react');
 var t = require('tcomb-form-native');
-
 var Form = t.form.Form;
 
 var LoginParams = t.struct({
@@ -11,7 +10,7 @@ var LoginParams = t.struct({
 });
 
 var options = {
-    label: 'Login',
+    auto: 'placeholders',
     fields: {
         email: {
             placeholder: "Email"
@@ -21,45 +20,41 @@ var options = {
             secureTextEntry: true
         }
     }
-};     
+}; 
 
-var Login = React.createClass({
+var LoginForm = React.createClass({
 
-  onPress: function () {
+  onPressLoginBtn() {
     var value = this.refs.form.getValue();
     if (value) { 
       console.log(value); 
     }
   },
 
-  render: function() {
+  render() {
     return (
-      <View style={styles.container}>
-        {/* display */}
+      <View style={stylesLoginForm.container}>
         <Form
           ref="form"
           type={LoginParams}
           options={options}
         />
-        <TouchableHighlight style={styles.button} onPress={this.onPress} underlayColor='#99d9f4'>
-          <Text style={styles.buttonText}>Log in</Text>
+        <TouchableHighlight style={stylesLoginForm.button} onPress={this.onPressLoginBtn} underlayColor='#99d9f4'>
+          <Text style={stylesLoginForm.buttonText}>Log in</Text>
         </TouchableHighlight>
+        <Text style={{color: '#475B64', alignSelf: 'center', marginVertical: 10}}>
+          Not a member? Sign up now.
+        </Text>
       </View>
     );
   }
+
 });
 
-var styles = StyleSheet.create({
+var stylesLoginForm = StyleSheet.create({
   container: {
     justifyContent: 'center',
-    marginTop: 50,
-    padding: 20,
-    backgroundColor: '#ffffff',
-  },
-  title: {
-    fontSize: 30,
-    alignSelf: 'center',
-    marginBottom: 30
+    marginHorizontal: 20,
   },
   buttonText: {
     fontSize: 18,
@@ -68,14 +63,13 @@ var styles = StyleSheet.create({
   },
   button: {
     height: 36,
-    backgroundColor: '#48BBEC',
-    borderColor: '#48BBEC',
+    backgroundColor: '#475B64',
+    borderColor: '#475B64',
     borderWidth: 1,
     borderRadius: 8,
-    marginBottom: 10,
     alignSelf: 'stretch',
     justifyContent: 'center'
   }
 });
 
-export default Login;
+export default LoginForm;
