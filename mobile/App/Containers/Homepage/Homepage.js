@@ -24,19 +24,30 @@ var Homepage = React.createClass({
     return (
       <View style={stylesHomepage.container}>
         <Header />
-        <Logo />
-        <ThreeButtons />  
-        <Button
-          title='BUTTON' />
-        <TouchableHighlight style={stylesHomepage.button} onPress={this.onPressLoginBtn} underlayColor='#99d9f4'>
-          <Text style={stylesHomepage.buttonText}>Log in</Text>
-        </TouchableHighlight>
-        <TouchableHighlight style={stylesHomepage.button} onPress={this.onPressWhatIsPPR} underlayColor='#99d9f4'>
-          <Text style={stylesHomepage.buttonText}>What is a PPR?</Text>
-        </TouchableHighlight>
-        <TouchableHighlight style={stylesHomepage.button} onPress={this.onPressStoikBenefits} underlayColor='#99d9f4'>
-          <Text style={stylesHomepage.buttonText}>Stoik PPR Benefits</Text>
-        </TouchableHighlight>      
+
+        <View>
+          <Logo />
+          <ThreeButtons /> 
+        </View>
+        
+        <View>
+          <Button
+            title='Log in' 
+            onPress={this.onPressLoginBtn}
+            backgroundColor='#475B64'
+            borderRadius={8}
+            containerViewStyle={{marginVertical: 10, borderRadius: 8}}/>
+          <Button
+            title='What is a PPR?'
+            backgroundColor='#475B64'
+            borderRadius={8}
+            containerViewStyle={{marginVertical: 10, borderRadius: 8}} />
+          <Button
+            title='Stoik PPR Benefits'
+            backgroundColor='#475B64'
+            borderRadius={8}
+            containerViewStyle={{marginVertical: 10, borderRadius: 8}} /> 
+        </View> 
       </View>
     );
   }
