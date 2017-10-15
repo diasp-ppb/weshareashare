@@ -15,9 +15,7 @@ var Homepage = React.createClass({
   },
 
   onPressLoginBtn() {
-    if (value) { 
-      console.log(value); 
-    }
+    
   },
 
   render() {
