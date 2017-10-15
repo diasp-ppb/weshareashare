@@ -1,26 +1,36 @@
-import { StyleSheet, View, TextInput, Text, StatusBar } from 'react-native';
+import { StyleSheet, View, TextInput, Text, StatusBar, TouchableHighlight } from 'react-native';
 
 var React = require('react');
 var t = require('tcomb-form-native');
-var { AppRegistry, TouchableHighlight } = React;
+var { AppRegistry} = React;
 
-var Nif = t.refinement(t.Number, function (n) { return n >= 100000000; });
+//Changing look of labels
+t.form.Form.stylesheet.controlLabel.normal.backgroundColor = '#80deea';
+t.form.Form.stylesheet.controlLabel.normal.borderWidth= 1;
+t.form.Form.stylesheet.controlLabel.normal.borderRadius= 10;
+t.form.Form.stylesheet.controlLabel.normal.borderColor = '#fff';
+t.form.Form.stylesheet.controlLabel.normal.elevation= 20;
+t.form.Form.stylesheet.controlLabel.normal.color = '#455a64';
+t.form.Form.stylesheet.controlLabel.normal.padding= 10;
+t.form.Form.stylesheet.controlLabel.normal.overflow= 'hidden';
+t.form.Form.stylesheet.controlLabel.normal.marginRight = 100;
 
-// if you define a getValidationErrorMessage function, it will be called on validation errors
-Nif.getValidationErrorMessage = function (value, path, context) {
-  return 'Invalid nif, locale: ' + context.locale;
-};
+t.form.Form.stylesheet.textbox.normal.marginLeft = 100;
+t.form.Form.stylesheet.checkbox.normal.alignSelf = 'flex-end';
 
 var Form = t.form.Form;
 
 var options = {
   fields: {
-    agree: {
-      label: 'I am US Person' // <= label for the agree field
+    name: {
+      label: 'What is your name?' // <= label for the agree field
     },
     nif: {
-      label: 'NIF', // <= label for the nif field
+      label: 'What is your NIF?', // <= label for the nif field
       placeholder: 'Fiscal identification number' // <= help for the nif field
+    },
+    agree: {
+      label: 'Are you a US Person?' // <= label for the agree field
     }
   }
 };
@@ -28,16 +38,27 @@ var options = {
 // here we are: define your domain model
 var Person = t.struct({
   name: t.String,
-  nif: Nif,      // a required number
+  nif: t.Number,      // a required number
   agree: t.Boolean
 });
 
 var Subscription = React.createClass({
-    onChange(){
-        var value = this.refs.form.getValue();
-        if(value && value.agree){
-          console.log(value); // value here is an instance of Person
+    onSubmit(){
+      var value = this.refs.form.getValue();
+      var valid = false;
+
+      fetch('http://www.nif.pt/?json=1&q=' + value.nif + '&key=key')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        valid = responseJson.is_nif;
+
+        if(value && valid){
+          console.log("Valid inputs"); // value here is an instance of Person
         }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
     },
 
     render:function() {
@@ -46,13 +67,15 @@ var Subscription = React.createClass({
             {/* display */}
             <TextInput style={styles.message} editable={false} multiline={true}
                 value="Hello, Luis Jordao! Please read the FATCA Agreement Form. "/>
-            <Form
+            <Form style={styles.message}
               ref="form"
               options={options}
               type={Person}
-              onChange={this.onChange}
             />
 
+            <TouchableHighlight style={styles.button} onPress={this.onSubmit} underlayColor='#99d9f4'>
+              <Text style={styles.buttonText}>Submit</Text>
+            </TouchableHighlight>
           </View>
         );
     }
@@ -77,8 +100,8 @@ var styles = StyleSheet.create({
   },
   button: {
     height: 36,
-    backgroundColor: '#48BBEC',
-    borderColor: '#48BBEC',
+    backgroundColor: '#80deea',
+    borderColor: '#80deea',
     borderWidth: 1,
     borderRadius: 8,
     marginBottom: 10,
