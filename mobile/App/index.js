@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
+import { View } from 'react-native';
 
-import Root from './Root';
+import PrimaryNav from './Navigation/AppNavigation.js';
 
 export default class App extends Component {
   render() {
     return (
-      <View styles={{flex: 1}}>
-        <Homepage />
-      </View>
+      <PrimaryNav />
     );
   }
 }

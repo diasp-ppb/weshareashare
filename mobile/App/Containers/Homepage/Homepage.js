@@ -18,7 +18,16 @@ var Homepage = React.createClass({
     
   },
 
+  onPressWhatIsPPR() {
+    console.log(2);
+  },
+
+  onPressStoikBenefits() {
+    console.log(3);    
+  },
+
   render() {
+    const { navigate } = this.props.navigation;    
     return (
       <View style={stylesHomepage.container}>
         <Header />
@@ -31,17 +40,19 @@ var Homepage = React.createClass({
         <View>
           <Button
             title='Log in' 
-            onPress={this.onPressLoginBtn}
+            onPress={() => navigate('Login')} 
             backgroundColor='#475B64'
             borderRadius={8}
             containerViewStyle={{marginVertical: 10, borderRadius: 8}}/>
           <Button
             title='What is a PPR?'
+            onPress={this.onPressWhatIsPPR}
             backgroundColor='#475B64'
             borderRadius={8}
             containerViewStyle={{marginVertical: 10, borderRadius: 8}} />
           <Button
             title='Stoik PPR Benefits'
+            onPress={this.onPressStoikBenefits}
             backgroundColor='#475B64'
             borderRadius={8}
             containerViewStyle={{marginVertical: 10, borderRadius: 8}} /> 
