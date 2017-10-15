@@ -15,8 +15,10 @@ var Login = React.createClass({
     return (
       <View style={stylesLogin.container}>
         <Header/>
-        <Logo />
-        <ThreeButtons />
+        <View>
+          <Logo />
+          <ThreeButtons />
+        </View>
         <LoginForm />
       </View>
     );
