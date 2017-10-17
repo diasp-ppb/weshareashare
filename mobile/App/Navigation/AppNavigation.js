@@ -1,15 +1,15 @@
 import { StackNavigator } from 'react-navigation';
-import LaunchScreen from '../Containers/LaunchScreen';
-import Homepage from '../Containers/Homepage/Homepage';
-import Login from '../Containers/Login/Login';
+import Homepage from '../Components/Homepage';
+import SignIn from '../Components/Auth/SignIn';
+import SignUp from '../Components/Auth/SignUp';
 
 import styles from './Styles/NavigationStyles';
 
 // Manifest of possible screens
 const PrimaryNav = StackNavigator({
-  LaunchScreen: { screen: LaunchScreen },
-  Homepage: {screen: Homepage},
-  Login: {screen: Login}
+  Homepage: { screen: Homepage },
+  SignIn: { screen: SignIn },
+  SignUp: { screen: SignUp },
 }, {
   // Default config for all screens
   headerMode: 'none',

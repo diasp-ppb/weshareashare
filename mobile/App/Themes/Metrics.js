@@ -27,8 +27,8 @@ const metrics = {
   images: {
     small: 20,
     medium: 40,
-    large: 60,
-    logo: 200,
+    large: 72,
+    logo: 248,
   },
 };
 

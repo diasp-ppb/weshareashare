@@ -1,6 +1,8 @@
 const colors = {
-  background: '#1F0808',
+  background: '#FFFFFF',
   clear: 'rgba(0,0,0,0)',
+  stoikOrange: '#feab2b',
+  stoikGrey: '#455a64',
   facebook: '#3b5998',
   transparent: 'rgba(0,0,0,0)',
   silver: '#F7F7F7',
@@ -13,7 +15,6 @@ const colors = {
   panther: '#161616',
   charcoal: '#595959',
   coal: '#2d2d2d',
-  bloodOrange: '#fb5f26',
   snow: 'white',
   ember: 'rgba(164, 0, 48, 0.5)',
   fire: '#e73536',
@@ -21,7 +22,7 @@ const colors = {
   eggplant: '#251a34',
   border: '#483F53',
   banner: '#5F3E63',
-  text: '#E0D7E5',
+  text: '#455a64',
 };
 
 export default colors;
