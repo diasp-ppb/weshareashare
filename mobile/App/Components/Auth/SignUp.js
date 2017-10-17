@@ -1,13 +1,16 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, TouchableHighlight } from 'react-native';
-import TComb from 'tcomb-form-native';
+import { StyleSheet, View, Text, TouchableHighlight, Image } from 'react-native';
 import styles from './Styles/SignUpStyle';
+import { Images, ApplicationStyles } from '../../Themes';
+import { StoikHeader } from '../general/StoikHeader'
 
-const SignUpParams = TComb.struct({
-  username: TComb.String,
-  email: TComb.String,
-  password: TComb.String,
-  repeatPassword: TComb.String,
+const t = require('tcomb-form-native');
+const Form = t.form.Form;
+const SignUpParams = t.struct({
+  username: t.String,
+  email: t.String,
+  password: t.String,
+  repeatPassword: t.String,
 });
 
 const options = {
@@ -31,7 +34,7 @@ const options = {
 };
 
 export default class SignUpForm extends Component {
-  onPressLoginBtn() {
+  onSignUp() {
     const value = this.refs.form.getValue();
     if (value) {
       console.log(value);
@@ -40,18 +43,22 @@ export default class SignUpForm extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Form
-          ref="form"
-          type={SignUpParams}
-          options={options}
-        />
-        <TouchableHighlight style={styles.button} onPress={this.onPressLoginBtn} underlayColor="#99d9f4">
-          <Text style={styles.buttonText}>Log in</Text>
-        </TouchableHighlight>
-        <Text style={{ color: '#475B64', alignSelf: 'center', marginVertical: 10 }}>
-          Not a member? Sign up now.
-        </Text>
+      <View style={ApplicationStyles.screen.mainContainer}>
+        <StoikHeader />
+        <View style={ApplicationStyles.screen.container}>
+          <Image source={Images.background} style={styles.canvas}>
+            <View>
+              <Form
+                ref="form"
+                type={SignUpParams}
+                options={options}
+              />
+              <TouchableHighlight style={styles.button} onPress={this.onSignUp} underlayColor='#99d9f4'>
+                <Text style={styles.buttonText}>Save</Text>
+              </TouchableHighlight>
+            </View>
+          </Image>
+        </View>
       </View>
     );
   }

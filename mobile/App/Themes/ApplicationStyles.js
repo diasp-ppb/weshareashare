@@ -18,8 +18,18 @@ const ApplicationStyles = {
     container: {
       flex: 1,
       paddingTop: Metrics.baseMargin,
-      justifyContent: 'space-around',
       backgroundColor: Colors.background,
+    },
+    btn: {
+      alignSelf: 'center',
+      marginVertical: Metrics.smallMargin,
+      paddingVertical: Metrics.smallMargin,
+      backgroundColor: Colors.background,
+      borderRadius: 8,
+    },
+    btnText: {
+      color: Colors.text,
+      fontSize: Fonts.h5
     },
     section: {
       margin: Metrics.section,
@@ -34,6 +44,7 @@ const ApplicationStyles = {
       paddingVertical: Metrics.doubleBaseMargin,
       marginVertical: Metrics.smallMargin,
       textAlign: 'center',
+      color: Colors.text,
     },
     subtitle: {
       padding: Metrics.smallMargin,

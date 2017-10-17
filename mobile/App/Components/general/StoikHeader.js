@@ -1,11 +1,11 @@
 import React from 'react';
 import styles from './Styles/StoikHeaderStyle';
-import { Images } from '../../Themes';
+import { Images, ApplicationStyles } from '../../Themes';
 import { View, Text, TouchableHighlight, Image } from 'react-native';
 
 export const StoikHeader = () => {
   return (
-    <View>
+    <View style={ApplicationStyles.screen.container}>
       <Text style={[styles.h1]}>
         Stoik PPR
       </Text>

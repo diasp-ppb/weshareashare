@@ -1,23 +1,20 @@
 import { StyleSheet } from 'react-native'
-import { Fonts, Metrics, Colors } from '../../../Themes'
 
 export default StyleSheet.create({
-  container: {
-    justifyContent: 'center',
-    marginHorizontal: 20,
-  },
-  buttonText: {
-    fontSize: 18,
-    color: 'white',
+  formGroup: {
+    flex: 1,
     alignSelf: 'center',
+    paddingVertical: 12,
+    marginVertical: 48,
   },
-  button: {
-    height: 36,
-    backgroundColor: '#475B64',
-    borderColor: '#475B64',
-    borderWidth: 1,
-    borderRadius: 8,
-    alignSelf: 'stretch',
-    justifyContent: 'center',
-  },
+  canvas: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    resizeMode: 'stretch',
+    flex: 1,
+    height: null,
+    width: null,
+  }
 });

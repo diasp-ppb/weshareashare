@@ -1,14 +1,16 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, TouchableHighlight } from 'react-native';
-import { Container, Header, Content, Form, Item, Input, Label } from 'native-base';
-import TComb from 'tcomb-form-native';
+import { StyleSheet, View, Text, TouchableHighlight, Image } from 'react-native';
 import styles from './Styles/SignInStyle';
+import { Images, ApplicationStyles } from '../../Themes';
+import { StoikHeader } from '../general/StoikHeader'
 
-const LoginParams = TComb.struct({
-  email: TComb.String,
-  password: TComb.String,
+const t = require('tcomb-form-native');
+const Form = t.form.Form;
+const SignInParams = t.struct({
+  email: t.String,
+  password: t.String,
+  rememberMe: t.Boolean
 });
-
 const options = {
   auto: 'placeholders',
   fields: {
@@ -32,18 +34,22 @@ export default class SignInForm extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Form
-          ref="form"
-          type={LoginParams}
-          options={options}
-        />
-        <TouchableHighlight style={styles.button} onPress={this.onSignIn} underlayColor="#99d9f4">
-          <Text style={styles.buttonText}>Log in</Text>
-        </TouchableHighlight>
-        <Text style={{ color: '#475B64', alignSelf: 'center', marginVertical: 10 }}>
-          Not a member? Sign up now.
-        </Text>
+      <View style={ApplicationStyles.screen.mainContainer}>
+        <StoikHeader />
+        <View style={ApplicationStyles.screen.container}>
+          <Image source={Images.background} style={styles.canvas}>
+            <View>
+              <Form
+                ref="form"
+                type={SignInParams}
+                options={options}
+              />
+              <TouchableHighlight style={styles.button} onPress={this.onSignIn} underlayColor='#99d9f4'>
+                <Text style={styles.buttonText}>Save</Text>
+              </TouchableHighlight>
+            </View>
+          </Image>
+        </View>
       </View>
     );
   }

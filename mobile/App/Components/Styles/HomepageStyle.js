@@ -1,29 +1,20 @@
 import { StyleSheet } from 'react-native';
-import { Metrics, ApplicationStyles, Fonts, Colors } from '../../Themes';
 
 export default StyleSheet.create({
-  background: {
-    backgroundColor: '#FFFFFF',
-  },
   btnGroup: {
+    flex: 1,
+    alignSelf: 'center',
     paddingVertical: 12,
     marginVertical: 48,
-    alignSelf: 'center',
+  },
+  canvas: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    resizeMode: 'stretch',
     flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-  },
-  btn: {
-    backgroundColor: Colors.background,
-    borderRadius: 8,
-  },
-  btnText: {
-    color: Colors.text,
-    fontSize: Fonts.h5
-  },
-  backgroundImage: {
-    flex: 1,
+    height: null,
     width: null,
-    height: null
   }
 });

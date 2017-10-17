@@ -6,11 +6,11 @@ export default StyleSheet.create({
     color: Colors.text,
     fontSize: 48,
     alignSelf: 'center',
-    paddingVertical: Metrics.doubleBaseMargin,
+    paddingVertical: Metrics.baseMargin,
   },
   logo: {
     alignSelf: 'center',
-    padding: Metrics.doubleBaseMargin,
+    padding: Metrics.baseMargin,
     width: Metrics.images.logo,
     height: Metrics.images.large,
   },
