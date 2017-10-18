@@ -9,13 +9,16 @@
  */
 
 module.exports.routes = {
-  'post /visitors': 'ClientsController.create',
+  'post /visitors': {
+    controller: 'VisitorController',
+    action: 'create',
+  },
 
   'post /users': {
     cors: {
       allowRequestHeaders: 'Content-Type, Client-ID',
     },
-    controller: 'UsersController',
+    controller: 'UserController',
     action: 'create',
   },
 
@@ -23,7 +26,7 @@ module.exports.routes = {
     cors: {
       allowRequestHeaders: 'Content-Type, Client-ID, Authorization',
     },
-    controller: 'UsersAuthController',
+    controller: 'UserAuthController',
     action: 'signin',
   },
 
@@ -31,10 +34,17 @@ module.exports.routes = {
     cors: {
       allowRequestHeaders: 'Content-Type, Client-ID',
     },
-    controller: 'UsersAuthController',
+    controller: 'UserAuthController',
     action: 'refresh',
   },
 
-  'post /users/auth/revoke': 'UsersAuthController.revoke',
-  'get /users': 'UsersController.getAll',
+  'post /users/auth/revoke': {
+    controller: 'UserAuthController',
+    action: 'revoke',
+  },
+
+  'get /users': {
+    controller: 'UserController',
+    action: 'getAll',
+  },
 };

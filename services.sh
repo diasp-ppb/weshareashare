@@ -4,6 +4,7 @@
 
 ## stop running containers
 docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)
 
 ## Creates a network to connect services
 docker network rm server
