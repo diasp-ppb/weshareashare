@@ -36,6 +36,12 @@ export default class FatcaFormQuiz extends React.Component {
         this.onLoadEarlier = this.onLoadEarlier.bind(this);
 
         this.question = 1;
+
+        this.data = {
+            name: null,
+            nif: null,
+            isUSPerson: false,
+        };
     }
 
     componentWillMount() {
@@ -116,6 +122,7 @@ export default class FatcaFormQuiz extends React.Component {
                         break;
                       case 3:
                         this.validateBoolean(messages[0]);
+                        break;
                       default:
                         this.changePage();
                     }
@@ -125,7 +132,11 @@ export default class FatcaFormQuiz extends React.Component {
     }
 
     validateName(message){
-      if(true){
+      if(/^[A-Za-záãẽêéíóôõúç\s]+$/.test(message.text)){
+        //Save data
+        this.data.name = message.text;
+
+        //Ask next question
         this.onReceive('What is your NIF?');
         this.question++;
       }
@@ -138,8 +149,11 @@ export default class FatcaFormQuiz extends React.Component {
       fetch('http://www.nif.pt/?json=1&q=' + message.text + '&key=key')
       .then((response) => response.json())
       .then((responseJson) => {
-        console.log(responseJson);
         if(responseJson.is_nif /*&& responseJson.nif_validation*/){
+          //Save data
+          this.data.nif = parseInt(message.text);
+
+          //Ask next question
           this.onReceive('Are you a US Person?');
           this.question++;
         }
@@ -156,9 +170,20 @@ export default class FatcaFormQuiz extends React.Component {
     }
 
     validateBoolean(message){
-      //TODO: Change this
-      if(message.text == "Yes" || message.text == "No" || message.text == "yes" || message.text == "no"){
-        this.onReceive('');
+      //TODO: See how to make response not be text
+      if(message.text == "Yes" || message.text == "yes"){
+        //Save data
+        this.data.isUSPerson = true;
+
+        this.onReceive('Thank you!');
+        this.changePage();
+      }
+      else if (message.text == "No" || message.text == "no"){
+        //Save data
+        this.data.isUSPerson = false;
+
+        this.onReceive('Thank you!');
+        this.changePage();
       }
       else {
         this.onReceive('Please answer yes or no');
@@ -166,7 +191,7 @@ export default class FatcaFormQuiz extends React.Component {
     }
 
     changePage(){
-      console.log("Pretend page was changed");
+      console.log(this.data);
     }
 
     onReceive(text) {
