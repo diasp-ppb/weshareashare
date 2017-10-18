@@ -16,34 +16,20 @@
 
 module.exports.policies = {
 
-  /***************************************************************************
-  *                                                                          *
-  * Default policy for all controllers and actions (`true` allows public     *
-  * access)                                                                  *
-  *                                                                          *
-  ***************************************************************************/
+  '*': 'hasOAuthBearer',
 
-  // '*': true,
+  ClientsController: {
+    create: [],
+  },
 
-  /***************************************************************************
-  *                                                                          *
-  * Here's an example of mapping some policies to run before a controller    *
-  * and its actions                                                          *
-  *                                                                          *
-  ***************************************************************************/
-  // UserController: {
-  //
-  //   // We might mandate that requests come from a logged-in user for
-  //   // most actions in this controller.
-  //   '*': 'isLoggedIn',
-  //
-  //   // But we'll let anyone access the 'login' and 'signup' actions
-  //   login: true,
-  //   signup: true,
-  //
-  //   // And we'll only let admins delete users.
-  //   destroy: 'isAdmin',
-  //
-  // },
+  UsersController: {
+    create: ['hasClientId'],
+  },
+
+  UsersAuthController: {
+    '*': 'hasClientId',
+    refresh: ['hasClientId', 'hasRefreshToken'],
+    revoke: ['hasOAuthBearer'],
+  },
 
 };
