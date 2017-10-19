@@ -4,6 +4,7 @@ import {
     Platform,
     StyleSheet,
     Text,
+    Button,
     View,
     Picker
 } from 'react-native';
@@ -11,6 +12,7 @@ import {
 import {GiftedChat, Actions, Bubble} from 'react-native-gifted-chat';
 import CustomActions from './CustomActions';
 import CustomView from './CustomView';
+import * as Progress from 'react-native-progress';
 
 const STATES = require("./data/states.js");
 
@@ -20,6 +22,8 @@ export default class InvestorProfileQuiz extends React.Component {
 
         this.formHeader = 0;
         this.messageIndex = -1;
+        this.progress = 0;
+        this.progressStep = 1/STATES[this.formHeader].states.length;
 
         this.state = {
             messages: [],
@@ -103,16 +107,6 @@ export default class InvestorProfileQuiz extends React.Component {
             return "hey";
         }
 
-        if (messages.length > 0) {
-            if ((messages[0].image || messages[0].location) || !this._isAlright) {
-                this.setState((previousState) => {
-                    return {
-                        typingText: 'React Native is typing'
-                    };
-                });
-            }
-        }
-
         setTimeout(() => {
             if (this._isMounted === true) {
                 if (messages.length > 0) {
@@ -121,20 +115,13 @@ export default class InvestorProfileQuiz extends React.Component {
                     } else if (messages[0].location) {
                         this.onReceive('My favorite place');
                     } else {
-                        if (!this._isAlright) {
                             // TODO check if first answer is yes then start form cycle
+                            this.progress += this.progressStep;
                             var returnMessage = this.getDisplayMessage(messages[0].text)
                             this.onReceive(returnMessage);
-                        }
                     }
                 }
             }
-
-            this.setState((previousState) => {
-                return {
-                    typingText: null,
-                };
-            });
         }, 1000);
     }
 
@@ -144,11 +131,11 @@ export default class InvestorProfileQuiz extends React.Component {
                 messages: GiftedChat.append(previousState.messages, {
                     _id: Math.round(Math.random() * 1000000),
                     text: text,
-                    createdAt: new Date(),
+                    renderAvatar: null,
                     user: {
                         _id: 2,
                         name: 'React Native',
-                        avatar: 'https://avatars0.githubusercontent.com/u/16372771?s=460&v=4',
+                        //avatar: 'https://avatars0.githubusercontent.com/u/16372771?s=460&v=4',
                     },
                 }),
             };
@@ -188,7 +175,7 @@ export default class InvestorProfileQuiz extends React.Component {
                 {...props}
                 wrapperStyle={{
                     left: {
-                        backgroundColor: '#F2f2f2',
+                        backgroundColor: '#fff000',
                     }
                 }}
             />
@@ -204,16 +191,25 @@ export default class InvestorProfileQuiz extends React.Component {
     }
 
     renderFooter(props) {
-        if (this.state.typingText) {
-            return (
-                <View style={styles.footerContainer}>
-                    <Text style={styles.footerText}>
-                        {this.state.typingText}
-                    </Text>
-                </View>
-            );
+        nothing = function(){
+
         }
-        return null;
+
+        return (
+            <View style={{alignItems:"center"}}>
+                <Button
+                  onPress={nothing}
+                  title="Learn More"
+                  color="#26c6da"
+                  style={styles.button}
+                  accessibilityLabel="Learn more about this purple button"
+                />
+                <View style={styles.progressBar} >
+                    <Progress.Bar progress={this.progress} width={200} />
+                </View>
+            </View>
+
+        );
     }
 
     render() {
@@ -221,18 +217,19 @@ export default class InvestorProfileQuiz extends React.Component {
             <GiftedChat
                 messages={this.state.messages}
                 onSend={this.onSend}
-                loadEarlier={this.state.loadEarlier}
-                onLoadEarlier={this.onLoadEarlier}
                 isLoadingEarlier={this.state.isLoadingEarlier}
+                onPress={this.onPress}
 
                 user={{
                     _id: 1, // sent messages should have same user._id
                 }}
 
+                renderAvatar= {null}
+                renderMessages={this.renderCom}
                 renderActions={this.renderCustomActions}
-                renderBubble={this.renderBubble}
                 renderCustomView={this.renderCustomView}
                 renderFooter={this.renderFooter}
+
             />
 
 
@@ -245,10 +242,20 @@ const styles = StyleSheet.create({
         marginTop: 5,
         marginLeft: 10,
         marginRight: 10,
-        marginBottom: 10,
     },
     footerText: {
         fontSize: 14,
         color: '#aaa',
     },
+    progressBar: {
+        alignItems:"center",
+        flex:1,
+        marginBottom: 5,
+        marginTop: 10
+    },
+    button: {
+        marginBottom: 10,
+        alignItems:"center",
+
+    }
 });
