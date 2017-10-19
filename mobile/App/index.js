@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { View } from 'react-native';
 import { Font } from 'expo';
 import Expo from 'expo';
+import RootContainer from './Containers/RootContainer'
+import createStore from './Redux'
 
-import PrimaryNav from './Navigation/AppNavigation.js';
+const store = createStore()
 
 export default class App extends Component {
   constructor() {
@@ -13,15 +14,6 @@ export default class App extends Component {
       isReady: false
     };
   }
- 
-  componentDidMount() {
-    Expo.Font.loadAsync({
-      'OpenSans': require('./Assets/Fonts/OpenSans-Regular.ttf'),
-      'OpenSans-Bold': require('./Assets/Fonts/OpenSans-Bold.ttf'),
-      'OpenSans-Italic': require('./Assets/Fonts/OpenSans-Italic.ttf'),
-    });
-  }
-
   async componentWillMount() {
     await Expo.Font.loadAsync({
       'OpenSans': require('./Assets/Fonts/OpenSans-Regular.ttf'),
@@ -38,7 +30,9 @@ export default class App extends Component {
       return <Expo.AppLoading />;
     }
     return (
-      <PrimaryNav />
+      <Provider store={store}>
+        <RootContainer />
+      </Provider>
     );
   }
 }

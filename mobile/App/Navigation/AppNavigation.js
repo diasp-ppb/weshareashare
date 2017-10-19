@@ -1,7 +1,7 @@
 import { StackNavigator } from 'react-navigation';
-import Homepage from '../Components/Homepage';
-import SignIn from '../Components/Auth/SignIn';
-import SignUp from '../Components/Auth/SignUp';
+import Homepage from '../Containers/Homepage';
+import SignIn from '../Containers/SignIn';
+import SignUp from '../Containers/SignUp';
 
 import styles from './Styles/NavigationStyles';
 
