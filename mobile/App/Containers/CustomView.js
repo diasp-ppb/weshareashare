@@ -1,42 +1,54 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import {
+    Button,
     Linking,
     Platform,
     StyleSheet,
     TouchableOpacity,
     ViewPropTypes,
 } from 'react-native';
-import MapView from 'react-native-maps';
+
 
 export default class CustomView extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            options : [],
+            selected: null
+        };
+    }
+
     render() {
-        if (this.props.currentMessage.location) {
+        let options = this.props.currentMessage.selectOption;
+
+        if (options) {
+            if(this.state.selected === null) {
+                this.setState( {options: options.text,
+                                selected: options.text[0]});
+            }
+            let Items = this.state.options.map( (s, i) => {
+
+                return <Button
+                    style={styles.button}
+                    onPress={() => {
+                                        this.props.onSend(s);
+                                        this.setState({options:  [this.state.selected]});
+                                    }
+                            }
+                    title={s}
+                    color="#841584"
+                    accessibilityLabel="Learn more about this purple button"
+                    />
+
+            });
+
             return (
                 <TouchableOpacity style={[styles.container, this.props.containerStyle]} onPress={() => {
-                    const url = Platform.select({
-                        ios: `http://maps.apple.com/?ll=${this.props.currentMessage.location.latitude},${this.props.currentMessage.location.longitude}`,
-                        android: `http://maps.google.com/?q=${this.props.currentMessage.location.latitude},${this.props.currentMessage.location.longitude}`
-                    });
-                    Linking.canOpenURL(url).then(supported => {
-                        if (supported) {
-                            return Linking.openURL(url);
-                        }
-                    }).catch(err => {
-                        console.error('An error occurred', err);
-                    });
+                    this.state.pressed = true;
                 }}>
-                    <MapView
-                        style={[styles.mapView, this.props.mapViewStyle]}
-                        region={{
-                            latitude: this.props.currentMessage.location.latitude,
-                            longitude: this.props.currentMessage.location.longitude,
-                            latitudeDelta: 0.0922,
-                            longitudeDelta: 0.0421,
-                        }}
-                        scrollEnabled={false}
-                        zoomEnabled={false}
-                    />
+                        {Items}
                 </TouchableOpacity>
             );
         }
@@ -46,13 +58,15 @@ export default class CustomView extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-    },
-    mapView: {
-        width: 150,
-        height: 100,
+        borderTop: 8,
         borderRadius: 13,
-        margin: 3,
     },
+    button: {
+        height: 5,
+        borderRadius: 13,
+        opacity:0
+    },
+
 });
 
 CustomView.defaultProps = {
