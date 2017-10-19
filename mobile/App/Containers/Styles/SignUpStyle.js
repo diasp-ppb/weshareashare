@@ -1,11 +1,13 @@
 import { StyleSheet } from 'react-native'
 
-export default StyleSheet.create({
+const SignUpStyles = {
   formGroup: {
     flex: 1,
     alignSelf: 'center',
+    width: 220,
     paddingVertical: 12,
-    marginVertical: 48,
+    marginVertical: 2,
+    justifyContent: 'center',
   },
   canvas: {
     position: 'absolute',
@@ -16,5 +18,7 @@ export default StyleSheet.create({
     flex: 1,
     height: null,
     width: null,
-  }
-});
+  }, 
+};
+
+export default SignUpStyles;
