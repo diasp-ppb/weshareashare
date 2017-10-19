@@ -14,14 +14,6 @@ export default class App extends Component {
     };
   }
  
-  componentDidMount() {
-    Expo.Font.loadAsync({
-      'OpenSans': require('./Assets/Fonts/OpenSans-Regular.ttf'),
-      'OpenSans-Bold': require('./Assets/Fonts/OpenSans-Bold.ttf'),
-      'OpenSans-Italic': require('./Assets/Fonts/OpenSans-Italic.ttf'),
-    });
-  }
-
   async componentWillMount() {
     await Expo.Font.loadAsync({
       'OpenSans': require('./Assets/Fonts/OpenSans-Regular.ttf'),

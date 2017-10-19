@@ -7,6 +7,7 @@ const ApplicationStyles = {
     mainContainer: {
       flex: 1,
       backgroundColor: Colors.background,
+      justifyContent: 'space-between',
     },
     backgroundImage: {
       position: 'absolute',
@@ -17,7 +18,6 @@ const ApplicationStyles = {
     },
     container: {
       flex: 1,
-      paddingTop: Metrics.baseMargin,
       backgroundColor: Colors.background,
     },
     btn: {

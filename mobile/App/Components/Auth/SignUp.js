@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, TouchableHighlight, Image } from 'react-native';
-import styles from './Styles/SignUpStyle';
+import { StyleSheet, View, TouchableHighlight, Image } from 'react-native';
+import SignUpStyles from './Styles/SignUpStyle';
 import { Images, ApplicationStyles } from '../../Themes';
-import { StoikHeader } from '../general/StoikHeader'
+import { StoikHeader } from '../general/StoikHeader';
+import { Button, Text } from 'native-base';
 
 const t = require('tcomb-form-native');
 const Form = t.form.Form;
@@ -46,16 +47,18 @@ export default class SignUpForm extends Component {
       <View style={ApplicationStyles.screen.mainContainer}>
         <StoikHeader />
         <View style={ApplicationStyles.screen.container}>
-          <Image source={Images.background} style={styles.canvas}>
-            <View>
+          <Image source={Images.background} style={SignUpStyles.canvas}>
+            <View style={SignUpStyles.formGroup}>
               <Form
                 ref="form"
                 type={SignUpParams}
                 options={options}
               />
-              <TouchableHighlight style={styles.button} onPress={this.onSignUp} underlayColor='#99d9f4'>
-                <Text style={styles.buttonText}>Save</Text>
-              </TouchableHighlight>
+              <Button style={ApplicationStyles.screen.btn}>
+                <Text style={ApplicationStyles.screen.btnText}>
+                  Sign Up
+                </Text>
+              </Button>
             </View>
           </Image>
         </View>

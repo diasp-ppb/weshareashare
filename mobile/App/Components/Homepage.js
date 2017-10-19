@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Image } from 'react-native';
-import { Button, Text } from 'native-base'
+import { Button, Text } from 'native-base';
 import { Images, ApplicationStyles } from '../Themes';
 import styles from './Styles/HomepageStyle';
 import { StoikHeader } from './general/StoikHeader'

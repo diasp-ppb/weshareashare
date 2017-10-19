@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, TouchableHighlight, Image } from 'react-native';
-import styles from './Styles/SignInStyle';
+import { StyleSheet, View, TouchableHighlight, Image } from 'react-native';
+import SignInStyles from './Styles/SignInStyle';
 import { Images, ApplicationStyles } from '../../Themes';
 import { StoikHeader } from '../general/StoikHeader'
+import { Button, Text } from 'native-base';
 
 const t = require('tcomb-form-native');
 const Form = t.form.Form;
@@ -37,19 +38,21 @@ export default class SignInForm extends Component {
       <View style={ApplicationStyles.screen.mainContainer}>
         <StoikHeader />
         <View style={ApplicationStyles.screen.container}>
-          <Image source={Images.background} style={styles.canvas}>
-            <View>
+          <Image source={Images.background} style={SignInStyles.canvas}>
+            <View style={SignInStyles.formGroup}>
               <Form
                 ref="form"
                 type={SignInParams}
                 options={options}
               />
-              <TouchableHighlight style={styles.button} onPress={this.onSignIn} underlayColor='#99d9f4'>
-                <Text style={styles.buttonText}>Save</Text>
-              </TouchableHighlight>
+              <Button style={ApplicationStyles.screen.btn}>
+                <Text style={ApplicationStyles.screen.btnText}>
+                  Sign In
+                </Text>
+              </Button>
             </View>
           </Image>
-        </View>
+        </View> 
       </View>
     );
   }
