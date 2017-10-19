@@ -50,6 +50,7 @@ export default class FatcaFormQuiz extends React.Component {
     this.USPersonRequirements = [
       'Do you have U.S. American nacionality?',
       'Do you possess a green card?',
+      'Do you have U.S. American passport?',
       'Were you born in the USA or in a USA territory?',
       'Are you a permanent resident in the USA? Or do you have a substancial presence in the USA (more than 183 days in the last 3 years, of which, 31 were in the current year)?'
     ];
@@ -200,26 +201,26 @@ validateBoolean(message){
   if((/(yes|no)$/i).test(message.text)){
     var ans = (/(yes)$/i).test(message.text);
     //Save data
-    if(ans && this.question < 6){
+    if(ans && this.question < 8){
       this.formData.isUSPerson = 'yes';
-    } else if (!ans && this.question < 6){
+    } else if (!ans && this.question < 8){
       this.formData.isUSPerson = 'no';
-    }else if(ans && this.question >= 6){
+    }else if(ans){
       this.formData.isUSPerson = 'no';
-    } else if (!ans && this.question >= 6){
+    } else if (!ans){
       this.formData.isUSPerson = 'yes';
     }
 
     this.question++;
-    if(this.formData.isUSPerson == 'no' || this.question > 6){
+    if(this.formData.isUSPerson == 'no' || this.question > 8){
       this.onReceive('Thank you');
       this.changePage();
     }
     else{
-      if(this.question < 6)
-      this.onReceive(this.USPersonRequirements[this.question-2]);
+      if(this.question < 8)
+      this.onReceive(this.USPersonRequirements[this.question-3]);
       else{
-        this.onReceive(this.USPersonExceptions[this.question-6]);
+        this.onReceive(this.USPersonExceptions[this.question-8]);
       }
     }
   }
