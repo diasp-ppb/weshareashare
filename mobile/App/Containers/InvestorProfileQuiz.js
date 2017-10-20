@@ -23,18 +23,16 @@ export default class InvestorProfileQuiz extends React.Component {
         this.formHeader = 0;
         this.messageIndex = -1;
         this.progress = 0;
-        this.progressStep = 1/STATES[this.formHeader].states.length;
+        this.progressStep = 1 / STATES[this.formHeader].states.length;
 
         this.state = {
             messages: [],
             loadEarlier: true,
             typingText: null,
-            isLoadingEarlier: false,
+            isLoadingEarlier: false
         };
 
-        this.messages  = {
-
-        }
+        this.messages = {}
 
         this._isMounted = false;
         this.onSend = this.onSend.bind(this);
@@ -43,8 +41,8 @@ export default class InvestorProfileQuiz extends React.Component {
         this.renderBubble = this.renderBubble.bind(this);
         this.renderFooter = this.renderFooter.bind(this);
         this.onLoadEarlier = this.onLoadEarlier.bind(this);
+        this.answerDemo = this.answerDemo.bind(this);
 
-        this._isAlright = null;
     }
 
     componentWillMount() {
@@ -82,32 +80,38 @@ export default class InvestorProfileQuiz extends React.Component {
 
     onSend(messages = []) {
         this.setState((previousState) => {
-            return {
-                messages: GiftedChat.append(previousState.messages, messages),
-            };
-        });
 
-        // for demo purpose
+                if (previousState.messages[0].selectOption) {
+                    return {
+                        messages: previousState.messages,
+                    }
+                } else {
+                    return {
+                        messages: GiftedChat.append(previousState.messages, messages),
+                    };
+                }
+
+            }
+        )
+        ;
         this.answerDemo(messages);
     }
 
     chooseOption(text) {
         onSend({
-                _id: Math.round(Math.random() * 1000000),
-                text: 'React Native lets you build mobile apps using only JavaScript',
-                createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
-                user: {
-                    _id: 1,
-                    name: 'Developer',
-                },
+            _id: Math.round(Math.random() * 1000000),
+            text: 'React Native lets you build mobile apps using only JavaScript',
+            createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
+            user: {
+                _id: 1,
+                name: 'Developer',
+            },
         })
     }
 
-
-
     answerDemo(messages) {
-        this.getDisplayMessage = function (message){
-            switch(message){
+        this.getDisplayMessage = function (message) {
+            switch (message) {
                 case "help":
                     return "Press the + button for additional options.";
                 case "exit":
@@ -116,6 +120,7 @@ export default class InvestorProfileQuiz extends React.Component {
                     this.messageIndex++;
                     return "You can fill this field manually later or go back through options.\n" + STATES[this.formHeader].states[this.messageIndex];
                 default:
+
                     this.messageIndex++;
                     return STATES[this.formHeader].states[this.messageIndex];
             }
@@ -125,16 +130,10 @@ export default class InvestorProfileQuiz extends React.Component {
         setTimeout(() => {
             if (this._isMounted === true) {
                 if (messages.length > 0) {
-                    if (messages[0].image) {
-                        this.onReceive('Nice picture!');
-                    } else if (messages[0].location) {
-                        this.onReceive('My favorite place');
-                    } else {
-                            // TODO check if first answer is yes then start form cycle
-                            this.progress += this.progressStep;
-                            var returnMessage = this.getDisplayMessage(messages[0].text)
-                            this.onReceive(returnMessage);
-                    }
+                    // TODO check if first answer is yes then start form cycle
+                    this.progress += this.progressStep;
+                    var returnMessage = this.getDisplayMessage(messages[0].text)
+                    this.onReceive(returnMessage);
                 }
             }
         }, 1000);
@@ -150,7 +149,8 @@ export default class InvestorProfileQuiz extends React.Component {
                     user: {
                         _id: 2,
                         name: 'React Native',
-                        //avatar: 'https://avatars0.githubusercontent.com/u/16372771?s=460&v=4',
+                        avatar: 'https://avatars0.githubusercontent.com/u/16372771?s=460&v=4',
+
                     },
                 }),
             };
@@ -159,13 +159,11 @@ export default class InvestorProfileQuiz extends React.Component {
 
     renderCustomActions(props) {
 
-            return (
-                <CustomActions
-                    {...props}
-                />
-            );
-
-
+        return (
+            <CustomActions
+                {...props}
+            />
+        );
 
         const options = {
             'Action 1': (props) => {
@@ -174,7 +172,8 @@ export default class InvestorProfileQuiz extends React.Component {
             'Action 2': (props) => {
                 alert('option 2');
             },
-            'Cancel': () => {},
+            'Cancel': () => {
+            },
         };
         return (
             <Actions
@@ -206,17 +205,28 @@ export default class InvestorProfileQuiz extends React.Component {
     }
 
     renderFooter(props) {
-        nothing = function(){
+        nothing = function () {
 
-        }
+        };
 
         return (
-            <View style={styles.progressBar} >
-                <Progress.Bar progress={this.progress} width={200} />
+
+            <View style={{alignItems: "center"}}>
+                <Button
+                    onPress={nothing}
+                    title="Learn More"
+                    color="#26c6da"
+                    style={styles.button}
+                    accessibilityLabel="Learn more about this purple button"
+                />
+                <View style={styles.progressBar}>
+                    <Progress.Bar progress={this.progress} width={200}/>
+                </View>
             </View>
         );
-    }
 
+    }
+    
     render() {
         return (
             <GiftedChat
@@ -229,7 +239,7 @@ export default class InvestorProfileQuiz extends React.Component {
                     _id: 1, // sent messages should have same user._id
                 }}
 
-                renderAvatar= {null}
+                renderAvatar={null}
                 renderMessages={this.renderCom}
                 renderActions={this.renderCustomActions}
                 renderCustomView={this.renderCustomView}
@@ -253,14 +263,14 @@ const styles = StyleSheet.create({
         color: '#aaa',
     },
     progressBar: {
-        alignItems:"center",
-        flex:1,
+        alignItems: "center",
+        flex: 1,
         marginBottom: 5,
         marginTop: 10
     },
     button: {
         marginBottom: 10,
-        alignItems:"center",
+        alignItems: "center",
 
     }
 });
