@@ -4,6 +4,7 @@ import {
   Platform,
   StyleSheet,
   Text,
+  Button,
   View,
   Picker
 } from 'react-native';
@@ -11,11 +12,20 @@ import {
 import {GiftedChat, Actions, Bubble} from 'react-native-gifted-chat';
 import CustomActions from './CustomActions';
 import CustomView from './CustomView';
+import * as Progress from 'react-native-progress';
+
+const STATES = require("./data/fatcaStates.js");
 
 export default class FatcaFormQuiz extends React.Component {
 
   constructor(props) {
     super(props);
+
+    this.formHeader = 0;
+    this.progress = 0;
+    this.progressStep = 1/STATES.questions.length;
+
+
     this.state = {
       messages: [],
       loadEarlier: false,
@@ -33,32 +43,7 @@ export default class FatcaFormQuiz extends React.Component {
     this.renderFooter = this.renderFooter.bind(this);
     this.onLoadEarlier = this.onLoadEarlier.bind(this);
 
-    this.question = 1;
-
-    /*
-    Cidadãos norte-americanos, incluindo os detentores de dupla nacionalidade, ainda que residam fora dos USA;
-    • Detentores de green card;
-    • Detentores de passaporte norte-americano;
-    • Nascidos nos EUA ou num dos territórios norte americanos (Guam; Ilhas Margaridas do Norte; Ilhas Virgens Americanas; Porto Rico; Samoa),
-    exceto os que renunciaram à cidadania;
-    • Residente permanente nos EUA ou que tenha presença substancial, de acordo com as seguintes regras:
-    • 31 dias no ano corrente e 183 dias durante os últimos 3 anos, os quais incluem o ano corrente e os 2 anos precedentes, devendo contar-se:
-    • Todos os dias em que a pessoa esteve presente nos EUA no ano corrente;
-    • 1/3 dos dias em que a pessoa esteve presente nos EUA no ano anterior;
-    • 1/6 dos dias em que a pessoa esteve presente nos EUA no segundo ano anterior.
-    */
-    this.USPersonRequirements = [
-      'Do you have U.S. American nacionality?',
-      'Do you possess a green card?',
-      'Do you have U.S. American passport?',
-      'Were you born in the USA or in a USA territory?',
-      'Are you a permanent resident in the USA? Or do you have a substancial presence in the USA (more than 183 days in the last 3 years, of which, 31 were in the current year)?'
-    ];
-
-
-    this.USPersonExceptions = [
-      'Are you a Diplomat, foreign student with a visa, or a professional athelete?'
-    ];
+    this.question = 0;
 
     this.formData = {
       name: null,
@@ -79,7 +64,7 @@ export default class FatcaFormQuiz extends React.Component {
       };
     });
 
-    this.onReceive('What is your name?');
+    this.onReceive(STATES.questions[this.question]);
   }
 
   componentWillUnmount() {
@@ -143,15 +128,16 @@ export default class FatcaFormQuiz extends React.Component {
     }
   }*/
   switch (this.question) {
-    case 1:
+    case 0:
     this.validateName(messages[0]);
     break;
-    case 2:
+    case 1:
     this.validateNIF(messages[0]);
     break;
     default:
     this.validateBoolean(messages[0]);
   }
+
 }
 }
 }, 1000);
@@ -163,8 +149,9 @@ validateName(message){
     this.formData.name = message.text;
 
     //Ask next question
-    this.onReceive('What is your NIF?');
     this.question++;
+    this.onReceive(STATES.questions[this.question]);
+    this.progress += this.progressStep;
   }
   else{
     this.onReceive('Name not valid. Please try again');
@@ -180,9 +167,10 @@ validateNIF(message){
       this.formData.NIF = parseInt(message.text);
 
       //Ask next question
-
-      this.onReceive(this.USPersonRequirements[0]);
       this.question++;
+      this.onReceive(STATES.questions[this.question]);
+      this.progress += this.progressStep;
+      this.onCreatePicker(STATES.answers);
     }
     else{
       this.onReceive('NIF not valid. Please try again');
@@ -214,14 +202,13 @@ validateBoolean(message){
     this.question++;
     if(this.formData.isUSPerson == 'no' || this.question > 8){
       this.onReceive('Thank you');
+      this.progress = 1;
       this.changePage();
     }
     else{
-      if(this.question < 8)
-      this.onReceive(this.USPersonRequirements[this.question-3]);
-      else{
-        this.onReceive(this.USPersonExceptions[this.question-8]);
-      }
+      this.onReceive(STATES.questions[this.question]);
+      this.progress += this.progressStep;
+      this.onCreatePicker(STATES.answers);
     }
   }
   else {
@@ -262,6 +249,31 @@ onReceive(text) {
           name: 'WeShareAShare',
           // avatar: 'https://facebook.github.io/react/img/logo_og.png',
         },
+      }),
+    };
+  });
+
+  this.setState((previousState) => {
+    return {
+      typingText: null,
+    };
+  });
+}
+
+onCreatePicker(options) {
+  this.setState((previousState) => {
+    return {
+      messages: GiftedChat.append(previousState.messages, {
+        _id: Math.round(Math.random() * 1000000),
+        createdAt: new Date(),
+        user: {
+          _id:1,
+          name: 'You',
+          // avatar: 'https://facebook.github.io/react/img/logo_og.png',
+        },
+        selectOption: {
+          text: options,
+        }
       }),
     };
   });
@@ -324,38 +336,46 @@ renderCustomView(props) {
 renderFooter(props) {
   if (this.state.typingText) {
     return (
+      <View>
       <View style={styles.footerContainer}>
       <Text style={styles.footerText}>
       {this.state.typingText}
       </Text>
       </View>
+      <View style={styles.progressBar} >
+      <Progress.Bar progress={this.progress} width={200} />
+      </View>
+      </View>
     );
   }
-  return null;
-}
-
-render() {
   return (
-    <GiftedChat
-    messages={this.state.messages}
-    onSend={this.onSend}
-    loadEarlier={this.state.loadEarlier}
-    onLoadEarlier={this.onLoadEarlier}
-    isLoadingEarlier={this.state.isLoadingEarlier}
+    <View style={styles.progressBar} >
+    <Progress.Bar progress={this.progress} width={200} />
+    </View>);
+  }
 
-    user={{
-      _id: 1, // sent messages should have same user._id
-    }}
+  render() {
+    return (
+      <GiftedChat
+      messages={this.state.messages}
+      onSend={this.onSend}
+      loadEarlier={this.state.loadEarlier}
+      onLoadEarlier={this.onLoadEarlier}
+      isLoadingEarlier={this.state.isLoadingEarlier}
 
-    renderActions={this.renderCustomActions}
-    renderBubble={this.renderBubble}
-    renderCustomView={this.renderCustomView}
-    renderFooter={this.renderFooter}
-    />
+      user={{
+        _id: 1, // sent messages should have same user._id
+      }}
+
+      renderActions={this.renderCustomActions}
+      renderBubble={this.renderBubble}
+      renderCustomView={this.renderCustomView}
+      renderFooter={this.renderFooter}
+      />
 
 
-  );
-}
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -368,5 +388,11 @@ const styles = StyleSheet.create({
   footerText: {
     fontSize: 14,
     color: '#aaa',
+  },
+  progressBar: {
+    alignItems:"center",
+    flex:1,
+    marginBottom: 5,
+    marginTop: 10
   },
 });
