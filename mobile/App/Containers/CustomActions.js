@@ -12,6 +12,8 @@ import {
 import CameraRollPicker from 'react-native-camera-roll-picker';
 import NavBar, { NavButton, NavButtonText, NavTitle } from 'react-native-nav';
 
+const STATES = require("./data/states.js");
+
 export default class CustomActions extends React.Component {
     constructor(props) {
         super(props);
@@ -21,6 +23,7 @@ export default class CustomActions extends React.Component {
         };
         this.onActionsPress = this.onActionsPress.bind(this);
         this.selectImages = this.selectImages.bind(this);
+        this.subsection = -1;
     }
 
     setImages(images) {
@@ -36,32 +39,52 @@ export default class CustomActions extends React.Component {
     }
 
     onActionsPress() {
-        const options = ['Choose From Library', 'Send Location', 'Cancel'];
+        let options;
+
+        switch (this.subsection) {
+            case 1:
+                options = STATES[0].states;
+                break;
+            default:
+                options = ['Skip question', 'Edit previous answers', 'Help', 'Cancel'];
+
+        }
+
         const cancelButtonIndex = options.length - 1;
         this.context.actionSheet().showActionSheetWithOptions({
                 options,
                 cancelButtonIndex,
             },
             (buttonIndex) => {
+
                 switch (buttonIndex) {
                     case 0:
-                        this.setModalVisible(true);
+                        //skip option
+                        if(this.subsection !== 1){
+                            this.props.onSend({
+                                _id: Math.round(Math.random() * 1000000),
+                                text: 'skip',
+                                renderAvatar: null,
+                                user: {
+                                    _id: 1,
+                                    name: 'You',
+                                    //avatar: 'https://avatars0.githubusercontent.com/u/16372771?s=460&v=4',
+                                },
+                            });
+                        }
                         break;
                     case 1:
-                        navigator.geolocation.getCurrentPosition(
-                            (position) => {
-                                this.props.onSend({
-                                    selectOption: {
-                                        latitude: position.coords.latitude,
-                                        longitude: position.coords.longitude,
-                                    },
-                                });
-                            },
-                            (error) => alert(error.message),
-                            {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-                        );
+                        //change previous answer
                         break;
+
+                    case 2:
+                        //help
                     default:
+                }
+                if(this.subsection !== 1){
+                    this.subsection = buttonIndex;
+                } else{
+                    this.subsection = -1;
                 }
             });
     }
@@ -146,13 +169,6 @@ export default class CustomActions extends React.Component {
                         this.setModalVisible(false);
                     }}
                 >
-                    {this.renderNavBar()}
-                    <CameraRollPicker
-                        maximum={10}
-                        imagesPerRow={4}
-                        callback={this.selectImages}
-                        selected={[]}
-                    />
                 </Modal>
                 {this.renderIcon()}
             </TouchableOpacity>

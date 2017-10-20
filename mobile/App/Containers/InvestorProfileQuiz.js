@@ -84,7 +84,7 @@ export default class InvestorProfileQuiz extends React.Component {
                 if (previousState.messages[0].selectOption) {
                     return {
                         messages: previousState.messages,
-                }
+                    }
                 } else {
                     return {
                         messages: GiftedChat.append(previousState.messages, messages),
@@ -97,13 +97,28 @@ export default class InvestorProfileQuiz extends React.Component {
         this.answerDemo(messages);
     }
 
+    chooseOption(text) {
+        onSend({
+            _id: Math.round(Math.random() * 1000000),
+            text: 'React Native lets you build mobile apps using only JavaScript',
+            createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
+            user: {
+                _id: 1,
+                name: 'Developer',
+            },
+        })
+    }
+
     answerDemo(messages) {
         this.getDisplayMessage = function (message) {
             switch (message) {
                 case "help":
-                    return "do this";
+                    return "Press the + button for additional options.";
                 case "exit":
-                    return "you sure bro?";
+                    return "You can continue this later.";
+                case "skip":
+                    this.messageIndex++;
+                    return "You can fill this field manually later or go back through options.\n" + STATES[this.formHeader].states[this.messageIndex];
                 default:
 
                     this.messageIndex++;
@@ -192,9 +207,10 @@ export default class InvestorProfileQuiz extends React.Component {
     renderFooter(props) {
         nothing = function () {
 
-        }
+        };
 
         return (
+
             <View style={{alignItems: "center"}}>
                 <Button
                     onPress={nothing}
@@ -207,10 +223,10 @@ export default class InvestorProfileQuiz extends React.Component {
                     <Progress.Bar progress={this.progress} width={200}/>
                 </View>
             </View>
-
         );
-    }
 
+    }
+    
     render() {
         return (
             <GiftedChat
