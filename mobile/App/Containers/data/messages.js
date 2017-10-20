@@ -7,7 +7,9 @@ module.exports = [
             name: 'FF',
         },
         selectOption: {
-            text: ['yes','no']
+            options: ['yes','no'],
+            selected: 'yes',
+            picked: false
         }
     },
     {

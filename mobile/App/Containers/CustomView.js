@@ -13,47 +13,48 @@ export default class CustomView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            options : [],
+            options: [],
             selected: null,
-            buttonDisable: false
+            picked: false
         };
     }
-
 
     render() {
         let options = this.props.currentMessage.selectOption;
 
         if (options) {
-            if(this.state.selected === null && !this.state.buttonDisable) {
-                this.setState( {options: options.text,
-                                selected: options.text[0]});
+            if (this.state.selected === null && !this.state.picked) {
+                this.setState(options);
             }
-            let Items = this.state.options.map( (s, i) => {
+            let Items = this.state.options.map((s, i) => {
 
                 return <Button
                     style={styles.button}
                     onPress={() => {
-                                    this.setState({
-                                            options:  [this.state.selected],
-                                            buttonDisable: true
-                                     });
-                                    }
-                            }
 
+                        this.setState({
+                            options: [s],
+                            selected: s,
+                            picked: true,
+                        });
+
+                        this.props.currentMessage.picked = true;
+                        this.props.onSend(s);
+
+                    }
+                    }
                     title={s}
-                    disabled={this.state.buttonDisable}
-                    color="#841594"
-                    accessibilityLabel="Learn more about this purple button"
-                    />
+                    disabled={this.state.picked}
+                    color="#FFFFFF"
+                    accessibilityLabel={s}
+                />
 
             });
 
 
             return (
-                <TouchableOpacity style={[styles.container, this.props.containerStyle]} onPress={() => {
-                    this.state.pressed = true;
-                }}>
-                        {Items}
+                <TouchableOpacity style={[styles.container, this.props.containerStyle]}>
+                    {Items}
                 </TouchableOpacity>
             );
         }
@@ -63,13 +64,12 @@ export default class CustomView extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        borderTop: 8,
         borderRadius: 13,
+        marginTop: 8,
+        paddingTop: 5,
     },
     button: {
-        height: 5,
-        borderRadius: 13,
-        opacity:0
+
     },
 
 });
