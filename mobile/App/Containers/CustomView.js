@@ -2,8 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {
     Button,
-    Linking,
-    Platform,
     StyleSheet,
     TouchableOpacity,
     ViewPropTypes,
@@ -21,11 +19,12 @@ export default class CustomView extends React.Component {
         };
     }
 
+
     render() {
         let options = this.props.currentMessage.selectOption;
 
         if (options) {
-            if(this.state.selected === null) {
+            if(this.state.selected === null && !this.state.buttonDisable) {
                 this.setState( {options: options.text,
                                 selected: options.text[0]});
             }
@@ -34,11 +33,10 @@ export default class CustomView extends React.Component {
                 return <Button
                     style={styles.button}
                     onPress={() => {
-                                        this.props.onSend(s);
-                                        this.setState({
+                                    this.setState({
                                             options:  [this.state.selected],
                                             buttonDisable: true
-                                        });
+                                     });
                                     }
                             }
 
@@ -49,6 +47,7 @@ export default class CustomView extends React.Component {
                     />
 
             });
+
 
             return (
                 <TouchableOpacity style={[styles.container, this.props.containerStyle]} onPress={() => {
