@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, StatusBar } from 'react-native'
+import { View, StatusBar, BackAndroid } from 'react-native'
 import ReduxNavigation from '../Navigation/ReduxNavigation'
 import { connect } from 'react-redux'
 import StartupActions from '../Redux/StartupRedux'
@@ -11,6 +11,18 @@ class RootContainer extends Component {
     if (!ReduxPersist.active) {
       this.props.startup()
     }
+
+    BackAndroid.addEventListener('backPress', () => {
+      const { dispatch, nav } = this.props
+      if (shouldCloseApp(nav)) return false
+      dispatch({ type: 'Back' })
+      return true
+    });
+     
+  }
+
+  componentWillUnmount() {
+    BackAndroid.removeEventListener('backPress')
   }
 
   render () {

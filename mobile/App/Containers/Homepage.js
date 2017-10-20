@@ -6,6 +6,7 @@ import styles from './Styles/HomepageStyle';
 import { StoikHeader } from '../Components/StoikHeader';
 
 export default class Homepage extends Component {
+
   render() {
     const { navigate } = this.props.navigation;
     return (
