@@ -1,4 +1,4 @@
-const colors = {
+const Colors = {
   background: '#FFFFFF',
   clear: 'rgba(0,0,0,0)',
   stoikOrange: '#feab2b',
@@ -25,4 +25,4 @@ const colors = {
   text: '#455a64',
 };
 
-export default colors;
+export default Colors;

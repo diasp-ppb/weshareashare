@@ -1,4 +1,6 @@
 import { StyleSheet } from 'react-native'
+import { Colors, Metrics, Fonts } from '../../Themes/index';
+
 
 const SignUpStyles = {
   formGroup: {
@@ -19,6 +21,17 @@ const SignUpStyles = {
     height: null,
     width: null,
   }, 
+  button: {
+    alignSelf: 'center',
+    marginVertical: Metrics.smallMargin,
+    paddingVertical: Metrics.smallMargin,
+    backgroundColor: Colors.background,
+    borderRadius: 8,
+  },
+  buttonText: {
+    color: Colors.text,
+    fontSize: Fonts.h5
+  },
 };
 
 export default SignUpStyles;
