@@ -63,7 +63,6 @@ export default class CustomView extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        borderTop: 8,
         borderRadius: 13,
     },
     button: {

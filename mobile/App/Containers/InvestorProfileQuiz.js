@@ -91,15 +91,30 @@ export default class InvestorProfileQuiz extends React.Component {
         this.answerDemo(messages);
     }
 
+    chooseOption(text) {
+        onSend({
+                _id: Math.round(Math.random() * 1000000),
+                text: 'React Native lets you build mobile apps using only JavaScript',
+                createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
+                user: {
+                    _id: 1,
+                    name: 'Developer',
+                },
+        })
+    }
+
 
 
     answerDemo(messages) {
         this.getDisplayMessage = function (message){
             switch(message){
                 case "help":
-                    return "do this";
+                    return "Press the + button for additional options.";
                 case "exit":
-                    return "you sure bro?";
+                    return "You can continue this later.";
+                case "skip":
+                    this.messageIndex++;
+                    return "You can fill this field manually later or go back through options.\n" + STATES[this.formHeader].states[this.messageIndex];
                 default:
                     this.messageIndex++;
                     return STATES[this.formHeader].states[this.messageIndex];
@@ -196,19 +211,9 @@ export default class InvestorProfileQuiz extends React.Component {
         }
 
         return (
-            <View style={{alignItems:"center"}}>
-                <Button
-                  onPress={nothing}
-                  title="Learn More"
-                  color="#26c6da"
-                  style={styles.button}
-                  accessibilityLabel="Learn more about this purple button"
-                />
-                <View style={styles.progressBar} >
-                    <Progress.Bar progress={this.progress} width={200} />
-                </View>
+            <View style={styles.progressBar} >
+                <Progress.Bar progress={this.progress} width={200} />
             </View>
-
         );
     }
 
