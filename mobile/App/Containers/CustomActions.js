@@ -51,7 +51,7 @@ export default class CustomActions extends React.Component {
                         navigator.geolocation.getCurrentPosition(
                             (position) => {
                                 this.props.onSend({
-                                    location: {
+                                    selectOption: {
                                         latitude: position.coords.latitude,
                                         longitude: position.coords.longitude,
                                     },

@@ -16,7 +16,8 @@ export default class CustomView extends React.Component {
         super(props);
         this.state = {
             options : [],
-            selected: null
+            selected: null,
+            buttonDisable: false
         };
     }
 
@@ -34,11 +35,16 @@ export default class CustomView extends React.Component {
                     style={styles.button}
                     onPress={() => {
                                         this.props.onSend(s);
-                                        this.setState({options:  [this.state.selected]});
+                                        this.setState({
+                                            options:  [this.state.selected],
+                                            buttonDisable: true
+                                        });
                                     }
                             }
+
                     title={s}
-                    color="#841584"
+                    disabled={this.state.buttonDisable}
+                    color="#841594"
                     accessibilityLabel="Learn more about this purple button"
                     />
 
