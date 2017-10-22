@@ -23,7 +23,7 @@ deploy_staging:
     - ssh-keygen -t rsa -b 4096 -C '' -f ~/.ssh/deploy_rsa
     - ssh-keyscan -H $SERVER_IP >> ~/.ssh/known_hosts
     - cat ~/.ssh/deploy_rsa.pub | ssh $SERVER_ADMIN@$SERVER_IP "cat >>  ~/.ssh/authorized_keys"
-    - rsync -avuz $CI_PROJECT_DIR/server/ $SERVER_ADMIN@$SERVER_URL:/var/wwww/api.weshareashare
+    - rsync -avuz $CI_PROJECT_DIR/server/ $SERVER_ADMIN@$SERVER_IP:/var/wwww/api.weshareashare
   environment:
     name: staging
     url: api.weshareashare.com
