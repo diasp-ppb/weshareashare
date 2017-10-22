@@ -20,6 +20,8 @@ deploy_staging:
   stage: deploy
   script:
     - echo "Deploy to staging server"
+    - ssh-copy-id -i $SERVER_SSH_KEY $SERVER_ADMIN@$SERVER_URL
+    - rsync -avuz $CI_PROJECT_DIR/server/ $SERVER_ADMIN@$SERVER_URL:/var/wwww/api.weshareashare
   environment:
     name: staging
     url: api.weshareashare.com
