@@ -34,7 +34,6 @@ export default class CustomView extends React.Component {
 
     if (options) {
       let Items = this.state.options.map((s, i) => {
-
         return <Button
         style={styles.button}
         onPress={() => {
@@ -45,11 +44,18 @@ export default class CustomView extends React.Component {
             picked: true,
           });
 
+          console.log(this.props.currentMessage._id)
+
           this.props.currentMessage.picked = true;
-          this.props.onSend(s);
+          this.props.currentMessage.selected = s;
+
+          this.props.currentMessage.picked = true;
+          this.props.onSend([this.props.currentMessage]);
+
 
         }
       }
+      key={this.props.currentMessage._id+i}
       title={s}
       disabled={this.state.picked}
       color="#FFFFFF"

@@ -98,7 +98,6 @@ export default class FatcaFormQuiz extends React.Component {
       };
     });
 
-    // for demo purpose
     this.answerForm(messages);
   }
 
@@ -118,120 +117,119 @@ export default class FatcaFormQuiz extends React.Component {
       if (this._isMounted === true) {
         if (messages.length > 0) {
           /*if (messages[0].image) {
-          this.onReceive('Nice picture!');
-        } else if (messages[0].location) {
-        this.onReceive('My favorite place');
-      } else {
-      if (!this._isAlright) {
-      this._isAlright = true;
-      this.onReceive('Alright');
-    }
-  }*/
-  switch (this.question) {
-    case 0:
-    this.validateName(messages[0]);
-    break;
-    case 1:
-    this.validateNIF(messages[0]);
-    break;
-    default:
-    this.validateBoolean(messages[0]);
+            this.onReceive('Nice picture!');
+          } else if (messages[0].location) {
+            this.onReceive('My favorite place');
+          } else {
+            if (!this._isAlright) {
+              this._isAlright = true;
+              this.onReceive('Alright');
+            }
+          }*/
+          switch (this.question) {
+            case 0:
+            this.validateName(messages[0]);
+            break;
+            case 1:
+            this.validateNIF(messages[0]);
+            break;
+            default:
+            this.validateBoolean(messages[0]);
+          }
+
+        }
+      }
+    }, 1000);
   }
 
-}
-}
-}, 1000);
-}
-
-validateName(message){
-  if(message.text != null && /^[A-Za-záãẽêéíóôõúç\s]+$/.test(message.text)){
-    //Save data
-    this.formData.name = message.text;
-
-    //Ask next question
-    this.question++;
-    this.onReceive(STATES.questions[this.question]);
-    this.progress += this.progressStep;
-  }
-  else{
-    this.onReceive('Name not valid. Please try again');
-  }
-}
-
-validateNIF(message){
-  fetch('http://www.nif.pt/?json=1&q=' + message.text + '&key=key')
-  .then((response) => response.json())
-  .then((responseJson) => {
-    if(responseJson.is_nif /*&& responseJson.nif_validation*/){
+  validateName(message){
+    if(message.text != null && /^[A-Za-záãẽêéíóôõúç\s]+$/.test(message.text)){
       //Save data
-      this.formData.NIF = parseInt(message.text);
+      this.formData.name = message.text;
 
       //Ask next question
       this.question++;
-      this.onReceive(STATES.questions[this.question]);
       this.progress += this.progressStep;
-      this.onCreatePicker(STATES.answers);
+      this.onReceive(STATES.questions[this.question]);
     }
     else{
-      this.onReceive('NIF not valid. Please try again');
-    }
-
-    return responseJson.is_nif;
-  })
-  .catch((error) => {
-    console.error(error);
-    return false;
-  });
-}
-
-validateBoolean(message){
-  //TODO: See how to make response not be text
-  if((/(yes|no)$/i).test(message.text)){
-    var ans = (/(yes)$/i).test(message.text);
-    //Save data
-    if(ans && this.question < 8){
-      this.formData.isUSPerson = 'yes';
-    } else if (!ans && this.question < 8){
-      this.formData.isUSPerson = 'no';
-    }else if(ans){
-      this.formData.isUSPerson = 'no';
-    } else if (!ans){
-      this.formData.isUSPerson = 'yes';
-    }
-
-    this.question++;
-    if(this.formData.isUSPerson == 'no' || this.question > 8){
-      this.onReceive('Thank you');
-      this.progress = 1;
-      this.changePage();
-    }
-    else{
-      this.onReceive(STATES.questions[this.question]);
-      this.progress += this.progressStep;
-      this.onCreatePicker(STATES.answers);
+      this.onReceive('Name not valid. Please try again');
     }
   }
-  else {
-    this.onReceive('Please answer yes or no');
+
+  validateNIF(message){
+    fetch('http://www.nif.pt/?json=1&q=' + message.text + '&key=key')
+    .then((response) => response.json())
+    .then((responseJson) => {
+      if(responseJson.is_nif /*&& responseJson.nif_validation*/){
+        //Save data
+        this.formData.NIF = parseInt(message.text);
+
+        //Ask next question
+        this.question++;
+        this.onReceive(STATES.questions[this.question]);
+        this.progress += this.progressStep;
+        this.onCreatePicker(STATES.answers);
+      }
+      else{
+        this.onReceive('NIF not valid. Please try again');
+      }
+
+      return responseJson.is_nif;
+    })
+    .catch((error) => {
+      console.error(error);
+      return false;
+    });
   }
-}
 
-changePage(){
-  var months_pt = ["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
+  validateBoolean(message){
+    if(message.selected && (/(yes|no)$/i).test(message.selected)){
+      var ans = (/(yes)$/i).test(message.selected);
+      //Save data
+      if(ans && this.question < 8){
+        this.formData.isUSPerson = 'yes';
+      } else if (!ans && this.question < 8){
+        this.formData.isUSPerson = 'no';
+      }else if(ans){
+        this.formData.isUSPerson = 'no';
+      } else if (!ans){
+        this.formData.isUSPerson = 'yes';
+      }
 
-  var today = new Date();
-  this.formData.day = today.getDate();
-  this.formData.month = months_pt[today.getMonth()];
-  this.formData.year = today.getFullYear();
+      this.question++;
+      if(this.formData.isUSPerson == 'no' || this.question > 8){
+        this.progress = 1;
+        this.onReceive('Thank you');
+        this.changePage();
+      }
+      else{
+        this.onReceive(STATES.questions[this.question]);
+        this.progress += this.progressStep;
+        this.onCreatePicker(STATES.answers);
+      }
+    }
+    else {
+      this.onReceive('Please answer yes or no');
+    }
+  }
 
-  //Send form data to server to fill and send pdf
-  /*fetch('https://mywebsite.com/endpoint/', {
-  method: 'POST',
-  headers: {
-  'Accept': 'application/json',
-  'Content-Type': 'application/json',
-},
-body: JSON.stringify(this.formData);
+  changePage(){
+    var months_pt = ["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
+
+    var today = new Date();
+    this.formData.day = today.getDate();
+    this.formData.month = months_pt[today.getMonth()];
+    this.formData.year = today.getFullYear();
+
+    //Send form data to server to fill and send pdf
+    /*fetch('https://mywebsite.com/endpoint/', {
+    method: 'POST',
+    headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(this.formData);
 })*/
 
 console.log(JSON.stringify(this.formData));
@@ -272,7 +270,9 @@ onCreatePicker(options) {
           // avatar: 'https://facebook.github.io/react/img/logo_og.png',
         },
         selectOption: {
-          text: options,
+          options: options,
+          selected: null,
+          picked: false
         }
       }),
     };
