@@ -41,10 +41,8 @@ export default class CustomView extends React.Component {
           this.setState({
             options: [s],
             selected: s,
-            picked: true,
+            picked: true
           });
-
-          console.log(this.props.currentMessage._id)
 
           this.props.currentMessage.picked = true;
           this.props.currentMessage.selected = s;
@@ -53,26 +51,25 @@ export default class CustomView extends React.Component {
           this.props.onSend([this.props.currentMessage]);
 
 
-        }
-      }
-      key={this.props.currentMessage._id+i}
-      title={s}
-      disabled={this.state.picked}
-      color="#FFFFFF"
-      accessibilityLabel={s}
-      />
+        }}
+        key={this.props.currentMessage._id+i}
+        title={s}
+        disabled={this.state.picked}
+        color="#FFFFFF"
+        accessibilityLabel={s}
+        />
 
-    });
+      });
 
 
-    return (
-      <TouchableOpacity style={[styles.container, this.props.containerStyle]}>
-      {Items}
-      </TouchableOpacity>
-    );
+      return (
+        <TouchableOpacity style={[styles.container, this.props.containerStyle]}>
+        {Items}
+        </TouchableOpacity>
+      );
+    }
+    return null;
   }
-  return null;
-}
 }
 
 const styles = StyleSheet.create({

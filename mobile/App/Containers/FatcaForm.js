@@ -14,7 +14,10 @@ import CustomActions from './CustomActions';
 import CustomView from './CustomView';
 import * as Progress from 'react-native-progress';
 
+import styles from './Styles/FormStyle';
+
 const STATES = require("./data/fatcaStates.js");
+const NO_QUESTIONS = 8;
 
 export default class FatcaFormQuiz extends React.Component {
 
@@ -116,16 +119,6 @@ export default class FatcaFormQuiz extends React.Component {
     setTimeout(() => {
       if (this._isMounted === true) {
         if (messages.length > 0) {
-          /*if (messages[0].image) {
-            this.onReceive('Nice picture!');
-          } else if (messages[0].location) {
-            this.onReceive('My favorite place');
-          } else {
-            if (!this._isAlright) {
-              this._isAlright = true;
-              this.onReceive('Alright');
-            }
-          }*/
           switch (this.question) {
             case 0:
             this.validateName(messages[0]);
@@ -187,9 +180,9 @@ export default class FatcaFormQuiz extends React.Component {
     if(message.selected && (/(yes|no)$/i).test(message.selected)){
       var ans = (/(yes)$/i).test(message.selected);
       //Save data
-      if(ans && this.question < 8){
+      if(ans && this.question < NO_QUESTIONS){
         this.formData.isUSPerson = 'yes';
-      } else if (!ans && this.question < 8){
+      } else if (!ans && this.question < NO_QUESTIONS){
         this.formData.isUSPerson = 'no';
       }else if(ans){
         this.formData.isUSPerson = 'no';
@@ -198,7 +191,7 @@ export default class FatcaFormQuiz extends React.Component {
       }
 
       this.question++;
-      if(this.formData.isUSPerson == 'no' || this.question > 8){
+      if(this.formData.isUSPerson == 'no' || this.question > NO_QUESTIONS){
         this.progress = 1;
         this.onReceive('Thank you');
         this.changePage();
@@ -210,7 +203,7 @@ export default class FatcaFormQuiz extends React.Component {
       }
     }
     else {
-      this.onReceive('Please answer yes or no');
+      this.onReceive('Please select the correct option');
     }
   }
 
@@ -224,175 +217,157 @@ export default class FatcaFormQuiz extends React.Component {
 
     //Send form data to server to fill and send pdf
     /*fetch('https://mywebsite.com/endpoint/', {
-    method: 'POST',
-    headers: {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify(this.formData);
-})*/
-
-console.log(JSON.stringify(this.formData));
-}
-
-onReceive(text) {
-  this.setState((previousState) => {
-    return {
-      messages: GiftedChat.append(previousState.messages, {
-        _id: Math.round(Math.random() * 1000000),
-        text: text,
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: 'WeShareAShare',
-          // avatar: 'https://facebook.github.io/react/img/logo_og.png',
-        },
-      }),
-    };
-  });
-
-  this.setState((previousState) => {
-    return {
-      typingText: null,
-    };
-  });
-}
-
-onCreatePicker(options) {
-  this.setState((previousState) => {
-    return {
-      messages: GiftedChat.append(previousState.messages, {
-        _id: Math.round(Math.random() * 1000000),
-        createdAt: new Date(),
-        user: {
-          _id:1,
-          name: 'You',
-          // avatar: 'https://facebook.github.io/react/img/logo_og.png',
-        },
-        selectOption: {
-          options: options,
-          selected: null,
-          picked: false
-        }
-      }),
-    };
-  });
-
-  this.setState((previousState) => {
-    return {
-      typingText: null,
-    };
-  });
-}
-
-renderCustomActions(props) {
-
-  return (
-    <CustomActions
-    {...props}
-    />
-  );
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(this.formData);
+    })*/
 
 
+    console.log(JSON.stringify(this.formData));
+  }
 
-  const options = {
-    'Action 1': (props) => {
-      alert('option 1');
-    },
-    'Action 2': (props) => {
-      alert('option 2');
-    },
-    'Cancel': () => {},
-  };
-  return (
-    <Actions
-    {...props}
-    options={options}
-    />
-  );
-}
+  onReceive(text) {
+    this.setState((previousState) => {
+      return {
+        messages: GiftedChat.append(previousState.messages, {
+          _id: Math.round(Math.random() * 1000000),
+          text: text,
+          createdAt: new Date(),
+          user: {
+            _id: 2,
+            name: 'WeShareAShare',
+            // avatar: 'https://facebook.github.io/react/img/logo_og.png',
+          },
+        }),
+      };
+    });
 
-renderBubble(props) {
-  return (
-    <Bubble
-    {...props}
-    wrapperStyle={{
-      left: {
-        backgroundColor: '#f0f0f0',
-      }
-    }}
-    />
-  );
-}
+    this.setState((previousState) => {
+      return {
+        typingText: null,
+      };
+    });
+  }
 
-renderCustomView(props) {
-  return (
-    <CustomView
-    {...props}
-    />
-  );
-}
+  onCreatePicker(options) {
+    this.setState((previousState) => {
+      return {
+        messages: GiftedChat.append(previousState.messages, {
+          _id: Math.round(Math.random() * 1000000),
+          createdAt: new Date(),
+          user: {
+            _id:1,
+            name: 'You',
+            // avatar: 'https://facebook.github.io/react/img/logo_og.png',
+          },
+          selectOption: {
+            options: options,
+            selected: null,
+            picked: false
+          }
+        }),
+      };
+    });
 
-renderFooter(props) {
-  if (this.state.typingText) {
+    this.setState((previousState) => {
+      return {
+        typingText: null,
+      };
+    });
+  }
+
+  renderCustomActions(props) {
+
     return (
-      <View>
-      <View style={styles.footerContainer}>
-      <Text style={styles.footerText}>
-      {this.state.typingText}
-      </Text>
-      </View>
+      <CustomActions
+      {...props}
+      />
+    );
+
+
+
+    const options = {
+      'Action 1': (props) => {
+        alert('option 1');
+      },
+      'Action 2': (props) => {
+        alert('option 2');
+      },
+      'Cancel': () => {},
+    };
+    return (
+      <Actions
+      {...props}
+      options={options}
+      />
+    );
+  }
+
+  renderBubble(props) {
+    return (
+      <Bubble
+      {...props}
+      wrapperStyle={{
+        left: {
+          backgroundColor: '#f0f0f0',
+        }
+      }}
+      />
+    );
+  }
+
+  renderCustomView(props) {
+    return (
+      <CustomView
+      {...props}
+      />
+    );
+  }
+
+  renderFooter(props) {
+    if (this.state.typingText) {
+      return (
+        <View>
+        <View style={styles.footerContainer}>
+        <Text style={styles.footerText}>
+        {this.state.typingText}
+        </Text>
+        </View>
+        <View style={styles.progressBar} >
+        <Progress.Bar progress={this.progress} width={200} />
+        </View>
+        </View>
+      );
+    }
+    return (
       <View style={styles.progressBar} >
       <Progress.Bar progress={this.progress} width={200} />
-      </View>
-      </View>
-    );
+      </View>);
+    }
+
+    render() {
+      return (
+        <GiftedChat
+        messages={this.state.messages}
+        onSend={this.onSend}
+        loadEarlier={this.state.loadEarlier}
+        onLoadEarlier={this.onLoadEarlier}
+        isLoadingEarlier={this.state.isLoadingEarlier}
+
+        user={{
+          _id: 1, // sent messages should have same user._id
+        }}
+
+        renderActions={this.renderCustomActions}
+        renderBubble={this.renderBubble}
+        renderCustomView={this.renderCustomView}
+        renderFooter={this.renderFooter}
+        />
+
+
+      );
+    }
   }
-  return (
-    <View style={styles.progressBar} >
-    <Progress.Bar progress={this.progress} width={200} />
-    </View>);
-  }
-
-  render() {
-    return (
-      <GiftedChat
-      messages={this.state.messages}
-      onSend={this.onSend}
-      loadEarlier={this.state.loadEarlier}
-      onLoadEarlier={this.onLoadEarlier}
-      isLoadingEarlier={this.state.isLoadingEarlier}
-
-      user={{
-        _id: 1, // sent messages should have same user._id
-      }}
-
-      renderActions={this.renderCustomActions}
-      renderBubble={this.renderBubble}
-      renderCustomView={this.renderCustomView}
-      renderFooter={this.renderFooter}
-      />
-
-
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  footerContainer: {
-    marginTop: 5,
-    marginLeft: 10,
-    marginRight: 10,
-    marginBottom: 10,
-  },
-  footerText: {
-    fontSize: 14,
-    color: '#aaa',
-  },
-  progressBar: {
-    alignItems:"center",
-    flex:1,
-    marginBottom: 5,
-    marginTop: 10
-  },
-});
