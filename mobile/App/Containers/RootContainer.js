@@ -11,18 +11,6 @@ class RootContainer extends Component {
     if (!ReduxPersist.active) {
       this.props.startup()
     }
-
-    BackAndroid.addEventListener('backPress', () => {
-      const { dispatch, nav } = this.props
-      if (shouldCloseApp(nav)) return false
-      dispatch({ type: 'Back' })
-      return true
-    });
-     
-  }
-
-  componentWillUnmount() {
-    BackAndroid.removeEventListener('backPress')
   }
 
   render () {

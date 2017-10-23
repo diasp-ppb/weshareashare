@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { NavigationActions } from 'react-navigation'
 import { View, Image } from 'react-native';
 import { Button, Text } from 'native-base'
 import { Images, ApplicationStyles } from '../Themes/index';

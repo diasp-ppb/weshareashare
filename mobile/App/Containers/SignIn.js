@@ -4,8 +4,7 @@ import SignInStyles from './Styles/SignInStyle';
 import { Images, ApplicationStyles } from '../Themes/index';
 import { StoikHeader } from '../Components/StoikHeader';
 import { Button, Text } from 'native-base';
-
-
+import * as Session from '../Redux/Session'
 
 const t = require('tcomb-form-native');
 const Form = t.form.Form;
@@ -32,6 +31,7 @@ export default class SignInForm extends Component {
     const value = this.refs.form.getValue();
     if (value) {
       console.log(value);
+      Session.authenticate();
     }
   }
 

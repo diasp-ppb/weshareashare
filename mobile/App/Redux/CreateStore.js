@@ -14,7 +14,6 @@ export default (rootReducer) => {
   /* ------------- Analytics Middleware ------------- */
   middleware.push(ScreenTracking)
 
-
   /* ------------- Assemble Middleware ------------- */
 
   enhancers.push(applyMiddleware(...middleware))

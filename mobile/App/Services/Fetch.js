@@ -1,8 +1,6 @@
 import fetchival from 'fetchival';
 import _ from 'lodash';
 
-import store from '../Redux/CreateStore';
-
 const API_URL = 'http://172.18.0.1/1337'
 
 export const exceptionExtractError = (exception) => {
@@ -15,8 +13,7 @@ export const exceptionExtractError = (exception) => {
   return error;
 };
 
-export const fetchApi = (endPoint, payload = {}, method = 'get', headers = {}) => {
-  const accessToken = store.getState().services.session.tokens.access.value;
+export const fetchApi = (endPoint, payload = {}, method = 'get', accessToken, headers = {}) => {
   return fetchival(`${API_URL}${endPoint}`, {
     headers: _.pickBy({
       ...(accessToken ? {
