@@ -1,11 +1,12 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native'
+import { Metrics } from '../../Themes/index'
 
 export default StyleSheet.create({
   btnGroup: {
     flex: 1,
-    alignSelf: 'center',
-    paddingVertical: 12,
-    marginVertical: 48,
+    justifyContent: 'center',
+    alignItems: 'center',
+    minHeight: Metrics.DEVICE_HEIGHT/2,
   },
   canvas: {
     position: 'absolute',
@@ -16,5 +17,5 @@ export default StyleSheet.create({
     flex: 1,
     height: null,
     width: null,
-  }
+  },
 });

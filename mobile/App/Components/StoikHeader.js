@@ -5,7 +5,7 @@ import { View, Text, TouchableHighlight, Image } from 'react-native';
 
 export const StoikHeader = () => {
   return (
-    <View style={ApplicationStyles.screen.container}>
+    <View style={styles.container}>
       <Text style={[styles.h1]}>
         Stoik PPR
       </Text>

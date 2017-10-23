@@ -1,30 +1,35 @@
 import { StyleSheet } from 'react-native'
-import { Fonts, Metrics, Colors } from '../../Themes/index'
+import { Fonts, Metrics, Colors, ApplicationStyles } from '../../Themes/index'
 
 export default StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.background,
+    maxHeight: Metrics.DEVICE_HEIGHT/2,
+  },
   h1: {
     color: Colors.text,
-    fontSize: 48,
+    fontSize: Metrics.FONT_SIZE_TITLE,
     alignSelf: 'center',
-    paddingVertical: Metrics.baseMargin,
+    paddingVertical: Metrics.PADDING,
   },
   logo: {
     alignSelf: 'center',
-    padding: Metrics.baseMargin,
-    width: Metrics.images.logo,
-    height: Metrics.images.large,
+    padding: Metrics.MARGIN,
+    width: Metrics.DEVICE_WIDTH / 1.5,
+    height: Metrics.DEVICE_HEIGHT / 7.5,
   },
   threeButtons: {
-    padding: Metrics.doubleSection,
+    padding: Metrics.PADDING,
     flexDirection: 'row',
     justifyContent: 'center',
   },
   circularBtn: {
     justifyContent: 'center',
     alignItems: 'center',
-    height: Metrics.screenWidth / 4,
-    width: Metrics.screenWidth / 4,
-    borderRadius: Metrics.screenWidth / 8,
+    height: Metrics.DEVICE_WIDTH / 4,
+    width: Metrics.DEVICE_WIDTH / 4,
+    borderRadius: Metrics.DEVICE_WIDTH / 8,
   },
   centerBtn: {
     backgroundColor: Colors.stoikGrey,
