@@ -28,11 +28,7 @@ const options = {
 
 export default class SignInForm extends Component {
   onSignIn() {
-    const value = this.refs.form.getValue();
-    if (value) {
-      console.log(value);
-      Session.authenticate();
-    }
+    Session.authenticate('renatoabreu@122143', '124124');
   }
 
   render() {

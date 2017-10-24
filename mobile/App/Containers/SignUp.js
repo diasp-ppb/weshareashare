@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, TouchableHighlight, Image } from 'react-native';
+import { StyleSheet, View, TouchableHighlight, Image, Picker } from 'react-native';
 import SignUpStyles from './Styles/SignUpStyle';
-import { Images, ApplicationStyles } from '../Themes/index';
-import { StoikHeader } from '../Components/StoikHeader';
-import { Button, Text } from 'native-base';
+import { Button, Text, Divider } from 'react-native-elements';
+import { ApplicationStyles, Images } from '../Themes'
 
 
 const t = require('tcomb-form-native');
@@ -13,6 +12,7 @@ const SignUpParams = t.struct({
   email: t.String,
   password: t.String,
   repeatPassword: t.String,
+  rememberMe: t.Boolean
 });
 
 const options = {
@@ -20,22 +20,27 @@ const options = {
   fields: {
     username: {
       placeholder: 'Username',
+      error: 'Insert a valid username'
     },
     email: {
       placeholder: 'Email',
+      error: 'Insert a valid email'
     },
     password: {
       placeholder: 'Password',
+      password: true,
       secureTextEntry: true,
     },
     repeatPassword: {
       placeholder: 'Repeat Password',
+      password: true,
       secureTextEntry: true,
     }
   },
 };
 
 export default class SignUpForm extends Component {
+
   onSignUp() {
     const value = this.refs.form.getValue();
     if (value) {
@@ -44,23 +49,33 @@ export default class SignUpForm extends Component {
   }
 
   render() {
+    const { navigate } = this.props.navigation;
     return (
-      <View style={ApplicationStyles.screen.mainContainer}>
-        <StoikHeader />
-        <View style={ApplicationStyles.screen.container}>
-          <Image source={Images.background} style={SignUpStyles.canvas}>
-            <View style={SignUpStyles.formGroup}>
-              <Form
-                ref="form"
-                type={SignUpParams}
-                options={options}
-              />
-              <Button style={SignUpStyles.button} onPress={this.onSignUp} underlayColor='#99d9f4'>
-                <Text style={SignUpStyles.buttonText}>Sign Up</Text>
-              </Button>
-            </View>
-          </Image>
+      <View style={SignUpStyles.mainContainer}>
+        <Image
+          source={Images.logo}
+          style={SignUpStyles.logo}
+          resizeMode="contain"
+        />
+        <Text h1 style={SignUpStyles.title}>Stoik PPR</Text>
+        <View style={SignUpStyles.container}>
+          <Form
+            ref="form"
+            type={SignUpParams}
+            options={options}
+          />
+          <Button
+            buttonStyle={SignUpStyles.button}
+            onPress={this.onSignUp}
+            underlayColor='#99d9f4'
+            title='Sign Up' />
         </View>
+        <Divider style={SignUpStyles.divider}/>
+        <Text h5 style={{padding: 0, alignContent: 'flex-start', alignSelf: 'center', color: 'lightgrey'}}>Already have an account?
+          <Text style={{fontWeight: 'bold', color: 'black'}} onPress={() => navigate('SignIn')}>
+            {' '}Sign in here.
+          </Text>
+        </Text>
       </View>
     );
   }

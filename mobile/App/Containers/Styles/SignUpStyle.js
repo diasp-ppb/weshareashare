@@ -1,36 +1,39 @@
 import { StyleSheet } from 'react-native'
 import { Colors, Metrics, Fonts } from '../../Themes/index';
 
-
 const SignUpStyles = {
-  formGroup: {
+  mainContainer: {
     flex: 1,
-    alignSelf: 'center',
-    width: 220,
-    paddingVertical: 12,
-    marginVertical: 2,
-    justifyContent: 'center',
-  },
-  canvas: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 0,
-    resizeMode: 'stretch',
-    flex: 1,
-    height: null,
-    width: null,
-  }, 
-  button: {
-    alignSelf: 'center',
-    marginVertical: Metrics.smallMargin,
-    paddingVertical: Metrics.smallMargin,
     backgroundColor: Colors.background,
+  },
+  container: {
+    justifyContent: 'center',
+    marginTop: Metrics.MARGIN,
+    padding: Metrics.PADDING,
+    paddingBottom: 2,
+    backgroundColor: '#ffffff',
+  },
+  logo: {
+    alignSelf: 'center',
+    padding: Metrics.PADDING*1.2,
+    width: Metrics.DEVICE_WIDTH / 1.5,
+    height: Metrics.DEVICE_HEIGHT / 7.5,
+  },
+  title: {
+    alignSelf: 'center',
+    color: Colors.text,
+    fontFamily: Fonts.type.OpenSans,
+  },
+  button: {
+    backgroundColor: Colors.stoikGrey,
     borderRadius: 8,
   },
-  buttonText: {
-    color: Colors.text,
-    fontSize: Fonts.h5
+  divider: {
+    backgroundColor: Colors.charcoal,
+    margin: Metrics.MARGIN,
+  },
+  link: {
+    fontWeight: 'bold',
   },
 };
 

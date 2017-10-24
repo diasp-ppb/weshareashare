@@ -23,6 +23,7 @@ const Colors = {
   border: '#483F53',
   banner: '#5F3E63',
   text: '#455a64',
+  lightGrey: '#B4B4B4'
 };
 
 export default Colors;
