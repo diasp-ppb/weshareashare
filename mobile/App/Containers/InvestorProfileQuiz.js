@@ -251,7 +251,7 @@ export default class InvestorProfileQuiz extends React.Component {
         );
 
     }
-    
+
     render() {
         return (
             <GiftedChat
@@ -294,6 +294,6 @@ const styles = StyleSheet.create({
     button: {
         marginBottom: 10,
         alignItems: "center",
-        background: "#3cb0fd",
+        //background: "#3cb0fd",
     }
 });

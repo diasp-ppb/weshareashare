@@ -1,17 +1,17 @@
 import React from 'react';
 
 import {
-  Platform,
-  StyleSheet,
-  Text,
-  Button,
-  View,
-  Picker
+    TouchableOpacity,
+    Platform,
+    StyleSheet,
+    Text,
+    Button,
+    View,
+    Picker
 } from 'react-native';
 
 import {GiftedChat, Actions, Bubble} from 'react-native-gifted-chat';
 import CustomActions from './CustomActions';
-import CustomView from './CustomView';
 import * as Progress from 'react-native-progress';
 
 import styles from './Styles/FormStyle';
@@ -106,6 +106,7 @@ export default class FatcaFormQuiz extends React.Component {
 
 
   answerForm(messages) {
+    console.log(messages)
     if (messages.length > 0) {
       if (this.question) {
         this.setState((previousState) => {
@@ -119,6 +120,7 @@ export default class FatcaFormQuiz extends React.Component {
     setTimeout(() => {
       if (this._isMounted === true) {
         if (messages.length > 0) {
+          console.log("Got here 41")
           switch (this.question) {
             case 0:
             this.validateName(messages[0]);
@@ -162,7 +164,8 @@ export default class FatcaFormQuiz extends React.Component {
         this.question++;
         this.onReceive(STATES.questions[this.question]);
         this.progress += this.progressStep;
-        this.onCreatePicker(STATES.answers);
+
+        this.createOptionsButtons(STATES.answers);
       }
       else{
         this.onReceive('NIF not valid. Please try again');
@@ -177,12 +180,12 @@ export default class FatcaFormQuiz extends React.Component {
   }
 
   validateBoolean(message){
-    if(message.selected && (/(yes|no)$/i).test(message.selected)){
-      var ans = (/(yes)$/i).test(message.selected);
+    if((/(yes|no)$/i).test(message.text)){
+      var ans = (/(yes)$/i).test(message.text);
       //Save data
-      if(ans && this.question < NO_QUESTIONS){
+      if(ans && this.question < NO_QUESTIONS-1){
         this.formData.isUSPerson = 'yes';
-      } else if (!ans && this.question < NO_QUESTIONS){
+      } else if (!ans && this.question < NO_QUESTIONS-1){
         this.formData.isUSPerson = 'no';
       }else if(ans){
         this.formData.isUSPerson = 'no';
@@ -191,15 +194,19 @@ export default class FatcaFormQuiz extends React.Component {
       }
 
       this.question++;
-      if(this.formData.isUSPerson == 'no' || this.question > NO_QUESTIONS){
+      
+      if(this.formData.isUSPerson == 'no' || this.question >= NO_QUESTIONS){
         this.progress = 1;
         this.onReceive('Thank you');
+
+        this.createOptionsButtons(null);
         this.changePage();
       }
       else{
         this.onReceive(STATES.questions[this.question]);
         this.progress += this.progressStep;
-        this.onCreatePicker(STATES.answers);
+
+        this.createOptionsButtons(STATES.answers);
       }
     }
     else {
@@ -252,31 +259,56 @@ export default class FatcaFormQuiz extends React.Component {
     });
   }
 
-  onCreatePicker(options) {
-    this.setState((previousState) => {
-      return {
-        messages: GiftedChat.append(previousState.messages, {
-          _id: Math.round(Math.random() * 1000000),
-          createdAt: new Date(),
-          user: {
-            _id:1,
-            name: 'You',
-            // avatar: 'https://facebook.github.io/react/img/logo_og.png',
-          },
-          selectOption: {
-            options: options,
-            selected: null,
-            picked: false
-          }
-        }),
-      };
-    });
+  createOptionsButtons(options) {
+    var view = null;
 
-    this.setState((previousState) => {
-      return {
-        typingText: null,
-      };
-    });
+      if (options) {
+
+          let Items = options.map((s, i) => {
+
+              return <Button
+                  style={styles.button}
+                  onPress={() => {
+
+                    this.setState({
+                      options: [s],
+                      selected: s,
+                      picked: true,
+                    });
+
+
+                    this.onSend([{
+                      _id: Math.round(Math.random() * 1000000),
+                      text: s,
+                      renderAvatar: null,
+                      createdAt: new Date(),
+                      user: {
+                        _id: 1
+                      },
+                    }]);
+
+                  }
+                }
+                title={s}
+                color="#000000"
+                accessibilityLabel={s}
+              />
+
+          });
+
+
+          view = (
+              <TouchableOpacity style={[styles.container, this.props.containerStyle]}>
+                  {Items}
+              </TouchableOpacity>
+          );
+      }
+
+      this.setState(
+        {
+          optionsButtons: view,
+        }
+      );
   }
 
   renderCustomActions(props) {
@@ -319,32 +351,36 @@ export default class FatcaFormQuiz extends React.Component {
     );
   }
 
-  renderCustomView(props) {
-    return (
-      <CustomView
-      {...props}
-      />
-    );
-  }
-
   renderFooter(props) {
     if (this.state.typingText) {
       return (
         <View>
-        <View style={styles.footerContainer}>
-        <Text style={styles.footerText}>
-        {this.state.typingText}
-        </Text>
-        </View>
-        <View style={styles.progressBar} >
-        <Progress.Bar progress={this.progress} width={200} />
-        </View>
+          <View style={styles.footerContainer}>
+            <Text style={styles.footerText}>
+              {this.state.typingText}
+            </Text>
+          </View>
+          <View style={styles.progressBar} >
+            <Progress.Bar progress={this.progress} width={200} />
+          </View>
         </View>
       );
     }
     return (
-      <View style={styles.progressBar} >
-      <Progress.Bar progress={this.progress} width={200} />
+      <View>
+        <View>
+            {this.state.optionsButtons}
+            <Button
+            style={styles.button}
+            onPress={function () {}}
+            title={"More info"}
+            color="#000000"
+            accessibilityLabel={"More info"}
+            />
+        </View>
+        <View style={styles.progressBar} >
+          <Progress.Bar progress={this.progress} width={200} />
+        </View>
       </View>);
     }
 
@@ -363,7 +399,6 @@ export default class FatcaFormQuiz extends React.Component {
 
         renderActions={this.renderCustomActions}
         renderBubble={this.renderBubble}
-        renderCustomView={this.renderCustomView}
         renderFooter={this.renderFooter}
         />
 
