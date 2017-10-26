@@ -3,8 +3,8 @@ import { StyleSheet, View, TouchableHighlight, Image } from 'react-native';
 import SignInStyles from './Styles/SignInStyle';
 import { Images, ApplicationStyles } from '../Themes/index';
 import { StoikHeader } from '../Components/StoikHeader';
-import { Button, Text } from 'native-base';
 import * as Session from '../Redux/Session'
+import { Button, Text, Divider } from 'react-native-elements';
 
 const t = require('tcomb-form-native');
 const Form = t.form.Form;
@@ -27,27 +27,38 @@ const options = {
 };
 
 export default class SignInForm extends Component {
+
   onSignIn() {
     Session.authenticate('renatoabreu@122143', '124124');
   }
 
   render() {
+    const { navigate } = this.props.navigation;    
     return (
-      <View style={ApplicationStyles.screen.mainContainer}>
-        <StoikHeader />
-        <View style={ApplicationStyles.screen.container}>
-          <Image source={Images.background} style={SignInStyles.canvas}>
-            <View style={SignInStyles.formGroup}>
+      <View style={SignInStyles.mainContainer}>
+        <Image
+          source={Images.logo}
+          style={SignInStyles.logo}
+          resizeMode="contain"/>
+        <Text h1 style={SignInStyles.title}>Stoik PPR</Text>
+        <View>
+          <View style={SignInStyles.container}>
               <Form
                 ref="form"
                 type={SignInParams}
-                options={options}
-              />
-              <Button style={SignInStyles.button} onPress={this.onSignIn} underlayColor='#99d9f4'>
-                <Text style={SignInStyles.buttonText}>Sign In</Text>
-              </Button>
-            </View>
-          </Image>
+                options={options} />
+              <Button
+                buttonStyle={SignInStyles.button}
+                onPress={this.onSignIn}
+                underlayColor='#99d9f4'
+                title='Sign In' />
+          </View>
+          <Divider style={SignInStyles.divider}/>
+          <Text h5 style={{padding: 0, alignContent: 'flex-start', alignSelf: 'center', color: 'lightgrey'}}>Not registered?
+            <Text style={{fontWeight: 'bold', color: 'black'}} onPress={() => navigate('SignUp')}>
+              {' '}Sign up here.
+            </Text>
+          </Text>
         </View>
       </View>
     );
