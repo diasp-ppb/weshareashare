@@ -47,6 +47,7 @@ export default class FatcaFormQuiz extends React.Component {
     this.onLoadEarlier = this.onLoadEarlier.bind(this);
 
     this.question = 0;
+    this.isUSPersonAnswers = new Array(6);
 
     this.formData = {
       name: null,
@@ -106,7 +107,6 @@ export default class FatcaFormQuiz extends React.Component {
 
 
   answerForm(messages) {
-    console.log(messages)
     if (messages.length > 0) {
       if (this.question) {
         this.setState((previousState) => {
@@ -120,101 +120,111 @@ export default class FatcaFormQuiz extends React.Component {
     setTimeout(() => {
       if (this._isMounted === true) {
         if (messages.length > 0) {
-          console.log("Got here 41")
-          switch (this.question) {
-            case 0:
-            this.validateName(messages[0]);
-            break;
-            case 1:
-            this.validateNIF(messages[0]);
-            break;
-            default:
-            this.validateBoolean(messages[0]);
-          }
+          var valid;
+          var msg = messages[0].text;
 
+          if((/(skip)$/i).test(msg)){
+            this.question++;
+            this.askNextQuestion();
+          }
+          else{
+            switch (this.question) {
+              case 0:
+              valid = this.validateName(msg);
+              break;
+              case 1:
+              valid = this.validateNIF(msg);
+              break;
+              default:
+              valid = this.validateBoolean(msg);
+            }
+
+            if(valid){
+              this.question++;
+              this.askNextQuestion();
+            }
+          }
         }
       }
     }, 1000);
   }
 
   validateName(message){
-    if(message.text != null && /^[A-Za-záãẽêéíóôõúç\s]+$/.test(message.text)){
+    if(message != null && /^[A-Za-záãẽêéíóôõúç\s]+$/.test(message)){
       //Save data
-      this.formData.name = message.text;
+      this.formData.name = message;
 
-      //Ask next question
-      this.question++;
-      this.progress += this.progressStep;
-      this.onReceive(STATES.questions[this.question]);
+      return true;
     }
     else{
       this.onReceive('Name not valid. Please try again');
+
+      return false;
     }
   }
 
   validateNIF(message){
-    fetch('http://www.nif.pt/?json=1&q=' + message.text + '&key=key')
-    .then((response) => response.json())
-    .then((responseJson) => {
-      if(responseJson.is_nif /*&& responseJson.nif_validation*/){
-        //Save data
-        this.formData.NIF = parseInt(message.text);
-
-        //Ask next question
-        this.question++;
-        this.onReceive(STATES.questions[this.question]);
-        this.progress += this.progressStep;
-
-        this.createOptionsButtons(STATES.answers);
-      }
-      else{
-        this.onReceive('NIF not valid. Please try again');
-      }
-
-      return responseJson.is_nif;
-    })
-    .catch((error) => {
-      console.error(error);
+    if((/^\d{9}$/).test(message)){
+      return true;
+    }
+    else{
+      this.onReceive('NIF not valid. Please try again');
       return false;
-    });
+    }
   }
 
   validateBoolean(message){
-    if((/(yes|no)$/i).test(message.text)){
-      var ans = (/(yes)$/i).test(message.text);
+    if((/(yes|no)$/i).test(message)){
+      var ans = (/(yes)$/i).test(message);
       //Save data
-      if(ans && this.question < NO_QUESTIONS-1){
-        this.formData.isUSPerson = 'yes';
-      } else if (!ans && this.question < NO_QUESTIONS-1){
-        this.formData.isUSPerson = 'no';
-      }else if(ans){
-        this.formData.isUSPerson = 'no';
-      } else if (!ans){
-        this.formData.isUSPerson = 'yes';
-      }
+      this.isUSPersonAnswers[this.question - 2] = ans;
 
-      this.question++;
-      
-      if(this.formData.isUSPerson == 'no' || this.question >= NO_QUESTIONS){
-        this.progress = 1;
-        this.onReceive('Thank you');
-
-        this.createOptionsButtons(null);
-        this.changePage();
-      }
-      else{
-        this.onReceive(STATES.questions[this.question]);
-        this.progress += this.progressStep;
-
-        this.createOptionsButtons(STATES.answers);
-      }
+      return true;
     }
     else {
       this.onReceive('Please select the correct option');
+
+      return false;
+    }
+  }
+
+  askNextQuestion(){
+    this.progress += this.progressStep;
+
+    if(this.question > 1 && this.question < NO_QUESTIONS){
+      this.createOptionsButtons(STATES.answers);
+    }
+    else{
+      this.createOptionsButtons(null);
+    }
+
+    if(this.question >= NO_QUESTIONS){
+      this.onReceive('Thank you!');
+      this.changePage();
+    }
+    else{
+        this.onReceive(STATES.questions[this.question]);
     }
   }
 
   changePage(){
+    //TODO Check if form is complete
+    //Determine if person is US Person
+    if(this.isUSPersonAnswers[this.isUSPersonAnswers.length-1] == false){
+      this.formData.isUSPerson = 'yes';
+
+      for (var i = 0; i < this.isUSPersonAnswers.length-1; i++) {
+        if(this.isUSPersonAnswers[i] == false){
+          this.formData.isUSPerson = 'no';
+          break;
+        }
+      }
+    }
+    else{
+      this.formData.isUSPerson = 'no';
+    }
+
+    //Prepare data to be sent
     var months_pt = ["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
 
     var today = new Date();
