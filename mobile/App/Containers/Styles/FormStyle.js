@@ -34,6 +34,6 @@ export default StyleSheet.create({
   button: {
       marginBottom: 10,
       alignItems: "center",
-      //background: "#3cb0fd",
+      background: "#3cb0fd",
   }
 });
