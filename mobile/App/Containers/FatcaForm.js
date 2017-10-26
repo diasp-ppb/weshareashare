@@ -16,7 +16,7 @@ import * as Progress from 'react-native-progress';
 
 import styles from './Styles/FormStyle';
 
-const STATES = require("./data/fatcaStates.js");
+const STATES = (require("./data/fatcaStates.js")).states;
 const NO_QUESTIONS = 8;
 
 export default class FatcaFormQuiz extends React.Component {
@@ -26,7 +26,7 @@ export default class FatcaFormQuiz extends React.Component {
 
     this.formHeader = 0;
     this.progress = 0;
-    this.progressStep = 1/STATES.questions.length;
+    this.progressStep = 1/STATES.length;
 
 
     this.state = {
@@ -68,7 +68,7 @@ export default class FatcaFormQuiz extends React.Component {
       };
     });
 
-    this.onReceive(STATES.questions[this.question]);
+    this.onReceive(STATES[this.question].question);
   }
 
   componentWillUnmount() {
@@ -189,10 +189,11 @@ export default class FatcaFormQuiz extends React.Component {
   }
 
   askNextQuestion(){
+    var state = STATES[this.question];
     this.progress += this.progressStep;
 
     if(this.question > 1 && this.question < NO_QUESTIONS){
-      this.createOptionsButtons(STATES.answers);
+      this.createOptionsButtons(state.answers);
     }
     else{
       this.createOptionsButtons(null);
@@ -203,7 +204,7 @@ export default class FatcaFormQuiz extends React.Component {
       this.changePage();
     }
     else{
-        this.onReceive(STATES.questions[this.question]);
+        this.onReceive(state.question);
     }
   }
 
@@ -299,6 +300,7 @@ export default class FatcaFormQuiz extends React.Component {
 
                   }
                 }
+                key={i}
                 title={s}
                 color="#000000"
                 accessibilityLabel={s}
