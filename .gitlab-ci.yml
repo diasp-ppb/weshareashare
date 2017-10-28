@@ -1,38 +1,62 @@
 image: node:latest
 
+variables:
+  POSTGRES_DB: weshareashare
+  POSTGRES_USER: weshareashare
+  POSTGRES_PASSWORD: "123456"
+  
+cache:
+  paths:
+  - ./server/node_modules/
+  - ./mobile/node_modules/
+  - ./desktop/node_modules/
+
 services:
   - postgres:latest
 
 stages:
-  - test
+  - test_server
+  - test_mobile
+  - test_desktop
   - build
   - deploy
 
-test:
-  stage: test
-  script: echo "Running tests"
+test_server:
+  stage: test_server
+  script: 
+    - echo "**Running Server tests**"
+    - npm --prefix ./server install
+    - npm --prefix ./server test
+    - echo "**Terminating Server tests**"
+  
+test_mobile:
+  stage: test_mobile
+  script: 
+    - echo "**Running Mobile tests**"
+    - npm --prefix ./mobile install
+    - npm --prefix ./mobile test
+    - echo "**Terminating Mobile tests**"
+  
+test_desktop:
+  stage: test_desktop
+  script: 
+    - echo "**Running Desktop tests**"
+    - npm --prefix ./desktop install
+    - npm --prefix ./desktop test
+    - echo "**Terminating Desktop tests**"
 
 build:
   stage: build
-  script: echo "Building the app"
+  script: 
+    - echo "Building the app"
 
-deploy_staging:
+deploy:
   stage: deploy
+  tags:
+    - server
   script:
     - echo "Deploy to staging server"
-    - cp -i $CI_PROJECT_DIR/.ssh/* ~/.ssh/
-    - ssh-keyscan -H $SERVER_IP >> ~/.ssh/known_hosts
-    - rsync -avuz $CI_PROJECT_DIR/server/ $SERVER_ADMIN@$SERVER_IP:/var/wwww/api.weshareashare
   environment:
     name: staging
-    url: api.weshareashare.com
   only:
   - master
-
-# This folder is cached between builds
-# http://docs.gitlab.com/ce/ci/yaml/README.html#cache
-cache:
-  paths:
-  - node_modules/
-   
-   
