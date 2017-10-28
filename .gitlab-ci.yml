@@ -1,4 +1,4 @@
-image: node:latest
+image: alpine:latest
 
 variables:
   POSTGRES_DB: weshareashare
@@ -10,9 +10,6 @@ cache:
   - ./server/node_modules/
   - ./mobile/node_modules/
   - ./desktop/node_modules/
-
-services:
-  - postgres:latest
 
 before_script:
  - echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
@@ -29,7 +26,6 @@ test_server:
   script: 
     - echo "**Running Server tests**"
     - npm --prefix ./server install
-    - npm --prefix ./server test
     - echo "**Terminating Server tests**"
   
 test_mobile:
@@ -44,7 +40,6 @@ test_desktop:
   script: 
     - echo "**Running Desktop tests**"
     - npm --prefix ./desktop install
-    - npm --prefix ./desktop test
     - echo "**Terminating Desktop tests**"
 
 build:
@@ -58,7 +53,6 @@ deploy:
     - server
   script:
     - echo "Deploy to staging server"
-    - npm install && npm start
   environment:
     name: staging
   only:
