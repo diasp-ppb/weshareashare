@@ -7,21 +7,22 @@
 
 module.exports = {
   create(req, res) {
-    Users.add(req.allParams(), (err, user) => {
-      if (err) {
-        return res.negotiate(err);
-      }
-      return res.created({ user });
-    });
+    let params = User.parseAttrs(req.allParams());
+    User.create(params)
+      .then((user) => {
+        return res.created({ user });
+      }).catch((err) => {
+        return res.serverError(err);
+      });
   },
 
   getAll(req, res) {
-    Users.find().exec((err, users) => {
-      if (err) {
-        return res.negotiate(err);
-      }
-      return res.ok({ users });
-    });
+    User.find()
+      .then((users) => {
+        res.ok({ users });
+      }).catch((err) => {
+        return res.serverError(err);
+      });
   },
 };
 

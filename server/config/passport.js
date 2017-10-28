@@ -30,7 +30,7 @@ passport.deserializeUser((id, next) =>
 passport.use(
   new BasicStrategy(
     (email, password, next) =>
-      Users.findOne({
+      User.findOne({
         email,
       }).exec((findErr, user) => {
         if (findErr) {
@@ -63,7 +63,7 @@ passport.use(
 passport.use(
   new BearerStrategy(
     (tokenValue, next) => {
-      Tokens.findOne({ value: tokenValue, type: 'access' }, (findErr, userToken) => {
+      Token.findOne({ value: tokenValue, type: 'access' }, (findErr, userToken) => {
         if (findErr) {
           return next(findErr);
         } else if (!userToken) {
@@ -71,11 +71,11 @@ passport.use(
         }
 
         if (moment(userToken.expiresAt).unix() < moment().unix()) {
-          Tokens.destroy({ value: tokenValue, type: 'access' }).exec();
+          Token.destroy({ value: tokenValue, type: 'access' }).exec();
           return next();
         }
 
-        Users.findOne({
+        User.findOne({
           id: userToken.user,
         }).exec((userErr, user) => {
           if (userErr) {

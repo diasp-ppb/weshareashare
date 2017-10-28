@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
   delete userReq.query.accessToken;
   return passport.authenticate('bearer', (err, user) => {
     if (err) {
-      return res.negotiate(err);
+      return res.serverError(err);
     } else if (!user) {
       return res.unauthorized();
     }

@@ -54,20 +54,15 @@ module.exports.security = {
   tokens: {
     access: {
       length: 32,
-      life: 3600, // 1 hour
+      life: 3600 // 1 hour
     },
     refresh: {
       length: 32,
-      life: (3600 * 24 * 90), // 90 days
+      life: (3600 * 24 * 90) // 90 days
     },
     reset: {
       length: 32,
-      life: 3600 * 24, // 1 day
+      life: 3600 * 24 // 1 day
     }
-  },
-  clients: {
-    '5746f32e39485d1103b31254': {
-      name: 'WeShareAShare',
-    },
-  },
+  }
 };

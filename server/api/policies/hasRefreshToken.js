@@ -8,17 +8,18 @@ module.exports = (req, res, next) => {
     return res.unauthorized();
   }
 
-  Tokens.findOne({
+  Token.findOne({
     type: params.token.type,
     value: params.token.value,
     user: params.user.id,
     expiresAt: { '>=': new Date() },
-  }, (err, token) => {
-    if (err) {
-      return res.negotiate(err);
-    } else if (!token) {
+  }).then((token) => {
+    if(!token) {
       return res.unauthorized();
     }
+
     return next();
+  }).catch((err) => {
+    res.serverError(err);
   });
 };

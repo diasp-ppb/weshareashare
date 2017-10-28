@@ -4,8 +4,9 @@
  * @description :: Represents an instance of an user
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
  */
-const PasswordService = require('../utilities/PasswordService');
 
+var bcrypt = require('bcrypt');
+const SALT_ROUNDS = 10;
 const PASSWORD_MIN_LENGTH = 8;
 const PASSWORD_MAX_LENGTH = 32;
 const USERNAME_MAX_LENGTH = 32;
@@ -31,10 +32,6 @@ module.exports = {
     },
   },
 
-  customToJson: () => {
-    return _.omit(this, ['password']);
-  },
-
   validationMessages: {
     username: {
       required: 'Username is required.',
@@ -53,21 +50,43 @@ module.exports = {
     },
   },
 
-  beforeCreate(attrs, next) {
-    PasswordService.encryptPassword(attrs.password)
-      .then((password) => {
-        attrs.password = password;
+  customToJson: () => {
+    return _.omit(this, ['password']);
+  },
+
+  verifyPassword (plainPass, hashPass) {
+    bcrypt.compare(plainPass, hashPass)
+      .then(res => {
+        return res;
+      });
+  },
+
+  beforeCreate (attrs, next) {
+    bcrypt.hash(attrs.password, SALT_ROUNDS)
+      .then(function(hash) {
+        attrs.password = hash;
         next();
       });
   },
 
-  add(attrs, next) {
-    const payload = {
+  beforeUpdate (attrs, next) {
+    if(attrs.newPassword){
+      bcrypt.hash(attrs.password, SALT_ROUNDS)
+        .then(function(hash) {
+          attrs.password = hash;
+          next();
+        });
+    } else {
+      return next();
+    }
+  },
+
+  parseAttrs(attrs) {
+    return {
       username: String(attrs.username).trim(),
       email: String(attrs.email).trim(),
       password: String(attrs.password).trim(),
     };
-    return this.create(payload).exec(next);
-  }
+  },
 };
 

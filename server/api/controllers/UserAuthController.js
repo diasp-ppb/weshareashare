@@ -31,23 +31,22 @@ module.exports = {
         return res.unauthorized();
       }
 
-      return Tokens.findOrAdd({
+      Token.findOrAdd({
         user: user.id,
         type: 'access',
-      }, (accessTokenErr, accessToken) => {
-        if (accessTokenErr) {
-          return res.negotiate(accessTokenErr);
-        }
+      }).then((accessToken) => {
 
-        return Tokens.findOrAdd({
+        Token.findOrAdd({
           user: user.id,
           type: 'refresh',
-        }, (refreshTokenErr, refreshToken) => {
-          if (refreshTokenErr) {
-            return res.negotiate(refreshTokenErr);
-          }
+        }).then((refreshToken) => {
           return res.ok(formatTokenResponse(accessToken, refreshToken, user));
+        }).catch((err) => {
+          return res.serverError(err);
         });
+
+      }).catch((err) => {
+        return res.serverError(err);
       });
     })(req, res);
   },
@@ -56,35 +55,32 @@ module.exports = {
     const params = req.allParams();
 
     // Verify the refresh token is assigned to the user
-    return Tokens.findOne({
+    Token.findOne({
       user: params.user.id,
       value: params.token.value,
       type: 'refresh',
-    }).exec((refreshTokenErr) => {
-      if (refreshTokenErr) {
-        return res.unauthorized();
-      }
+    }).then(() => {
 
-      // Destroy the current access token
-      Tokens.destroy({
+      Token.destroy({
         user: params.user.id,
         type: 'access',
-      }, (destroyErr) => {
-        if (destroyErr) {
-          return res.negotiate(destroyErr);
-        }
+      }).then(() => {
 
         // Create a new access token
-        return Tokens.findOrAdd({
+        Token.findOrAdd({
           user: params.user,
           type: 'access',
-        }, (accessTokenErr, accessToken) => {
-          if (accessTokenErr) {
-            return res.negotiate(accessTokenErr);
-          }
-          return res.ok(formatTokenResponse(accessToken, params.token, params.user));
+        }).then((token) => {
+          return res.ok(formatTokenResponse(token, params.token, params.user));
+        }).catch((err) => {
+          return res.serverError(err);
         });
+
+      }).catch(err => {
+        return res.serverError(err);
       });
+    }).catch((err) => {
+      return res.serverError(err);
     });
   },
 
@@ -93,10 +89,10 @@ module.exports = {
     if (!params.tokens || !params.tokens.length) {
       return res.badRequest();
     }
-    var counter = 0;
+    let counter = 0;
 
     params.tokens.forEach((token) => {
-      Tokens.destroy({
+      Token.destroy({
         value: token.value,
         type: token.type,
         user: req.query.accessUser.id,

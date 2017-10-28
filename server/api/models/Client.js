@@ -6,7 +6,6 @@
  */
 
 const uid = require('rand-token').uid;
-
 const ID_LENGTH = 32;
 
 module.exports = {
@@ -22,11 +21,11 @@ module.exports = {
     },
   },
 
-  add(attrs, next) {
-    return this.create({
+  parseAttrs(attrs) {
+    return {
       id: uid(ID_LENGTH),
       name: String(attrs.name).trim(),
-    }).exec(next);
+    };
   },
 };
 

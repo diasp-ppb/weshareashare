@@ -3,10 +3,11 @@
  */
 
 module.exports = (req, res, next) => {
-  Clients.find(req.headers['client-id']).exec((err) => {
-    if (err) {
-      return res.unauthorized();
-    }
-    return next();
-  });
+  let clientID = req.headers['Client-ID'];
+  Client.find({id: clientID})
+    .then(()  => {
+      return next();
+    }).catch((err) => {
+      return res.unauthorized(err);
+    });
 };

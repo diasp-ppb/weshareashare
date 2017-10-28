@@ -9,8 +9,8 @@
  */
 
 module.exports.routes = {
-  'post /visitors': {
-    controller: 'VisitorController',
+  'post /clients': {
+    controller: 'ClientController',
     action: 'create',
   },
 

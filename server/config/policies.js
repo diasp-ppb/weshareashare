@@ -18,15 +18,15 @@ module.exports.policies = {
 
   '*': 'hasOAuthBearer',
 
-  ClientsController: {
+  ClientController: {
     create: [],
   },
 
-  UsersController: {
+  UserController: {
     create: ['hasClientId'],
   },
 
-  UsersAuthController: {
+  UserAuthController: {
     '*': 'hasClientId',
     refresh: ['hasClientId', 'hasRefreshToken'],
     revoke: ['hasOAuthBearer'],
