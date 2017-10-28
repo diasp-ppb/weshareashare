@@ -9,13 +9,6 @@ docker stop $(docker ps -a -q)
 docker network rm server
 docker network create server
 
-## Postgres container
-docker run --name postgresql \
-  --env 'PG_PASSWORD=123456' \
-  --env 'POSTGRES_USER=weshareashare' \
-  --env 'POSTGRES_DB=weshareashare' \
-  --net server -d postgres
-
 ## pgAdmin container
 docker run -d -p 5050:5050 --name pgadmin --net server thajeztah/pgadmin4
 

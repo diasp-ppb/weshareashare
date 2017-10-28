@@ -4,47 +4,40 @@ variables:
   POSTGRES_DB: weshareashare
   POSTGRES_USER: weshareashare
   POSTGRES_PASSWORD: "123456"
-  
+
 cache:
   paths:
   - ./server/node_modules/
   - ./mobile/node_modules/
   - ./desktop/node_modules/
 
-before_script:
- - echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
-
 stages:
-  - test_server
-  - test_mobile
-  - test_desktop
-  - build
   - deploy
 
 test_server:
   stage: test_server
-  script: 
+  script:
     - echo "**Running Server tests**"
     - npm --prefix ./server install
     - echo "**Terminating Server tests**"
-  
+
 test_mobile:
   stage: test_mobile
-  script: 
+  script:
     - echo "**Running Mobile tests**"
     - npm --prefix ./mobile install
     - echo "**Terminating Mobile tests**"
-  
+
 test_desktop:
   stage: test_desktop
-  script: 
+  script:
     - echo "**Running Desktop tests**"
     - npm --prefix ./desktop install
     - echo "**Terminating Desktop tests**"
 
 build:
   stage: build
-  script: 
+  script:
     - echo "Building the app"
 
 deploy:
