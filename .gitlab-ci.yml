@@ -14,6 +14,9 @@ cache:
 services:
   - postgres:latest
 
+before_script:
+ - echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+
 stages:
   - test_server
   - test_mobile
@@ -33,9 +36,7 @@ test_mobile:
   stage: test_mobile
   script: 
     - echo "**Running Mobile tests**"
-    - echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
     - npm --prefix ./mobile install
-    - npm --prefix ./mobile test
     - echo "**Terminating Mobile tests**"
   
 test_desktop:
