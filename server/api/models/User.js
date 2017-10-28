@@ -4,8 +4,7 @@
  * @description :: Represents an instance of an user
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
  */
-
-var bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
 const SALT_ROUNDS = 10;
 const PASSWORD_MIN_LENGTH = 8;
 const PASSWORD_MAX_LENGTH = 32;
@@ -30,6 +29,16 @@ module.exports = {
       required: true,
       unique: true,
     },
+
+    notifications: {
+      collection: 'notification',
+      via: 'receiver'
+    },
+
+    documents: {
+      collection: 'document',
+      via: 'owner'
+    }
   },
 
   validationMessages: {
@@ -52,13 +61,6 @@ module.exports = {
 
   customToJson: () => {
     return _.omit(this, ['password']);
-  },
-
-  verifyPassword (plainPass, hashPass) {
-    bcrypt.compare(plainPass, hashPass)
-      .then(res => {
-        return res;
-      });
   },
 
   beforeCreate (attrs, next) {

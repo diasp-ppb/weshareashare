@@ -29,24 +29,27 @@ passport.deserializeUser((id, next) =>
  */
 passport.use(
   new BasicStrategy(
-    (email, password, next) =>
+    (username, password, next) =>
       User.findOne({
-        email,
-      }).exec((findErr, user) => {
-        if (findErr) {
-          return next(findErr);
-        } else if (!user) {
+        username: username,
+      }).then((user) => {
+        if(!user) {
           return next(401);
         }
 
-        return bcrypt.compare(password, user.password, (bcryptErr, res) => {
-          if (bcryptErr) {
-            return next(bcryptErr);
-          } else if (!res) {
-            return next(401);
-          }
-          return next(null, user);
-        });
+        bcrypt.compare(password, user.password)
+          .then(res => {
+            if (!res) {
+              return next(401);
+            }
+
+            return next(null, user);
+          }).catch(err => {
+            return err;
+          });
+
+      }).catch((err) => {
+        return next(err);
       })
   )
 );
@@ -63,27 +66,27 @@ passport.use(
 passport.use(
   new BearerStrategy(
     (tokenValue, next) => {
-      Token.findOne({ value: tokenValue, type: 'access' }, (findErr, userToken) => {
-        if (findErr) {
-          return next(findErr);
-        } else if (!userToken) {
-          return next();
-        }
-
-        if (moment(userToken.expiresAt).unix() < moment().unix()) {
-          Token.destroy({ value: tokenValue, type: 'access' }).exec();
-          return next();
-        }
-
-        User.findOne({
-          id: userToken.user,
-        }).exec((userErr, user) => {
-          if (userErr) {
-            return next(userErr);
+      Token.findOne({ value: tokenValue, type: 'access' }
+        .then((userToken) => {
+          if (!userToken) {
+            return next();
           }
-          return next(null, user);
-        });
-      });
-    }
-  )
+
+          if (moment(userToken.expiresAt).unix() < moment().unix()) {
+            Token.destroy({ value: tokenValue, type: 'access' }).exec();
+            return next();
+          }
+
+          User.findOne({
+            id: userToken.user,
+          }).then((user) => {
+            return next(null, user);
+          }).catch((err) => {
+            return next(err);
+          });
+        }).catch((err) => {
+          return next(err);
+        })
+      );
+    })
 );
