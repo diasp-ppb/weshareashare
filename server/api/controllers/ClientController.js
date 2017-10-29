@@ -8,9 +8,9 @@
 module.exports = {
   create(req, res) {
     let params = Client.parseAttrs(req.allParams());
-    Client.create(params)
-      .then(() => {
-        return res.ok({response: 'Client created!'});
+    Client.create(params).meta({fetch: true})
+      .then((client) => {
+        return res.ok({ client });
       })
       .catch(err => {
         return res.serverError(err);

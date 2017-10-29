@@ -8,9 +8,9 @@
 module.exports = {
   create(req, res) {
     let params = User.parseAttrs(req.allParams());
-    User.create(params)
-      .then(() => {
-        return res.created({response: 'User created!'});
+    User.create(params).meta({fetch: true})
+      .then((user) => {
+        return res.created({user});
       }).catch((err) => {
         return res.serverError(err);
       });

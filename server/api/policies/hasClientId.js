@@ -3,9 +3,12 @@
  */
 
 module.exports = (req, res, next) => {
-  let clientID = req.headers['Client-ID'];
+  let clientID = req.headers['client-id'];
   Client.find({id: clientID})
-    .then(()  => {
+    .then((client)  => {
+      if(client.length === 0) {
+        return res.unauthorized();
+      }
       return next();
     }).catch((err) => {
       return res.unauthorized(err);
