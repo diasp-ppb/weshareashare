@@ -16,13 +16,13 @@ module.exports = {
       type: 'string',
       isIn: ['access', 'refresh', 'reset'],
     },
-    expiresAt: { type: 'number', columnType: 'date' },
+    expiresAt: { type: 'ref', columnType: 'date' },
     user: {
       model: 'user',
     },
   },
 
-  findOrAdd(attrs) {
+  async findOrAdd(attrs) {
     const tokenConfig = sails.config.security.tokens[attrs.type];
     const token = Object.assign({}, attrs, {
       value: randToken.generate(tokenConfig.length),
@@ -30,21 +30,16 @@ module.exports = {
     });
 
     // Destroy user tokens about to expire
-    this.destroy(Object.assign({}, attrs, {
-      expiresAt: {
-        '<=': moment().utc().add(5, 'minutes').toDate(),
-      },
-    })).then(() => {
+    try {
+      await Token.destroy(Object.assign({}, attrs, {
+        expiresAt: {
+          '<=': moment().utc().add(5, 'minutes').toDate(),
+        },
+      }));
 
-      this.findOrCreate(attrs, token)
-        .then((userToken) => {
-          return userToken;
-        }).catch((err) => {
-          return err;
-        });
-
-    }).catch((err) => {
+      return await Token.findOrCreate(attrs, token);
+    } catch (err) {
       return err;
-    });
+    }
   }
 };

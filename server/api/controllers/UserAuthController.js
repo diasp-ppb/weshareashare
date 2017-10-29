@@ -7,7 +7,7 @@ const moment = require('moment');
 
 const expiresIn = expiresAt =>
   Math.round(moment.duration(
-    moment(expiresAt).diff(moment())
+    moment(moment()).diff(expiresAt)
   ).asSeconds());
 
 const formatTokenResponse = (accessToken, refreshToken, user) => ({
@@ -35,7 +35,6 @@ module.exports = {
         user: user.id,
         type: 'access',
       }).then((accessToken) => {
-
         Token.findOrAdd({
           user: user.id,
           type: 'refresh',
@@ -48,6 +47,7 @@ module.exports = {
       }).catch((err) => {
         return res.serverError(err);
       });
+
     })(req, res);
   },
 

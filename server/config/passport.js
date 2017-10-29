@@ -29,7 +29,7 @@ passport.deserializeUser((id, next) =>
  */
 passport.use(
   new BasicStrategy(
-    (username, password, next) =>
+    (username, password, next) => {
       User.findOne({
         username: username,
       }).then((user) => {
@@ -37,20 +37,22 @@ passport.use(
           return next(401);
         }
 
-        bcrypt.compare(password, user.password)
-          .then(res => {
-            if (!res) {
-              return next(401);
-            }
-
+        bcrypt.compare(password, user.password, function(err, res) {
+          if(err) {
+            return next(err);
+          }
+          else if(!res) {
+            return next(401);
+          }
+          else {
             return next(null, user);
-          }).catch(err => {
-            return err;
-          });
+          }
+        });
 
       }).catch((err) => {
         return next(err);
-      })
+      });
+    }
   )
 );
 
@@ -66,27 +68,29 @@ passport.use(
 passport.use(
   new BearerStrategy(
     (tokenValue, next) => {
-      Token.findOne({ value: tokenValue, type: 'access' }
-        .then((userToken) => {
-          if (!userToken) {
-            return next();
-          }
+      Token.findOne({
+        value: tokenValue, type: 'access'
+      }).then((userToken) => {
+        if (!userToken) {
+          return next();
+        }
 
-          if (moment(userToken.expiresAt).unix() < moment().unix()) {
-            Token.destroy({ value: tokenValue, type: 'access' }).exec();
-            return next();
-          }
+        if (moment(userToken.expiresAt).unix() < moment().unix()) {
+          Token.destroy({value: tokenValue, type: 'access'}).
+            then(() => {return next();});
+        }
 
-          User.findOne({
-            id: userToken.user,
-          }).then((user) => {
-            return next(null, user);
-          }).catch((err) => {
-            return next(err);
-          });
+        User.findOne({
+          id: userToken.user,
+        }).then((user) => {
+          return next(null, user);
         }).catch((err) => {
           return next(err);
-        })
-      );
-    })
+        });
+
+      }).catch((err) => {
+        return next(err);
+      });
+    }
+  )
 );
