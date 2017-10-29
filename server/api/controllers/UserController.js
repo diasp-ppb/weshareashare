@@ -10,7 +10,7 @@ module.exports = {
     let params = User.parseAttrs(req.allParams());
     User.create(params).meta({fetch: true})
       .then((user) => {
-        return res.created({user});
+        return res.created(user);
       }).catch((err) => {
         return res.serverError(err);
       });

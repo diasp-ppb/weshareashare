@@ -106,4 +106,59 @@ module.exports = {
       });
     });
   },
+
+  resetRequest(req, res) {
+    const params = req.allParams();
+    if(!params.email) {
+      return res.badRequest();
+    }
+
+    User.findOne({
+      email: params.email
+    }).then((user) => {
+      if(!user) {
+        return res.badRequest({response: 'The selected email doesn\'t exist in our platform.'});
+      }
+
+      Token.findOrAdd({
+        user: user.id,
+        type: 'reset',
+      }).then(() => {
+        return res.ok({response: 'An email with a link to reset the password was sent to this account.'});
+      }).catch((err) => {
+        return res.serverError(err);
+      });
+    }).catch((err) => {
+      res.serverError(err);
+    });
+  },
+
+  resetPassword: function (req, res) {
+    const params = req.allParams();
+    const token = params.token;
+    if (!params.newPassword) {
+      return res.badRequest();
+    }
+
+    Token.find({
+      value: token.value,
+    }).then((token) => {
+      User.update({
+        id: token.user
+      }, {password: params.newPassword}).meta({fetch: true})
+        .then((user) => {
+          console.log(user);
+        }).catch((err) => {
+          throw(err);
+        });
+    }).then(() => {
+      Token.destroy({
+        value: token.value,
+      }).then(() => {
+        res.ok({response: 'Password updated with success!'});
+      });
+    }).catch((err) => {
+      res.serverError(err);
+    });
+  },
 };

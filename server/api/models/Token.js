@@ -16,7 +16,7 @@ module.exports = {
       type: 'string',
       isIn: ['access', 'refresh', 'reset'],
     },
-    expiresAt: { type: 'ref', columnType: 'date' },
+    expiresAt: { type: 'ref', columnType: 'timestamp' },
     user: {
       model: 'user',
     },

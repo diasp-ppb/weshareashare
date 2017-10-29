@@ -43,6 +43,22 @@ module.exports.routes = {
     action: 'revoke',
   },
 
+  'post /users/auth/resetRequest': {
+    cors: {
+      allowRequestHeaders: 'Content-Type, Client-ID',
+    },
+    controller: 'UserAuthController',
+    action: 'resetRequest',
+  },
+
+  'post /users/auth/resetPassword': {
+    cors: {
+      allowRequestHeaders: 'Content-Type, Client-ID',
+    },
+    controller: 'UserAuthController',
+    action: 'resetPassword',
+  },
+
   'get /users': {
     controller: 'UserController',
     action: 'getAll',

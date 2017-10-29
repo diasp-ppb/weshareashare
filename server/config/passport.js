@@ -76,8 +76,10 @@ passport.use(
         }
 
         if (moment(userToken.expiresAt).unix() < moment().unix()) {
-          Token.destroy({value: tokenValue, type: 'access'}).
-            then(() => {return next();});
+          Token.destroy({value: tokenValue, type: 'access'})
+            .then(() => {
+              return next();
+            });
         }
 
         User.findOne({

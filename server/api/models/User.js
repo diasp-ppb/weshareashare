@@ -21,7 +21,7 @@ module.exports = {
     password: {
       type: 'string',
       minLength: PASSWORD_MIN_LENGTH,
-      maxLength: PASSWORD_MAX_LENGTH,
+      maxLength: 72,
       required: true,
     },
     email: {
@@ -72,7 +72,7 @@ module.exports = {
   },
 
   beforeUpdate (attrs, next) {
-    if(attrs.newPassword){
+    if(attrs.password){
       bcrypt.hash(attrs.password, SALT_ROUNDS)
         .then(function(hash) {
           attrs.password = hash;

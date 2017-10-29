@@ -30,6 +30,8 @@ module.exports.policies = {
     '*': 'hasClientId',
     refresh: ['hasClientId', 'hasRefreshToken'],
     revoke: ['hasOAuthBearer'],
+    resetRequest: ['hasClientId'],
+    resetPassword: ['hasClientId', 'hasResetToken'],
   },
 
 };
