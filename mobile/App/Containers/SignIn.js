@@ -11,7 +11,6 @@ const Form = t.form.Form;
 const SignInParams = t.struct({
   email: t.String,
   password: t.String,
-  rememberMe: t.Boolean
 });
 const options = {
   auto: 'placeholders',
@@ -54,12 +53,17 @@ export default class SignInForm extends Component {
                 title='Sign In' />
           </View>
           <Divider style={SignInStyles.divider}/>
-          <Text h5 style={{padding: 0, alignContent: 'flex-start', alignSelf: 'center', color: 'lightgrey'}}>Not registered?
-            <Text style={{fontWeight: 'bold', color: 'black'}} onPress={() => navigate('SignUp')}>
-              {' '}Sign up here.
+          <Text h5 style={{padding: 0, alignContent: 'flex-start', alignSelf: 'center', color: 'lightgrey'}}>
+            <Text style={{fontWeight: 'bold', color: 'black'}} onPress={() => navigate('ResetPassword')}>
+              {' '}Forgot password?
             </Text>
           </Text>
         </View>
+        <Text h5 style={{padding: 0, alignContent: 'flex-start', alignSelf: 'center', color: 'lightgrey'}}>Not registered?
+            <Text style={{fontWeight: 'bold', color: 'black'}} onPress={() => navigate('SignUp')}>
+              {' '}Sign Up here.
+            </Text>
+          </Text>
       </View>
     );
   }

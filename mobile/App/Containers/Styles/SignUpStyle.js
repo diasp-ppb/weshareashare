@@ -5,12 +5,11 @@ const SignUpStyles = {
   mainContainer: {
     flex: 1,
     backgroundColor: Colors.background,
+    justifyContent: 'space-between',
   },
   container: {
     justifyContent: 'center',
-    marginTop: Metrics.MARGIN,
     padding: Metrics.PADDING,
-    paddingBottom: 2,
     backgroundColor: '#ffffff',
   },
   logo: {
