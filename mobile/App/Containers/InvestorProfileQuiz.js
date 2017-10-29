@@ -2,15 +2,13 @@ import React from 'react';
 
 import {
     TouchableOpacity,
-    Platform,
     StyleSheet,
     Text,
     Button,
     View,
-    Picker
 } from 'react-native';
 
-import {GiftedChat, Actions, Bubble} from 'react-native-gifted-chat';
+import {GiftedChat, Actions} from 'react-native-gifted-chat';
 import CustomActions from './CustomActions';
 import * as Progress from 'react-native-progress';
 
@@ -21,19 +19,20 @@ export default class InvestorProfileQuiz extends React.Component {
         super(props);
 
         this.formHeader = 0;
-        this.messageIndex = -1;
+        this.messageIndex = 0;
         this.progress = 0;
         this.progressStep = 1 / STATES[this.formHeader].states.length;
+        this.maxMessageIndex = 0;
 
         this.state = {
             messages: [],
             loadEarlier: true,
             typingText: null,
             isLoadingEarlier: false,
-            optionsButtons : null
+            optionsButtons : null,
         };
 
-        this.messages = {}
+
 
         this._isMounted = false;
         this.onSend = this.onSend.bind(this);
@@ -47,11 +46,34 @@ export default class InvestorProfileQuiz extends React.Component {
 
     componentWillMount() {
         this._isMounted = true;
+
+        this.maxMessageIndex = STATES[this.formHeader].states.length - 1;
+
         this.setState(() => {
             return {
-                messages: require('./data/messages.js'),
+                messages: [
+                    {
+                        _id: Math.round(Math.random() * 1000000),
+                        text: STATES[this.formHeader].states[this.messageIndex].text,
+                        options: STATES[this.formHeader].states[this.messageIndex].options,
+                        renderAvatar: null,
+                        user: {
+                            _id: 2,
+                            name: 'React Native'
+                        }
+                    }
+                ]
             };
         });
+
+        this.setState((previousState) => {
+            const messages = previousState.messages
+            return {
+                optionsButtons: this.createOptionsButtons(messages[messages.length -1].options),
+            };
+        });
+
+
     }
 
     componentWillUnmount() {
@@ -84,22 +106,39 @@ export default class InvestorProfileQuiz extends React.Component {
                 messages: GiftedChat.append(previousState.messages, messages),
             };
         });
-
         this.answerDemo(messages);
 
     }
 
-    answerUser(messages = []){
+
+    answerUser(messages){
         this.setState((previousState) => {
             return {
                 messages: GiftedChat.append(previousState.messages, messages),
+                optionsButtons: null,
             };
         });
 
-        this.answerDemo(messages.text);
+        this.answerDemo([messages]);
     }
 
     answerDemo(messages) {
+
+        console.log(messages);
+        this.getStateMessage = function () {
+            this.messageIndex++;
+
+            if(this.messageIndex > this.maxMessageIndex) {
+                this.formHeader++;
+                this.maxMessageIndex = STATES[this.formHeader].states.length;
+                this.messageIndex = 0;
+                this.progress = 0;
+                this.progressStep = 1 / STATES[this.formHeader].states.length;
+            }
+            return STATES[this.formHeader].states[this.messageIndex];
+        }
+
+
 
         this.getDisplayMessage = function (message) {
             switch (message) {
@@ -108,29 +147,26 @@ export default class InvestorProfileQuiz extends React.Component {
                 case "exit":
                     return "You can continue this later.";
                 case "skip":
-                    this.messageIndex++;
-                    return "You can fill this field manually later or go back through options.\n" + STATES[this.formHeader].states[this.messageIndex];
+                    return "You can fill this field manually later or go back through options.\n" + this.getStateMessage();
                 default:
-
-                    this.messageIndex++;
-                    return STATES[this.formHeader].states[this.messageIndex];
+                    return this.getStateMessage();
             }
             return "hey";
         }
+
 
         setTimeout(() => {
             if (this._isMounted === true) {
                 if (messages.length > 0) {
                     // TODO check if first answer is yes then start form cycle
                     this.progress += this.progressStep;
-                    console.log(messages[0].text);
-                    var returnMessage = this.getDisplayMessage(messages[0].text);
-                    this.onReceive(returnMessage);
-                    this.setState(
-                        {
-                            optionsButtons: this.createOptionsButtons(["yes","no"])
-                        }
-                    );
+                    var returnMessage = this.getDisplayMessage(messages["0"].text);
+                    this.setState({
+                        options:this.createOptionsButtons(returnMessage.options)
+                    });
+
+                    this.onReceive(returnMessage.text);
+
                 }
             }
         }, 1000);
@@ -152,23 +188,17 @@ export default class InvestorProfileQuiz extends React.Component {
                 }),
             };
         });
-    }z
+    }
 
     createOptionsButtons = function (options) {
-        if (options) {
+        if (options.length > 0) {
 
-            let Items = options.map((s, i) => {
+            let Items = options.map((s,i) => {
 
                 return <Button
+                    key={i}
                     style={styles.button}
                     onPress={() => {
-
-                        this.setState({
-                            options: [s],
-                            selected: s,
-                            picked: true,
-                        });
-
 
                         this.answerUser({
                             _id: Math.round(Math.random() * 1000000),
@@ -182,20 +212,13 @@ export default class InvestorProfileQuiz extends React.Component {
                     }
                     }
                     title={s}
-                    color="#000000"
                     accessibilityLabel={s}
                 />
 
             });
-
-
-            return (
-                <TouchableOpacity style={[styles.container, this.props.containerStyle]}>
-                    {Items}
-                </TouchableOpacity>
-            );
+            return Items;
         }
-        return null;
+        return new Array();
     }
 
     renderCustomActions(props) {
@@ -240,7 +263,6 @@ export default class InvestorProfileQuiz extends React.Component {
                         nothing
                     }
                     title={"More info"}
-                    color="#000000"
                     accessibilityLabel={"More info"}
                     />
                 </View>
@@ -251,7 +273,7 @@ export default class InvestorProfileQuiz extends React.Component {
         );
 
     }
-    
+
     render() {
         return (
             <GiftedChat
@@ -265,9 +287,10 @@ export default class InvestorProfileQuiz extends React.Component {
                 }}
 
                 renderAvatar={null}
-                renderMessages={this.renderCom}
                 renderActions={this.renderCustomActions}
                 renderFooter={this.renderFooter}
+
+                minInputToolbarHeight={0}
             />
 
 
@@ -294,6 +317,5 @@ const styles = StyleSheet.create({
     button: {
         marginBottom: 10,
         alignItems: "center",
-        background: "#3cb0fd",
     }
 });
