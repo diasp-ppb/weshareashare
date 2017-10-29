@@ -12,7 +12,6 @@ const SignUpParams = t.struct({
   email: t.String,
   password: t.String,
   repeatPassword: t.String,
-  rememberMe: t.Boolean
 });
 
 const options = {
@@ -57,25 +56,27 @@ export default class SignUpForm extends Component {
           style={SignUpStyles.logo}
           resizeMode="contain"
         />
-        <Text h1 style={SignUpStyles.title}>Stoik PPR</Text>
-        <View style={SignUpStyles.container}>
-          <Form
-            ref="form"
-            type={SignUpParams}
-            options={options}
-          />
-          <Button
-            buttonStyle={SignUpStyles.button}
-            onPress={this.onSignUp}
-            underlayColor='#99d9f4'
-            title='Sign Up' />
-        </View>
-        <Divider style={SignUpStyles.divider}/>
-        <Text h5 style={{padding: 0, alignContent: 'flex-start', alignSelf: 'center', color: 'lightgrey'}}>Already have an account?
-          <Text style={{fontWeight: 'bold', color: 'black'}} onPress={() => navigate('SignIn')}>
-            {' '}Sign in here.
+        <Text h2 style={SignUpStyles.title}>Stoik PPR</Text>
+        <View>
+          <View style={SignUpStyles.container}>
+            <Form
+              ref="form"
+              type={SignUpParams}
+              options={options}
+            />
+            <Button
+              buttonStyle={SignUpStyles.button}
+              onPress={this.onSignUp}
+              underlayColor='#99d9f4'
+              title='Sign Up' />
+          </View>
+          <Divider style={SignUpStyles.divider}/>
+          <Text h5 style={{padding: 0, alignContent: 'flex-start', alignSelf: 'center', color: 'lightgrey'}}>Already have an account?
+            <Text style={{fontWeight: 'bold', color: 'black'}} onPress={() => navigate('SignIn')}>
+              {' '}Sign In here.
+            </Text>
           </Text>
-        </Text>
+        </View>
       </View>
     );
   }
