@@ -28,7 +28,7 @@ export default class FatcaFormQuiz extends React.Component {
     this.formHeader = 0;
     this.progress = 0;
     this.progressStep = 1/STATES.length;
-
+    this.previousMessages;
 
     this.state = {
       messages: [],
@@ -78,19 +78,18 @@ export default class FatcaFormQuiz extends React.Component {
         this.question = state.question;
         this.formData = state.formData;
         this.isUSPersonAnswers = state.isUSPersonAnswers;
+        this.previousMessages = state.messages;
+        this.previousMessages.shift();
 
-        if(state.messages.length != 0){
+        if(state.messages.length > 0){
           this.setState(() => {
             return {
-              messages: [state.messages[0]],
               loadEarlier: true,
             };
           });
         }
       }
-      else{
         this.askNextQuestion();
-      }
     }).done();
   }
 
@@ -112,7 +111,7 @@ export default class FatcaFormQuiz extends React.Component {
 
           this.setState((previousState) => {
             return {
-              messages: state.messages,
+              messages: GiftedChat.prepend(previousState.messages, this.previousMessages),
               loadEarlier: false,
               isLoadingEarlier: false,
             };
@@ -139,7 +138,7 @@ export default class FatcaFormQuiz extends React.Component {
       if (this.question) {
         this.setState((previousState) => {
           return {
-            typingText: 'React Native is typing'
+            typingText: 'WeShareAShare is typing'
           };
         });
       }
@@ -169,6 +168,8 @@ export default class FatcaFormQuiz extends React.Component {
 
             if(valid){
               this.question++;
+              this.progress += this.progressStep;
+
               this.askNextQuestion();
             }
           }
@@ -218,9 +219,8 @@ export default class FatcaFormQuiz extends React.Component {
 
   askNextQuestion(){
     var state = STATES[this.question];
-    this.progress += this.progressStep;
 
-    if(this.question > 1 && this.question < NO_QUESTIONS){
+    if(this.question < NO_QUESTIONS){
       this.createOptionsButtons(state.answers);
     }
     else{
@@ -246,7 +246,12 @@ export default class FatcaFormQuiz extends React.Component {
     state.formData = this.formData;
     state.isUSPersonAnswers = this.isUSPersonAnswers;
 
-    state.messages = this.state.messages;
+    if(this.state.loadEarlier){
+      state.messages = this.state.messages.concat(this.previousMessages);
+    }
+    else{
+      state.messages = this.state.messages;
+    }
 
     AsyncStorage.setItem("fatca", JSON.stringify(state));
     console.log("Saved");
