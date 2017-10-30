@@ -228,8 +228,14 @@ export default class FatcaFormQuiz extends React.Component {
     }
 
     if(this.question >= NO_QUESTIONS){
-      this.onReceive('Thank you!');
-      this.changePage();
+      if(this.progress == 1){
+        this.onReceive('Thank you!');
+        this.changePage();
+      }
+      else{
+        //TODO make user fill the missing information
+        this.onReceive('Data missing');
+      }
     }
     else{
         this.onReceive(state.question);
@@ -258,7 +264,6 @@ export default class FatcaFormQuiz extends React.Component {
   }
 
   changePage(){
-    //TODO Check if form is complete
     //Determine if person is US Person
     if(this.isUSPersonAnswers[this.isUSPersonAnswers.length-1] == false){
       this.formData.isUSPerson = 'yes';
