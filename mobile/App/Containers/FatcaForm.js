@@ -7,7 +7,8 @@ import {
     Text,
     Button,
     View,
-    Picker
+    Picker,
+    AsyncStorage,
 } from 'react-native';
 
 import {GiftedChat, Actions, Bubble} from 'react-native-gifted-chat';
@@ -61,6 +62,8 @@ export default class FatcaFormQuiz extends React.Component {
   }
 
   componentWillMount() {
+    //AsyncStorage.clear();
+
     this._isMounted = true;
     this.setState(() => {
       return {
@@ -68,7 +71,27 @@ export default class FatcaFormQuiz extends React.Component {
       };
     });
 
-    this.onReceive(STATES[this.question].question);
+    AsyncStorage.getItem("fatca").then((value) => {
+      if(value != null){
+        var state = JSON.parse(value);
+        this.progress = state.progress;
+        this.question = state.question;
+        this.formData = state.formData;
+        this.isUSPersonAnswers = state.isUSPersonAnswers;
+
+        if(state.messages.length != 0){
+          this.setState(() => {
+            return {
+              messages: [state.messages[0]],
+              loadEarlier: true,
+            };
+          });
+        }
+      }
+      else{
+        this.askNextQuestion();
+      }
+    }).done();
   }
 
   componentWillUnmount() {
@@ -84,13 +107,18 @@ export default class FatcaFormQuiz extends React.Component {
 
     setTimeout(() => {
       if (this._isMounted === true) {
-        this.setState((previousState) => {
-          return {
-            //messages: GiftedChat.prepend(previousState.messages, require('./data/old_messages.js')),
-            loadEarlier: false,
-            isLoadingEarlier: false,
-          };
-        });
+        AsyncStorage.getItem("fatca").then((value) => {
+          var state = JSON.parse(value);
+
+          this.setState((previousState) => {
+            return {
+              messages: state.messages,
+              loadEarlier: false,
+              isLoadingEarlier: false,
+            };
+          });
+
+        }).done();
       }
     }, 1000); // simulating network
   }
@@ -206,6 +234,22 @@ export default class FatcaFormQuiz extends React.Component {
     else{
         this.onReceive(state.question);
     }
+
+    this.saveData();
+  }
+
+  saveData() {
+    var state = {};
+
+    state.progress = this.progress
+    state.question = this.question;
+    state.formData = this.formData;
+    state.isUSPersonAnswers = this.isUSPersonAnswers;
+
+    state.messages = this.state.messages;
+
+    AsyncStorage.setItem("fatca", JSON.stringify(state));
+    console.log("Saved");
   }
 
   changePage(){
