@@ -1,0 +1,19 @@
+div
+  | The following message was sent using the We Share a Share app #[strong Contact Us] form,
+  h3 Message
+  | !{message}
+  hr
+div
+  h3 Additional information
+  p
+    strong Name:
+    |  #{ from.name }
+  p
+    strong Email:
+    |  #{ from.email }
+  p
+    strong Subject:
+    |  #{ subject }
+  p
+    strong User was authenticated:
+    |  #{ from.authenticated ? 'Yes' : 'No' }
