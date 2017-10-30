@@ -8,4 +8,16 @@
  * https://sailsjs.com/config/custom
 */
 
-module.exports.custom = {};
+module.exports.custom = {
+  safeEmailEnvironment: true,
+  mailer: {
+    from: 'WeShareAShare  <noreply@stoik.com>',
+    port: 1025,
+    host: 'mailhog',
+    secure: true,
+    tls: {
+      rejectUnauthorized: false
+    },
+    templateDir: "views/emails"
+  }
+};
