@@ -10,14 +10,17 @@ module.exports = {
 
     participant: {
       model: 'person',
-      via: 'subscription'
+      via: 'subscription',
+      required: true,
+      unique: true
     },
 
     contributor: {
-      model: 'person',
-      via: 'contributions'
+      model: 'contributor',
+      via: 'funds',
+      required: false
     },
-
+    
     beneficiaries: {
       collection: 'beneficiary',
       via: 'provider'
@@ -26,7 +29,7 @@ module.exports = {
     assets: {
       collection: 'asset',
       via: 'entity'
-    }
+    },
   },
 
 };

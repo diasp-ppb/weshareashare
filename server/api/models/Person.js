@@ -75,14 +75,16 @@ module.exports = {
     subscription: {
       model: 'fund',
       via: 'participant',
-      required: false
+      required: false,
+      unique: true
     },
 
-    contributions: {
-      model: 'fund',
-      via: 'contributor',
-      required: false
+    contributor: {
+      model: 'contributor',
+      required: true,
+      unique: true
     }
+    
   },
 
 };
