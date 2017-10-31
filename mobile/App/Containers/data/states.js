@@ -28,33 +28,43 @@ module.exports = [
             },
             {
                 text: "What is your postal code?",
+                options: [],
             },
             {
                 text: "What is your telephone number?",
+                options: [],
             },
             {
                 text: "What is your cellphone number?",
+                options: [],
             },
             {
                 text: "Tell me your NIF please",
+                options: [],
             },
             {
                 text: "Can I have your ID/CC if you will?",
+                options: [],
             },
             {
                 text: "When is your birthday?",
+                options: [],
             },
             {
                 text: "What is your profession?",
+                options: [],
             },
             {
                 text: "What is your employer's name?",
+                options: [],
             },
             {
                 text: "Tell me your email please?",
+                options: [],
             },
             {
                 text:  "Do you want updates?",
+                options: [],
             }
         ]
     },

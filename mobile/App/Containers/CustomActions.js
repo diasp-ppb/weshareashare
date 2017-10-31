@@ -16,7 +16,7 @@ const STATES = require("./data/states.js");
 export default class CustomActions extends React.Component {
     constructor(props) {
         super(props);
-        this._images = [];
+
         this.state = {
             modalVisible: false,
         };
@@ -25,13 +25,6 @@ export default class CustomActions extends React.Component {
         this.subsection = -1;
     }
 
-    setImages(images) {
-        this._images = images;
-    }
-
-    getImages() {
-        return this._images;
-    }
 
     setModalVisible(visible = false) {
         this.setState({modalVisible: visible});

@@ -8,11 +8,14 @@ import {
     View,
 } from 'react-native';
 
-import {GiftedChat, Actions} from 'react-native-gifted-chat';
+import {GiftedChat, Actions, Composer} from 'react-native-gifted-chat';
 import CustomActions from './CustomActions';
 import * as Progress from 'react-native-progress';
 
 const STATES = require("./data/states.js");
+
+const HIDE = 0;
+const SHOW = 44;
 
 export default class InvestorProfileQuiz extends React.Component {
     constructor(props) {
@@ -29,9 +32,8 @@ export default class InvestorProfileQuiz extends React.Component {
             loadEarlier: true,
             typingText: null,
             isLoadingEarlier: false,
-            optionsButtons : null,
+            optionsButtons: []
         };
-
 
 
         this._isMounted = false;
@@ -69,7 +71,7 @@ export default class InvestorProfileQuiz extends React.Component {
         this.setState((previousState) => {
             const messages = previousState.messages
             return {
-                optionsButtons: this.createOptionsButtons(messages[messages.length -1].options),
+                optionsButtons: this.createOptionsButtons(messages[messages.length - 1].options),
             };
         });
 
@@ -102,6 +104,11 @@ export default class InvestorProfileQuiz extends React.Component {
 
     onSend(messages = []) {
         this.setState((previousState) => {
+            for(var i=0,len = messages.length; i < len; i++) {
+                messages[i].createdAt = null;
+            }
+
+            console.log(messages);
             return {
                 messages: GiftedChat.append(previousState.messages, messages),
             };
@@ -111,16 +118,17 @@ export default class InvestorProfileQuiz extends React.Component {
     }
 
 
-    answerUser(messages){
+    answerUser(messages) {
         this.setState((previousState) => {
             return {
                 messages: GiftedChat.append(previousState.messages, messages),
-                optionsButtons: null,
+                optionsButtons: [],
             };
         });
 
         this.answerDemo([messages]);
     }
+
 
     answerDemo(messages) {
 
@@ -128,7 +136,7 @@ export default class InvestorProfileQuiz extends React.Component {
         this.getStateMessage = function () {
             this.messageIndex++;
 
-            if(this.messageIndex > this.maxMessageIndex) {
+            if (this.messageIndex > this.maxMessageIndex) {
                 this.formHeader++;
                 this.maxMessageIndex = STATES[this.formHeader].states.length;
                 this.messageIndex = 0;
@@ -137,7 +145,6 @@ export default class InvestorProfileQuiz extends React.Component {
             }
             return STATES[this.formHeader].states[this.messageIndex];
         }
-
 
 
         this.getDisplayMessage = function (message) {
@@ -161,9 +168,8 @@ export default class InvestorProfileQuiz extends React.Component {
                     // TODO check if first answer is yes then start form cycle
                     this.progress += this.progressStep;
                     var returnMessage = this.getDisplayMessage(messages["0"].text);
-                    this.setState({
-                        options:this.createOptionsButtons(returnMessage.options)
-                    });
+
+                    this.setState({optionsButtons: this.createOptionsButtons(returnMessage.options)});
 
                     this.onReceive(returnMessage.text);
 
@@ -180,10 +186,7 @@ export default class InvestorProfileQuiz extends React.Component {
                     text: text,
                     renderAvatar: null,
                     user: {
-                        _id: 2,
-                        name: 'React Native',
-                        avatar: 'https://avatars0.githubusercontent.com/u/16372771?s=460&v=4',
-
+                        _id: 2
                     },
                 }),
             };
@@ -193,7 +196,7 @@ export default class InvestorProfileQuiz extends React.Component {
     createOptionsButtons = function (options) {
         if (options.length > 0) {
 
-            let Items = options.map((s,i) => {
+            let Items = options.map((s, i) => {
 
                 return <Button
                     key={i}
@@ -218,7 +221,7 @@ export default class InvestorProfileQuiz extends React.Component {
             });
             return Items;
         }
-        return new Array();
+        return [];
     }
 
     renderCustomActions(props) {
@@ -258,12 +261,12 @@ export default class InvestorProfileQuiz extends React.Component {
                 <View>
                     {this.state.optionsButtons}
                     <Button
-                    style={styles.button}
-                    onPress={
-                        nothing
-                    }
-                    title={"More info"}
-                    accessibilityLabel={"More info"}
+                        style={styles.button}
+                        onPress={
+                            nothing
+                        }
+                        title={"More info"}
+                        accessibilityLabel={"More info"}
                     />
                 </View>
                 <View style={styles.progressBar}>
@@ -273,6 +276,7 @@ export default class InvestorProfileQuiz extends React.Component {
         );
 
     }
+
 
     render() {
         return (
@@ -290,7 +294,6 @@ export default class InvestorProfileQuiz extends React.Component {
                 renderActions={this.renderCustomActions}
                 renderFooter={this.renderFooter}
 
-                minInputToolbarHeight={0}
             />
 
 
