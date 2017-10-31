@@ -6,37 +6,20 @@
  */
 
 module.exports = {
-
   attributes: {
-    name: {
-      type: 'string',
-      required: true,
-      unique: true,
-    },
-    description: {
-      type: 'string',
-      required: true,
-    },
-    NIF: {
-      type: 'number',
-      required: true,
-    },
-    IBAN: {
-      type: 'number',
-      required: true,
-    },
-    email: {
-      type: 'string',
-      required: true,
-      unique: true,
-    },
-    address: {
-      type: 'string',
-      allowNull: true
+
+    participant: {
+      model: 'person',
+      via: 'subscription'
     },
 
-    benefits: {
-      collection: 'benefit',
+    contributor: {
+      model: 'person',
+      via: 'contributions'
+    },
+
+    beneficiaries: {
+      collection: 'beneficiary',
       via: 'provider'
     },
 
@@ -47,4 +30,3 @@ module.exports = {
   },
 
 };
-
