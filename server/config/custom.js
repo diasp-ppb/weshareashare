@@ -8,16 +8,26 @@
  * https://sailsjs.com/config/custom
 */
 
+const Email = require('email-templates');
+const path = require('path');
+
 module.exports.custom = {
   safeEmailEnvironment: true,
-  mailer: {
-    from: 'WeShareAShare  <noreply@stoik.com>',
-    port: 1025,
-    host: 'mailhog',
-    secure: true,
-    tls: {
-      rejectUnauthorized: false
+  email: new Email({
+    message: {
+      from: 'WeShareAShare  <noreply@stoik.com>',
     },
-    templateDir: "views/emails"
-  }
+    views: {
+      root: path.resolve('views/emails'),
+    },
+    send: this.safeEmailEnvironment,
+    transport: {
+      host: 'mailhog',
+      port: 1025,
+      secure: false,
+      tls: {
+        rejectUnauthorized: false
+      },
+    },
+  }),
 };

@@ -51,6 +51,10 @@ module.exports = {
     })(req, res);
   },
 
+  signout(req, res) {
+
+  },
+
   refresh(req, res) {
     const params = req.allParams();
 

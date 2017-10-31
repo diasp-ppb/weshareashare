@@ -10,6 +10,17 @@ module.exports = {
     let params = User.parseAttrs(req.allParams());
     User.create(params).meta({fetch: true})
       .then((user) => {
+        let email = sails.config.custom.email;
+        email.send({
+          template: 'register',
+          message: {
+            to: user.email
+          },
+          locals: {
+            name: user.username,
+            email: user.email,
+          }
+        }).then(console.log).catch(console.error);
         return res.created(user);
       }).catch((err) => {
         return res.serverError(err);

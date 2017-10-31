@@ -4,6 +4,9 @@
 
 module.exports = (req, res, next) => {
   let clientID = req.headers['client-id'];
+  if(!clientID){
+    return res.unauthorized();
+  }
   Client.findOne({
     id: clientID
   }).then((client)  => {

@@ -1,14 +1,14 @@
-extends template/default
+extends ../template/default
 
 block content
-  p Welcome, #{user.username},
+  p Welcome, #{name},
 
   p.
     You're now registered in the WeShareAShare platform.
     You can now fill the onboarding forms and then support our available causes.
 
   p
-    div Username: #{user.username}
-    div Email: #{user.email}
+    div Username: #{name}
+    div Email: #{email}
 
   p Thank you again for your registration. If you have any questions, please feel free to contact us!
