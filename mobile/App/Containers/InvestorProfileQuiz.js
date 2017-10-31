@@ -4,18 +4,14 @@ import {
     TouchableOpacity,
     StyleSheet,
     Text,
-    Button,
     View,
 } from 'react-native';
 
-import {GiftedChat, Actions, Composer} from 'react-native-gifted-chat';
+import {GiftedChat, Actions} from 'react-native-gifted-chat';
 import CustomActions from './CustomActions';
 import * as Progress from 'react-native-progress';
 
 const STATES = require("./data/states.js");
-
-const HIDE = 0;
-const SHOW = 44;
 
 export default class InvestorProfileQuiz extends React.Component {
     constructor(props) {
@@ -104,7 +100,7 @@ export default class InvestorProfileQuiz extends React.Component {
 
     onSend(messages = []) {
         this.setState((previousState) => {
-            for(var i=0,len = messages.length; i < len; i++) {
+            for (var i = 0, len = messages.length; i < len; i++) {
                 messages[i].createdAt = null;
             }
 
@@ -194,31 +190,28 @@ export default class InvestorProfileQuiz extends React.Component {
     }
 
     createOptionsButtons = function (options) {
-        if (options.length > 0) {
+
+        if (options && options.length > 0) {
 
             let Items = options.map((s, i) => {
 
-                return <Button
+                return(
+                <TouchableOpacity
                     key={i}
-                    style={styles.button}
-                    onPress={() => {
-
-                        this.answerUser({
-                            _id: Math.round(Math.random() * 1000000),
-                            text: s,
-                            renderAvatar: null,
-                            user: {
-                                _id: 1
-                            },
-                        });
-
-                    }
-                    }
-                    title={s}
-                    accessibilityLabel={s}
-                />
-
+                    style={{backgroundColor: "#ffffff"}}
+                    onPress={
+                        () => this.answerUser({
+                                _id: Math.round(Math.random() * 1000000),
+                                text: s,
+                                user: {_id: 1},
+                            }
+                        )}
+                >
+                    <Text>{s}</Text>
+                </TouchableOpacity>
+                );
             });
+            console.log(Items);
             return Items;
         }
         return [];
@@ -251,6 +244,7 @@ export default class InvestorProfileQuiz extends React.Component {
     }
 
     renderFooter(props) {
+
         nothing = function () {
 
         };
@@ -258,17 +252,15 @@ export default class InvestorProfileQuiz extends React.Component {
 
         return (
             <View style={{alignItems: "center"}}>
-                <View>
-                    {this.state.optionsButtons}
-                    <Button
-                        style={styles.button}
-                        onPress={
-                            nothing
-                        }
-                        title={"More info"}
-                        accessibilityLabel={"More info"}
-                    />
-                </View>
+                {this.state.optionsButtons}
+                <TouchableOpacity
+                    style={{backgroundColor: "#ffffff"}}
+                    onPress={
+                        nothing
+                    }
+                >
+                    <Text> Learn More </Text>
+                </TouchableOpacity>
                 <View style={styles.progressBar}>
                     <Progress.Bar progress={this.progress} width={200}/>
                 </View>
@@ -280,6 +272,7 @@ export default class InvestorProfileQuiz extends React.Component {
 
     render() {
         return (
+            <View style={styles.backgroundChat}>
             <GiftedChat
                 messages={this.state.messages}
                 onSend={this.onSend}
@@ -295,6 +288,7 @@ export default class InvestorProfileQuiz extends React.Component {
                 renderFooter={this.renderFooter}
 
             />
+            </View>
 
 
         );
@@ -302,6 +296,10 @@ export default class InvestorProfileQuiz extends React.Component {
 }
 
 const styles = StyleSheet.create({
+    backgroundChat: {
+        backgroundColor : "#6f946c",
+        flex: 1
+    },
     footerContainer: {
         marginTop: 5,
         marginLeft: 10,
