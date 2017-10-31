@@ -16,12 +16,12 @@ module.exports = {
     genre: {
       type: 'string',
       required: true
-    }
+    },
 
     address: {
       type: 'string',
       required: true
-    }
+    },
 
     area: {
       type: 'string',
@@ -75,15 +75,13 @@ module.exports = {
     subscription: {
       model: 'fund',
       via: 'participant',
-      required: false,
-      allowNull: true
-    }
+      required: false
+    },
 
     contributions: {
       model: 'fund',
       via: 'contributor',
-      required: false,
-      allowNull: true
+      required: false
     }
   },
 
