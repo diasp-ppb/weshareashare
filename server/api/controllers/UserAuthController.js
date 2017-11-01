@@ -124,9 +124,26 @@ module.exports = {
         return res.badRequest({response: 'The selected email doesn\'t exist in our platform.'});
       }
 
+      return user;
+    }).then((user) => {
       Token.findOrAdd({
         user: user.id,
         type: 'reset',
+      }).then(() => {
+        return user;
+      }).catch((err) => {
+        throw(err);
+      });
+    }).then((user) => {
+      let email = sails.config.custom.email;
+      email.send({
+        template: 'passwordReset',
+        message: {
+          to: user.email
+        },
+        locals: {
+          name: user.username,
+        }
       }).then(() => {
         return res.ok({response: 'An email with a link to reset the password was sent to this account.'});
       }).catch((err) => {

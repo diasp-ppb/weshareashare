@@ -13,17 +13,7 @@
  */
 
 module.exports.i18n = {
-
-  locales: ['en', 'es', 'fr', 'de'],
+  locales: ['en', 'pt'],
   defaultLocale: 'en',
-
-  /****************************************************************************
-  *                                                                           *
-  * Path (relative to app root) of directory to store locale (translation)    *
-  * files in.                                                                 *
-  *                                                                           *
-  ****************************************************************************/
-
-  // localesDirectory: 'config/locales'
-
+  localesDirectory: 'config/locales'
 };

@@ -1,0 +1,13 @@
+{
+  "Welcome": "Welcome",
+  "user.email.required": "Email is required",
+  "user.email.unique": "Email address is already taken",
+  "user.email.maxLength": "Username is too long (max: 32 characters).",
+  "user.email.isEmail": "Email address is invalid.",
+  "user.username.required": "Username is required",
+  "user.username.unique": "Username is already taken",
+  "user.username.maxLength": "Username is too long (max: 32 characters).",
+  "user.password.required": "Password is required",
+  "user.password.maxLength": "Username is too long (max: 32 characters).",
+  "user.password.minLength": "Username is too short (max: 8 characters)."
+}
