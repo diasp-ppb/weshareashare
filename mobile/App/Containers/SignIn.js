@@ -1,15 +1,18 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, TouchableHighlight, Image } from 'react-native';
-import SignInStyles from './Styles/SignInStyle';
+import { View, TouchableHighlight, Image } from 'react-native';
 import { Images, ApplicationStyles } from '../Themes/index';
-import { StoikHeader } from '../Components/StoikHeader';
-import * as Session from '../Redux/Session'
 import { Button, Text, Divider } from 'react-native-elements';
 
 const t = require('tcomb-form-native');
 const Form = t.form.Form;
+
+const Email = t.refinement(t.String, email => {
+  const reg = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+  return reg.test(email);
+});
+
 const SignInParams = t.struct({
-  email: t.String,
+  email: Email,
   password: t.String,
 });
 const options = {
@@ -17,6 +20,7 @@ const options = {
   fields: {
     email: {
       placeholder: 'Email',
+      error: 'Insert a valid email'
     },
     password: {
       placeholder: 'Password',
@@ -27,43 +31,48 @@ const options = {
 
 export default class SignInForm extends Component {
 
-  onSignIn() {
-    Session.authenticate('renatoabreu@122143', '124124');
+  onSignIn = () => {
+    let values = this.refs.form.getValue();
+    let validate = this.refs.form.validate();
+    if(validate) {
+
+    }
   }
 
   render() {
     const { navigate } = this.props.navigation;    
     return (
-      <View style={SignInStyles.mainContainer}>
+      <View style={ApplicationStyles.mainContainer}>
+        <Text h1 style={ApplicationStyles.headerTitle}>Stoik PPR</Text>
         <Image
           source={Images.logo}
-          style={SignInStyles.logo}
+          style={ApplicationStyles.logo}
           resizeMode="contain"/>
-        <Text h1 style={SignInStyles.title}>Stoik PPR</Text>
-        <View>
-          <View style={SignInStyles.container}>
-              <Form
-                ref="form"
-                type={SignInParams}
-                options={options} />
-              <Button
-                buttonStyle={SignInStyles.button}
-                onPress={this.onSignIn}
-                underlayColor='#99d9f4'
-                title='Sign In' />
+        <View style={ApplicationStyles.form}>
+          <Text h4 style={ApplicationStyles.subTitle}>Sign in</Text>
+          <View style={ApplicationStyles.container}>
+            <Form
+              ref="form"
+              type={SignInParams}
+              options={options} />
+            <Button
+              buttonStyle={ApplicationStyles.btn}
+              onPress={this.onSignIn}
+              underlayColor='#99d9f4'
+              title='Sign in' />
           </View>
-          <Divider style={SignInStyles.divider}/>
-          <Text h5 style={{padding: 0, alignContent: 'flex-start', alignSelf: 'center', color: 'lightgrey'}}>
-            <Text style={{fontWeight: 'bold', color: 'black'}} onPress={() => navigate('ResetPassword')}>
-              {' '}Forgot password?
+          <Divider style={ApplicationStyles.divider}/>
+          <Text h5 style={ApplicationStyles.infoText}>
+            <Text style={ApplicationStyles.linkText} onPress={() => navigate('ForgotPassword')}>
+              {' '}Forgot your password?
+            </Text>
+          </Text>
+          <Text h5 style={ApplicationStyles.infoText}>Not yet registered?
+            <Text style={ApplicationStyles.linkText} onPress={() => navigate('SignUp')}>
+              {' '}Sign up
             </Text>
           </Text>
         </View>
-        <Text h5 style={{padding: 0, alignContent: 'flex-start', alignSelf: 'center', color: 'lightgrey'}}>Not registered?
-            <Text style={{fontWeight: 'bold', color: 'black'}} onPress={() => navigate('SignUp')}>
-              {' '}Sign Up here.
-            </Text>
-          </Text>
       </View>
     );
   }

@@ -1,55 +1,72 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, TouchableHighlight, Image } from 'react-native';
-import SignInStyles from './Styles/SignInStyle';
-import ResetPasswordStyles from './Styles/ResetPasswordStyle';
-import { Images, ApplicationStyles, Colors, Metrics } from '../Themes/index';
-import { StoikHeader } from '../Components/StoikHeader';
-import * as Session from '../Redux/Session';
+import { Images, ApplicationStyles } from '../Themes/index';
 import { Button, Text, Divider } from 'react-native-elements';
 
 const t = require('tcomb-form-native');
 const Form = t.form.Form;
-const SignInParams = t.struct({
-  email: t.String,
+
+const ResetParams = t.struct({
+  password: t.String,
+  repeatPassword: t.String
 });
 const options = {
   auto: 'placeholders',
   fields: {
-    email: {
-      placeholder: 'Email',
+    password: {
+      placeholder: 'Your new password',
+      secureTextEntry: true,
+      password: true,
+      error: 'Insert a valid password'
+    },
+    repeatPassword: {
+      placeholder: 'Repeat password',
+      secureTextEntry: true,
+      password: true,
+      error: 'The password does not match the one entered above'
     },
   },
 };
 
-export default class ResetPassword extends Component {
+export default class ForgotPassword extends Component {
 
-  onRecover() {
-      // TODO
+  onReset = () => {
+    let value = this.refs.form.getValue();
+    let validate = this.refs.form.validate();
+    if(validate) {
+
+    }
   }
 
   render() {
-    const { navigate } = this.props.navigation;    
+    const { navigate } = this.props.navigation;
     return (
-      <View style={SignInStyles.mainContainer}>
+      <View style={ApplicationStyles.mainContainer}>
+        <Text h1 style={ApplicationStyles.headerTitle}>Stoik PPR</Text>
         <Image
           source={Images.logo}
-          style={SignInStyles.logo}
+          style={ApplicationStyles.logo}
           resizeMode="contain"/>
-        <Text h1 style={SignInStyles.title}>Stoik PPR</Text>
-        <View style={ResetPasswordStyles.resetPasswordForm}>
-          <Text h4 style={ResetPasswordStyles.subTitle}>Reset password</Text>
-          <Text style={{textAlign:'center'}}>Enter your registered email. We'll send instructions to there.</Text>
-          <View style={SignInStyles.container}>
-              <Form
-                ref="form"
-                type={SignInParams}
-                options={options} />
-              <Button
-                buttonStyle={SignInStyles.button}
-                onPress={this.onRecover}
-                underlayColor='#99d9f4'
-                title='Continue' />
+        <View style={ApplicationStyles.form}>
+          <Text h4 style={ApplicationStyles.subTitle}>Reset password</Text>
+          <Text style={{textAlign:'center', justifyContent: 'flex-start'}}>This link will be available during the next 3 hours.</Text>
+          <View style={ApplicationStyles.container}>
+            <Form
+              ref="form"
+              type={ResetParams}
+              options={options} />
+            <Button
+              buttonStyle={ApplicationStyles.btn}
+              onPress={this.onReset}
+              underlayColor='#99d9f4'
+              title='Reset password' />
           </View>
+          <Divider style={ApplicationStyles.divider}/>
+          <Text h5 style={ApplicationStyles.infoText}>Not supposed to be here?
+            <Text style={ApplicationStyles.linkText} onPress={() => navigate('Homepage')}>
+              {' '}Go to the homepage.
+            </Text>
+          </Text>
         </View>
       </View>
     );
