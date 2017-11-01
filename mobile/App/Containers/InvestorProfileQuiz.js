@@ -30,7 +30,8 @@ export default class InvestorProfileQuiz extends React.Component {
             isLoadingEarlier: false,
             optionsButtons: [],
             typingDisabled: false,
-            skip: false
+            skip: false,
+            questions: STATES[1].states,
         };
 
         this._isMounted = false;
@@ -42,6 +43,7 @@ export default class InvestorProfileQuiz extends React.Component {
         this.answerDemo = this.answerDemo.bind(this);
         this.renderInputToolbar = this.renderInputToolbar.bind(this);
         this.onPressActions = this.onPressActions.bind(this);
+        this.chooseQuestion = this.chooseQuestion.bind(this);
 
     }
 
@@ -225,28 +227,32 @@ export default class InvestorProfileQuiz extends React.Component {
         return [];
     }
 
-    renderCustomActions(props) {
+    chooseQuestion(questionId){
+        const questions = this.state.questions;
 
+        const getQuestionFromKey = function(id){
+            for (var key in questions) {
+                if (questions.hasOwnProperty(key)) {
+                    var element = questions[key];
+                    if(id === element.key)
+                        return element;
+                }
+            }
+        }
+
+        const question = getQuestionFromKey(questionId);
+        this.setState({optionsButtons: this.createOptionsButtons(question.options)});
+        this.onReceive(question.text);
+    }
+
+    renderCustomActions(props) {
+        props.chooseQuestion = this.chooseQuestion;
         return (
             <CustomActions
-                {...props}
-            />
-        );
-
-        const options = {
-            'Action 1': (props) => {
-                alert('option 1');
-            },
-            'Action 2': (props) => {
-                alert('option 2');
-            },
-            'Cancel': () => {
-            },
-        };
-        return (
-            <Actions
-                {...props}
-                options={options}
+            
+                    chooseQuestion={this.chooseQuestion}
+                    {...props}
+                
             />
         );
     }

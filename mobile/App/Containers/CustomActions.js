@@ -20,43 +20,25 @@ export default class CustomActions extends React.Component {
 
         this.state = {
             modalVisible: false,
+            changeAnswer: false,
             questions: STATES[1].states,
         };
         this.onActionsPress = this.onActionsPress.bind(this);
         this.selectImages = this.selectImages.bind(this);
-        this.createOptionsArray = this.createOptionsArray.bind(this);
         this.changeAnswersSheet = this.changeAnswersSheet.bind(this);
         this.renderRepeatQuestions = this.renderRepeatQuestions.bind(this);
         this.getQuestion = this.getQuestion.bind(this);
-        this.changeAnswer = false;
-    }
-
-    createOptionsArray(questionsObject){
-        var questionsArray = [];
-        for (var question in questionsObject) {
-            if (questionsObject.hasOwnProperty(question)) {
-                var element = questionsObject[question];
-                questionsArray.push(element.key);
-            }
-        }
-        return questionsArray;
     }
 
     setModalVisible(visible = false) {
         this.setState({modalVisible: visible});
     }
+    setModalQuestionsVisible(visible = false) {
+        this.setState({changeAnswer: visible});
+    }
 
     onActionsPress() {
-        let options;
-
-        switch (this.subsection) {
-            case 1:
-                options = this.createOptionsArray(STATES[1].states);
-                break;
-            default:
-                options = ['Skip question', 'Edit previous answers', 'Help', 'Cancel'];
-
-        }
+        let options = ['Skip question', 'Edit previous answers', 'Help', 'Cancel'];
 
         const cancelButtonIndex = options.length - 1;
         this.context.actionSheet().showActionSheetWithOptions({
@@ -64,23 +46,17 @@ export default class CustomActions extends React.Component {
                 cancelButtonIndex,
             },
             (buttonIndex) => {
-
                 switch (buttonIndex) {
                     case 0:
                         //skip option
                         if(this.subsection !== 1){
-                            // this.props.onSend({
-                            //     _id: Math.round(Math.random() * 1000000),
-                            //     text: 'skip',
-                            //     renderAvatar: null,
-                            // });
                             this.props.onPressAvatar();
                         }
                         break;
                     case 1:
                         //change answer
-                        this.questions = STATES[1];
-                        this.changeAnswer = true;
+                        this.state.questions.push({key:"CANCEL"});
+                        this.setModalQuestionsVisible(true);
                         this.setModalVisible(false);
                         break;
 
@@ -97,8 +73,10 @@ export default class CustomActions extends React.Component {
         );
     }
 
-    getQuestion(){
-        this.changeAnswer = false;
+    getQuestion(key){
+        this.setModalQuestionsVisible(false);
+        if(key !== "CANCEL")
+            this.props.chooseQuestion(key);
     }
 
     selectImages(images) {
@@ -114,7 +92,7 @@ export default class CustomActions extends React.Component {
                 <FlatList
                 data={this.state.questions}
                 renderItem={({item}) => 
-                    <TouchableOpacity onPress={this.getQuestion}>
+                    <TouchableOpacity onPress={() => this.getQuestion(item.key)}>
                         <Text  style={styles.item}>{item.key}</Text>
                         {item.answer !== undefined && item.answer !== null ? answered(true) : answered(false)}
                     </TouchableOpacity>
@@ -162,9 +140,8 @@ export default class CustomActions extends React.Component {
                     style={styles.options}
                     animationType={'slide'}
                     transparent={false}
-                    visible={this.changeAnswer}
-                    onRequestClose={() => {this.changeAnswer = false}}
-                    
+                    visible={this.state.changeAnswer}
+                    onRequestClose={() => {this.setModalQuestionsVisible(false);}}
                 >
                     {this.renderRepeatQuestions()}
                 </Modal>
@@ -219,6 +196,7 @@ CustomActions.defaultProps = {
     containerStyle: {},
     wrapperStyle: {},
     iconTextStyle: {},
+    chooseQuestion: () => {},
 };
 
 CustomActions.propTypes = {
@@ -228,4 +206,5 @@ CustomActions.propTypes = {
     containerStyle: ViewPropTypes.style,
     wrapperStyle: ViewPropTypes.style,
     iconTextStyle: Text.propTypes.style,
+    chooseQuestion: PropTypes.func,
 };
