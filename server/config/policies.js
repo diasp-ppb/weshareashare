@@ -34,4 +34,11 @@ module.exports.policies = {
     resetPassword: ['hasClientId', 'hasResetToken'],
   },
 
+  FundController: {
+    '*': 'hasClientId',
+    postSubscription: [],
+    postFacta: [],
+    postInvestorProfile: [],
+  },
+
 };

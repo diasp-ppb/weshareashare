@@ -6,7 +6,16 @@
  */
 
 module.exports = {
+  postSubscription(req, res) {
+    return res.ok();
+  },
   
+  postFacta(req, res) {
+    return res.ok();
+  },
+
+  postInvestorProfile(req, res) {
+    return res.ok();
+  },
 
 };
-
