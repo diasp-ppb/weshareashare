@@ -7,7 +7,6 @@
 
 module.exports = {
   attributes: {
-
     participant: {
       model: 'person',
       via: 'subscription',
@@ -20,16 +19,67 @@ module.exports = {
       via: 'funds',
       required: false
     },
-    
+
     beneficiaries: {
-      collection: 'beneficiary',
-      via: 'provider'
+      collection: 'beneficiary'
     },
 
-    assets: {
-      collection: 'asset',
-      via: 'entity'
+    subscriptionValue: {
+      type: 'number',
+      required: true
     },
+
+    paymentMethod: {
+      type: 'number',
+      required: true
+    },
+
+    checkNo: {
+      type: 'string',
+      required: false
+    },
+
+    checkBank: {
+      type: 'string',
+      required: false
+    },
+
+    accountNo: {
+      type: 'string',
+      required: true
+    },
+
+    debitAmount: {
+      type: 'number',
+      required: true
+    },
+
+    debitGrowth: {
+      type: 'number',
+      required: true
+    },
+
+    debitGrowth: {
+      type: 'number',
+      required: true
+    },
+
+    periodicity: {
+      type: 'number',
+      required: true
+    },
+
+    initialDate: {
+      type: 'string',
+      columnType: 'date',
+      required: true
+    },
+
+    fatca: {
+      type: 'boolean',
+      required: true
+    }
+
   },
 
 };

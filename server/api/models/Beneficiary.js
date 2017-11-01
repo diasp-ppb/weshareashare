@@ -7,13 +7,24 @@
 
 module.exports = {
   attributes: {
-    description: {
+    name: {
       type: 'string',
       required: true,
     },
 
-    provider: {
-      model: 'fund'
+    NIF: {
+      type: 'string',
+      required: true,
+    },
+
+    relationship: {
+      type: 'string',
+      required: true,
+    },
+
+    percentage: {
+      type: 'number',
+      required: true,
     }
   },
 

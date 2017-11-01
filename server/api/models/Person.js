@@ -52,6 +52,7 @@ module.exports = {
 
     birthday: {
       type: 'string',
+      columnType: 'date',
       required: false,
       allowNull: true
     },
@@ -83,8 +84,12 @@ module.exports = {
       model: 'contributor',
       required: true,
       unique: true
+    },
+
+    investorProfile: {
+      model: 'profile'
     }
-    
+
   },
 
 };
