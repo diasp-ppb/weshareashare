@@ -2,16 +2,13 @@ import React from 'react';
 
 import {
     TouchableOpacity,
-    Platform,
     StyleSheet,
     Text,
-    Button,
     View,
-    Picker,
     AsyncStorage,
 } from 'react-native';
 
-import {GiftedChat, Actions, Bubble} from 'react-native-gifted-chat';
+import {GiftedChat, Actions, InputToolbar} from 'react-native-gifted-chat';
 import CustomActions from './CustomActions';
 import * as Progress from 'react-native-progress';
 
@@ -43,9 +40,9 @@ export default class FatcaFormQuiz extends React.Component {
     this.onSend = this.onSend.bind(this);
     this.onReceive = this.onReceive.bind(this);
     this.renderCustomActions = this.renderCustomActions.bind(this);
-    this.renderBubble = this.renderBubble.bind(this);
     this.renderFooter = this.renderFooter.bind(this);
     this.onLoadEarlier = this.onLoadEarlier.bind(this);
+    this.renderInputToolbar = this.renderInputToolbar.bind(this);
 
     this.question = 0;
     this.isUSPersonAnswers = new Array(6);
@@ -54,10 +51,6 @@ export default class FatcaFormQuiz extends React.Component {
       name: null,
       NIF: null,
       isUSPerson: null,
-      locale: 'Porto',
-      day: null,
-      month: null,
-      year: null
     };
   }
 
@@ -219,13 +212,15 @@ export default class FatcaFormQuiz extends React.Component {
 
   askNextQuestion(){
     var state = STATES[this.question];
+    var options;
 
     if(this.question < NO_QUESTIONS){
-      this.createOptionsButtons(state.answers);
+      options = this.createOptionsButtons(state.answers);
     }
     else{
-      this.createOptionsButtons(null);
+      options = this.createOptionsButtons(null);
     }
+    this.setState({optionsButtons: options});
 
     if(this.question >= NO_QUESTIONS){
       if(this.progress == 1){
@@ -279,14 +274,6 @@ export default class FatcaFormQuiz extends React.Component {
       this.formData.isUSPerson = 'no';
     }
 
-    //Prepare data to be sent
-    var months_pt = ["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
-
-    var today = new Date();
-    this.formData.day = today.getDate();
-    this.formData.month = months_pt[today.getMonth()];
-    this.formData.year = today.getFullYear();
-
     //Send form data to server to fill and send pdf
     /*fetch('https://mywebsite.com/endpoint/', {
       method: 'POST',
@@ -307,7 +294,7 @@ export default class FatcaFormQuiz extends React.Component {
         messages: GiftedChat.append(previousState.messages, {
           _id: Math.round(Math.random() * 1000000),
           text: text,
-          createdAt: new Date(),
+          createdAt: null,
           user: {
             _id: 2,
             name: 'WeShareAShare',
@@ -324,131 +311,94 @@ export default class FatcaFormQuiz extends React.Component {
     });
   }
 
-  createOptionsButtons(options) {
-    var view = null;
+  createOptionsButtons = function (options) {
 
       if (options) {
-
           let Items = options.map((s, i) => {
-
-              return <Button
-                  style={styles.button}
-                  onPress={() => {
-
-                    this.setState({
-                      options: [s],
-                      selected: s,
-                      picked: true,
-                    });
-
-
-                    this.onSend([{
-                      _id: Math.round(Math.random() * 1000000),
-                      text: s,
-                      renderAvatar: null,
-                      createdAt: new Date(),
-                      user: {
-                        _id: 1
-                      },
-                    }]);
-
-                  }
-                }
-                key={i}
-                title={s}
-                color="#000000"
-                accessibilityLabel={s}
-              />
-
-          });
-
-
-          view = (
-              <TouchableOpacity style={[styles.container, this.props.containerStyle]}>
-                  {Items}
+              return(
+                <TouchableOpacity
+                  key={i}
+                  style={styles.options}
+                  onPress={
+                      () => this.onSend([{
+                              _id: Math.round(Math.random() * 1000000),
+                              text: s,
+                              user: {_id: 1},
+                          }]
+                      )}
+              >
+                <Text style={{fontSize: 16}}>{s}</Text>
               </TouchableOpacity>
-          );
+              );
+          });
+          return Items;
       }
-
-      this.setState(
-        {
-          optionsButtons: view,
-        }
-      );
+      return null;
   }
 
   renderCustomActions(props) {
 
-    return (
-      <CustomActions
-      {...props}
-      />
-    );
+      return (
+          <CustomActions
+              {...props}
+          />
+      );
 
-
-
-    const options = {
-      'Action 1': (props) => {
-        alert('option 1');
-      },
-      'Action 2': (props) => {
-        alert('option 2');
-      },
-      'Cancel': () => {},
-    };
-    return (
-      <Actions
-      {...props}
-      options={options}
-      />
-    );
-  }
-
-  renderBubble(props) {
-    return (
-      <Bubble
-      {...props}
-      wrapperStyle={{
-        left: {
-          backgroundColor: '#f0f0f0',
-        }
-      }}
-      />
-    );
+      const options = {
+          'Action 1': (props) => {
+              alert('option 1');
+          },
+          'Action 2': (props) => {
+              alert('option 2');
+          },
+          'Cancel': () => {
+          },
+      };
+      return (
+          <Actions
+              {...props}
+              options={options}
+          />
+      );
   }
 
   renderFooter(props) {
-    if (this.state.typingText) {
+
+      nothing = function () {
+
+      };
+
+
       return (
-        <View>
-          <View style={styles.footerContainer}>
-            <Text style={styles.footerText}>
-              {this.state.typingText}
-            </Text>
+          <View style={{alignItems: "center"}}>
+              {this.state.optionsButtons}
+              <TouchableOpacity
+                  style={{backgroundColor: "#ffffff"}}
+                  onPress={
+                      nothing
+                  }
+              >
+                  <Text> Learn More </Text>
+              </TouchableOpacity>
+              <View style={styles.progressBar}>
+                  <Progress.Bar progress={this.progress} width={200}/>
+              </View>
           </View>
-          <View style={styles.progressBar} >
-            <Progress.Bar progress={this.progress} width={200} />
-          </View>
-        </View>
       );
-    }
-    return (
-      <View>
-        <View>
-            {this.state.optionsButtons}
-            <Button
-            style={styles.button}
-            onPress={function () {}}
-            title={"More info"}
-            color="#000000"
-            accessibilityLabel={"More info"}
-            />
-        </View>
-        <View style={styles.progressBar} >
-          <Progress.Bar progress={this.progress} width={200} />
-        </View>
-      </View>);
-    }
+
+  }
+
+  renderInputToolbar(props) {
+      const toolbar = InputToolbar;
+      if(this.state.optionsButtons){
+          return null;
+      } else return (
+              <InputToolbar
+                  {...props}
+              />
+          );
+
+  }
 
     render() {
       return (
@@ -465,7 +415,8 @@ export default class FatcaFormQuiz extends React.Component {
 
         renderActions={this.renderCustomActions}
         renderBubble={this.renderBubble}
-        renderFooter={this.renderFooter}
+        renderFooter={this.renderFooter}        
+        renderInputToolbar={this.renderInputToolbar}
         />
 
 

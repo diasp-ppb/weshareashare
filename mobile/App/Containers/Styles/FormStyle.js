@@ -25,15 +25,27 @@ export default StyleSheet.create({
     fontSize: 14,
     color: '#aaa',
   },
+  backgroundChat: {
+      backgroundColor : "#6f946c",
+      flex: 1
+  },
   progressBar: {
-    alignItems:"center",
-    flex:1,
-    marginBottom: 5,
-    marginTop: 10
+      alignItems: "center",
+      flex: 1,
+      marginBottom: 5,
+      marginTop: 10
   },
   button: {
       marginBottom: 10,
       alignItems: "center",
-      //background: "#3cb0fd",
+  },
+  options: {
+      backgroundColor: "#e6e6fa",
+      minWidth: 20,
+      alignSelf: "stretch",
+      alignItems: "center",
+      borderRadius: 30,
+      marginHorizontal: 20,
+      marginBottom: 10,
   }
 });
