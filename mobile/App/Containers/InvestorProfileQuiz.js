@@ -2,15 +2,12 @@ import React from 'react';
 
 import {
     TouchableOpacity,
-    Platform,
     StyleSheet,
     Text,
-    Button,
     View,
-    Picker
 } from 'react-native';
 
-import {GiftedChat, Actions, Bubble} from 'react-native-gifted-chat';
+import {GiftedChat, Actions, InputToolbar} from 'react-native-gifted-chat';
 import CustomActions from './CustomActions';
 import * as Progress from 'react-native-progress';
 
@@ -21,19 +18,19 @@ export default class InvestorProfileQuiz extends React.Component {
         super(props);
 
         this.formHeader = 0;
-        this.messageIndex = -1;
+        this.messageIndex = 0;
         this.progress = 0;
         this.progressStep = 1 / STATES[this.formHeader].states.length;
+        this.maxMessageIndex = 0;
 
         this.state = {
             messages: [],
             loadEarlier: true,
             typingText: null,
             isLoadingEarlier: false,
-            optionsButtons : null
+            optionsButtons: []
         };
 
-        this.messages = {}
 
         this._isMounted = false;
         this.onSend = this.onSend.bind(this);
@@ -42,16 +39,40 @@ export default class InvestorProfileQuiz extends React.Component {
         this.renderFooter = this.renderFooter.bind(this);
         this.onLoadEarlier = this.onLoadEarlier.bind(this);
         this.answerDemo = this.answerDemo.bind(this);
+        this.renderInputToolbar = this.renderInputToolbar.bind(this);
 
     }
 
     componentWillMount() {
         this._isMounted = true;
+
+        this.maxMessageIndex = STATES[this.formHeader].states.length - 1;
+
         this.setState(() => {
             return {
-                messages: require('./data/messages.js'),
+                messages: [
+                    {
+                        _id: Math.round(Math.random() * 1000000),
+                        text: STATES[this.formHeader].states[this.messageIndex].text,
+                        options: STATES[this.formHeader].states[this.messageIndex].options,
+                        renderAvatar: null,
+                        user: {
+                            _id: 2,
+                            name: 'React Native'
+                        }
+                    }
+                ]
             };
         });
+
+        this.setState((previousState) => {
+            const messages = previousState.messages
+            return {
+                optionsButtons: this.createOptionsButtons(messages[messages.length - 1].options),
+            };
+        });
+
+
     }
 
     componentWillUnmount() {
@@ -80,26 +101,47 @@ export default class InvestorProfileQuiz extends React.Component {
 
     onSend(messages = []) {
         this.setState((previousState) => {
+            for (var i = 0, len = messages.length; i < len; i++) {
+                messages[i].createdAt = null;
+            }
+
+            console.log(messages);
             return {
                 messages: GiftedChat.append(previousState.messages, messages),
             };
         });
-
         this.answerDemo(messages);
 
     }
 
-    answerUser(messages = []){
+
+    answerUser(messages) {
         this.setState((previousState) => {
             return {
                 messages: GiftedChat.append(previousState.messages, messages),
+                optionsButtons: [],
             };
         });
-
-        this.answerDemo(messages.text);
+        this.answerDemo([messages]);
     }
 
+
     answerDemo(messages) {
+
+        console.log(messages);
+        this.getStateMessage = function () {
+            this.messageIndex++;
+
+            if (this.messageIndex > this.maxMessageIndex) {
+                this.formHeader++;
+                this.maxMessageIndex = STATES[this.formHeader].states.length;
+                this.messageIndex = 0;
+                this.progress = 0;
+                this.progressStep = 1 / STATES[this.formHeader].states.length;
+            }
+            return STATES[this.formHeader].states[this.messageIndex];
+        }
+
 
         this.getDisplayMessage = function (message) {
             switch (message) {
@@ -108,29 +150,25 @@ export default class InvestorProfileQuiz extends React.Component {
                 case "exit":
                     return "You can continue this later.";
                 case "skip":
-                    this.messageIndex++;
-                    return "You can fill this field manually later or go back through options.\n" + STATES[this.formHeader].states[this.messageIndex];
+                    return "You can fill this field manually later or go back through options.\n" + this.getStateMessage();
                 default:
-
-                    this.messageIndex++;
-                    return STATES[this.formHeader].states[this.messageIndex];
+                    return this.getStateMessage();
             }
             return "hey";
         }
+
 
         setTimeout(() => {
             if (this._isMounted === true) {
                 if (messages.length > 0) {
                     // TODO check if first answer is yes then start form cycle
                     this.progress += this.progressStep;
-                    console.log(messages[0].text);
-                    var returnMessage = this.getDisplayMessage(messages[0].text);
-                    this.onReceive(returnMessage);
-                    this.setState(
-                        {
-                            optionsButtons: this.createOptionsButtons(["yes","no"])
-                        }
-                    );
+                    var returnMessage = this.getDisplayMessage(messages["0"].text);
+
+                    this.setState({optionsButtons: this.createOptionsButtons(returnMessage.options)});
+
+                    this.onReceive(returnMessage.text);
+
                 }
             }
         }, 1000);
@@ -144,58 +182,39 @@ export default class InvestorProfileQuiz extends React.Component {
                     text: text,
                     renderAvatar: null,
                     user: {
-                        _id: 2,
-                        name: 'React Native',
-                        avatar: 'https://avatars0.githubusercontent.com/u/16372771?s=460&v=4',
-
+                        _id: 2
                     },
                 }),
             };
         });
-    }z
+    }
 
     createOptionsButtons = function (options) {
-        if (options) {
+
+        if (options && options.length > 0) {
 
             let Items = options.map((s, i) => {
 
-                return <Button
-                    style={styles.button}
-                    onPress={() => {
-
-                        this.setState({
-                            options: [s],
-                            selected: s,
-                            picked: true,
-                        });
-
-
-                        this.answerUser({
-                            _id: Math.round(Math.random() * 1000000),
-                            text: s,
-                            renderAvatar: null,
-                            user: {
-                                _id: 1
-                            },
-                        });
-
-                    }
-                    }
-                    title={s}
-                    color="#000000"
-                    accessibilityLabel={s}
-                />
-
-            });
-
-
-            return (
-                <TouchableOpacity style={[styles.container, this.props.containerStyle]}>
-                    {Items}
+                return(
+                <TouchableOpacity
+                    key={i}
+                    style={styles.options}
+                    onPress={
+                        () => this.answerUser({
+                                _id: Math.round(Math.random() * 1000000),
+                                text: s,
+                                user: {_id: 1},
+                            }
+                        )}
+                >
+                    <Text style={{fontSize: 16}}>{s}</Text>
                 </TouchableOpacity>
-            );
+                );
+            });
+            console.log(Items);
+            return Items;
         }
-        return null;
+        return [];
     }
 
     renderCustomActions(props) {
@@ -225,6 +244,7 @@ export default class InvestorProfileQuiz extends React.Component {
     }
 
     renderFooter(props) {
+
         nothing = function () {
 
         };
@@ -232,18 +252,15 @@ export default class InvestorProfileQuiz extends React.Component {
 
         return (
             <View style={{alignItems: "center"}}>
-                <View>
-                    {this.state.optionsButtons}
-                    <Button
-                    style={styles.button}
+                {this.state.optionsButtons}
+                <TouchableOpacity
+                    style={{backgroundColor: "#ffffff"}}
                     onPress={
                         nothing
                     }
-                    title={"More info"}
-                    color="#000000"
-                    accessibilityLabel={"More info"}
-                    />
-                </View>
+                >
+                    <Text> Learn More </Text>
+                </TouchableOpacity>
                 <View style={styles.progressBar}>
                     <Progress.Bar progress={this.progress} width={200}/>
                 </View>
@@ -252,8 +269,22 @@ export default class InvestorProfileQuiz extends React.Component {
 
     }
 
+    renderInputToolbar(props) {
+        const toolbar = InputToolbar;
+        if(this.state.optionsButtons.length > 0){
+            return null;
+        } else return (
+                <InputToolbar
+                    {...props}
+                />
+            );
+
+    }
+
+
     render() {
         return (
+            <View style={styles.backgroundChat}>
             <GiftedChat
                 messages={this.state.messages}
                 onSend={this.onSend}
@@ -265,10 +296,12 @@ export default class InvestorProfileQuiz extends React.Component {
                 }}
 
                 renderAvatar={null}
-                renderMessages={this.renderCom}
                 renderActions={this.renderCustomActions}
                 renderFooter={this.renderFooter}
+                renderInputToolbar={this.renderInputToolbar}
+
             />
+            </View>
 
 
         );
@@ -276,6 +309,10 @@ export default class InvestorProfileQuiz extends React.Component {
 }
 
 const styles = StyleSheet.create({
+    backgroundChat: {
+        backgroundColor : "#6f946c",
+        flex: 1
+    },
     footerContainer: {
         marginTop: 5,
         marginLeft: 10,
@@ -294,6 +331,14 @@ const styles = StyleSheet.create({
     button: {
         marginBottom: 10,
         alignItems: "center",
-        //background: "#3cb0fd",
+    },
+    options: {
+        backgroundColor: "#e6e6fa",
+        minWidth: 20,
+        alignSelf: "stretch",
+        alignItems: "center",
+        borderRadius: 30,
+        marginHorizontal: 20,
+        marginBottom: 10
     }
 });

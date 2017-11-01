@@ -9,7 +9,6 @@ import {
     Text,
 } from 'react-native';
 
-import CameraRollPicker from 'react-native-camera-roll-picker';
 import NavBar, { NavButton, NavButtonText, NavTitle } from 'react-native-nav';
 
 const STATES = require("./data/states.js");
@@ -17,7 +16,7 @@ const STATES = require("./data/states.js");
 export default class CustomActions extends React.Component {
     constructor(props) {
         super(props);
-        this._images = [];
+
         this.state = {
             modalVisible: false,
         };
@@ -26,13 +25,6 @@ export default class CustomActions extends React.Component {
         this.subsection = -1;
     }
 
-    setImages(images) {
-        this._images = images;
-    }
-
-    getImages() {
-        return this._images;
-    }
 
     setModalVisible(visible = false) {
         this.setState({modalVisible: visible});
@@ -91,51 +83,6 @@ export default class CustomActions extends React.Component {
 
     selectImages(images) {
         this.setImages(images);
-    }
-
-    renderNavBar() {
-        return (
-            <NavBar style={{
-                statusBar: {
-                    backgroundColor: '#FFF',
-                },
-                navBar: {
-                    backgroundColor: '#FFF',
-                },
-            }}>
-                <NavButton onPress={() => {
-                    this.setModalVisible(false);
-                }}>
-                    <NavButtonText style={{
-                        color: '#000',
-                    }}>
-                        {'Cancel'}
-                    </NavButtonText>
-                </NavButton>
-                <NavTitle style={{
-                    color: '#000',
-                }}>
-                    {'Camera Roll'}
-                </NavTitle>
-                <NavButton onPress={() => {
-                    this.setModalVisible(false);
-
-                    const images = this.getImages().map((image) => {
-                        return {
-                            image: image.uri,
-                        };
-                    });
-                    this.props.onSend(images);
-                    this.setImages([]);
-                }}>
-                    <NavButtonText style={{
-                        color: '#000',
-                    }}>
-                        {'Send'}
-                    </NavButtonText>
-                </NavButton>
-            </NavBar>
-        );
     }
 
     renderIcon() {
