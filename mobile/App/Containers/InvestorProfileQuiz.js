@@ -22,6 +22,7 @@ export default class InvestorProfileQuiz extends React.Component {
         this.progress = 0;
         this.progressStep = 1 / STATES[this.formHeader].states.length;
         this.maxMessageIndex = 0;
+        this.maxHeaders = 0;
 
         this.state = {
             messages: [],
@@ -32,6 +33,7 @@ export default class InvestorProfileQuiz extends React.Component {
             typingDisabled: false,
             skip: false,
             questions: STATES[1].states,
+            currentQuestionKey: null,
         };
 
         this._isMounted = false;
@@ -44,6 +46,7 @@ export default class InvestorProfileQuiz extends React.Component {
         this.renderInputToolbar = this.renderInputToolbar.bind(this);
         this.onPressActions = this.onPressActions.bind(this);
         this.chooseQuestion = this.chooseQuestion.bind(this);
+        this.endForm = this.endForm.bind(this);
 
     }
 
@@ -107,8 +110,10 @@ export default class InvestorProfileQuiz extends React.Component {
         this.setState((previousState) => {
             for (var i = 0, len = messages.length; i < len; i++) {
                 messages[i].createdAt = null;
+                //TODO passa a key da pergunta para identificar o parametro a enviar
+                messages[i].key = this.state.currentQuestionKey;
             }
-
+            
             console.log(messages);
             return {
                 messages: GiftedChat.append(previousState.messages, messages),
@@ -118,8 +123,29 @@ export default class InvestorProfileQuiz extends React.Component {
 
     }
 
+    endForm(){
+        let form = STATES[this.formHeader-1];
+        let jsonToSend = {
+            id: form.id
+        };
+        let answers = [];
+        let messages = this.state.messages;
+        for (var message in messages) {
+            if (messages.hasOwnProperty(message)) {
+                var element = messages[message];
+                if(element.hasOwnProperty("key")){
+                    jsonToSend[element.key] = element.text;
+                }
+            }
+        }
+    }
+
 
     answerUser(messages) {
+        for (var i = 0, len = messages.length; i < len; i++) {
+            //TODO passa a key da pergunta para identificar o parametro a enviar
+            messages[i].key = this.state.currentQuestionKey;
+        }
         this.setState((previousState) => {
             return {
                 messages: GiftedChat.append(previousState.messages, messages),
@@ -139,6 +165,9 @@ export default class InvestorProfileQuiz extends React.Component {
 
             if (this.messageIndex > this.maxMessageIndex) {
                 this.formHeader++;
+                if(this.formHeader > this.maxHeaders){
+                    this.endForm();
+                }
                 this.maxMessageIndex = STATES[this.formHeader].states.length;
                 this.messageIndex = 0;
                 this.progress = 0;
@@ -169,7 +198,7 @@ export default class InvestorProfileQuiz extends React.Component {
                     // TODO check if first answer is yes then start form cycle
                     this.progress += this.progressStep;
                     var returnMessage = this.getDisplayMessage(messages["0"].text);
-
+                    this.state.currentQuestionKey = returnMessage.key;
                     this.setState({optionsButtons: this.createOptionsButtons(returnMessage.options)});
 
                     this.onReceive(returnMessage.text);
@@ -177,6 +206,7 @@ export default class InvestorProfileQuiz extends React.Component {
                     this.progress += this.progressStep;
                     this.state.skip = false;
                     var nextMessage = this.getStateMessage();
+                    this.state.currentQuestionKey = nextMessage.key;                    
                     this.setState({optionsButtons: this.createOptionsButtons(nextMessage.options)});
                     this.onReceive(nextMessage.text);
                     //this.onReceive(this.getStateMessage());
@@ -241,6 +271,7 @@ export default class InvestorProfileQuiz extends React.Component {
         }
 
         const question = getQuestionFromKey(questionId);
+        this.state.currentQuestionKey = question.key;        
         this.setState({optionsButtons: this.createOptionsButtons(question.options)});
         this.onReceive(question.text);
     }
