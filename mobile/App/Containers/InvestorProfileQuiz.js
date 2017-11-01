@@ -28,8 +28,13 @@ export default class InvestorProfileQuiz extends React.Component {
             loadEarlier: true,
             typingText: null,
             isLoadingEarlier: false,
-            optionsButtons: []
+            optionsButtons: [],
+            typingDisabled: false
         };
+
+        this.textInputProps = {
+            typingDisabled: false            
+        }
 
 
         this._isMounted = false;
@@ -122,6 +127,7 @@ export default class InvestorProfileQuiz extends React.Component {
                 optionsButtons: [],
             };
         });
+
         this.answerDemo([messages]);
     }
 
@@ -192,7 +198,7 @@ export default class InvestorProfileQuiz extends React.Component {
     createOptionsButtons = function (options) {
 
         if (options && options.length > 0) {
-
+            this.textInputProps.typingDisabled = true;
             let Items = options.map((s, i) => {
 
                 return(
@@ -213,6 +219,8 @@ export default class InvestorProfileQuiz extends React.Component {
             });
             console.log(Items);
             return Items;
+        }else {
+            this.textInputProps.typingDisabled = false;
         }
         return [];
     }
@@ -272,13 +280,13 @@ export default class InvestorProfileQuiz extends React.Component {
     renderInputToolbar(props) {
         const toolbar = InputToolbar;
         if(this.state.optionsButtons.length > 0){
-            return null;
-        } else return (
-                <InputToolbar
-                    {...props}
-                />
-            );
-        
+            props.textInputProps.editable = false;
+            props.textInputProps.placeholder= "Choose an option from above";
+        } 
+        return (
+            <InputToolbar
+                {...props}
+            />);
     }
 
 
@@ -290,6 +298,7 @@ export default class InvestorProfileQuiz extends React.Component {
                 onSend={this.onSend}
                 isLoadingEarlier={this.state.isLoadingEarlier}
                 onPress={this.onPress}
+                textInputProps={this.textInputProps}
 
                 user={{
                     _id: 1, // sent messages should have same user._id
@@ -299,7 +308,6 @@ export default class InvestorProfileQuiz extends React.Component {
                 renderActions={this.renderCustomActions}
                 renderFooter={this.renderFooter}
                 renderInputToolbar={this.renderInputToolbar}
-
             />
             </View>
 
