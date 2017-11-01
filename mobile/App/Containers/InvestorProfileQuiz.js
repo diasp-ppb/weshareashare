@@ -7,7 +7,7 @@ import {
     View,
 } from 'react-native';
 
-import {GiftedChat, Actions} from 'react-native-gifted-chat';
+import {GiftedChat, Actions, InputToolbar} from 'react-native-gifted-chat';
 import CustomActions from './CustomActions';
 import * as Progress from 'react-native-progress';
 
@@ -39,6 +39,7 @@ export default class InvestorProfileQuiz extends React.Component {
         this.renderFooter = this.renderFooter.bind(this);
         this.onLoadEarlier = this.onLoadEarlier.bind(this);
         this.answerDemo = this.answerDemo.bind(this);
+        this.renderInputToolbar = this.renderInputToolbar.bind(this);
 
     }
 
@@ -121,7 +122,6 @@ export default class InvestorProfileQuiz extends React.Component {
                 optionsButtons: [],
             };
         });
-
         this.answerDemo([messages]);
     }
 
@@ -198,7 +198,7 @@ export default class InvestorProfileQuiz extends React.Component {
                 return(
                 <TouchableOpacity
                     key={i}
-                    style={{backgroundColor: "#ffffff"}}
+                    style={styles.options}
                     onPress={
                         () => this.answerUser({
                                 _id: Math.round(Math.random() * 1000000),
@@ -207,7 +207,7 @@ export default class InvestorProfileQuiz extends React.Component {
                             }
                         )}
                 >
-                    <Text>{s}</Text>
+                    <Text style={{fontSize: 16}}>{s}</Text>
                 </TouchableOpacity>
                 );
             });
@@ -269,6 +269,18 @@ export default class InvestorProfileQuiz extends React.Component {
 
     }
 
+    renderInputToolbar(props) {
+        const toolbar = InputToolbar;
+        if(this.state.optionsButtons.length > 0){
+            return null;
+        } else return (
+                <InputToolbar
+                    {...props}
+                />
+            );
+        
+    }
+
 
     render() {
         return (
@@ -286,6 +298,7 @@ export default class InvestorProfileQuiz extends React.Component {
                 renderAvatar={null}
                 renderActions={this.renderCustomActions}
                 renderFooter={this.renderFooter}
+                renderInputToolbar={this.renderInputToolbar}
 
             />
             </View>
@@ -318,5 +331,14 @@ const styles = StyleSheet.create({
     button: {
         marginBottom: 10,
         alignItems: "center",
+    },
+    options: {
+        backgroundColor: "#e6e6fa", 
+        minWidth: 20, 
+        alignSelf: "stretch", 
+        alignItems: "center", 
+        borderRadius: 30, 
+        marginHorizontal: 20, 
+        marginBottom: 10
     }
 });
