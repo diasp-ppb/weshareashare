@@ -29,13 +29,9 @@ export default class InvestorProfileQuiz extends React.Component {
             typingText: null,
             isLoadingEarlier: false,
             optionsButtons: [],
-            typingDisabled: false
+            typingDisabled: false,
+            skip: false
         };
-
-        this.textInputProps = {
-            typingDisabled: false            
-        }
-
 
         this._isMounted = false;
         this.onSend = this.onSend.bind(this);
@@ -45,6 +41,7 @@ export default class InvestorProfileQuiz extends React.Component {
         this.onLoadEarlier = this.onLoadEarlier.bind(this);
         this.answerDemo = this.answerDemo.bind(this);
         this.renderInputToolbar = this.renderInputToolbar.bind(this);
+        this.onPressActions = this.onPressActions.bind(this);
 
     }
 
@@ -174,7 +171,13 @@ export default class InvestorProfileQuiz extends React.Component {
                     this.setState({optionsButtons: this.createOptionsButtons(returnMessage.options)});
 
                     this.onReceive(returnMessage.text);
-
+                } else if(this.state.skip){
+                    this.progress += this.progressStep;
+                    this.state.skip = false;
+                    var nextMessage = this.getStateMessage();
+                    this.setState({optionsButtons: this.createOptionsButtons(nextMessage.options)});
+                    this.onReceive(nextMessage.text);
+                    //this.onReceive(this.getStateMessage());
                 }
             }
         }, 1000);
@@ -198,7 +201,6 @@ export default class InvestorProfileQuiz extends React.Component {
     createOptionsButtons = function (options) {
 
         if (options && options.length > 0) {
-            this.textInputProps.typingDisabled = true;
             let Items = options.map((s, i) => {
 
                 return(
@@ -219,8 +221,6 @@ export default class InvestorProfileQuiz extends React.Component {
             });
             console.log(Items);
             return Items;
-        }else {
-            this.textInputProps.typingDisabled = false;
         }
         return [];
     }
@@ -289,6 +289,12 @@ export default class InvestorProfileQuiz extends React.Component {
             />);
     }
 
+    onPressActions(option) {
+        //for skipping 
+        this.state.skip = true;
+        this.answerDemo([]);
+    }
+
 
     render() {
         return (
@@ -308,6 +314,7 @@ export default class InvestorProfileQuiz extends React.Component {
                 renderActions={this.renderCustomActions}
                 renderFooter={this.renderFooter}
                 renderInputToolbar={this.renderInputToolbar}
+                onPressAvatar={this.onPressActions} 
             />
             </View>
 
@@ -320,15 +327,6 @@ const styles = StyleSheet.create({
     backgroundChat: {
         backgroundColor : "#6f946c",
         flex: 1
-    },
-    footerContainer: {
-        marginTop: 5,
-        marginLeft: 10,
-        marginRight: 10,
-    },
-    footerText: {
-        fontSize: 14,
-        color: '#aaa',
     },
     progressBar: {
         alignItems: "center",

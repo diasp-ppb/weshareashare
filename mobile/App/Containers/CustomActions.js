@@ -3,6 +3,7 @@ import React from 'react';
 import {
     Modal,
     StyleSheet,
+    FlatList,
     TouchableOpacity,
     View,
     ViewPropTypes,
@@ -19,12 +20,27 @@ export default class CustomActions extends React.Component {
 
         this.state = {
             modalVisible: false,
+            questions: STATES[1].states,
         };
         this.onActionsPress = this.onActionsPress.bind(this);
         this.selectImages = this.selectImages.bind(this);
-        this.subsection = -1;
+        this.createOptionsArray = this.createOptionsArray.bind(this);
+        this.changeAnswersSheet = this.changeAnswersSheet.bind(this);
+        this.renderRepeatQuestions = this.renderRepeatQuestions.bind(this);
+        this.getQuestion = this.getQuestion.bind(this);
+        this.changeAnswer = false;
     }
 
+    createOptionsArray(questionsObject){
+        var questionsArray = [];
+        for (var question in questionsObject) {
+            if (questionsObject.hasOwnProperty(question)) {
+                var element = questionsObject[question];
+                questionsArray.push(element.key);
+            }
+        }
+        return questionsArray;
+    }
 
     setModalVisible(visible = false) {
         this.setState({modalVisible: visible});
@@ -35,7 +51,7 @@ export default class CustomActions extends React.Component {
 
         switch (this.subsection) {
             case 1:
-                options = STATES[0].states;
+                options = this.createOptionsArray(STATES[1].states);
                 break;
             default:
                 options = ['Skip question', 'Edit previous answers', 'Help', 'Cancel'];
@@ -53,36 +69,59 @@ export default class CustomActions extends React.Component {
                     case 0:
                         //skip option
                         if(this.subsection !== 1){
-                            this.props.onSend({
-                                _id: Math.round(Math.random() * 1000000),
-                                text: 'skip',
-                                renderAvatar: null,
-                                user: {
-                                    _id: 1,
-                                    name: 'You',
-                                    //avatar: 'https://avatars0.githubusercontent.com/u/16372771?s=460&v=4',
-                                },
-                            });
+                            // this.props.onSend({
+                            //     _id: Math.round(Math.random() * 1000000),
+                            //     text: 'skip',
+                            //     renderAvatar: null,
+                            // });
+                            this.props.onPressAvatar();
                         }
                         break;
                     case 1:
-                        //change previous answer
+                        //change answer
+                        this.questions = STATES[1];
+                        this.changeAnswer = true;
+                        this.setModalVisible(false);
                         break;
 
                     case 2:
                         //help
                     default:
                 }
-                if(this.subsection !== 1){
-                    this.subsection = buttonIndex;
-                } else{
-                    this.subsection = -1;
-                }
             });
+    }
+
+    changeAnswersSheet(item) {
+        return(
+            <Text style={styles.item}> {item.key} </Text>
+        );
+    }
+
+    getQuestion(){
+        this.changeAnswer = false;
     }
 
     selectImages(images) {
         this.setImages(images);
+    }
+
+    renderRepeatQuestions(){
+        const answered = function(answeredQuestion){
+            return ;
+        }
+        return (
+            <View style={styles.previous}>
+                <FlatList
+                data={this.state.questions}
+                renderItem={({item}) => 
+                    <TouchableOpacity onPress={this.getQuestion}>
+                        <Text  style={styles.item}>{item.key}</Text>
+                        {item.answer !== undefined && item.answer !== null ? answered(true) : answered(false)}
+                    </TouchableOpacity>
+                }
+                />
+            </View>
+        );
     }
 
     renderIcon() {
@@ -104,21 +143,32 @@ export default class CustomActions extends React.Component {
 
     render() {
         return (
-            <TouchableOpacity
-                style={[styles.container, this.props.containerStyle]}
-                onPress={this.onActionsPress}
-            >
+            <View>
+                <TouchableOpacity
+                    style={[styles.container, this.props.containerStyle]}
+                    onPress={this.onActionsPress}
+                >
+                    <Modal
+                        animationType={'slide'}
+                        transparent={false}
+                        visible={this.state.modalVisible}
+                        onRequestClose={() => {this.setModalVisible(false);}}
+                    >
+                    </Modal>
+                    {this.renderIcon()}
+                </TouchableOpacity>
+
                 <Modal
+                    style={styles.options}
                     animationType={'slide'}
                     transparent={false}
-                    visible={this.state.modalVisible}
-                    onRequestClose={() => {
-                        this.setModalVisible(false);
-                    }}
+                    visible={this.changeAnswer}
+                    onRequestClose={() => {this.changeAnswer = false}}
+                    
                 >
+                    {this.renderRepeatQuestions()}
                 </Modal>
-                {this.renderIcon()}
-            </TouchableOpacity>
+            </View>
         );
     }
 }
@@ -142,6 +192,19 @@ const styles = StyleSheet.create({
         fontSize: 16,
         backgroundColor: 'transparent',
         textAlign: 'center',
+    },
+    options: {
+        alignSelf: "stretch",
+    },
+    previous: {
+        flex: 1,
+        paddingTop: 22
+    },
+    item: {
+        flex: 9,
+        padding: 10,
+        fontSize: 18,
+        height: 44,
     },
 });
 
