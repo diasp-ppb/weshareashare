@@ -14,6 +14,6 @@
 
 module.exports.i18n = {
   locales: ['en', 'pt'],
-  defaultLocale: 'en',
+  defaultLocale: 'pt',
   localesDirectory: 'config/locales'
 };

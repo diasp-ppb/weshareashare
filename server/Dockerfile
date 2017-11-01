@@ -6,6 +6,7 @@ ADD package.json /usr/src/app
 
 RUN apk --no-cache add --virtual native-deps \
   git g++ gcc libgcc libstdc++ linux-headers make python && \
+  npm cache clean --force &&\
   npm install node-gyp -g &&\
   npm install -g nodemon &&\
   npm install &&\

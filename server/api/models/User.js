@@ -68,13 +68,5 @@ module.exports = {
       return next();
     }
   },
-
-  parseAttrs(attrs) {
-    return {
-      username: String(attrs.username).trim(),
-      email: String(attrs.email).trim(),
-      password: String(attrs.password).trim(),
-    };
-  },
 };
 

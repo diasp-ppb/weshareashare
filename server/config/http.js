@@ -9,6 +9,8 @@
  * https://sailsjs.com/config/http
  */
 const passport = require('passport');
+const expressValidator = require('express-validator');
+
 
 module.exports.http = {
 
@@ -23,6 +25,7 @@ module.exports.http = {
 
   middleware: {
     passportInit: passport.initialize(),
+    expressValidator: expressValidator(),
     /***************************************************************************
     *                                                                          *
     * The order in which middleware should be run for HTTP requests.           *
@@ -33,6 +36,7 @@ module.exports.http = {
     order: [
       'cookieParser',
       'session',
+      'expressValidator',
       'bodyParser',
       'compress',
       'poweredBy',

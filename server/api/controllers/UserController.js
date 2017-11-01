@@ -7,7 +7,7 @@
 
 module.exports = {
   create(req, res) {
-    let params = User.parseAttrs(req.allParams());
+    let params = req.allParams();
     User.create(params).meta({fetch: true})
       .then((user) => {
         return user;
@@ -28,7 +28,7 @@ module.exports = {
           return res.serverError(err);
         });
       }).catch((err) => {
-        sails.helpers.customValidation({model: User, err: err, currLocale: req.getLocale()})
+        sails.helpers.customValidation({model: User, err: err})
           .then((customErrors) => {
             return res.serverError(customErrors);
           }).catch((error) => {

@@ -15,16 +15,12 @@ module.exports = {
       description: 'Errors retrieved from waterline',
       type: 'json'
     },
-    currLocale: {
-      description: 'Current locale retrieved from the request',
-      type: 'string'
-    }
   },
 
 
   fn: function (inputs, exits) {
     let customErrors = [];
-    let data = JSON.stringify(inputs.err);
+    let data = _.pick(inputs.err, ['code', 'details', 'attrNames']);
     let model = inputs.model;
     let identity = model.identity;
 
@@ -42,11 +38,27 @@ module.exports = {
         return Object.assign(validations, v.validations);
       }
       return validations;
-    }), (o => _.isEmpty(o)));
+    }), ((o, k) => _.isEmpty(o) || k === 'id'));
 
     _.forEach(attrs, (valFields, attr) => {
 
+      let index = _.indexOf(data.attrNames, attr);
+      if(index === -1 && !_.includes(data.details, attr)) {
+        return;
+      }
+
       _.forEach(valFields, (value, field) => {
+        if((data.code === 'E_UNIQUE' && field === 'unique') ||
+          (data.code === 'E_INVALID_NEW_RECORD' && field === 'required' && _.includes(data.details, 'required')) ||
+          (data.code === 'E_INVALID_NEW_RECORD' && field === 'maxLength' && _.includes(data.details, 'maximum length')) ||
+          (data.code === 'E_INVALID_NEW_RECORD' && field === 'minLength' && _.includes(data.details, 'minimum length')) ||
+          (data.code === 'E_INVALID_NEW_RECORD' && field === 'isEmail' && _.includes(data.details, 'valid email address'))
+        ) {
+          console.log(field);
+        } else {
+          return;
+        }
+
         const phrase = [
           identity,
           attr,
@@ -54,30 +66,29 @@ module.exports = {
         ].join('.');
 
         let customMessage = phrase;
-        let locale;
-
         if(sails.config.i18n){
-          locale = inputs.currLocale || sails.config.i18n.defaultLocale;
-
-          if(locale){
-            customMessage = sails.__([customMessage, locale]);
-          }
-
+          customMessage = sails.__(customMessage);
         }
 
-        if(customMessage !== phrase && typeof customMessage === 'string') {
-
+        if (!(customMessage !== phrase && typeof customMessage ===
+            'string')) {} else {
           const newError = {
             'attribute': attr,
-            'validation': value,
-            'message': customMessage
+            'message': customMessage,
+            'rule': {},
           };
+          newError['rule'][field] = value;
           customErrors.push(newError);
         }
       });
     });
 
-    return exits.success();
+    if(_.isEmpty(customErrors)) {
+      return exits.success(inputs.err);
+    }
+    else {
+      return exits.success(customErrors);
+    }
   }
 };
 
