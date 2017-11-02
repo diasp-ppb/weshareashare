@@ -22,7 +22,7 @@ export default class InvestorProfileQuiz extends React.Component {
         this.progress = 0;
         this.progressStep = 1 / STATES[this.formHeader].states.length;
         this.maxMessageIndex = 0;
-        this.maxHeaders = 0;
+        this.maxHeaders = 1;
 
         this.state = {
             messages: [],
@@ -124,20 +124,32 @@ export default class InvestorProfileQuiz extends React.Component {
     }
 
     endForm(){
+        const sendForm = function(form){
+            fetch('https://127.0.0.1:3000/endpoint/', {
+                method: 'POST',
+                headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(form)
+              })
+        }
+
         let form = STATES[this.formHeader-1];
-        let jsonToSend = {
-            id: form.id
-        };
+        let jsonToSend = {};
+        jsonToSend[form.id] = {};
         let answers = [];
         let messages = this.state.messages;
         for (var message in messages) {
             if (messages.hasOwnProperty(message)) {
                 var element = messages[message];
                 if(element.hasOwnProperty("key")){
-                    jsonToSend[element.key] = element.text;
+                    jsonToSend[form.id][element.key] = element.text;
                 }
             }
         }
+
+        sendForm(jsonToSend);
     }
 
 
@@ -209,7 +221,6 @@ export default class InvestorProfileQuiz extends React.Component {
                     this.state.currentQuestionKey = nextMessage.key;                    
                     this.setState({optionsButtons: this.createOptionsButtons(nextMessage.options)});
                     this.onReceive(nextMessage.text);
-                    //this.onReceive(this.getStateMessage());
                 }
             }
         }, 1000);
@@ -264,8 +275,10 @@ export default class InvestorProfileQuiz extends React.Component {
             for (var key in questions) {
                 if (questions.hasOwnProperty(key)) {
                     var element = questions[key];
-                    if(id === element.key)
+                    if(id === element.key){
+                        this.messageIndex = parseInt(key);
                         return element;
+                    }
                 }
             }
         }
