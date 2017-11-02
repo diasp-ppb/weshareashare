@@ -7,7 +7,7 @@ import {
     View,
 } from 'react-native';
 
-import {GiftedChat, Actions, InputToolbar} from 'react-native-gifted-chat';
+import {GiftedChat, Actions, InputToolbar, Bubble} from 'react-native-gifted-chat';
 import CustomActions from './CustomActions';
 import * as Progress from 'react-native-progress';
 
@@ -171,7 +171,7 @@ export default class InvestorProfileQuiz extends React.Component {
                     this.setState({optionsButtons: this.createOptionsButtons(returnMessage.options)});
 
                     this.onReceive(returnMessage.text);
-                } else if(this.state.skip){
+                } else if (this.state.skip) {
                     this.progress += this.progressStep;
                     this.state.skip = false;
                     var nextMessage = this.getStateMessage();
@@ -203,20 +203,20 @@ export default class InvestorProfileQuiz extends React.Component {
         if (options && options.length > 0) {
             let Items = options.map((s, i) => {
 
-                return(
-                <TouchableOpacity
-                    key={i}
-                    style={styles.options}
-                    onPress={
-                        () => this.answerUser({
-                                _id: Math.round(Math.random() * 1000000),
-                                text: s,
-                                user: {_id: 1},
-                            }
-                        )}
-                >
-                    <Text style={{fontSize: 16}}>{s}</Text>
-                </TouchableOpacity>
+                return (
+                    <TouchableOpacity
+                        key={i}
+                        style={styles.options}
+                        onPress={
+                            () => this.answerUser({
+                                    _id: Math.round(Math.random() * 1000000),
+                                    text: s,
+                                    user: {_id: 1},
+                                }
+                            )}
+                    >
+                        <Text style={{fontSize: 16}}>{s}</Text>
+                    </TouchableOpacity>
                 );
             });
             console.log(Items);
@@ -262,7 +262,7 @@ export default class InvestorProfileQuiz extends React.Component {
             <View style={{alignItems: "center"}}>
                 {this.state.optionsButtons}
                 <TouchableOpacity
-                    style={{backgroundColor: "#ffffff"}}
+                    style={styles.learnMore}
                     onPress={
                         nothing
                     }
@@ -279,10 +279,10 @@ export default class InvestorProfileQuiz extends React.Component {
 
     renderInputToolbar(props) {
         const toolbar = InputToolbar;
-        if(this.state.optionsButtons.length > 0){
+        if (this.state.optionsButtons.length > 0) {
             props.textInputProps.editable = false;
-            props.textInputProps.placeholder= "Choose an option from above";
-        } 
+            props.textInputProps.placeholder = "Choose an option from above";
+        }
         return (
             <InputToolbar
                 {...props}
@@ -295,27 +295,51 @@ export default class InvestorProfileQuiz extends React.Component {
         this.answerDemo([]);
     }
 
+    renderBubble(props) {
+        return (
+            <Bubble {...props}
+                    wrapperStyle={
+                        {
+                            left: {
+                                backgroundColor: '#D3D3D3',
+                            },
+                            right: {
+                                backgroundColor: '#7cc0d2'
+                            }
+                        }
+                    }
+                    textStyle={
+                        {
+                            right: {
+                                color: '#000000'
+                            }
+                        }
+                    }
+            />
+        );
+    }
+
 
     render() {
         return (
             <View style={styles.backgroundChat}>
-            <GiftedChat
-                messages={this.state.messages}
-                onSend={this.onSend}
-                isLoadingEarlier={this.state.isLoadingEarlier}
-                onPress={this.onPress}
-                textInputProps={this.textInputProps}
+                <GiftedChat
+                    messages={this.state.messages}
+                    onSend={this.onSend}
+                    isLoadingEarlier={this.state.isLoadingEarlier}
+                    onPress={this.onPress}
+                    textInputProps={this.textInputProps}
 
-                user={{
-                    _id: 1, // sent messages should have same user._id
-                }}
-
-                renderAvatar={null}
-                renderActions={this.renderCustomActions}
-                renderFooter={this.renderFooter}
-                renderInputToolbar={this.renderInputToolbar}
-                onPressAvatar={this.onPressActions} 
-            />
+                    user={{
+                        _id: 1, // sent messages should have same user._id
+                    }}
+                    renderBubble={this.renderBubble}
+                    renderAvatar={null}
+                    renderActions={this.renderCustomActions}
+                    renderFooter={this.renderFooter}
+                    renderInputToolbar={this.renderInputToolbar}
+                    onPressAvatar={this.onPressActions}
+                />
             </View>
 
 
@@ -323,28 +347,36 @@ export default class InvestorProfileQuiz extends React.Component {
     }
 }
 
-const styles = StyleSheet.create({
-    backgroundChat: {
-        backgroundColor : "#6f946c",
-        flex: 1
-    },
-    progressBar: {
-        alignItems: "center",
-        flex: 1,
-        marginBottom: 5,
-        marginTop: 10
-    },
-    button: {
-        marginBottom: 10,
-        alignItems: "center",
-    },
-    options: {
-        backgroundColor: "#e6e6fa", 
-        minWidth: 20, 
-        alignSelf: "stretch", 
-        alignItems: "center", 
-        borderRadius: 30, 
-        marginHorizontal: 20, 
-        marginBottom: 10
-    }
-});
+const
+    styles = StyleSheet.create({
+        backgroundChat: {
+            backgroundColor: "#455A64",
+            flex: 1
+        },
+        progressBar: {
+            alignItems: "center",
+            flex: 1,
+            marginBottom: 5,
+            marginTop: 10
+        },
+        learnMore: {
+            backgroundColor: "#b4b3b6",
+            alignSelf: "stretch",
+            alignItems: "center",
+            minHeight: 25,
+            minWidth: 20,
+            borderRadius: 30,
+            marginHorizontal: 20,
+            paddingTop: 5,
+        },
+        options: {
+            backgroundColor: "#d8d8d8",
+            minWidth: 20,
+            minHeight: 25,
+            alignSelf: "stretch",
+            alignItems: "center",
+            borderRadius: 30,
+            marginHorizontal: 20,
+            marginBottom: 10
+        }
+    });
