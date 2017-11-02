@@ -21,14 +21,16 @@ export const initialState = {
     id: null,
     username: null,
   },
-  clientId: null,
+  client: {
+    id: null,
+  },
 };
 
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
     case UPDATE:
       return {
-        ...action.session,
+        ...state, ...action.session,
       };
     default:
       return state;

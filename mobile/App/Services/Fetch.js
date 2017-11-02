@@ -3,23 +3,15 @@ import _ from 'lodash';
 
 const API_URL = 'http://172.30.9.163:1337'
 
-export const exceptionExtractError = (exception) => {
-  if (!exception.Errors) return false;
-  let error = false;
-  const errorKeys = Object.keys(exception.Errors);
-  if (errorKeys.length > 0) {
-    error = exception.Errors[errorKeys[0]][0].message;
-  }
-  return error;
-};
+export const fetchApi = (endPoint, payload = {}, method = 'get', session, headers = {}) => {
+  console.log(session);
 
-export const fetchApi = (endPoint, payload = {}, method = 'get', accessToken = null, headers = {}) => {
   return fetchival(`${API_URL}${endPoint}`, {
     headers: _.pickBy({
-      ...(accessToken ? {
-        Authorization: `Bearer ${accessToken}`,
+      ...(session.tokens.access ? {
+        Authorization: `Bearer ${session.tokens.access}`,
       } : {
-        'Client-ID': '8puWuJWZYls1Ylawxm6CMiYREhsGGSyw',
+        'client-id': session.client.id,
       }),
       ...headers,
     }, item => !_.isEmpty(item)),

@@ -18,12 +18,13 @@ const clearSession = (dispatch) => {
   dispatch(SessionRedux.update(SessionRedux.initialState));
 };
 
-const onRequestSuccess = (response, dispatch) => {
-  const tokens = response.tokens.reduce((prev, item) => ({
+const onRequestSuccess = (res, dispatch) => {
+  console.log(res)
+  const tokens = res.tokens.reduce((prev, item) => ({
     ...prev,
     [item.type]: item,
   }), {});
-  dispatch(SessionRedux.update({ tokens, user: response.user }));
+  dispatch(SessionRedux.update({ tokens, user: res.user }));
   setSessionTimeout(tokens.access.expiresIn);
 };
 
@@ -48,7 +49,8 @@ export const refreshToken = () => {
 
 export const authenticate = (email, password) => {
   return (dispatch, getState) => {
-    SessionAPI.authenticate(email, password)
+    const session = getState().session;
+    SessionAPI.authenticate(email, password, session)
     .then(onRequestSuccess(dispatch))
     .catch(onRequestFailed);
   }
@@ -66,41 +68,46 @@ export const revoke = () => {
   }
 };
 
-export const signup = (username, email, password) => {
+export const signup = (user) => {
   return (dispatch, getState) => {
-    SessionAPI.register(username, email, password)
+    const session = getState().session;
+    SessionAPI.register(user, session)
     .then((res) => {
-      console.log(res);
+      dispatch(SessionRedux.update({ 'user': res.user }));
     }).catch(onRequestFailed);
   }
 }
 
 export const authorize = () => {
-  console.log('requesting...')
-  return dispatch => {
-    SessionAPI.authorize()
+  return (dispatch, getState) => {
+    const session = getState().session;
+    SessionAPI.authorize(session)
     .then((res) => {
-      console.log('noice...')
-      console.log(res);
-      dispatch(SessionRedux.update({ 'clientId': res.id }));
+      dispatch(SessionRedux.update({ 'client': res.client }));
     }).catch(onRequestFailed);
   }
 }
 
 export const forgotPassword = (email) => {
-  SessionAPI.forgotPassword(email)
-  .then((res) => {
-    console.log('aaaaa');
-  }).catch((err) => {
-    console.log(err)
-  });
+  return (dispatch, getState) => {
+    let session = getState().session;
+    SessionAPI.forgotPassword(email, session)
+    .then((res) => {
+      console.log(res);
+    }).catch((err) => {
+      console.log(err)
+    });
+  }
 }
 
 export const resetPassword = (password, resetToken) => {
   return (dispatch, getState) => {
-    SessionAPI.resetPassword(password, resetToken)
+    let session = getState().session;
+    SessionAPI.resetPassword(password, resetToken, session)
     .then((res) => {
       console.log(res);
-    }).catch(onRequestFailed);
+    }).catch((err) => {
+      console.log(err)
+    });
   }
 }

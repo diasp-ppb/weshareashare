@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { StyleSheet, View, TouchableHighlight, Image, Picker } from 'react-native';
 import { Button, Text, Divider } from 'react-native-elements';
 import { ApplicationStyles, Images } from '../Themes'
+import * as Session from '../Redux/Session';
+import { connect } from 'react-redux'
 
 const t = require('tcomb-form-native');
 const Form = t.form.Form;
@@ -43,7 +45,7 @@ const defaultOptions = {
   },
 };
 
-export default class SignUpForm extends Component {
+class SignUpForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -61,6 +63,7 @@ export default class SignUpForm extends Component {
     this.setState({options: defaultOptions});
     if(values) {
       this.setState({value: null});
+      this.props.createUser(values)
     } else {
       if (this.state.value.repeatPassword && !Utils.samePasswords(this.state.value)) {
         this.setState({options: t.update(this.state.options, {
@@ -110,3 +113,9 @@ export default class SignUpForm extends Component {
     );
   }
 };
+
+const mapDispatchToProps = (dispatch) => ({
+  createUser: (user) => dispatch(Session.signup(user)),
+})
+
+export default connect(null, mapDispatchToProps)(SignUpForm)

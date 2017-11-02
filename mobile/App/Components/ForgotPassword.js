@@ -3,6 +3,7 @@ import { StyleSheet, View, TouchableHighlight, Image } from 'react-native';
 import { Images, ApplicationStyles } from '../Themes/index';
 import { Button, Text, Divider } from 'react-native-elements';
 import * as Session from '../Redux/Session'
+import { connect } from 'react-redux'
 
 const t = require('tcomb-form-native');
 import * as Utils from '../Services/Utils'
@@ -22,7 +23,7 @@ const defaultOptions = {
   },
 };
 
-export default class ForgotPassword extends Component {
+class ForgotPassword extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -35,7 +36,7 @@ export default class ForgotPassword extends Component {
     let value = this.refs.form.getValue();
     this.setState({options: defaultOptions});
     if(value) {
-      Session.forgotPassword(value.email);
+      this.props.requestForgotPassword(value.email);
       this.setState({value: null});
     }
   }
@@ -80,3 +81,9 @@ export default class ForgotPassword extends Component {
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  requestForgotPassword: (email) => dispatch(Session.forgotPassword(email)),
+})
+
+export default connect(null, mapDispatchToProps)(ForgotPassword)

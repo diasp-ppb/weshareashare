@@ -11,25 +11,22 @@ const endPoints = {
 	resetPassword: '/users/auth/resetPassword'
 };
 
-export const authorize = () => fetchApi(endPoints.authorize, {}, 'post')
+export const authorize = (session) => fetchApi(endPoints.authorize, {}, 'post', session)
 
-export const register = (username, email, password) => fetchApi(endPoints.create, {
-  user: {username, email, password}
-}, 'post')
+export const register = (user, session) => fetchApi(endPoints.create, {
+  user: user
+}, 'post', session)
 
-export const authenticate = (email, password) => fetchApi(endPoints.authenticate, {}, 'post', null, {
+export const authenticate = (email, password, session) => fetchApi(endPoints.authenticate, {}, 'post', session, {
 	Authorization: `Basic ${new Buffer(`${email}:${password}`).toString('base64')}`,
 });
 
-export const refresh = (token, user, accessToken) => fetchApi(endPoints.refresh, { token, user }, 'post', accessToken, {
-	'client-id': '8puWuJWZYls1Ylawxm6CMiYREhsGGSyw',
-	Authorization: null,
-});
+export const refresh = (token, user, session) => fetchApi(endPoints.refresh, { token, user }, 'post', session);
 
-export const revoke = (tokens, accessToken) => fetchApi(endPoints.revoke, { tokens }, 'post', accessToken);
+export const revoke = (tokens, session) => fetchApi(endPoints.revoke, { tokens }, 'post', session);
 
-export const forgotPassword = (email) => fetchApi(endPoints.forgotPassword, { email: email }, 'post')
+export const forgotPassword = (email, session) => fetchApi(endPoints.forgotPassword, { email: email }, 'post', session)
 
-export const resetPassword = (password, resetToken) => fetchApi(endPoints.resetPassword, {
+export const resetPassword = (password, resetToken, session) => fetchApi(endPoints.resetPassword, {
   password: password, resetToken: resetToken
-}, 'post')
+}, 'post', session)

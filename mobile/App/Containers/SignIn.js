@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { View, TouchableHighlight, Image } from 'react-native';
 import { Images, ApplicationStyles } from '../Themes/index';
 import { Button, Text, Divider } from 'react-native-elements';
+import { connect } from 'react-redux'
+import * as Session from '../Redux/Session';
 
 const t = require('tcomb-form-native');
 const Form = t.form.Form;
@@ -30,7 +32,7 @@ const defaultOptions = {
   },
 };
 
-export default class SignInForm extends Component {
+class SignInForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -47,6 +49,7 @@ export default class SignInForm extends Component {
     let values = this.refs.form.getValue();
     if(values) {
       this.setState({value: null});
+      this.props.authUser(values.email, values.password);
     }
   }
 
@@ -90,3 +93,9 @@ export default class SignInForm extends Component {
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  authUser: (email, password) => dispatch(Session.authenticate(email, password)),
+})
+
+export default connect(null, mapDispatchToProps)(SignInForm)
