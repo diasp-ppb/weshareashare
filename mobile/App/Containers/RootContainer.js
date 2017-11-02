@@ -4,11 +4,13 @@ import ReduxNavigation from '../Navigation/ReduxNavigation'
 import { connect } from 'react-redux'
 import StartupActions from '../Redux/StartupRedux'
 import ReduxPersist from '../Config/ReduxPersist'
+import * as Session from '../Redux/Session';
 
 class RootContainer extends Component {
   componentDidMount () {
     // if redux persist is not active fire startup action
     if (!ReduxPersist.active) {
+      Session.authorize();
       this.props.startup()
     }
   }

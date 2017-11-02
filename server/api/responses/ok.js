@@ -20,7 +20,7 @@ module.exports = function resOk(data) {
   var res = this.res;
 
   // Define the status code to send in the response.
-  var statusCodeToSet = 400;
+  var statusCodeToSet = 200;
 
   // Log a message, if desired.
   sails.log('Ran custom response: res.ok()');

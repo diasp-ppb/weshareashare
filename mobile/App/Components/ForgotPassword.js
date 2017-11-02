@@ -5,17 +5,13 @@ import { Button, Text, Divider } from 'react-native-elements';
 import * as Session from '../Redux/Session'
 
 const t = require('tcomb-form-native');
+import * as Utils from '../Services/Utils'
 const Form = t.form.Form;
 
-const Email = t.refinement(t.String, email => {
-  const reg = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-  return reg.test(email);
-});
-
 const ForgotParams = t.struct({
-  email: Email,
+  email: Utils.Email,
 });
-const options = {
+const defaultOptions = {
   auto: 'placeholders',
   fields: {
     email: {
@@ -27,13 +23,25 @@ const options = {
 };
 
 export default class ForgotPassword extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: {},
+      options: defaultOptions
+    };
+  }
 
   onRequest = () => {
     let value = this.refs.form.getValue();
-    let validate = this.refs.form.validate();
+    this.setState({options: defaultOptions});
     if(value) {
       Session.forgotPassword(value.email);
+      this.setState({value: null});
     }
+  }
+
+  onChange = (value) => {
+    this.setState({value});
   }
 
   render() {
@@ -52,7 +60,9 @@ export default class ForgotPassword extends Component {
             <Form
               ref="form"
               type={ForgotParams}
-              options={options} />
+              options={this.state.options}
+              value={this.state.value}
+              onChange={this.onChange}/>
             <Button
               buttonStyle={ApplicationStyles.btn}
               onPress={this.onRequest}

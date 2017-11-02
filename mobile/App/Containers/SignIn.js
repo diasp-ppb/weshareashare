@@ -5,22 +5,14 @@ import { Button, Text, Divider } from 'react-native-elements';
 
 const t = require('tcomb-form-native');
 const Form = t.form.Form;
-
-const Email = t.refinement(t.String, email => {
-  const reg = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-  return reg.test(email);
-});
-
-const Password = t.refinement(t.String, psw => {
-  return psw.length >= 8;
-});
+import * as Utils from '../Services/Utils'
 
 const SignInParams = t.struct({
-  email: Email,
-  password: Password,
+  email: Utils.Email,
+  password: Utils.Password,
   rememberMe: t.Boolean,
 });
-const options = {
+const defaultOptions = {
   auto: 'placeholders',
   fields: {
     email: {
@@ -39,12 +31,22 @@ const options = {
 };
 
 export default class SignInForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: {},
+      options: defaultOptions
+    };
+  }
+
+  onChange = (value) => {
+    this.setState({value});
+  }
 
   onSignIn = () => {
     let values = this.refs.form.getValue();
-    let validate = this.refs.form.validate();
-    if(validate) {
-
+    if(values) {
+      this.setState({value: null});
     }
   }
 
@@ -63,7 +65,9 @@ export default class SignInForm extends Component {
             <Form
               ref="form"
               type={SignInParams}
-              options={options}/>
+              options={this.state.options}
+              value={this.state.value}
+              onChange={this.onChange}/>
             <Button
               buttonStyle={ApplicationStyles.btn}
               onPress={this.onSignIn}

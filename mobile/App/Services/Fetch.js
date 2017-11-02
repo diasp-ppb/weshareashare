@@ -1,7 +1,7 @@
 import fetchival from 'fetchival';
 import _ from 'lodash';
 
-const API_URL = 'http://192.168.2.65:1337'
+const API_URL = 'http://172.30.9.163:1337'
 
 export const exceptionExtractError = (exception) => {
   if (!exception.Errors) return false;

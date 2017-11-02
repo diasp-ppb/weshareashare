@@ -5,24 +5,16 @@ import { ApplicationStyles, Images } from '../Themes'
 
 const t = require('tcomb-form-native');
 const Form = t.form.Form;
-const Email = t.refinement(t.String, email => {
-  const reg = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-  return reg.test(email);
-});
+import * as Utils from '../Services/Utils';
 
-const Password = t.refinement(t.String, psw => {
-  return psw.length >= 8;
-});
-
-
-const SignUpParams = t.struct({
+const SignUpParams = t.subtype(t.struct({
   username: t.String,
-  email: Email,
-  password: Password,
-  repeatPassword: Password,
-});
+  email: Utils.Email,
+  password: Utils.Password,
+  repeatPassword: Utils.Password,
+}), Utils.samePasswords);
 
-const options = {
+const defaultOptions = {
   auto: 'placeholders',
   fields: {
     username: {
@@ -44,7 +36,6 @@ const options = {
     },
     repeatPassword: {
       placeholder: 'Repeat Password',
-      error: 'The password does not match the one entered above',
       maxLength: 32,
       password: true,
       secureTextEntry: true,
@@ -53,12 +44,34 @@ const options = {
 };
 
 export default class SignUpForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: {},
+      options: defaultOptions
+    };
+  }
+
+  onChange = (value) => {
+    this.setState({value})
+  }
 
   onSignUp = () => {
     let values = this.refs.form.getValue();
-    let validate = this.refs.form.validate();
-    if(validate) {
-
+    this.setState({options: defaultOptions});
+    if(values) {
+      this.setState({value: null});
+    } else {
+      if (this.state.value.repeatPassword && !Utils.samePasswords(this.state.value)) {
+        this.setState({options: t.update(this.state.options, {
+          fields: {
+            repeatPassword: {
+              hasError: { $set: true },
+              error: { $set: 'Password must match' }
+            }
+          }
+        })});
+      }
     }
   }
 
@@ -77,7 +90,9 @@ export default class SignUpForm extends Component {
             <Form
               ref="form"
               type={SignUpParams}
-              options={options} />
+              options={this.state.options}
+              value={this.state.value}
+              onChange={this.onChange}/>
             <Button
               buttonStyle={ApplicationStyles.btn}
               onPress={this.onSignUp}
