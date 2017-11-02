@@ -6,22 +6,29 @@ import { Button, Text, Divider } from 'react-native-elements';
 const t = require('tcomb-form-native');
 const Form = t.form.Form;
 
-const ResetParams = t.struct({
-  password: t.String,
-  repeatPassword: t.String
+const Password = t.refinement(t.String, psw => {
+  return psw.length >= 8;
 });
-const options = {
+
+const ResetParams = t.struct({
+  password: Password,
+  repeatPassword: Password
+});
+
+let options = {
   auto: 'placeholders',
   fields: {
     password: {
       placeholder: 'Your new password',
       secureTextEntry: true,
+      maxLength: 32,
       password: true,
       error: 'Insert a valid password'
     },
     repeatPassword: {
       placeholder: 'Repeat password',
       secureTextEntry: true,
+      maxLength: 32,
       password: true,
       error: 'The password does not match the one entered above'
     },
@@ -64,7 +71,7 @@ export default class ForgotPassword extends Component {
           <Divider style={ApplicationStyles.divider}/>
           <Text h5 style={ApplicationStyles.infoText}>Not supposed to be here?
             <Text style={ApplicationStyles.linkText} onPress={() => navigate('Homepage')}>
-              {' '}Go to the homepage.
+              {' '}Go to the homepage
             </Text>
           </Text>
         </View>

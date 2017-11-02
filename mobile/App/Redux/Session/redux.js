@@ -19,6 +19,7 @@ export const initialState = {
   },
   user: {
     id: null,
+    username: null,
   },
 };
 

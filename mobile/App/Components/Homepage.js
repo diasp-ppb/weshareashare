@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { NavigationActions } from 'react-navigation'
 import { View, Image } from 'react-native';
 import { Button, Text } from 'native-base'
-import { Images, ApplicationStyles } from '../Themes/index';
+import { Images } from '../Themes/index';
 import styles from './Styles/HomepageStyle';
 import { StoikHeader } from './StoikHeader';
 

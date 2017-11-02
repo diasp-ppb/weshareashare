@@ -17,7 +17,7 @@ const PrimaryNav = StackNavigator({
 }, {
   // Default config for all screens
   headerMode: 'none',
-  initialRouteName: 'Homepage',
+  initialRouteName: 'ForgotPassword',
   navigationOptions: {
     headerStyle: styles.header,
   },

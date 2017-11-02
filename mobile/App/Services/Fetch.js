@@ -1,7 +1,7 @@
 import fetchival from 'fetchival';
 import _ from 'lodash';
 
-const API_URL = 'http://172.18.0.1/1337'
+const API_URL = 'http://192.168.2.65:1337'
 
 export const exceptionExtractError = (exception) => {
   if (!exception.Errors) return false;
@@ -13,7 +13,7 @@ export const exceptionExtractError = (exception) => {
   return error;
 };
 
-export const fetchApi = (endPoint, payload = {}, method = 'get', accessToken, headers = {}) => {
+export const fetchApi = (endPoint, payload = {}, method = 'get', accessToken = null, headers = {}) => {
   return fetchival(`${API_URL}${endPoint}`, {
     headers: _.pickBy({
       ...(accessToken ? {

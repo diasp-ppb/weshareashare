@@ -10,11 +10,16 @@ const Email = t.refinement(t.String, email => {
   return reg.test(email);
 });
 
+const Password = t.refinement(t.String, psw => {
+  return psw.length >= 8;
+});
+
+
 const SignUpParams = t.struct({
   username: t.String,
   email: Email,
-  password: t.String,
-  repeatPassword: t.String,
+  password: Password,
+  repeatPassword: Password,
 });
 
 const options = {
@@ -22,21 +27,25 @@ const options = {
   fields: {
     username: {
       placeholder: 'Username',
-      error: 'Insert a valid username'
+      error: 'Insert a valid username',
+      maxLength: 32,
     },
     email: {
       placeholder: 'Email',
-      error: 'Insert a valid email'
+      error: 'Insert a valid email',
+      maxLength: 32,
     },
     password: {
       placeholder: 'Password',
       error: 'Insert a valid password',
+      maxLength: 32,
       password: true,
       secureTextEntry: true,
     },
     repeatPassword: {
       placeholder: 'Repeat Password',
       error: 'The password does not match the one entered above',
+      maxLength: 32,
       password: true,
       secureTextEntry: true,
     }

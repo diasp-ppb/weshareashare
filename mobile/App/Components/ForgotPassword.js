@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { StyleSheet, View, TouchableHighlight, Image } from 'react-native';
 import { Images, ApplicationStyles } from '../Themes/index';
 import { Button, Text, Divider } from 'react-native-elements';
+import * as Session from '../Redux/Session'
 
 const t = require('tcomb-form-native');
 const Form = t.form.Form;
@@ -19,7 +20,8 @@ const options = {
   fields: {
     email: {
       placeholder: 'Email',
-      error: 'Insert a valid email'
+      error: 'Insert a valid email',
+      maxLength: 32,
     },
   },
 };
@@ -29,8 +31,8 @@ export default class ForgotPassword extends Component {
   onRequest = () => {
     let value = this.refs.form.getValue();
     let validate = this.refs.form.validate();
-    if(validate) {
-
+    if(value) {
+      Session.forgotPassword(value.email);
     }
   }
 

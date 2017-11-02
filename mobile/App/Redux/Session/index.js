@@ -40,18 +40,17 @@ export const refreshToken = () => {
       return Promise.reject();
     } else {
       SessionAPI.refresh(session.tokens.refresh, session.user, session.tokens.access)
-        .then(onRequestSuccess(dispatch))
-        .catch(onRequestFailed);
+      .then(onRequestSuccess(dispatch))
+      .catch(onRequestFailed);
     }
   }
 };
 
 export const authenticate = (email, password) => {
   return (dispatch, getState) => {
-    const session = getState().session;
-    SessionAPI.authenticate(email, password, session.tokens.access)
-      .then(onRequestSuccess)
-      .catch(onRequestFailed);
+    SessionAPI.authenticate(email, password)
+    .then(onRequestSuccess(dispatch))
+    .catch(onRequestFailed);
   }
 }
 
@@ -62,7 +61,34 @@ export const revoke = () => {
       type: session.tokens[tokenKey].type,
       value: session.tokens[tokenKey].value,
     })), session.tokens.access)
-      .then(clearSession(dispatch))
-      .catch(() => {});
+    .then(clearSession(dispatch))
+    .catch(() => {});
   }
 };
+
+export const signup = (username, email, password) => {
+  return (dispatch, getState) => {
+    SessionAPI.create(username, email, password)
+    .then((res) => {
+      console.log(res);
+    }).catch(onRequestFailed);
+  }
+}
+
+export const forgotPassword = (email) => {
+  SessionAPI.forgotPassword(email)
+  .then((res) => {
+    console.log('aaaaa');
+  }).catch((err) => {
+    console.log(err)
+  });
+}
+
+export const resetPassword = (password, resetToken) => {
+  return (dispatch, getState) => {
+    SessionAPI.resetPassword(password, resetToken)
+    .then((res) => {
+      console.log(res);
+    }).catch(onRequestFailed);
+  }
+}

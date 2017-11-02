@@ -11,20 +11,29 @@ const Email = t.refinement(t.String, email => {
   return reg.test(email);
 });
 
+const Password = t.refinement(t.String, psw => {
+  return psw.length >= 8;
+});
+
 const SignInParams = t.struct({
   email: Email,
-  password: t.String,
+  password: Password,
+  rememberMe: t.Boolean,
 });
 const options = {
   auto: 'placeholders',
   fields: {
     email: {
       placeholder: 'Email',
-      error: 'Insert a valid email'
+      error: 'Insert a valid email',
+      maxLength: 32,
     },
     password: {
       placeholder: 'Password',
+      password: true,
+      maxLength: 32,
       secureTextEntry: true,
+      error: 'Insert a valid password',
     },
   },
 };
@@ -54,7 +63,7 @@ export default class SignInForm extends Component {
             <Form
               ref="form"
               type={SignInParams}
-              options={options} />
+              options={options}/>
             <Button
               buttonStyle={ApplicationStyles.btn}
               onPress={this.onSignIn}
