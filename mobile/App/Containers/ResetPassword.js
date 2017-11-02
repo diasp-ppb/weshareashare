@@ -4,18 +4,15 @@ import { Images, ApplicationStyles } from '../Themes/index';
 import { Button, Text, Divider } from 'react-native-elements';
 
 const t = require('tcomb-form-native');
+import * as Utils from '../Services/Utils'
 const Form = t.form.Form;
 
-const Password = t.refinement(t.String, psw => {
-  return psw.length >= 8;
-});
+const ResetParams = t.subtype(t.struct({
+  password: Utils.Password,
+  repeatPassword: Utils.Password
+}), Utils.samePasswords);
 
-const ResetParams = t.struct({
-  password: Password,
-  repeatPassword: Password
-});
-
-let options = {
+let defaultOptions = {
   auto: 'placeholders',
   fields: {
     password: {
@@ -29,19 +26,40 @@ let options = {
       placeholder: 'Repeat password',
       secureTextEntry: true,
       maxLength: 32,
-      password: true,
-      error: 'The password does not match the one entered above'
+      password: true
     },
   },
 };
 
 export default class ForgotPassword extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: {},
+      options: defaultOptions
+    };
+  }
+
+  onChange = (value) => {
+    this.setState({value});
+  }
 
   onReset = () => {
     let value = this.refs.form.getValue();
-    let validate = this.refs.form.validate();
-    if(validate) {
-
+    this.setState({options: defaultOptions});
+    if(value) {
+      this.setState({value: null});
+    } else {
+      if (this.state.value.repeatPassword && !Utils.samePasswords(this.state.value)) {
+        this.setState({options: t.update(this.state.options, {
+          fields: {
+            repeatPassword: {
+              hasError: { $set: true },
+              error: { $set: 'Password must match' }
+            }
+          }
+        })});
+      }
     }
   }
 
@@ -61,7 +79,9 @@ export default class ForgotPassword extends Component {
             <Form
               ref="form"
               type={ResetParams}
-              options={options} />
+              options={this.state.options}
+              value={this.state.value}
+              onChange={this.onChange}/>
             <Button
               buttonStyle={ApplicationStyles.btn}
               onPress={this.onReset}
