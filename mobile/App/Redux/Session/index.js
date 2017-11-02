@@ -68,9 +68,21 @@ export const revoke = () => {
 
 export const signup = (username, email, password) => {
   return (dispatch, getState) => {
-    SessionAPI.create(username, email, password)
+    SessionAPI.register(username, email, password)
     .then((res) => {
       console.log(res);
+    }).catch(onRequestFailed);
+  }
+}
+
+export const authorize = () => {
+  console.log('requesting...')
+  return dispatch => {
+    SessionAPI.authorize()
+    .then((res) => {
+      console.log('noice...')
+      console.log(res);
+      dispatch(SessionRedux.update({ 'clientId': res.id }));
     }).catch(onRequestFailed);
   }
 }

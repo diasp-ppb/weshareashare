@@ -2,6 +2,7 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import { autoRehydrate } from 'redux-persist'
 import RehydrationServices from '../Services/RehydrationServices'
 import ReduxPersist from '../Config/ReduxPersist'
+import thunk from 'redux-thunk';
 import ScreenTracking from './ScreenTrackingMiddleware'
 
 // creates the store
@@ -13,6 +14,7 @@ export default (rootReducer) => {
 
   /* ------------- Analytics Middleware ------------- */
   middleware.push(ScreenTracking)
+  middleware.push(thunk);
 
   /* ------------- Assemble Middleware ------------- */
 

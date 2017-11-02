@@ -2,7 +2,8 @@ import { Buffer } from 'buffer';
 import { fetchApi } from '../../Services/Fetch';
 
 const endPoints = {
-	create: '/users',
+	authorize: '/clients',
+	register: '/users',
 	authenticate: '/users/auth',
 	revoke: '/users/auth/revoke',
 	refresh: '/users/auth/refresh',
@@ -10,7 +11,9 @@ const endPoints = {
 	resetPassword: '/users/auth/resetPassword'
 };
 
-export const create = (username, email, password) => fetchApi(endPoints.create, {
+export const authorize = () => fetchApi(endPoints.authorize, {}, 'post')
+
+export const register = (username, email, password) => fetchApi(endPoints.create, {
   user: {username, email, password}
 }, 'post')
 

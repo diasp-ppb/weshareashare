@@ -21,6 +21,7 @@ export const initialState = {
     id: null,
     username: null,
   },
+  clientId: null,
 };
 
 export const reducer = (state = initialState, action) => {
