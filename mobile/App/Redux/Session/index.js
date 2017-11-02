@@ -2,7 +2,6 @@ import * as SessionAPI from './api';
 import * as SessionRedux from './redux'
 
 const SESSION_TIMEOUT_THRESHOLD = 300; // Will refresh the access token 5 minutes before it expires
-
 let sessionTimeout = null;
 
 const setSessionTimeout = (duration) => {
@@ -18,20 +17,43 @@ const clearSession = (dispatch) => {
   dispatch(SessionRedux.update(SessionRedux.initialState));
 };
 
-const onRequestSuccess = (res, dispatch) => {
-  console.log(res)
-  const tokens = res.tokens.reduce((prev, item) => ({
-    ...prev,
-    [item.type]: item,
-  }), {});
-  dispatch(SessionRedux.update({ tokens, user: res.user }));
-  setSessionTimeout(tokens.access.expiresIn);
-};
-
-const onRequestFailed = (exception) => {
-  clearSession();
+const onRequestFailed = (exception, dispatch) => {
+  clearSession(dispatch);
   throw exception;
 };
+
+export const authorize = () => {
+  return (dispatch, getState) => {
+    const session = getState().session;
+    SessionAPI.authorize(session)
+    .then((res) => {
+      dispatch(SessionRedux.update({ 'client': res.client }));
+    }).catch(err => onRequestFailed(err, dispatch));
+  }
+}
+
+export const signup = (user) => {
+  return (dispatch, getState) => {
+    const session = getState().session;
+    SessionAPI.register(user, session)
+    .then((res) => {
+      dispatch(SessionRedux.update({ 'tokens': res.tokens, 'user': res.user }));
+      setSessionTimeout(res.tokens.access.expiresIn);
+    }).catch(err => onRequestFailed(err, dispatch));
+  }
+}
+
+export const authenticate = (email, password) => {
+  return (dispatch, getState) => {
+    const session = getState().session;
+    SessionAPI.authenticate(email, password, session)
+    .then((res) => {
+      dispatch(SessionRedux.update({ 'tokens': res.tokens, 'user': res.user }));
+      setSessionTimeout(res.tokens.access.expiresIn);
+    })
+    .catch(onRequestFailed);
+  }
+}
 
 export const refreshToken = () => {
   return (dispatch, getState) => {
@@ -41,20 +63,14 @@ export const refreshToken = () => {
       return Promise.reject();
     } else {
       SessionAPI.refresh(session.tokens.refresh, session.user, session.tokens.access)
-      .then(onRequestSuccess(dispatch))
+      .then((res) => {
+        dispatch(SessionRedux.update({ 'tokens': res.tokens, 'user': res.user }));
+        setSessionTimeout(res.tokens.access.expiresIn);
+      })
       .catch(onRequestFailed);
     }
   }
 };
-
-export const authenticate = (email, password) => {
-  return (dispatch, getState) => {
-    const session = getState().session;
-    SessionAPI.authenticate(email, password, session)
-    .then(onRequestSuccess(dispatch))
-    .catch(onRequestFailed);
-  }
-}
 
 export const revoke = () => {
   return (dispatch, getState) => {
@@ -64,29 +80,9 @@ export const revoke = () => {
       value: session.tokens[tokenKey].value,
     })), session.tokens.access)
     .then(clearSession(dispatch))
-    .catch(() => {});
+    .catch(onRequestFailed);
   }
 };
-
-export const signup = (user) => {
-  return (dispatch, getState) => {
-    const session = getState().session;
-    SessionAPI.register(user, session)
-    .then((res) => {
-      dispatch(SessionRedux.update({ 'user': res.user }));
-    }).catch(onRequestFailed);
-  }
-}
-
-export const authorize = () => {
-  return (dispatch, getState) => {
-    const session = getState().session;
-    SessionAPI.authorize(session)
-    .then((res) => {
-      dispatch(SessionRedux.update({ 'client': res.client }));
-    }).catch(onRequestFailed);
-  }
-}
 
 export const forgotPassword = (email) => {
   return (dispatch, getState) => {

@@ -62,7 +62,6 @@ class SignUpForm extends Component {
     let values = this.refs.form.getValue();
     this.setState({options: defaultOptions});
     if(values) {
-      this.setState({value: null});
       this.props.createUser(values)
     } else {
       if (this.state.value.repeatPassword && !Utils.samePasswords(this.state.value)) {
@@ -112,7 +111,7 @@ class SignUpForm extends Component {
       </View>
     );
   }
-};
+}
 
 const mapDispatchToProps = (dispatch) => ({
   createUser: (user) => dispatch(Session.signup(user)),

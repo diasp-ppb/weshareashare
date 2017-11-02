@@ -9,12 +9,6 @@
  * ```
  * NODE_ENV=production node app
  * ```
- *
- * > If you're using git as a version control solution for your Sails app,
- * > this file WILL BE COMMITTED to your repository by default, unless you add
- * > it to your .gitignore file.  If your repository will be publicly viewable,
- * > don't add private/sensitive data (like API keys / db passwords) to this file!
- *
  * For more best practices and tips, see:
  * https://sailsjs.com/docs/concepts/deployment
  */
@@ -22,75 +16,17 @@
 module.exports = {
 
 
-  /**************************************************************************
-  *                                                                         *
-  * Tell Sails what database(s) it should use in production.                *
-  *                                                                         *
-  * (https://sailsjs.com/config/datastores)                                 *
-  *                                                                         *
-  **************************************************************************/
   datastores: {
-
-    /***************************************************************************
-    *                                                                          *
-    * Configure your default production database.                              *
-    *                                                                          *
-    * 1. Choose an adapter:                                                    *
-    *    https://sailsjs.com/plugins/databases                                 *
-    *                                                                          *
-    * 2. Install it as a dependency of your Sails app.                         *
-    *    (For example:  npm install sails-mysql --save)                        *
-    *                                                                          *
-    * 3. Then pass it in, along with a connection URL.                         *
-    *    (See https://sailsjs.com/config/datastores for help.)                 *
-    *                                                                          *
-    ***************************************************************************/
     default: {
-      // adapter: 'sails-mysql',
+      adapter: 'sails-postgresql',
       // url: 'mysql://user:password@host:port/database',
     },
-    //--------------------------------------------------------------------------
-    //  /\   To avoid checking it in to version control, you might opt to set
-    //  ||   sensitive credentials like `url` using an environment variable.
-    //
-    //  For example:
-    //  ```
-    //  sails_datastores__default__url=mysql://admin:myc00lpAssw2D@db.example.com:3306/my_prod_db
-    //  ```
-    //--------------------------------------------------------------------------
-
   },
-
-
 
   models: {
-
-    /***************************************************************************
-    *                                                                          *
-    * To help avoid accidents, Sails automatically sets the automigration      *
-    * strategy to "safe" when your app lifts in production mode.               *
-    * (This is just here as a reminder.)                                       *
-    *                                                                          *
-    * More info:                                                               *
-    * https://sailsjs.com/docs/concepts/models-and-orm/model-settings#?migrate *
-    *                                                                          *
-    ***************************************************************************/
     migrate: 'safe',
-
   },
 
-
-
-  /**************************************************************************
-  *                                                                         *
-  * Always disable "shortcut" blueprint routes.                             *
-  *                                                                         *
-  * > You'll also want to disable any other blueprint routes if you are not *
-  * > actually using them (e.g. "actions" and "rest") -- but you can do     *
-  * > that in `config/blueprints.js`, since you'll want to disable them in  *
-  * > all environments (not just in production.)                            *
-  *                                                                         *
-  ***************************************************************************/
   blueprints: {
     shortcuts: false,
   },

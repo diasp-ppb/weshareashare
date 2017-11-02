@@ -11,16 +11,21 @@ const expiresIn = expiresAt =>
   ).asSeconds());
 
 const formatTokenResponse = (accessToken, refreshToken, user) => ({
-  tokens: [{
-    type: 'access',
-    value: accessToken.value,
-    expiresIn: expiresIn(accessToken.expiresAt),
-  }, {
-    type: 'refresh',
-    value: refreshToken.value,
-  }],
+  tokens: {
+    access: {
+      type: 'access',
+      value: accessToken.value,
+      expiresIn: expiresIn(accessToken.expiresAt),
+    },
+    refresh: {
+      type: 'refresh',
+      value: refreshToken.value,
+    }
+  },
   user: {
     id: user.id,
+    username: user.username,
+    email: user.email,
   },
 });
 
@@ -129,11 +134,10 @@ module.exports = {
       Token.findOrAdd({
         user: user.id,
         type: 'reset',
-      }).then(() => {
-        return user;
       }).catch((err) => {
         throw(err);
       });
+      return user;
     }).then((user) => {
       let email = sails.config.custom.email;
       email.send({
@@ -147,6 +151,7 @@ module.exports = {
       }).then(() => {
         return res.ok({response: 'An email with a link to reset the password was sent to this account.'});
       }).catch((err) => {
+        console.log(err);
         return res.serverError(err);
       });
     }).catch((err) => {

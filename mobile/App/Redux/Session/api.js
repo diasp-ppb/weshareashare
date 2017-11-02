@@ -13,7 +13,7 @@ const endPoints = {
 
 export const authorize = (session) => fetchApi(endPoints.authorize, {}, 'post', session)
 
-export const register = (user, session) => fetchApi(endPoints.create, {
+export const register = (user, session) => fetchApi(endPoints.register, {
   user: user
 }, 'post', session)
 
@@ -21,7 +21,7 @@ export const authenticate = (email, password, session) => fetchApi(endPoints.aut
 	Authorization: `Basic ${new Buffer(`${email}:${password}`).toString('base64')}`,
 });
 
-export const refresh = (token, user, session) => fetchApi(endPoints.refresh, { token, user }, 'post', session);
+export const refresh = (refreshToken, user, session) => fetchApi(endPoints.refresh, { refreshToken, user }, 'post', session);
 
 export const revoke = (tokens, session) => fetchApi(endPoints.revoke, { tokens }, 'post', session);
 

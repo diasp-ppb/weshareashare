@@ -5,10 +5,36 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
+const moment = require('moment');
+
+const expiresIn = expiresAt =>
+  Math.round(moment.duration(
+    moment(expiresAt).diff(moment())
+  ).asSeconds());
+
+const formatTokenResponse = (accessToken, refreshToken, user) => ({
+  tokens: {
+    access: {
+      type: 'access',
+      value: accessToken.value,
+      expiresIn: expiresIn(accessToken.expiresAt),
+    },
+    refresh: {
+      type: 'refresh',
+      value: refreshToken.value,
+    }
+  },
+  user: {
+    id: user.id,
+    username: user.username,
+    email: user.email,
+  },
+});
+
 module.exports = {
   create(req, res) {
     let params = req.allParams();
-    User.create(params).meta({fetch: true})
+    User.create(params.user).meta({fetch: true})
       .then((user) => {
         return user;
       }).then((user) => {
@@ -22,19 +48,31 @@ module.exports = {
             name: user.username,
             email: user.email,
           }
-        }).then(() => {
-          return res.created(user);
-        }).catch((err) => {
-          return res.serverError(err);
+        })
+        return user;
+      }).then((user) => {
+        Token.findOrAdd({
+          user: user.id,
+          type: 'access',
+        }).then((accessToken) => {
+          Token.findOrAdd({
+            user: user.id,
+            type: 'refresh',
+          }).then((refreshToken) => {
+            console.log(formatTokenResponse(accessToken, refreshToken, user))
+            return res.ok(formatTokenResponse(accessToken, refreshToken, user));
+          }).catch((err) => {
+            return res.serverError(err);
+          });
         });
       }).catch((err) => {
         sails.helpers.customValidation({model: User, err: err})
-          .then((customErrors) => {
-            return res.serverError(customErrors);
-          }).catch((error) => {
-            return res.serverError(error);
-          });
+        .then((customErrors) => {
+          return res.serverError(customErrors);
+        }).catch((error) => {
+          return res.serverError(error);
       });
+    })
   },
 
   getAll(req, res) {
