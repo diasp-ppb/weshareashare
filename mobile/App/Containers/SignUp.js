@@ -3,7 +3,8 @@ import { StyleSheet, View, TouchableHighlight, Image, Picker } from 'react-nativ
 import { Button, Text, Divider } from 'react-native-elements';
 import { ApplicationStyles, Images } from '../Themes'
 import * as Session from '../Redux/Session';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const t = require('tcomb-form-native');
 const Form = t.form.Form;
@@ -62,7 +63,12 @@ class SignUpForm extends Component {
     let values = this.refs.form.getValue();
     this.setState({options: defaultOptions});
     if(values) {
-      this.props.createUser(values)
+      try {
+        this.props.createUser(values)
+      } catch(res) {
+        console.log(66666666);
+        console.log(res);
+      }
     } else {
       if (this.state.value.repeatPassword && !Utils.samePasswords(this.state.value)) {
         this.setState({options: t.update(this.state.options, {
@@ -80,6 +86,7 @@ class SignUpForm extends Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
+      <KeyboardAwareScrollView>
       <View style={ApplicationStyles.mainContainer}>
         <Text h1 style={ApplicationStyles.headerTitle}>Stoik PPR</Text>
         <Image
@@ -109,6 +116,7 @@ class SignUpForm extends Component {
           </Text>
         </View>
       </View>
+      </KeyboardAwareScrollView>
     );
   }
 }

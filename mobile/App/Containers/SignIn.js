@@ -4,6 +4,7 @@ import { Images, ApplicationStyles } from '../Themes/index';
 import { Button, Text, Divider } from 'react-native-elements';
 import { connect } from 'react-redux'
 import * as Session from '../Redux/Session';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const t = require('tcomb-form-native');
 const Form = t.form.Form;
@@ -64,19 +65,21 @@ class SignInForm extends Component {
           resizeMode="contain"/>
         <View style={ApplicationStyles.form}>
           <Text h4 style={ApplicationStyles.subTitle}>Sign in</Text>
-          <View style={ApplicationStyles.container}>
-            <Form
-              ref="form"
-              type={SignInParams}
-              options={this.state.options}
-              value={this.state.value}
-              onChange={this.onChange}/>
-            <Button
-              buttonStyle={ApplicationStyles.btn}
-              onPress={this.onSignIn}
-              underlayColor='#99d9f4'
-              title='Sign in' />
-          </View>
+          <KeyboardAwareScrollView>
+            <View style={ApplicationStyles.container}>
+              <Form
+                ref="form"
+                type={SignInParams}
+                options={this.state.options}
+                value={this.state.value}
+                onChange={this.onChange}/>
+              <Button
+                buttonStyle={ApplicationStyles.btn}
+                onPress={this.onSignIn}
+                underlayColor='#99d9f4'
+                title='Sign in' />
+            </View>
+          </KeyboardAwareScrollView>
           <Divider style={ApplicationStyles.divider}/>
           <Text h5 style={ApplicationStyles.infoText}>
             <Text style={ApplicationStyles.linkText} onPress={() => navigate('ForgotPassword')}>

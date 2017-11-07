@@ -34,7 +34,7 @@ const formatTokenResponse = (accessToken, refreshToken, user) => ({
 module.exports = {
   create(req, res) {
     let params = req.allParams();
-    User.create(params.user).meta({fetch: true})
+    User.create(params).meta({fetch: true})
       .then((user) => {
         return user;
       }).then((user) => {

@@ -18,8 +18,18 @@ const clearSession = (dispatch) => {
 };
 
 const onRequestFailed = (exception, dispatch) => {
+  console.log(exception.response.status);
+  if (exception.response && exception.response.json) {
+    exception.response.json().then((json) => {
+      console.log(json);
+      //if (json) throw json;
+      //throw exception;
+    });
+  } else {
+    //throw exception;
+  }
   clearSession(dispatch);
-  throw exception;
+  //throw exception;
 };
 
 export const authorize = () => {
@@ -37,6 +47,9 @@ export const signup = (user) => {
     const session = getState().session;
     SessionAPI.register(user, session)
     .then((res) => {
+      console.log(1);
+        console.log(res);
+        console.log(2);
       dispatch(SessionRedux.update({ 'tokens': res.tokens, 'user': res.user }));
       setSessionTimeout(res.tokens.access.expiresIn);
     }).catch(err => onRequestFailed(err, dispatch));

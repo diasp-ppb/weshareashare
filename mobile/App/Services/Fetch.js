@@ -1,10 +1,11 @@
 import fetchival from 'fetchival';
 import _ from 'lodash';
 
-const API_URL = 'http://172.30.9.163:1337'
+const API_URL = 'http://192.168.1.2:1337';
 
 export const fetchApi = (endPoint, payload = {}, method = 'get', session, headers = {}) => {
-  console.log(session)
+  console.log(session);
+  console.log(payload);
   return fetchival(`${API_URL}${endPoint}`, {
     headers: _.pickBy({
       ...(session.tokens.access.value ? {
@@ -15,14 +16,4 @@ export const fetchApi = (endPoint, payload = {}, method = 'get', session, header
       ...headers,
     }, item => !_.isEmpty(item)),
   })[method.toLowerCase()](payload)
-    .catch((e) => {
-      if (e.response && e.response.json) {
-        e.response.json().then((json) => {
-          if (json) throw json;
-          throw e;
-        });
-      } else {
-        throw e;
-      }
-    });
 };

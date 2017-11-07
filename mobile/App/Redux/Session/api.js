@@ -14,7 +14,7 @@ const endPoints = {
 export const authorize = (session) => fetchApi(endPoints.authorize, {}, 'post', session)
 
 export const register = (user, session) => fetchApi(endPoints.register, {
-  user: user
+  username: user.username, email: user.email, password: user.password
 }, 'post', session)
 
 export const authenticate = (email, password, session) => fetchApi(endPoints.authenticate, {}, 'post', session, {
