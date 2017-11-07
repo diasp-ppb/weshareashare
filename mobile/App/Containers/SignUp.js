@@ -5,6 +5,7 @@ import { ApplicationStyles, Images } from '../Themes'
 import * as Session from '../Redux/Session';
 import { connect } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import * as SessionAPI from '../Redux/Session/api';
 
 const t = require('tcomb-form-native');
 const Form = t.form.Form;
@@ -48,10 +49,13 @@ const defaultOptions = {
 
 class SignUpForm extends Component {
   constructor(props) {
+    console.log(props.session.session);
     super(props);
     this.state = {
+      session: props.session.session,
       value: {},
-      options: defaultOptions
+      options: defaultOptions,
+      serverResponse: '',
     };
   }
 
@@ -63,12 +67,24 @@ class SignUpForm extends Component {
     let values = this.refs.form.getValue();
     this.setState({options: defaultOptions});
     if(values) {
-      try {
-        this.props.createUser(values)
-      } catch(res) {
-        console.log(66666666);
+
+      SessionAPI.register(values, this.state.session)
+      .then((res) => {
         console.log(res);
-      }
+        this.props.createUser(res);
+      }).catch(err => {
+        if (err.response && err.response.json) {
+          err.response.json().then((json) => {
+          var statusRes = err.response.status;
+          var messageRes = json[0].message;
+          this.setState({serverResponse: messageRes});
+          console.log(this.state.serverResponse);
+          });
+        }
+        this.props.onRequestFailed(err); 
+      });
+
+      
     } else {
       if (this.state.value.repeatPassword && !Utils.samePasswords(this.state.value)) {
         this.setState({options: t.update(this.state.options, {
@@ -94,7 +110,10 @@ class SignUpForm extends Component {
           style={ApplicationStyles.logo}
           resizeMode="contain"/>
         <View style={ApplicationStyles.form}>
+
           <Text h4 style={ApplicationStyles.subTitle}>Sign up</Text>
+          <Text>{this.state.serverResponse}</Text>
+
           <View style={ApplicationStyles.container}>
             <Form
               ref="form"
@@ -121,8 +140,13 @@ class SignUpForm extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return { session: state };
+};
+
 const mapDispatchToProps = (dispatch) => ({
-  createUser: (user) => dispatch(Session.signup(user)),
+  createUser: (res) => dispatch(Session.createUser(res)),
+  onRequestFailed: (exception) => dispatch(Session.onRequestFailed(exception)),
 })
 
-export default connect(null, mapDispatchToProps)(SignUpForm)
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm)
