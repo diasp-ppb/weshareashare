@@ -51,12 +51,12 @@ module.exports = {
     cache: 365.25 * 24 * 60 * 60 * 1000, // One year
     // trustProxy: true,
   },
-  port: 443,
-  ssl: {
-    ca: require('fs').readFileSync(require('path').resolve(__dirname,'../ssl/my-gd-bundle.crt')),
-    key: require('fs').readFileSync(require('path').resolve(__dirname,'../ssl/my-ssl.key')),
-    cert: require('fs').readFileSync(require('path').resolve(__dirname,'../ssl/my-ssl.crt'))
-  },
+  port: 80,
+  // ssl: {
+  //   ca: require('fs').readFileSync(require('path').resolve(__dirname,'../ssl/my-gd-bundle.crt')),
+  //   key: require('fs').readFileSync(require('path').resolve(__dirname,'../ssl/my-ssl.key')),
+  //   cert: require('fs').readFileSync(require('path').resolve(__dirname,'../ssl/my-ssl.crt'))
+  // },
   custom: {
     safeEmailEnvironment: true,
     email: new Email({

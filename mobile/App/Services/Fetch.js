@@ -1,7 +1,7 @@
 import fetchival from 'fetchival';
 import _ from 'lodash';
 
-const API_URL = 'http://192.168.1.2:1337';
+const API_URL = 'http://178.62.11.121';
 
 export const fetchApi = (endPoint, payload = {}, method = 'get', session, headers = {}) => {
   console.log(session);
