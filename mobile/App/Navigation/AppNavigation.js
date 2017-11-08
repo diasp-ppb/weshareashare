@@ -15,7 +15,7 @@ const PrimaryNav = StackNavigator({
   SignUp: { screen: SignUp },
   ForgotPassword: { screen: ForgotPassword },
   ResetPassword: { screen: ResetPassword },
-  InvestorProfileQuiz: {screen: InvestorProfileQuiz},
+  InvestorProfileQuiz: { screen: InvestorProfileQuiz },
 }, {
   // Default config for all screens
   headerMode: 'none',

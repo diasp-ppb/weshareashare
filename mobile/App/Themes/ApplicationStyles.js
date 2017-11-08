@@ -5,8 +5,8 @@ import Colors from './Colors';
 const ApplicationStyles = {
   headerTitle: {
     alignSelf: 'center',
-    padding: Metrics.PADDING*1.2,
-    paddingBottom: Metrics.PADDING*0.4,
+    padding: Metrics.PADDING * 1.2,
+    paddingBottom: Metrics.PADDING * 0.4,
     color: Colors.text,
     fontFamily: Fonts.type.OpenSans,
   },
@@ -19,12 +19,12 @@ const ApplicationStyles = {
     padding: 0,
     justifyContent: 'flex-start',
     alignSelf: 'center',
-    color: 'lightgrey'
+    color: 'lightgrey',
   },
   linkText: {
     alignSelf: 'center',
     fontWeight: 'bold',
-    color: Colors.stoikOrange
+    color: Colors.stoikOrange,
   },
   form: {
     flex: 1,
@@ -66,7 +66,7 @@ const ApplicationStyles = {
   },
   btnText: {
     color: Colors.text,
-    fontSize: Fonts.h5
+    fontSize: Fonts.h5,
   },
   section: {
     margin: Metrics.section,

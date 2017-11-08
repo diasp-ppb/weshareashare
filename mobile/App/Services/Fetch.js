@@ -14,6 +14,6 @@ export const fetchApi = (endPoint, payload = {}, method = 'get', session, header
         'client-id': session.client.id,
       }),
       ...headers,
-    }, item => !_.isEmpty(item)),
-  })[method.toLowerCase()](payload)
+    }, (item) => !_.isEmpty(item)),
+  })[method.toLowerCase()](payload);
 };

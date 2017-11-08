@@ -1,12 +1,14 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { StyleSheet, View, TouchableHighlight, Image } from 'react-native';
 import { Images, ApplicationStyles } from '../Themes/index';
 import { Button, Text, Divider } from 'react-native-elements';
-import * as Session from '../Redux/Session'
-import { connect } from 'react-redux'
+import * as Session from '../Redux/Session';
+import { connect } from 'react-redux';
 
 const t = require('tcomb-form-native');
-import * as Utils from '../Services/Utils'
+
+import * as Utils from '../Services/Utils';
+
 const Form = t.form.Form;
 
 const ForgotParams = t.struct({
@@ -28,21 +30,21 @@ class ForgotPassword extends Component {
     super(props);
     this.state = {
       value: {},
-      options: defaultOptions
+      options: defaultOptions,
     };
   }
 
   onRequest = () => {
-    let value = this.refs.form.getValue();
-    this.setState({options: defaultOptions});
-    if(value) {
+    const value = this.refs.form.getValue();
+    this.setState({ options: defaultOptions });
+    if (value) {
       this.props.requestForgotPassword(value.email);
-      this.setState({value: null});
+      this.setState({ value: null });
     }
   }
 
   onChange = (value) => {
-    this.setState({value});
+    this.setState({ value });
   }
 
   render() {
@@ -53,24 +55,27 @@ class ForgotPassword extends Component {
         <Image
           source={Images.logo}
           style={ApplicationStyles.logo}
-          resizeMode="contain"/>
+          resizeMode="contain"
+        />
         <View style={ApplicationStyles.form}>
           <Text h4 style={ApplicationStyles.subTitle}>Forgot password</Text>
-          <Text style={{textAlign:'center', justifyContent: 'flex-start'}}>Enter your email. We'll send you instructions to safely reset your password.</Text>
+          <Text style={{ textAlign: 'center', justifyContent: 'flex-start' }}>Enter your email. We'll send you instructions to safely reset your password.</Text>
           <View style={ApplicationStyles.container}>
             <Form
               ref="form"
               type={ForgotParams}
               options={this.state.options}
               value={this.state.value}
-              onChange={this.onChange}/>
+              onChange={this.onChange}
+            />
             <Button
               buttonStyle={ApplicationStyles.btn}
               onPress={this.onRequest}
-              underlayColor='#99d9f4'
-              title='Send me a reset link' />
+              underlayColor="#99d9f4"
+              title="Send me a reset link"
+            />
           </View>
-          <Divider style={ApplicationStyles.divider}/>
+          <Divider style={ApplicationStyles.divider} />
           <Text h5 style={ApplicationStyles.infoText}>Already registered?
             <Text style={ApplicationStyles.linkText} onPress={() => navigate('SignIn')}>
               {' '}Sign In here.
@@ -84,6 +89,6 @@ class ForgotPassword extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   requestForgotPassword: (email) => dispatch(Session.forgotPassword(email)),
-})
+});
 
-export default connect(null, mapDispatchToProps)(ForgotPassword)
+export default connect(null, mapDispatchToProps)(ForgotPassword);

@@ -1,6 +1,6 @@
 const UPDATE = 'session/UPDATE';
 
-export const update = session => ({
+export const update = (session) => ({
   type: UPDATE,
   session,
 });

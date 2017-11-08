@@ -1,18 +1,20 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { StyleSheet, View, TouchableHighlight, Image } from 'react-native';
 import { Images, ApplicationStyles } from '../Themes/index';
 import { Button, Text, Divider } from 'react-native-elements';
 
 const t = require('tcomb-form-native');
-import * as Utils from '../Services/Utils'
+
+import * as Utils from '../Services/Utils';
+
 const Form = t.form.Form;
 
 const ResetParams = t.subtype(t.struct({
   password: Utils.Password,
-  repeatPassword: Utils.Password
+  repeatPassword: Utils.Password,
 }), Utils.samePasswords);
 
-let defaultOptions = {
+const defaultOptions = {
   auto: 'placeholders',
   fields: {
     password: {
@@ -20,13 +22,13 @@ let defaultOptions = {
       secureTextEntry: true,
       maxLength: 32,
       password: true,
-      error: 'Insert a valid password'
+      error: 'Insert a valid password',
     },
     repeatPassword: {
       placeholder: 'Repeat password',
       secureTextEntry: true,
       maxLength: 32,
-      password: true
+      password: true,
     },
   },
 };
@@ -36,30 +38,28 @@ export default class ForgotPassword extends Component {
     super(props);
     this.state = {
       value: {},
-      options: defaultOptions
+      options: defaultOptions,
     };
   }
 
   onChange = (value) => {
-    this.setState({value});
+    this.setState({ value });
   }
 
   onReset = () => {
-    let value = this.refs.form.getValue();
-    this.setState({options: defaultOptions});
-    if(value) {
-      this.setState({value: null});
-    } else {
-      if (this.state.value.repeatPassword && !Utils.samePasswords(this.state.value)) {
-        this.setState({options: t.update(this.state.options, {
-          fields: {
-            repeatPassword: {
-              hasError: { $set: true },
-              error: { $set: 'Password must match' }
-            }
-          }
-        })});
-      }
+    const value = this.refs.form.getValue();
+    this.setState({ options: defaultOptions });
+    if (value) {
+      this.setState({ value: null });
+    } else if (this.state.value.repeatPassword && !Utils.samePasswords(this.state.value)) {
+      this.setState({ options: t.update(this.state.options, {
+        fields: {
+          repeatPassword: {
+            hasError: { $set: true },
+            error: { $set: 'Password must match' },
+          },
+        },
+      }) });
     }
   }
 
@@ -71,24 +71,27 @@ export default class ForgotPassword extends Component {
         <Image
           source={Images.logo}
           style={ApplicationStyles.logo}
-          resizeMode="contain"/>
+          resizeMode="contain"
+        />
         <View style={ApplicationStyles.form}>
           <Text h4 style={ApplicationStyles.subTitle}>Reset password</Text>
-          <Text style={{textAlign:'center', justifyContent: 'flex-start'}}>This link will be available during the next 3 hours.</Text>
+          <Text style={{ textAlign: 'center', justifyContent: 'flex-start' }}>This link will be available during the next 3 hours.</Text>
           <View style={ApplicationStyles.container}>
             <Form
               ref="form"
               type={ResetParams}
               options={this.state.options}
               value={this.state.value}
-              onChange={this.onChange}/>
+              onChange={this.onChange}
+            />
             <Button
               buttonStyle={ApplicationStyles.btn}
               onPress={this.onReset}
-              underlayColor='#99d9f4'
-              title='Reset password' />
+              underlayColor="#99d9f4"
+              title="Reset password"
+            />
           </View>
-          <Divider style={ApplicationStyles.divider}/>
+          <Divider style={ApplicationStyles.divider} />
           <Text h5 style={ApplicationStyles.infoText}>Not supposed to be here?
             <Text style={ApplicationStyles.linkText} onPress={() => navigate('Homepage')}>
               {' '}Go to the homepage
