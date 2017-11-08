@@ -26,9 +26,9 @@ export default class Homepage extends Component {
                   Sign Up
                 </Text>
               </Button>
-              <Button style={styles.btn}>
+              <Button style={styles.btn} onPress={() => {navigate('InvestorProfileQuiz')}}>
                 <Text style={styles.btnText}>
-                  Mock up account
+                  Start forms 
                 </Text>
               </Button>
             </View>

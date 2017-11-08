@@ -5,6 +5,7 @@ import { Button, Text, Divider } from 'react-native-elements';
 import { connect } from 'react-redux'
 import * as Session from '../Redux/Session';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import * as SessionAPI from '../Redux/Session/api';
 
 const t = require('tcomb-form-native');
 const Form = t.form.Form;

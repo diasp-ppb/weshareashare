@@ -1,49 +1,85 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import {
-    Platform,
+    TouchableOpacity,
     StyleSheet,
     Text,
     View,
-    Picker
 } from 'react-native';
 
-import {GiftedChat, Actions, Bubble} from 'react-native-gifted-chat';
+import {GiftedChat, InputToolbar, Bubble} from 'react-native-gifted-chat';
 import CustomActions from './CustomActions';
-import CustomView from './CustomView';
+import * as Progress from 'react-native-progress';
 
-export default class InvestorProfileQuiz extends React.Component {
+const STATES = require("./data/states.js");
+
+export default class InvestorProfileQuiz extends Component {
     constructor(props) {
         super(props);
+
+        this.formHeader = 0;
+        this.messageIndex = 0;
+        this.progress = 0;
+        this.progressStep = 1 / STATES[this.formHeader].states.length;
+        this.maxMessageIndex = 0;
+        this.maxHeaders = 1;
+
         this.state = {
             messages: [],
             loadEarlier: true,
             typingText: null,
             isLoadingEarlier: false,
+            optionsButtons: [],
+            typingDisabled: false,
+            skip: false,
+            questions: STATES[1].states,
+            currentQuestionKey: null,
         };
-
-        this.messages  = {
-            
-        }
 
         this._isMounted = false;
         this.onSend = this.onSend.bind(this);
         this.onReceive = this.onReceive.bind(this);
         this.renderCustomActions = this.renderCustomActions.bind(this);
-        this.renderBubble = this.renderBubble.bind(this);
         this.renderFooter = this.renderFooter.bind(this);
         this.onLoadEarlier = this.onLoadEarlier.bind(this);
+        this.answerDemo = this.answerDemo.bind(this);
+        this.renderInputToolbar = this.renderInputToolbar.bind(this);
+        this.onPressActions = this.onPressActions.bind(this);
+        this.chooseQuestion = this.chooseQuestion.bind(this);
+        this.endForm = this.endForm.bind(this);
 
-        this._isAlright = null;
     }
 
     componentWillMount() {
         this._isMounted = true;
+
+        this.maxMessageIndex = STATES[this.formHeader].states.length - 1;
+
         this.setState(() => {
             return {
-                messages: require('./data/messages.js'),
+                messages: [
+                    {
+                        _id: Math.round(Math.random() * 1000000),
+                        text: STATES[this.formHeader].states[this.messageIndex].text,
+                        options: STATES[this.formHeader].states[this.messageIndex].options,
+                        renderAvatar: null,
+                        user: {
+                            _id: 2,
+                            name: 'React Native'
+                        }
+                    }
+                ]
             };
         });
+
+        this.setState((previousState) => {
+            const messages = previousState.messages
+            return {
+                optionsButtons: this.createOptionsButtons(messages[messages.length - 1].options),
+            };
+        });
+
+
     }
 
     componentWillUnmount() {
@@ -72,48 +108,121 @@ export default class InvestorProfileQuiz extends React.Component {
 
     onSend(messages = []) {
         this.setState((previousState) => {
+            for (var i = 0, len = messages.length; i < len; i++) {
+                messages[i].createdAt = null;
+                //TODO passa a key da pergunta para identificar o parametro a enviar
+                messages[i].key = this.state.currentQuestionKey;
+            }
+            
+            console.log(messages);
             return {
                 messages: GiftedChat.append(previousState.messages, messages),
             };
         });
-
-        // for demo purpose
         this.answerDemo(messages);
+
+    }
+
+    endForm(){
+        const sendForm = function(form){
+            fetch('https://127.0.0.1:3000/endpoint/', {
+                method: 'POST',
+                headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(form)
+              })
+        }
+
+        let form = STATES[this.formHeader-1];
+        let jsonToSend = {};
+        jsonToSend[form.id] = {};
+        let answers = [];
+        let messages = this.state.messages;
+        for (var message in messages) {
+            if (messages.hasOwnProperty(message)) {
+                var element = messages[message];
+                if(element.hasOwnProperty("key")){
+                    jsonToSend[form.id][element.key] = element.text;
+                }
+            }
+        }
+
+        sendForm(jsonToSend);
+    }
+
+
+    answerUser(messages) {
+        for (var i = 0, len = messages.length; i < len; i++) {
+            //TODO passa a key da pergunta para identificar o parametro a enviar
+            messages[i].key = this.state.currentQuestionKey;
+        }
+        this.setState((previousState) => {
+            return {
+                messages: GiftedChat.append(previousState.messages, messages),
+                optionsButtons: [],
+            };
+        });
+
+        this.answerDemo([messages]);
     }
 
 
     answerDemo(messages) {
-        if (messages.length > 0) {
-            if ((messages[0].image || messages[0].location) || !this._isAlright) {
-                this.setState((previousState) => {
-                    return {
-                        typingText: 'React Native is typing'
-                    };
-                });
+
+        console.log(messages);
+        this.getStateMessage = function () {
+            this.messageIndex++;
+
+            if (this.messageIndex > this.maxMessageIndex) {
+                this.formHeader++;
+                if(this.formHeader > this.maxHeaders){
+                    this.endForm();
+                }
+                this.maxMessageIndex = STATES[this.formHeader].states.length;
+                this.messageIndex = 0;
+                this.progress = 0;
+                this.progressStep = 1 / STATES[this.formHeader].states.length;
             }
+            return STATES[this.formHeader].states[this.messageIndex];
         }
+
+
+        this.getDisplayMessage = function (message) {
+            switch (message) {
+                case "help":
+                    return "Press the + button for additional options.";
+                case "exit":
+                    return "You can continue this later.";
+                case "skip":
+                    return "You can fill this field manually later or go back through options.\n" + this.getStateMessage();
+                default:
+                    return this.getStateMessage();
+            }
+            return "hey";
+        }
+
 
         setTimeout(() => {
             if (this._isMounted === true) {
                 if (messages.length > 0) {
-                    if (messages[0].image) {
-                        this.onReceive('Nice picture!');
-                    } else if (messages[0].location) {
-                        this.onReceive('My favorite place');
-                    } else {
-                        if (!this._isAlright) {
-                            this._isAlright = true;
-                            this.onReceive('Alright');
-                        }
-                    }
+                    // TODO check if first answer is yes then start form cycle
+                    this.progress += this.progressStep;
+                    var returnMessage = this.getDisplayMessage(messages["0"].text);
+                    this.state.currentQuestionKey = returnMessage.key;
+                    this.setState({optionsButtons: this.createOptionsButtons(returnMessage.options)});
+
+                    this.onReceive(returnMessage.text);
+                } else if (this.state.skip) {
+                    this.progress += this.progressStep;
+                    this.state.skip = false;
+                    var nextMessage = this.getStateMessage();
+                    this.state.currentQuestionKey = nextMessage.key;                    
+                    this.setState({optionsButtons: this.createOptionsButtons(nextMessage.options)});
+                    this.onReceive(nextMessage.text);
                 }
             }
-
-            this.setState((previousState) => {
-                return {
-                    typingText: null,
-                };
-            });
         }, 1000);
     }
 
@@ -123,113 +232,201 @@ export default class InvestorProfileQuiz extends React.Component {
                 messages: GiftedChat.append(previousState.messages, {
                     _id: Math.round(Math.random() * 1000000),
                     text: text,
-                    createdAt: new Date(),
+                    renderAvatar: null,
                     user: {
-                        _id: 2,
-                        name: 'React Native',
-                        // avatar: 'https://facebook.github.io/react/img/logo_og.png',
+                        _id: 2
                     },
                 }),
             };
         });
     }
 
-    renderCustomActions(props) {
+    createOptionsButtons = function (options) {
 
-            return (
-                <CustomActions
-                    {...props}
-                />
-            );
+        if (options && options.length > 0) {
+            let Items = options.map((s, i) => {
 
-
-
-        const options = {
-            'Action 1': (props) => {
-                alert('option 1');
-            },
-            'Action 2': (props) => {
-                alert('option 2');
-            },
-            'Cancel': () => {},
-        };
-        return (
-            <Actions
-                {...props}
-                options={options}
-            />
-        );
+                return (
+                    <TouchableOpacity
+                        key={i}
+                        style={styles.options}
+                        onPress={
+                            () => this.answerUser({
+                                    _id: Math.round(Math.random() * 1000000),
+                                    text: s,
+                                    user: {_id: 1},
+                                }
+                            )}
+                    >
+                        <Text style={{fontSize: 16}}>{s}</Text>
+                    </TouchableOpacity>
+                );
+            });
+            console.log(Items);
+            return Items;
+        }
+        return [];
     }
 
-    renderBubble(props) {
-        return (
-            <Bubble
-                {...props}
-                wrapperStyle={{
-                    left: {
-                        backgroundColor: '#f0f0f0',
+    chooseQuestion(questionId){
+        const questions = this.state.questions;
+
+        const getQuestionFromKey = function(id){
+            for (var key in questions) {
+                if (questions.hasOwnProperty(key)) {
+                    var element = questions[key];
+                    if(id === element.key){
+                        this.messageIndex = parseInt(key);
+                        return element;
                     }
-                }}
-            />
-        );
+                }
+            }
+        }
+
+        const question = getQuestionFromKey(questionId);
+        this.state.currentQuestionKey = question.key;        
+        this.setState({optionsButtons: this.createOptionsButtons(question.options)});
+        this.onReceive(question.text);
     }
 
-    renderCustomView(props) {
+    renderCustomActions(props) {
+        props.chooseQuestion = this.chooseQuestion;
         return (
-            <CustomView
-                {...props}
+            <CustomActions
+            
+                    chooseQuestion={this.chooseQuestion}
+                    {...props}
+                
             />
         );
     }
 
     renderFooter(props) {
-        if (this.state.typingText) {
-            return (
-                <View style={styles.footerContainer}>
-                    <Text style={styles.footerText}>
-                        {this.state.typingText}
-                    </Text>
+
+        nothing = function () {
+
+        };
+
+
+        return (
+            <View style={{alignItems: "center"}}>
+                {this.state.optionsButtons}
+                <TouchableOpacity
+                    style={styles.learnMore}
+                    onPress={
+                        nothing
+                    }
+                >
+                    <Text> Learn More </Text>
+                </TouchableOpacity>
+                <View style={styles.progressBar}>
+                    <Progress.Bar progress={this.progress} width={200}/>
                 </View>
-            );
-        }
-        return null;
+            </View>
+        );
+
     }
+
+    renderInputToolbar(props) {
+        const toolbar = InputToolbar;
+        if (this.state.optionsButtons.length > 0) {
+            props.textInputProps.editable = false;
+            props.textInputProps.placeholder = "Choose an option from above";
+        }
+        return (
+            <InputToolbar
+                {...props}
+            />);
+    }
+
+    onPressActions(option) {
+        //for skipping 
+        this.state.skip = true;
+        this.answerDemo([]);
+    }
+
+    renderBubble(props) {
+        return (
+            <Bubble {...props}
+                    wrapperStyle={
+                        {
+                            left: {
+                                backgroundColor: '#D3D3D3',
+                            },
+                            right: {
+                                backgroundColor: '#7cc0d2'
+                            }
+                        }
+                    }
+                    textStyle={
+                        {
+                            right: {
+                                color: '#000000'
+                            }
+                        }
+                    }
+            />
+        );
+    }
+
 
     render() {
         return (
-            <GiftedChat
-                messages={this.state.messages}
-                onSend={this.onSend}
-                loadEarlier={this.state.loadEarlier}
-                onLoadEarlier={this.onLoadEarlier}
-                isLoadingEarlier={this.state.isLoadingEarlier}
+            <View style={styles.backgroundChat}>
+                <GiftedChat
+                    messages={this.state.messages}
+                    onSend={this.onSend}
+                    isLoadingEarlier={this.state.isLoadingEarlier}
+                    onPress={this.onPress}
+                    textInputProps={this.textInputProps}
 
-                user={{
-                    _id: 1, // sent messages should have same user._id
-                }}
-
-                renderActions={this.renderCustomActions}
-                renderBubble={this.renderBubble}
-                renderCustomView={this.renderCustomView}
-                renderFooter={this.renderFooter}
-            />
+                    user={{
+                        _id: 1, // sent messages should have same user._id
+                    }}
+                    renderBubble={this.renderBubble}
+                    renderAvatar={null}
+                    renderActions={this.renderCustomActions}
+                    renderFooter={this.renderFooter}
+                    renderInputToolbar={this.renderInputToolbar}
+                    onPressAvatar={this.onPressActions}
+                />
+            </View>
 
 
         );
     }
 }
 
-const styles = StyleSheet.create({
-    footerContainer: {
-        marginTop: 5,
-        marginLeft: 10,
-        marginRight: 10,
-        marginBottom: 10,
-    },
-    footerText: {
-        fontSize: 14,
-        color: '#aaa',
-    },
-});
-
-
+const
+    styles = StyleSheet.create({
+        backgroundChat: {
+            backgroundColor: "#455A64",
+            flex: 1
+        },
+        progressBar: {
+            alignItems: "center",
+            flex: 1,
+            marginBottom: 5,
+            marginTop: 10
+        },
+        learnMore: {
+            backgroundColor: "#b4b3b6",
+            alignSelf: "stretch",
+            alignItems: "center",
+            minHeight: 25,
+            minWidth: 20,
+            borderRadius: 30,
+            marginHorizontal: 20,
+            paddingTop: 5,
+        },
+        options: {
+            backgroundColor: "#d8d8d8",
+            minWidth: 20,
+            minHeight: 25,
+            alignSelf: "stretch",
+            alignItems: "center",
+            borderRadius: 30,
+            marginHorizontal: 20,
+            marginBottom: 10
+        }
+    });

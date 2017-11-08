@@ -70,17 +70,17 @@ class SignUpForm extends Component {
 
       SessionAPI.register(values, this.state.session)
       .then((res) => {
-        console.log(res);
         this.props.createUser(res);
       }).catch(err => {
+        
         if (err.response && err.response.json) {
           err.response.json().then((json) => {
           var statusRes = err.response.status;
           var messageRes = json[0].message;
           this.setState({serverResponse: messageRes});
-          console.log(this.state.serverResponse);
           });
         }
+        
         this.props.onRequestFailed(err); 
       });
 

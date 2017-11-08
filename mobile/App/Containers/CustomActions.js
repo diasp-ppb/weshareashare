@@ -3,40 +3,43 @@ import React from 'react';
 import {
     Modal,
     StyleSheet,
+    FlatList,
     TouchableOpacity,
     View,
     ViewPropTypes,
     Text,
 } from 'react-native';
 
-import CameraRollPicker from 'react-native-camera-roll-picker';
 import NavBar, { NavButton, NavButtonText, NavTitle } from 'react-native-nav';
+
+const STATES = require("./data/states.js");
 
 export default class CustomActions extends React.Component {
     constructor(props) {
         super(props);
-        this._images = [];
+
         this.state = {
             modalVisible: false,
+            changeAnswer: false,
+            questions: STATES[1].states,
         };
         this.onActionsPress = this.onActionsPress.bind(this);
         this.selectImages = this.selectImages.bind(this);
-    }
-
-    setImages(images) {
-        this._images = images;
-    }
-
-    getImages() {
-        return this._images;
+        this.changeAnswersSheet = this.changeAnswersSheet.bind(this);
+        this.renderRepeatQuestions = this.renderRepeatQuestions.bind(this);
+        this.getQuestion = this.getQuestion.bind(this);
     }
 
     setModalVisible(visible = false) {
         this.setState({modalVisible: visible});
     }
+    setModalQuestionsVisible(visible = false) {
+        this.setState({changeAnswer: visible});
+    }
 
     onActionsPress() {
-        const options = ['Choose From Library', 'Send Location', 'Cancel'];
+        let options = ['Skip question', 'Edit previous answers', 'Help', 'Cancel'];
+
         const cancelButtonIndex = options.length - 1;
         this.context.actionSheet().showActionSheetWithOptions({
                 options,
@@ -45,73 +48,57 @@ export default class CustomActions extends React.Component {
             (buttonIndex) => {
                 switch (buttonIndex) {
                     case 0:
-                        this.setModalVisible(true);
+                        //skip option
+                        if(this.subsection !== 1){
+                            this.props.onPressAvatar();
+                        }
                         break;
                     case 1:
-                        navigator.geolocation.getCurrentPosition(
-                            (position) => {
-                                this.props.onSend({
-                                    location: {
-                                        latitude: position.coords.latitude,
-                                        longitude: position.coords.longitude,
-                                    },
-                                });
-                            },
-                            (error) => alert(error.message),
-                            {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-                        );
+                        //change answer
+                        this.state.questions.push({key:"CANCEL"});
+                        this.setModalQuestionsVisible(true);
+                        this.setModalVisible(false);
                         break;
+
+                    case 2:
+                        //help
                     default:
                 }
             });
+    }
+
+    changeAnswersSheet(item) {
+        return(
+            <Text style={styles.item}> {item.key} </Text>
+        );
+    }
+
+    getQuestion(key){
+        this.setModalQuestionsVisible(false);
+        if(key !== "CANCEL")
+            this.props.chooseQuestion(key);
     }
 
     selectImages(images) {
         this.setImages(images);
     }
 
-    renderNavBar() {
+    renderRepeatQuestions(){
+        const answered = function(answeredQuestion){
+            return ;
+        }
         return (
-            <NavBar style={{
-                statusBar: {
-                    backgroundColor: '#FFF',
-                },
-                navBar: {
-                    backgroundColor: '#FFF',
-                },
-            }}>
-                <NavButton onPress={() => {
-                    this.setModalVisible(false);
-                }}>
-                    <NavButtonText style={{
-                        color: '#000',
-                    }}>
-                        {'Cancel'}
-                    </NavButtonText>
-                </NavButton>
-                <NavTitle style={{
-                    color: '#000',
-                }}>
-                    {'Camera Roll'}
-                </NavTitle>
-                <NavButton onPress={() => {
-                    this.setModalVisible(false);
-
-                    const images = this.getImages().map((image) => {
-                        return {
-                            image: image.uri,
-                        };
-                    });
-                    this.props.onSend(images);
-                    this.setImages([]);
-                }}>
-                    <NavButtonText style={{
-                        color: '#000',
-                    }}>
-                        {'Send'}
-                    </NavButtonText>
-                </NavButton>
-            </NavBar>
+            <View style={styles.previous}>
+                <FlatList
+                data={this.state.questions}
+                renderItem={({item}) => 
+                    <TouchableOpacity onPress={() => this.getQuestion(item.key)}>
+                        <Text  style={styles.item}>{item.key}</Text>
+                        {item.answer !== undefined && item.answer !== null ? answered(true) : answered(false)}
+                    </TouchableOpacity>
+                }
+                />
+            </View>
         );
     }
 
@@ -134,28 +121,31 @@ export default class CustomActions extends React.Component {
 
     render() {
         return (
-            <TouchableOpacity
-                style={[styles.container, this.props.containerStyle]}
-                onPress={this.onActionsPress}
-            >
+            <View>
+                <TouchableOpacity
+                    style={[styles.container, this.props.containerStyle]}
+                    onPress={this.onActionsPress}
+                >
+                    <Modal
+                        animationType={'slide'}
+                        transparent={false}
+                        visible={this.state.modalVisible}
+                        onRequestClose={() => {this.setModalVisible(false);}}
+                    >
+                    </Modal>
+                    {this.renderIcon()}
+                </TouchableOpacity>
+
                 <Modal
+                    style={styles.options}
                     animationType={'slide'}
                     transparent={false}
-                    visible={this.state.modalVisible}
-                    onRequestClose={() => {
-                        this.setModalVisible(false);
-                    }}
+                    visible={this.state.changeAnswer}
+                    onRequestClose={() => {this.setModalQuestionsVisible(false);}}
                 >
-                    {this.renderNavBar()}
-                    <CameraRollPicker
-                        maximum={10}
-                        imagesPerRow={4}
-                        callback={this.selectImages}
-                        selected={[]}
-                    />
+                    {this.renderRepeatQuestions()}
                 </Modal>
-                {this.renderIcon()}
-            </TouchableOpacity>
+            </View>
         );
     }
 }
@@ -180,6 +170,19 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent',
         textAlign: 'center',
     },
+    options: {
+        alignSelf: "stretch",
+    },
+    previous: {
+        flex: 1,
+        paddingTop: 22
+    },
+    item: {
+        flex: 9,
+        padding: 10,
+        fontSize: 18,
+        height: 44,
+    },
 });
 
 CustomActions.contextTypes = {
@@ -193,6 +196,7 @@ CustomActions.defaultProps = {
     containerStyle: {},
     wrapperStyle: {},
     iconTextStyle: {},
+    chooseQuestion: () => {},
 };
 
 CustomActions.propTypes = {
@@ -202,4 +206,5 @@ CustomActions.propTypes = {
     containerStyle: ViewPropTypes.style,
     wrapperStyle: ViewPropTypes.style,
     iconTextStyle: Text.propTypes.style,
+    chooseQuestion: PropTypes.func,
 };

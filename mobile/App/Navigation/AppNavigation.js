@@ -2,8 +2,9 @@ import { StackNavigator } from 'react-navigation';
 import Homepage from '../Components/Homepage';
 import SignIn from '../Containers/SignIn';
 import SignUp from '../Containers/SignUp';
-import ForgotPassword from '../Components/ForgotPassword'
-import ResetPassword from '../Containers/ResetPassword'
+import ForgotPassword from '../Components/ForgotPassword';
+import ResetPassword from '../Containers/ResetPassword';
+import InvestorProfileQuiz from '../Containers/InvestorProfileQuiz';
 
 import styles from './Styles/NavigationStyles';
 
@@ -14,6 +15,7 @@ const PrimaryNav = StackNavigator({
   SignUp: { screen: SignUp },
   ForgotPassword: { screen: ForgotPassword },
   ResetPassword: { screen: ResetPassword },
+  InvestorProfileQuiz: {screen: InvestorProfileQuiz},
 }, {
   // Default config for all screens
   headerMode: 'none',
