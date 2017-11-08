@@ -12,7 +12,6 @@ module.exports = {
   create(req, res) {
     Client.create({id: uid(ID_LENGTH)}).meta({fetch: true})
       .then((client) => {
-        console.log(client)
         return res.ok({ client });
       })
       .catch(err => {

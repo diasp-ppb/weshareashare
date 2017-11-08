@@ -49,7 +49,7 @@ module.exports.security = {
   *                                                                           *
   ****************************************************************************/
 
-  // csrf: false
+  csrf: false,
 
   tokens: {
     access: {
