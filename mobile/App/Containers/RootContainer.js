@@ -1,22 +1,33 @@
 import React, { Component } from 'react';
-import { View, Text, StatusBar } from 'react-native';
-import LaunchScreen from './LaunchScreen';
+import { View, StatusBar, BackAndroid } from 'react-native';
+import ReduxNavigation from '../Navigation/ReduxNavigation';
+import { connect } from 'react-redux';
+import StartupActions from '../Redux/StartupRedux';
+import ReduxPersist from '../Config/ReduxPersist';
+import * as Session from '../Redux/Session';
 
-// Styles
-import styles from './Styles/RootContainerStyles';
+class RootContainer extends Component {
+  componentDidMount() {
+    // if redux persist is not active fire startup action
+    if (!ReduxPersist.active) {
+      this.props.authorizeClient();
+      this.props.startup();
+    }
+  }
 
-export default class RootContainer extends Component {
   render() {
     return (
-      <View >
+      <View style={{ flex: 1 }}>
         <StatusBar barStyle="light-content" />
-        <Text style={styles.sectionText}>
-          This probably isn't what your app is going to look like.
-          Unless your designer handed you this screen and, in that case, congrats!
-          You're ready to ship. For everyone else,
-          this is where you'll see a live preview of your fully functioning app using Ignite.
-        </Text>
+        <ReduxNavigation />
       </View>
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  startup: () => dispatch(StartupActions.startup()),
+  authorizeClient: () => dispatch(Session.authorize()),
+});
+
+export default connect(null, mapDispatchToProps)(RootContainer);

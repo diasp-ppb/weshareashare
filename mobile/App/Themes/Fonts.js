@@ -1,7 +1,7 @@
 const type = {
-  base: 'Avenir-Book',
-  bold: 'Avenir-Black',
-  emphasis: 'HelveticaNeue-Italic',
+  base: 'OpenSans',
+  bold: 'OpenSans-Bold',
+  emphasis: 'OpenSans-Italic',
 };
 
 const size = {
@@ -20,7 +20,7 @@ const size = {
 
 const style = {
   h1: {
-    fontFamily: type.base,
+    // fontFamily: type.base,
     fontSize: size.h1,
   },
   h2: {
