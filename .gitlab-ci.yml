@@ -1,10 +1,5 @@
 image: node:8.8.1-alpine
 
-variables:
-  POSTGRES_DB: weshareashare
-  POSTGRES_USER: weshareashare
-  POSTGRES_PASSWORD: "123456"
-
 cache:
   paths:
   - ./server/node_modules/
@@ -45,6 +40,7 @@ build:
   stage: build
   script: 
     - echo "Building the app"
+    - echo "Finishing building the app"
 
 deploy:
   stage: deploy
@@ -52,6 +48,12 @@ deploy:
     - server
   script:
     - echo "Deploy to staging server"
+    - cd server/
+    - npm install -g nodemon
+    - npm install
+    - export NODE_ENV=production
+    - nodemon app.js
+    - echo "Deployed to staging server"
   environment:
     name: staging
   only:
