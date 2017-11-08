@@ -17,23 +17,23 @@ test_server:
   stage: test_server
   script: 
     - echo "**Running Server tests**"
-    - npm --prefix ./server install
-    - npm --prefix ./server test
+#    - npm --prefix ./server install
+#    - npm --prefix ./server test
     - echo "**Terminating Server tests**"
   
 test_mobile:
   stage: test_mobile
   script: 
     - echo "**Running Mobile tests**"
-    - npm --prefix ./mobile install
+#    - npm --prefix ./mobile install
     - echo "**Terminating Mobile tests**"
   
 test_desktop:
   stage: test_desktop
   script: 
     - echo "**Running Desktop tests**"
-    - npm --prefix ./desktop install
-    - npm --prefix ./desktop test
+#    - npm --prefix ./desktop install
+#    - npm --prefix ./desktop test
     - echo "**Terminating Desktop tests**"
 
 build:
