@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import {
     TouchableOpacity,
@@ -7,13 +7,13 @@ import {
     View,
 } from 'react-native';
 
-import {GiftedChat, InputToolbar, Bubble} from 'react-native-gifted-chat';
+import {GiftedChat, Actions, InputToolbar, Bubble} from 'react-native-gifted-chat';
 import CustomActions from './CustomActions';
 import * as Progress from 'react-native-progress';
 
 const STATES = require("./data/states.js");
 
-export default class InvestorProfileQuiz extends Component {
+export default class InvestorProfileQuiz extends React.Component {
     constructor(props) {
         super(props);
 
@@ -113,7 +113,7 @@ export default class InvestorProfileQuiz extends Component {
                 //TODO passa a key da pergunta para identificar o parametro a enviar
                 messages[i].key = this.state.currentQuestionKey;
             }
-            
+
             console.log(messages);
             return {
                 messages: GiftedChat.append(previousState.messages, messages),
@@ -218,7 +218,7 @@ export default class InvestorProfileQuiz extends Component {
                     this.progress += this.progressStep;
                     this.state.skip = false;
                     var nextMessage = this.getStateMessage();
-                    this.state.currentQuestionKey = nextMessage.key;                    
+                    this.state.currentQuestionKey = nextMessage.key;
                     this.setState({optionsButtons: this.createOptionsButtons(nextMessage.options)});
                     this.onReceive(nextMessage.text);
                 }
@@ -284,7 +284,7 @@ export default class InvestorProfileQuiz extends Component {
         }
 
         const question = getQuestionFromKey(questionId);
-        this.state.currentQuestionKey = question.key;        
+        this.state.currentQuestionKey = question.key;
         this.setState({optionsButtons: this.createOptionsButtons(question.options)});
         this.onReceive(question.text);
     }
@@ -293,10 +293,10 @@ export default class InvestorProfileQuiz extends Component {
         props.chooseQuestion = this.chooseQuestion;
         return (
             <CustomActions
-            
+
                     chooseQuestion={this.chooseQuestion}
                     {...props}
-                
+
             />
         );
     }
@@ -340,7 +340,7 @@ export default class InvestorProfileQuiz extends Component {
     }
 
     onPressActions(option) {
-        //for skipping 
+        //for skipping
         this.state.skip = true;
         this.answerDemo([]);
     }
