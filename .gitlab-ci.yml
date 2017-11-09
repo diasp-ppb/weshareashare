@@ -52,10 +52,10 @@ deploy:
     - npm install npm@latest
     - rm -rf /usr/local/lib/node_modules
     - mv node_modules /usr/local/lib/
-    - npm install -g nodemon
+    - npm install forever -g
     - npm install
     - export NODE_ENV=production
-    - nodemon app.js
+    - forever start -l forever.log -o out.log -e err.log app.js
     - echo "Deployed to staging server"
   environment:
     name: staging
