@@ -59,11 +59,6 @@ module.exports = {
       required: true
     },
 
-    debitGrowth: {
-      type: 'number',
-      required: true
-    },
-
     periodicity: {
       type: 'number',
       required: true
@@ -75,11 +70,28 @@ module.exports = {
       required: true
     },
 
-    fatca: {
+    facta: {
       type: 'boolean',
-      required: true
+      required: false
     }
+  },
 
+  parseAttrs(attrs) {
+    var parsed = {
+      participant: Person.parseAttrs(attrs.participant),
+      contributor: Contributor.parseAttrs(attrs.contributor),
+      checkNo: attrs.subscription.CHECKNO,
+      checkBank: attrs.subscription.CHECKBANK,
+      subscriptionValue: parseInt(attrs.subscription.VALUE),
+      paymentMethod: parseInt(attrs.subscription.METHOD),
+      accountNo: attrs.subscription.IBAN,
+      debitAmount: parseInt(attrs.subscription.DEBIT),
+      debitGrowth: parseInt(attrs.subscription.GROWTH),
+      periodicity: parseInt(attrs.subscription.PERIODICITY),
+      initialDate: attrs.subscription.INITIALDATE
+    };
+
+    return parsed;
   },
 
 };

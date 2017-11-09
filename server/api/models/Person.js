@@ -33,7 +33,12 @@ module.exports = {
       required: true
     },
 
-    phone: {
+    telephone: {
+      type: 'string',
+      required: true
+    },
+
+    cellphone: {
       type: 'string',
       required: true
     },
@@ -89,7 +94,26 @@ module.exports = {
     investorProfile: {
       model: 'profile'
     }
+  },
 
+  parseAttrs(attrs) {
+    var parsed = {
+      name: attrs.NAME,
+      genre: attrs.GENDER,
+      address: attrs.ADDRESS,
+      area: attrs.AREA,
+      postal: attrs.POSTAL,
+      telephone: attrs.TELEPHONE,
+      cellphone: attrs.CELLPHONE,
+      NIF: attrs.NIF,
+      identificationNumber: attrs.ID,
+      birthday: attrs.BIRTHDAY,
+      profession: attrs.JOB,
+      employer: attrs.EMPLOYER,
+      email: attrs.EMAIL
+    };
+
+    return parsed;
   },
 
 };

@@ -6,9 +6,7 @@
  */
 
 module.exports = {
-
   attributes: {
-
    funds: {
       collection: 'fund',
       via: 'contributor',
@@ -21,7 +19,12 @@ module.exports = {
       required: true,
       unique: true
     }
+  },
 
+  parseAttrs(attrs) {
+    if (attrs) {
+      return Person.parseAttrs(attrs);
+    }
   },
 
 };

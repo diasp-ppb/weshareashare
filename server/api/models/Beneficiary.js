@@ -28,4 +28,13 @@ module.exports = {
     }
   },
 
+  parseAttrs(attrs) {
+    return {
+      name: attrs.NAME,
+      NIF: attrs.NIF,
+      relationship: attrs.relationship,
+      percentage: attrs.percentage
+    }
+  },
+
 };

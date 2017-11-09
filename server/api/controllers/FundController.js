@@ -7,9 +7,10 @@
 
 module.exports = {
   postSubscription(req, res) {
+    parsedAttrs = Fund.parseAttrs(req.allParams());
     return res.ok();
   },
-  
+
   postFacta(req, res) {
     return res.ok();
   },
