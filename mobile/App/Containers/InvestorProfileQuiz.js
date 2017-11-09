@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 
 import { GiftedChat, Actions, InputToolbar, Bubble } from 'react-native-gifted-chat';
+import ReduxNavigation from '../Navigation/ReduxNavigation';
+import { NavigationActions } from 'react-navigation';
 import CustomActions from './CustomActions';
 import * as Progress from 'react-native-progress';
 
@@ -121,6 +123,8 @@ export default class InvestorProfileQuiz extends React.Component {
   }
 
   endForm() {
+    const { navigate } = this.props.navigation;
+
     const sendForm = function (form) {
       fetch('https://127.0.0.1:3000/endpoint/', {
         method: 'POST',
@@ -137,7 +141,7 @@ export default class InvestorProfileQuiz extends React.Component {
     jsonToSend[form.id] = {};
     const answers = [];
     const messages = this.state.messages;
-    for (const message in messages) {
+    /*for (const message in messages) {
       if (messages.hasOwnProperty(message)) {
         const element = messages[message];
         if (element.hasOwnProperty('key')) {
@@ -146,7 +150,8 @@ export default class InvestorProfileQuiz extends React.Component {
       }
     }
 
-    sendForm(jsonToSend);
+    sendForm(jsonToSend);*/
+    navigate('Homepage');
   }
 
 
@@ -173,8 +178,9 @@ export default class InvestorProfileQuiz extends React.Component {
 
       if (this.messageIndex > this.maxMessageIndex) {
         this.formHeader++;
-        if (this.formHeader > this.maxHeaders) {
+        if (this.formHeader > 1) {
           this.endForm();
+          return;
         }
         this.maxMessageIndex = STATES[this.formHeader].states.length;
         this.messageIndex = 0;
