@@ -37,6 +37,7 @@ export default class InvestorProfileQuiz extends React.Component {
       skip: false,
       questions: STATES[1].states,
       currentQuestionKey: null,
+      answers: {}
     };
 
     this._isMounted = false;
@@ -141,14 +142,6 @@ export default class InvestorProfileQuiz extends React.Component {
     jsonToSend[form.id] = {};
     const answers = [];
     const messages = this.state.messages;
-    /*for (const message in messages) {
-      if (messages.hasOwnProperty(message)) {
-        const element = messages[message];
-        if (element.hasOwnProperty('key')) {
-          jsonToSend[form.id][element.key] = element.text;
-        }
-      }
-    }
 
     sendForm(jsonToSend);*/
     navigate('Homepage');
@@ -156,10 +149,8 @@ export default class InvestorProfileQuiz extends React.Component {
 
 
   answerUser(messages) {
-    for (let i = 0, len = messages.length; i < len; i++) {
       // TODO passa a key da pergunta para identificar o parametro a enviar
-      messages[i].key = this.state.currentQuestionKey;
-    }
+    messages.key = this.state.currentQuestionKey;
     this.setState((previousState) => {
       return {
         messages: GiftedChat.append(previousState.messages, messages),
@@ -172,7 +163,6 @@ export default class InvestorProfileQuiz extends React.Component {
 
 
   answerDemo(messages) {
-    console.log(messages);
     this.getStateMessage = function () {
       this.messageIndex++;
 
@@ -190,28 +180,21 @@ export default class InvestorProfileQuiz extends React.Component {
       return STATES[this.formHeader].states[this.messageIndex];
     };
 
-
-    this.getDisplayMessage = function (message) {
-      switch (message) {
-        case 'help':
-          return 'Press the + button for additional options.';
-        case 'exit':
-          return 'You can continue this later.';
-        case 'skip':
-          return `You can fill this field manually later or go back through options.\n${this.getStateMessage()}`;
-        default:
-          return this.getStateMessage();
-      }
-      return 'hey';
+    this.saveAnswer = function (key, answer){
+        if(this.state.answers[key] === null || this.state.answers[key] === undefined)
+            this.progress += this.progressStep;
+        this.state.answers.key = answer;
     };
-
 
     setTimeout(() => {
       if (this._isMounted === true) {
         if (messages.length > 0) {
           // TODO check if first answer is yes then start form cycle
-          this.progress += this.progressStep;
-          const returnMessage = this.getDisplayMessage(messages['0'].text);
+
+          if(messages[0].key !== undefined && messages[0].key != null){
+              this.saveAnswer(messages[0].key, messages[0].text);
+          }
+          const returnMessage = this.getStateMessage();
           this.state.currentQuestionKey = returnMessage.key;
           this.setState({ optionsButtons: this.createOptionsButtons(returnMessage.options) });
 
