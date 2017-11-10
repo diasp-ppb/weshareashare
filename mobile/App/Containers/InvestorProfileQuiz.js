@@ -6,6 +6,7 @@ import {
   Text,
   View,
   KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 
 import { GiftedChat, Actions, InputToolbar, Bubble } from 'react-native-gifted-chat';
@@ -143,7 +144,7 @@ export default class InvestorProfileQuiz extends React.Component {
     const answers = [];
     const messages = this.state.messages;
 
-    sendForm(jsonToSend);*/
+    //sendForm(jsonToSend);
     navigate('Homepage');
   }
 
@@ -166,7 +167,7 @@ export default class InvestorProfileQuiz extends React.Component {
     this.getStateMessage = function () {
       this.messageIndex++;
 
-      if (this.messageIndex > this.maxMessageIndex) {
+      if (this.messageIndex >= this.maxMessageIndex) {
         this.formHeader++;
         if (this.formHeader > 1) {
           this.endForm();
@@ -195,6 +196,9 @@ export default class InvestorProfileQuiz extends React.Component {
               this.saveAnswer(messages[0].key, messages[0].text);
           }
           const returnMessage = this.getStateMessage();
+          if(returnMessage == null || returnMessage == undefined){
+              return;
+          }
           this.state.currentQuestionKey = returnMessage.key;
           this.setState({ optionsButtons: this.createOptionsButtons(returnMessage.options) });
 
@@ -353,29 +357,53 @@ export default class InvestorProfileQuiz extends React.Component {
 
 
     render() {
-      return (
-        <KeyboardAvoidingView style={styles.backgroundChat} behavior="padding">
-          <GiftedChat
-            messages={this.state.messages}
-            onSend={this.onSend}
-            isLoadingEarlier={this.state.isLoadingEarlier}
-            onPress={this.onPress}
-            textInputProps={this.textInputProps}
+        //READ ME if you are wondering if this could not be refactored into shorter code,
+        //just know that react native is a bitch and will fuck you
+        if(Platform.OS === 'android'){
+            return (
+                <KeyboardAvoidingView style={styles.backgroundChat} behavior="padding">
+                    <GiftedChat
+                        messages={this.state.messages}
+                        onSend={this.onSend}
+                        isLoadingEarlier={this.state.isLoadingEarlier}
+                        onPress={this.onPress}
+                        textInputProps={this.textInputProps}
 
-            user={{
-              _id: 1, // sent messages should have same user._id
-            }}
-            renderBubble={this.renderBubble}
-            renderAvatar={null}
-            renderActions={this.renderCustomActions}
-            renderFooter={this.renderFooter}
-            renderInputToolbar={this.renderInputToolbar}
-            onPressAvatar={this.onPressActions}
-          />
-        </KeyboardAvoidingView>
+                        user={{
+                          _id: 1, // sent messages should have same user._id
+                        }}
+                        renderBubble={this.renderBubble}
+                        renderAvatar={null}
+                        renderActions={this.renderCustomActions}
+                        renderFooter={this.renderFooter}
+                        renderInputToolbar={this.renderInputToolbar}
+                        onPressAvatar={this.onPressActions}
+                    />
+                </KeyboardAvoidingView>
+            );
+        } else{
+            return (
+                <View  style={styles.backgroundChat}>
+                    <GiftedChat
+                        messages={this.state.messages}
+                        onSend={this.onSend}
+                        isLoadingEarlier={this.state.isLoadingEarlier}
+                        onPress={this.onPress}
+                        textInputProps={this.textInputProps}
 
-
-      );
+                        user={{
+                          _id: 1, // sent messages should have same user._id
+                        }}
+                        renderBubble={this.renderBubble}
+                        renderAvatar={null}
+                        renderActions={this.renderCustomActions}
+                        renderFooter={this.renderFooter}
+                        renderInputToolbar={this.renderInputToolbar}
+                        onPressAvatar={this.onPressActions}
+                    />
+                </View>
+            );
+        }
     }
 }
 
