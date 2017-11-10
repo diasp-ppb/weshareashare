@@ -184,7 +184,7 @@ export default class InvestorProfileQuiz extends React.Component {
     this.saveAnswer = function (key, answer){
         if(this.state.answers[key] === null || this.state.answers[key] === undefined)
             this.progress += this.progressStep;
-        this.state.answers.key = answer;
+        this.state.answers[key] = answer;
     };
 
     setTimeout(() => {
@@ -281,7 +281,7 @@ export default class InvestorProfileQuiz extends React.Component {
       props.chooseQuestion = this.chooseQuestion;
       return (
         <CustomActions
-
+          answers={this.state.answers}
           chooseQuestion={this.chooseQuestion}
           {...props}
         />
@@ -289,22 +289,10 @@ export default class InvestorProfileQuiz extends React.Component {
     }
 
     renderFooter(props) {
-      nothing = function () {
-
-      };
-
 
       return (
         <View style={{ alignItems: 'center' }}>
           {this.state.optionsButtons}
-          <TouchableOpacity
-            style={styles.learnMore}
-            onPress={
-              nothing
-            }
-          >
-            <Text> Learn More </Text>
-          </TouchableOpacity>
           <View style={styles.progressBar}>
             <Progress.Bar progress={this.progress} width={200} />
           </View>

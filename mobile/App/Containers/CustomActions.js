@@ -83,9 +83,18 @@ export default class CustomActions extends React.Component {
   }
 
   renderRepeatQuestions() {
-    const answered = function (answeredQuestion) {
-
+    this.renderSeparator = function(){
+        return  (
+            <View style={styles.separator}/>
+        );
     };
+
+    this.renderAnswer = function(key){
+        return (
+            <Text style={styles.item}>{this.props.answers[key]}</Text>
+        );
+    }
+
     return (
       <View style={styles.previous}>
         <FlatList
@@ -93,9 +102,10 @@ export default class CustomActions extends React.Component {
           renderItem={({ item }) =>
             (<TouchableOpacity onPress={() => this.getQuestion(item.key)}>
               <Text style={styles.item}>{item.key}</Text>
-              {item.answer !== undefined && item.answer !== null ? answered(true) : answered(false)}
+              {this.renderAnswer(item.key)}
             </TouchableOpacity>)
           }
+          ItemSeparatorComponent={this.renderSeparator}
         />
       </View>
     );
@@ -181,6 +191,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     height: 44,
   },
+  separator: {
+    flex: 1,
+    height: 2,
+    backgroundColor: '#4E4E4E',
+  },
 });
 
 CustomActions.contextTypes = {
@@ -195,6 +210,7 @@ CustomActions.defaultProps = {
   wrapperStyle: {},
   iconTextStyle: {},
   chooseQuestion: () => {},
+  answers: {},
 };
 
 CustomActions.propTypes = {
@@ -205,4 +221,5 @@ CustomActions.propTypes = {
   wrapperStyle: ViewPropTypes.style,
   iconTextStyle: Text.propTypes.style,
   chooseQuestion: PropTypes.func,
+  answers: PropTypes.object,
 };
