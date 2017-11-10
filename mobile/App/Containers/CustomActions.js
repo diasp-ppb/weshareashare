@@ -91,7 +91,7 @@ export default class CustomActions extends React.Component {
 
     this.renderAnswer = function(key){
         return (
-            <Text style={styles.item}>{this.props.answers[key]}</Text>
+            <Text style={styles.item, styles.answer}>{this.props.answers[key]}</Text>
         );
     }
 
@@ -100,7 +100,7 @@ export default class CustomActions extends React.Component {
         <FlatList
           data={this.state.questions}
           renderItem={({ item }) =>
-            (<TouchableOpacity onPress={() => this.getQuestion(item.key)}>
+            (<TouchableOpacity style={styles.block} onPress={() => this.getQuestion(item.key)}>
               <Text style={styles.item}>{item.key}</Text>
               {this.renderAnswer(item.key)}
             </TouchableOpacity>)
@@ -186,14 +186,24 @@ const styles = StyleSheet.create({
     paddingTop: 22,
   },
   item: {
-    flex: 9,
     padding: 10,
     fontSize: 18,
     height: 44,
   },
+  block: {
+    flex: 1,
+    padding: 10,
+    height: 44,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  answer: {
+    color: '#AAAAAA',
+  },
   separator: {
     flex: 1,
-    height: 2,
+    height: 1,
     backgroundColor: '#4E4E4E',
   },
 });
