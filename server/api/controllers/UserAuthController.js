@@ -33,7 +33,11 @@ module.exports = {
   signin(req, res) {
     passport.authenticate(['basic'], { session: false }, (authErr, user) => {
       if (authErr || !user) {
-        return res.unauthorized();
+        // return res.unauthorized();
+        // authErr = 401, tive que alterar authErr (deve ser algo do passport).
+        sails.log(authErr);
+        authErr = [{"message": "The email address or password you entered is not valid."}];
+        return res.unauthorized(authErr);
       }
 
       Token.findOrAdd({

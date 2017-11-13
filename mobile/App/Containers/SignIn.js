@@ -38,8 +38,10 @@ class SignInForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      session: props.session.session,
       value: {},
-      options: defaultOptions
+      options: defaultOptions,
+      serverResponse: '',
     };
   }
 
@@ -49,10 +51,25 @@ class SignInForm extends Component {
 
   onSignIn = () => {
     let values = this.refs.form.getValue();
-    if(values) {
-      this.setState({value: null});
-      this.props.authUser(values.email, values.password);
-    }
+    this.setState({value: null});
+
+    if (values) {
+      SessionAPI.authenticate(values.email, values.password, this.state.session)
+      .then((res) => {
+        this.props.authUser(res);
+      })
+      .catch(err => {
+        if (err.response && err.response.json) {
+          err.response.json().then((json) => {
+          var statusRes = err.response.status;
+          var messageRes = json[0].message;
+          this.setState({serverResponse: messageRes});
+          });
+        }
+        
+        this.props.onRequestFailed(err); 
+      });
+    } 
   }
 
   render() {
@@ -65,22 +82,23 @@ class SignInForm extends Component {
           style={ApplicationStyles.logo}
           resizeMode="contain"/>
         <View style={ApplicationStyles.form}>
+
           <Text h4 style={ApplicationStyles.subTitle}>Sign in</Text>
-          <KeyboardAwareScrollView>
-            <View style={ApplicationStyles.container}>
-              <Form
-                ref="form"
-                type={SignInParams}
-                options={this.state.options}
-                value={this.state.value}
-                onChange={this.onChange}/>
-              <Button
-                buttonStyle={ApplicationStyles.btn}
-                onPress={this.onSignIn}
-                underlayColor='#99d9f4'
-                title='Sign in' />
-            </View>
-          </KeyboardAwareScrollView>
+          <Text>{this.state.serverResponse}</Text>
+
+          <View style={ApplicationStyles.container}>
+            <Form
+              ref="form"
+              type={SignInParams}
+              options={this.state.options}
+              value={this.state.value}
+              onChange={this.onChange}/>
+            <Button
+              buttonStyle={ApplicationStyles.btn}
+              onPress={this.onSignIn}
+              underlayColor='#99d9f4'
+              title='Sign in' />
+          </View>
           <Divider style={ApplicationStyles.divider}/>
           <Text h5 style={ApplicationStyles.infoText}>
             <Text style={ApplicationStyles.linkText} onPress={() => navigate('ForgotPassword')}>
@@ -98,8 +116,13 @@ class SignInForm extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return { session: state };
+};
+
 const mapDispatchToProps = (dispatch) => ({
-  authUser: (email, password) => dispatch(Session.authenticate(email, password)),
+  authUser: (res) => dispatch(Session.authenticate(res)),
+  onRequestFailed: (exception) => dispatch(Session.onRequestFailed(exception)),
 })
 
-export default connect(null, mapDispatchToProps)(SignInForm)
+export default connect(mapStateToProps, mapDispatchToProps)(SignInForm)
