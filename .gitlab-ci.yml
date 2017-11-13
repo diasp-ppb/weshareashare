@@ -1,5 +1,12 @@
 image: node:8.8.1-alpine
 
+before_script:
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+  - eval $(ssh-agent -s)
+  - ssh-add <(echo "$SSH_PRIVATE_KEY")
+  - mkdir -p ~/.ssh
+  - '[[ -f /.dockerenv ]] && echo "$SSH_SERVER_HOSTKEYS" > ~/.ssh/known_hosts'
+
 #cache:
 #  paths:
 #  - ./server/node_modules/
@@ -11,7 +18,8 @@ stages:
   - test_mobile
   - test_desktop
   - build
-  - deploy
+  - deploy_staging
+  - deploy_production
 
 test_server:
   stage: test_server
@@ -40,24 +48,42 @@ build:
   stage: build
   script: 
     - echo "Building the app"
-    - echo "Finishing building the app"
-
-deploy:
-  stage: deploy
-  tags:
-    - server
-  script:
-    - echo "Deploy to staging server"
     - cd server/
     - npm install npm@latest
     - rm -rf /usr/local/lib/node_modules
     - mv node_modules /usr/local/lib/
-    - npm install forever -g
     - npm install
     - export NODE_ENV=production
-    - forever start -l forever.log -o out.log -e err.log app.js
+    - npm start
+    - echo "Finishing building the app"
+
+deploy_staging:
+  stage: deploy_staging
+  tags:
+    - server
+  script:
+    - echo "Deploy to staging server"
+    - ssh ws_admin@178.62.11.121
+    - cd /srv/weshareashare
+    - sudo git pull
+    - cd server
+    - sudo rm -rf node_modules/
+    - sudo npm install bcrypt
+    - sudo npm install
     - echo "Deployed to staging server"
   environment:
     name: staging
+  only:
+  - development
+
+deploy_production:
+  stage: deploy_production
+  tags:
+    - server
+  script:
+    - echo "Deploy to production server"
+    - echo "ups, they don't have one gg wp#excelmasterrace"
+  environment:
+    name: production
   only:
   - master

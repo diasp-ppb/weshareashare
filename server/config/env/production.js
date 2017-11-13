@@ -49,9 +49,9 @@ module.exports = {
   },
   http: {
     cache: 365.25 * 24 * 60 * 60 * 1000, // One year
-    // trustProxy: true,
+    trustProxy: true,
   },
-  port: 80,
+  port: 1337,
   // ssl: {
   //   ca: require('fs').readFileSync(require('path').resolve(__dirname,'../ssl/my-gd-bundle.crt')),
   //   key: require('fs').readFileSync(require('path').resolve(__dirname,'../ssl/my-ssl.key')),
@@ -70,7 +70,7 @@ module.exports = {
       transport: {
         host: 'smtp.gmail.com',
         port: 587,
-        secure: false,
+        secure: true,
         tls: {
           rejectUnauthorized: false
         },
