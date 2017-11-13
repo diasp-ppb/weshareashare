@@ -39,7 +39,7 @@ module.exports = {
   },
   session: {
     cookie: {
-      secure: true,
+      secure: false,
       maxAge: 24 * 60 * 60 * 1000,  // 24 hours
     },
   },
@@ -49,7 +49,7 @@ module.exports = {
   },
   http: {
     cache: 365.25 * 24 * 60 * 60 * 1000, // One year
-    trustProxy: true,
+    trustProxy: false,
   },
   port: 1337,
   // ssl: {
