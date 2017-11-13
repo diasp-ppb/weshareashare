@@ -30,7 +30,7 @@ module.exports = {
     shortcuts: false,
   },
   security: {
-    csrf: true,
+    csrf: false,
     cors: {
       allRoutes: true,
       allowOrigins: '*',
