@@ -64,10 +64,12 @@ deploy_staging:
     - echo "Deploy to staging server"
     - ssh ws_admin@178.62.11.121
     - cd /srv/weshareashare
-    - sudo git pull origin development
+    - sudo git fetch
     - cd server
     - sudo rm -rf node_modules/
     - sudo npm install bcrypt
+    - sudo npm install
+    - cd ../desktop
     - sudo npm install
     - echo "Deployed to staging server"
   environment:
