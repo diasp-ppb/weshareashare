@@ -3,8 +3,11 @@ image: node:8.8.1-alpine
 before_script:
   - 'which ssh-agent || (apk update && apk add openssh-client bash grep)'
   - eval $(ssh-agent -s)
+  - echo "$SSH_PRIVATE_KEY"
   - echo "$SSH_PRIVATE_KEY" > ssh-add
   - mkdir -p ~/.ssh
+  -  echo "$SSH_SERVER_HOSTKEYS"
+  - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   - '[[ -f /.dockerenv ]] && echo "$SSH_SERVER_HOSTKEYS" > ~/.ssh/known_hosts'
 
 #cache:
