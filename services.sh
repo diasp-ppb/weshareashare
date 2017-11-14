@@ -21,8 +21,6 @@ cd server/
 docker-compose build
 cd ../mobile/
 docker-compose build
-cd ../desktop/
-docker-compose build
 cd ..
 
 ## Run container without shell. -d flag is for detached mode

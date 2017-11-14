@@ -19,12 +19,6 @@ module.exports = {
     autoOpenBrowser: true,
     assetsSubDirectory: 'assets',
     assetsPublicPath: '/',
-    proxyTable: {
-        '/MODApis': {
-            target: 'http://dev.markitondemand.com',
-            changeOrigin: true
-        }
-    },
     cssSourceMap: false
   }
 }

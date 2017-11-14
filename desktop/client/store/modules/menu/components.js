@@ -29,16 +29,6 @@ export default {
       component: lazyLoading('components/BackToTop')
     },
     {
-      name: 'Brace',
-      path: 'brace',
-      meta: {
-        description: 'Code editor component that based on brace',
-        repository: 'https://github.com/vue-bulma/brace',
-        link: 'components/Brace.vue'
-      },
-      component: lazyLoading('components/Brace')
-    },
-    {
       name: 'Collapse',
       path: 'collapse',
       meta: {
@@ -57,16 +47,6 @@ export default {
         link: 'components/Datepicker.vue'
       },
       component: lazyLoading('components/Datepicker')
-    },
-    {
-      name: 'Emoji',
-      path: 'emoji',
-      meta: {
-        description: 'Emoji Component is based on emojione.com',
-        repository: 'https://github.com/vue-bulma/emoji',
-        link: 'components/Emoji.vue'
-      },
-      component: lazyLoading('components/Emoji')
     },
     {
       name: 'Message',
@@ -99,26 +79,6 @@ export default {
       component: lazyLoading('components/Notification')
     },
     {
-      name: 'ProgressBar',
-      path: 'progress-bar',
-      meta: {
-        description: 'ProgressBar component',
-        repository: 'https://github.com/vue-bulma/progress-bar',
-        link: 'components/ProgressBar.vue'
-      },
-      component: lazyLoading('components/ProgressBar')
-    },
-    {
-      name: 'ProgressTracker',
-      path: 'progress-tracker',
-      meta: {
-        description: 'ProgressTracker component is based on progress-tracker',
-        repository: 'https://github.com/vue-bulma/progress-tracker',
-        link: 'components/ProgressTracker.vue'
-      },
-      component: lazyLoading('components/ProgressTracker')
-    },
-    {
       name: 'Quill',
       path: 'quill',
       meta: {
@@ -127,16 +87,6 @@ export default {
         link: 'components/Quill.vue'
       },
       component: lazyLoading('components/Quill')
-    },
-    {
-      name: 'Rating',
-      path: 'rating',
-      meta: {
-        description: 'Rating component is based on starability.css',
-        repository: 'https://github.com/vue-bulma/rating',
-        link: 'components/Rating.vue'
-      },
-      component: lazyLoading('components/Rating')
     },
     {
       name: 'Slider',
@@ -177,16 +127,6 @@ export default {
         link: 'components/Tooltip.vue'
       },
       component: lazyLoading('components/Tooltip')
-    },
-    {
-      name: 'Lory',
-      path: 'lory',
-      meta: {
-        description: 'Slider component is based on lory, lory: ☀ Touch enabled minimalistic slider',
-        repository: 'https://github.com/vue-bulma/lory',
-        link: 'components/Lory.vue'
-      },
-      component: lazyLoading('components/Lory')
     }
   ]
 }

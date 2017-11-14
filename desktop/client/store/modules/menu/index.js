@@ -2,7 +2,6 @@ import * as types from '../../mutation-types'
 import lazyLoading from './lazyLoading'
 import uifeatures from './uifeatures'
 import components from './components'
-import tables from './tables'
 
 // show: meta.label -> name
 // name: component name
@@ -30,18 +29,27 @@ const state = {
       component: lazyLoading('axios', true)
     },
     {
-      name: 'Chart',
-      path: '/chart',
+      name: 'Charts',
+      path: '/charts',
       meta: {
         icon: 'fa-bar-chart-o',
         expanded: false,
         link: 'charts/index.vue'
       },
-      component: lazyLoading('charts', true),
+      component: lazyLoading('charts', true)
     },
     uifeatures,
     components,
-    tables
+    {
+      name: 'Tables',
+      path: '/tables',
+      meta: {
+        icon: 'fa-table',
+        expanded: false,
+        link: 'tables/index.vue'
+      },
+      component: lazyLoading('tables', true)
+    }
   ]
 }
 
