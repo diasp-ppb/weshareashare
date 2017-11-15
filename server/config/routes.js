@@ -30,14 +30,6 @@ module.exports.routes = {
     action: 'signin',
   },
 
-  'post /users/auth/signout': {
-    cors: {
-      allowRequestHeaders: 'Content-Type, Client-ID, Authorization',
-    },
-    controller: 'UserAuthController',
-    action: 'signout',
-  },
-
   'post /users/auth/refresh': {
     cors: {
       allowRequestHeaders: 'Content-Type, Client-ID',
@@ -65,6 +57,14 @@ module.exports.routes = {
     },
     controller: 'UserAuthController',
     action: 'resetPassword',
+  },
+
+  'post /contactUs': {
+    cors: {
+      allowRequestHeaders: 'Content-Type, Client-ID',
+    },
+    controller: 'ContactUsController',
+    action: 'create',
   },
 
   'get /users': {

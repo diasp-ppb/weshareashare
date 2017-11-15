@@ -32,7 +32,10 @@ module.exports.policies = {
     revoke: ['hasOAuthBearer'],
     resetRequest: ['hasClientId'],
     resetPassword: ['hasClientId', 'hasResetToken'],
-    signout: ['hasClientId', 'hasOAuthBearer'],
   },
+
+  ContactUsController: {
+    create: ['hasClientId'],
+  }
 
 };
