@@ -19,6 +19,8 @@ const formatTokenResponse = (accessToken, refreshToken, user) => ({
       value: accessToken.value,
       expiresIn: expiresIn(accessToken.expiresAt),
     },
+
+    
     refresh: {
       type: 'refresh',
       value: refreshToken.value,

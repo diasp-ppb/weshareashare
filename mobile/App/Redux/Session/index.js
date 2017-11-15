@@ -40,15 +40,10 @@ export const createUser = (res) => {
   }
 }
 
-export const authenticate = (email, password) => {
-  return (dispatch, getState) => {
-    const session = getState().session;
-    SessionAPI.authenticate(email, password, session)
-    .then((res) => {
-      dispatch(SessionRedux.update({ 'tokens': res.tokens, 'user': res.user }));
-      setSessionTimeout(res.tokens.access.expiresIn);
-    })
-    .catch(onRequestFailed);
+export const authenticate = (res) => {
+  return (dispatch) => {
+    dispatch(SessionRedux.update({ 'tokens': res.tokens, 'user': res.user }));
+    setSessionTimeout(res.tokens.access.expiresIn);
   }
 }
 
