@@ -56,10 +56,6 @@ module.exports = {
     })(req, res);
   },
 
-  signout(req, res) {
-
-  },
-
   refresh(req, res) {
     const params = req.allParams();
 
@@ -116,75 +112,78 @@ module.exports = {
     });
   },
 
-  resetRequest(req, res) {
+  async resetRequest(req, res) {
     const params = req.allParams();
     if(!params.email) {
       return res.badRequest();
     }
 
-    User.findOne({
-      email: params.email
-    }).then((user) => {
-      if(!user) {
-        return res.badRequest({response: 'The selected email doesn\'t exist in our platform.'});
-      }
-
-      return user;
-    }).then((user) => {
-      Token.findOrAdd({
-        user: user.id,
-        type: 'reset',
-      }).catch((err) => {
-        throw(err);
-      });
-      return user;
-    }).then((user) => {
-      let email = sails.config.custom.email;
-      email.send({
-        template: 'passwordReset',
-        message: {
-          to: user.email
-        },
-        locals: {
-          name: user.username,
-        }
-      }).then(() => {
-        return res.ok({response: 'An email with a link to reset the password was sent to this account.'});
-      }).catch((err) => {
-        console.log(err);
-        return res.serverError(err);
-      });
-    }).catch((err) => {
+    let user, token;
+    try {
+      user = await User.findOne({email: params.email});
+    } catch(err) {
       res.serverError(err);
+    }
+
+    if (!user) {
+      return res.badRequest({response: 'The selected email doesn\'t exist in our platform.'});
+    }
+
+    try {
+      token = await Token.findOrAdd({user: user.id, type: 'reset'})
+    } catch (err) {
+      res.serverError(err);
+    }
+
+    let email = sails.config.custom.email;
+    email.send({
+      template: 'passwordReset',
+      message: {
+        to: user.email
+      },
+      locals: {
+        name: user.username,
+        token: token.value,
+      }
+    }).then(() => {
+      return res.ok({response: 'An email with a token to reset the password was sent to this account.'});
+    }).catch((err) => {
+      console.log(err);
+      return res.serverError(err);
     });
   },
 
-  resetPassword: function (req, res) {
+  async resetPassword(req, res) {
     const params = req.allParams();
-    const token = params.token;
-    if (!params.newPassword) {
+    if (!params.newPassword || !params.email) {
       return res.badRequest();
     }
 
-    Token.find({
-      value: token.value,
-    }).then((token) => {
-      User.update({
-        id: token.user
-      }, {password: params.newPassword}).meta({fetch: true})
-        .then((user) => {
-          console.log(user);
-        }).catch((err) => {
-          throw(err);
-        });
-    }).then(() => {
-      Token.destroy({
-        value: token.value,
-      }).then(() => {
-        res.ok({response: 'Password updated with success!'});
-      });
-    }).catch((err) => {
+    let token, user;
+    try {
+      token = await Token.find({value: params.token.value});
+    } catch (err) {
       res.serverError(err);
-    });
+    }
+
+    try {
+      user = await User.update(
+        {id: token.user, email: params.email},
+        {password: params.newPassword}
+      ).meta({fetch: true})
+    } catch (err) {
+      res.serverError(err);
+    }
+
+    if(user.length !== 0) {
+      Token.destroy({value: token.value})
+        .then(() => {
+          res.ok({response: 'Password updated with success!'});
+        }).catch((err) => {
+          res.serverError(err);
+        });
+    } else {
+      return res.badRequest({response: 'The selected email and reset token are not valid!'});
+    }
   },
 };

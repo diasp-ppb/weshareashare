@@ -59,7 +59,6 @@ module.exports = {
             user: user.id,
             type: 'refresh',
           }).then((refreshToken) => {
-            console.log(formatTokenResponse(accessToken, refreshToken, user))
             return res.ok(formatTokenResponse(accessToken, refreshToken, user));
           }).catch((err) => {
             return res.serverError(err);
