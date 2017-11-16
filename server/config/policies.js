@@ -39,7 +39,7 @@ module.exports.policies = {
   },
 
   DocumentController: {
-    '*': 'hasOAuthBearer'
+    '*': 'hasClientId'
   }
 
 };

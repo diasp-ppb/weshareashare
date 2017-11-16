@@ -25,6 +25,6 @@ module.exports = {
   },
 
   async delete(req, res) {
-
+    return res.ok();
   }
 };

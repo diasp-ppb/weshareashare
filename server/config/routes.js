@@ -67,7 +67,7 @@ module.exports.routes = {
     action: 'create',
   },
 
-  'post /documents/upload': {
+  'post /documents': {
     cors: {
       allowRequestHeaders: 'Content-Type, Client-ID',
     },
@@ -75,7 +75,7 @@ module.exports.routes = {
     action: 'upload',
   },
 
-  'post /documents/delete': {
+  'delete /documents/:id': {
     cors: {
       allowRequestHeaders: 'Content-Type, Client-ID',
     },
