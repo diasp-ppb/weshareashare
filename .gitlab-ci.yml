@@ -64,6 +64,8 @@ deploy_staging:
   script:
     - echo "Deploy to staging server"
     - ssh ws_admin@178.62.11.121
+    - pwd
+    - ls
     - cd /srv/weshareashare
     - sudo git fetch
     - cd server
