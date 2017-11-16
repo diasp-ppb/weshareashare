@@ -1,0 +1,166 @@
+import React, { Component, PropTypes } from 'react';
+import {
+    View,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+} from 'react-native'
+
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
+
+
+
+export default class ControlPanel extends Component {
+    static contextTypes = {
+        drawer: PropTypes.object.isRequired,
+    };
+
+    render() {
+        return (
+            <ScrollView style={styles.container}>
+                <Text style={styles.company}>WeShareAShare</Text>
+                <View style={styles.profile}>
+                    <Icon name="account-circle" size={70} color="#fff" />
+                    <View>
+                    <Text  style={[styles.buttonText,styles.profileInfo]}> Luis Lobo Jordão </Text>
+                    <Text  style={[styles.buttonText,styles.profileInfo]}> email.exemplo@stoik.com </Text>
+                    </View>
+                </View>
+                <View>
+                    <TouchableOpacity style={styles.button} onPress={this.context.drawer.close}>
+                        <Icon style={[styles.icon, styles.notification]} name="comment-text" size={35} color="#fff"/>
+                        <Text style={[styles.buttonText,styles.notification]}>Notifications</Text>
+                    </TouchableOpacity>
+                </View>
+
+                <View>
+                    <View style={styles.header}>
+                    <Text style={styles.controlText}>Save</Text>
+                    <View style={styles.leftMark}/>
+                </View>
+                    <TouchableOpacity style={styles.button} onPress={this.context.drawer.close}>
+                        <Icon  style={styles.icon} name="chart-line" size={35} color="#fff"/>
+                        <Text  style={styles.buttonText}>Simulation</Text>
+                    </TouchableOpacity>
+                </View>
+
+                <View>
+                    <View style={styles.header}>
+                        <Text style={styles.controlText}>Invest</Text>
+                        <View style={styles.leftMark}/>
+                    </View>
+                        <TouchableOpacity style={styles.button} onPress={this.context.drawer.close}>
+                        <Icon style={styles.icon} name="home" size={35} color="#fff"/>
+                        <Text style={styles.buttonText}>Portfolio</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.button} onPress={this.context.drawer.close}>
+                        <Icon  style={styles.icon} name="trending-up" size={35} color="#fff"/>
+                        <Text  style={styles.buttonText}>Profitability</Text>
+                    </TouchableOpacity>
+                </View>
+
+                <View>
+                    <View style={styles.header}>
+                        <Text style={styles.controlText}>Share</Text>
+                        <View style={styles.leftMark}/>
+                    </View>
+                    <TouchableOpacity style={styles.button} onPress={this.context.drawer.close}>
+                        <Icon  style={styles.icon} name="book-multiple" size={35} color="#fff"/>
+                        <Text  style={styles.buttonText}>WeShareAShare</Text>
+                    </TouchableOpacity>
+                </View>
+
+
+                <View>
+                    <View style={styles.header}>
+                    <Text style={styles.controlText}>More</Text>
+                        <View style={styles.leftMark}/>
+                    </View>
+                    <TouchableOpacity style={styles.button} onPress={this.context.drawer.close}>
+                        <Icon style={styles.icon} name="help" size={35} color="#fff"/>
+                        <Text style={styles.buttonText}>FAQ</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.button} onPress={this.context.drawer.close}>
+                        <Icon  style={styles.icon} name="email" size={35} color="#fff" />
+                        <Text  style={styles.buttonText}>Contact us</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.button} onPress={this.context.drawer.close}>
+                        <Icon  style={styles.icon} name="information-variant" size={35} color="#fff"/>
+                        <Text  style={styles.buttonText}>About us</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.button,styles.lastInMenu]} onPress={this.context.drawer.close}>
+                        <Icon style={styles.icon} name="power" size={35} color="#fff"/>
+                        <Text style={styles.buttonText}>Logout</Text>
+                    </TouchableOpacity>
+                </View>
+            </ScrollView>
+        )
+    }
+}
+
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: "#455A63",
+        paddingTop:20,
+    },
+    controlText: {
+        backgroundColor:"#596a71",
+        color: "#32BACC",
+        textAlignVertical:'center',
+        textAlign:'left',
+        paddingTop:12,
+        paddingBottom:12,
+        paddingLeft:10,
+        fontSize:'19',
+        flex:1,
+    },
+    buttonText: {
+        color:'white',
+        textAlign:'center',
+        paddingTop:10,
+        fontSize:'17',
+        marginLeft:10,
+    },
+    button: {
+        borderWidth: 0,
+        padding: 10,
+        flex: 1,
+        flexDirection: 'row',
+    },
+    icon: {
+        marginLeft:10,
+    },
+    company: {
+        color: "#FFFFFF",
+        fontSize: 30,
+        textAlign: 'center',
+        padding: 10,
+        fontWeight: 'bold',
+    },
+    profile: {
+        flex: 1,
+        flexDirection:'row',
+    },
+    profileInfo: {
+        textAlign:'left'
+    },
+    header: {
+        flex:1,
+        flexDirection: 'row',
+    },
+    leftMark: {
+        backgroundColor: '#30C4D7',
+        width: 5,
+
+    },
+    notification: {
+        color: "#32BACC",
+    },
+    lastInMenu : {
+        paddingBottom:40
+    }
+})
