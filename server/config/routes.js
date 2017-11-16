@@ -67,6 +67,22 @@ module.exports.routes = {
     action: 'create',
   },
 
+  'post /documents/upload': {
+    cors: {
+      allowRequestHeaders: 'Content-Type, Client-ID',
+    },
+    controller: 'DocumentController',
+    action: 'upload',
+  },
+
+  'post /documents/delete': {
+    cors: {
+      allowRequestHeaders: 'Content-Type, Client-ID',
+    },
+    controller: 'DocumentController',
+    action: 'delete',
+  },
+
   'get /users': {
     controller: 'UserController',
     action: 'getAll',

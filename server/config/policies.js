@@ -36,6 +36,10 @@ module.exports.policies = {
 
   ContactUsController: {
     create: ['hasClientId'],
+  },
+
+  DocumentController: {
+    '*': 'hasOAuthBearer'
   }
 
 };
