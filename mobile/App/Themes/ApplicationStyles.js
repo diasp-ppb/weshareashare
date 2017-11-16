@@ -1,8 +1,17 @@
 import Fonts from './Fonts';
 import Metrics from './Metrics';
 import Colors from './Colors';
+import Toast from 'react-native-root-toast';
 
 const ApplicationStyles = {
+  toast: {
+    duration: Toast.durations.SHORT,
+    position: Toast.positions.BOTTOM,
+    shadow: true,
+    animation: true,
+    hideOnPress: true,
+    delay: 0,
+  },
   headerTitle: {
     alignSelf: 'center',
     padding: Metrics.PADDING * 1.2,

@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { View, StatusBar, BackAndroid } from 'react-native';
-import ReduxNavigation from '../Navigation/ReduxNavigation';
-import { connect } from 'react-redux';
-import StartupActions from '../Redux/StartupRedux';
-import ReduxPersist from '../Config/ReduxPersist';
+import React, { Component } from 'react'
+import { View, StatusBar } from 'react-native'
+import ReduxNavigation from '../Navigation/ReduxNavigation'
+import { connect } from 'react-redux'
+import StartupActions from '../Redux/StartupRedux'
+import ReduxPersist from '../Config/ReduxPersist'
 import * as Session from '../Redux/Session';
 
 
@@ -12,11 +12,11 @@ import ControlPanel from '../Components/ControlPanel';
 
 
 class RootContainer extends Component {
-  componentDidMount() {
+  componentDidMount () {
     // if redux persist is not active fire startup action
     if (!ReduxPersist.active) {
       this.props.authorizeClient();
-      this.props.startup();
+      this.props.startup()
     }
   }
     state={
@@ -32,7 +32,7 @@ class RootContainer extends Component {
     };
 
 
-  render() {
+  render () {
     return (
         <Drawer
             type="static"
@@ -51,7 +51,6 @@ class RootContainer extends Component {
             <ReduxNavigation />
           </View>
         </Drawer>
-
     );
   }
 }
@@ -59,6 +58,6 @@ class RootContainer extends Component {
 const mapDispatchToProps = (dispatch) => ({
   startup: () => dispatch(StartupActions.startup()),
   authorizeClient: () => dispatch(Session.authorize()),
-});
+})
 
-export default connect(null, mapDispatchToProps)(RootContainer);
+export default connect(null, mapDispatchToProps)(RootContainer)
