@@ -118,6 +118,7 @@ module.exports = {
 
   async resetRequest(req, res) {
     const params = req.allParams();
+    console.log(params);
     if(!params.email) {
       return res.badRequest();
     }
@@ -152,7 +153,6 @@ module.exports = {
     }).then(() => {
       return res.ok({response: 'An email with a token to reset the password was sent to this account.'});
     }).catch((err) => {
-      console.log(err);
       return res.serverError(err);
     });
   },

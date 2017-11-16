@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableHighlight, Image, Picker } from 'react-native';
+import { View, Image } from 'react-native';
 import { Button, Text, Divider } from 'react-native-elements';
 import { ApplicationStyles, Images } from '../Themes';
 import * as Session from '../Redux/Session';
 import { connect } from 'react-redux';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import * as SessionAPI from '../Redux/Session/api';
+import * as API from '../Services/API';
 
 const t = require('tcomb-form-native');
 const Form = t.form.Form;
@@ -67,22 +66,20 @@ class SignUpForm extends Component {
     this.setState({options: defaultOptions});
     
     if(values) {
-
-      SessionAPI.register(values, this.state.session)
-      .then((res) => {
-        this.props.createUser(res);
-      })
-      .catch(err => {
-        if (err.response && err.response.json) {
-          err.response.json().then((json) => {
-            var statusRes = err.response.status;
-            var messageRes = json[0].message;
-            this.setState({serverResponse: messageRes});
-          });
-        }
-        
-        this.props.onRequestFailed(err); 
-      });
+      API.register(values, this.state.session)
+        .then((res) => {
+          this.props.createUser(res);
+        })
+        .catch(err => {
+          if (err.response && err.response.json) {
+            err.response.json().then((json) => {
+              var statusRes = err.response.status;
+              var messageRes = json[0].message;
+              this.setState({serverResponse: messageRes});
+            });
+          }
+          this.props.onRequestFailed(err);
+        });
     } 
     else {
       if (this.state.value.repeatPassword && !Utils.samePasswords(this.state.value)) {

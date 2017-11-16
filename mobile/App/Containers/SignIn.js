@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
-import { View, TouchableHighlight, Image } from 'react-native';
+import { View, Image } from 'react-native';
 import { Images, ApplicationStyles } from '../Themes/index';
 import { Button, Text, Divider } from 'react-native-elements';
 import { connect } from 'react-redux'
 import * as Session from '../Redux/Session';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import * as SessionAPI from '../Redux/Session/api';
+import * as API from '../Services/API';
 
 const t = require('tcomb-form-native');
 const Form = t.form.Form;
@@ -54,21 +53,21 @@ class SignInForm extends Component {
     this.setState({value: null});
 
     if (values) {
-      SessionAPI.authenticate(values.email, values.password, this.state.session)
-      .then((res) => {
-        this.props.authUser(res);
-      })
-      .catch(err => {
-        if (err.response && err.response.json) {
-          err.response.json().then((json) => {
-          var statusRes = err.response.status;
-          var messageRes = json[0].message;
-          this.setState({serverResponse: messageRes});
-          });
-        }
-        
-        this.props.onRequestFailed(err); 
-      });
+      API.authenticate(values.email, values.password, this.state.session)
+        .then((res) => {
+          this.props.authUser(res);
+        })
+        .catch(err => {
+          if (err.response && err.response.json) {
+            err.response.json().then((json) => {
+            var statusRes = err.response.status;
+            var messageRes = json[0].message;
+            this.setState({serverResponse: messageRes});
+            });
+          }
+
+          this.props.onRequestFailed(err);
+        });
     } 
   }
 

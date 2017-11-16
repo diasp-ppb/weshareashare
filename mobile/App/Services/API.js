@@ -1,14 +1,14 @@
 import { Buffer } from 'buffer';
-import { fetchApi } from '../../Services/Fetch';
+import { fetchApi } from 'Fetch';
 
 const endPoints = {
-	authorize: '/clients',
-	register: '/users',
-	authenticate: '/users/auth',
-	revoke: '/users/auth/revoke',
-	refresh: '/users/auth/refresh',
-	forgotPassword: '/users/auth/resetRequest',
-	resetPassword: '/users/auth/resetPassword'
+  authorize: '/clients',
+  register: '/users',
+  authenticate: '/users/auth',
+  revoke: '/users/auth/revoke',
+  refresh: '/users/auth/refresh',
+  forgotPassword: '/users/auth/resetRequest',
+  resetPassword: '/users/auth/resetPassword'
 };
 
 export const authorize = (session) => fetchApi(endPoints.authorize, {}, 'post', session)
@@ -18,7 +18,7 @@ export const register = (user, session) => fetchApi(endPoints.register, {
 }, 'post', session)
 
 export const authenticate = (email, password, session) => fetchApi(endPoints.authenticate, {}, 'post', session, {
-	Authorization: `Basic ${new Buffer(`${email}:${password}`).toString('base64')}`,
+  Authorization: `Basic ${new Buffer(`${email}:${password}`).toString('base64')}`,
 });
 
 export const refresh = (refreshToken, user, session) => fetchApi(endPoints.refresh, { refreshToken, user }, 'post', session);

@@ -1,4 +1,4 @@
-import * as SessionAPI from './api';
+import * as API from '../../Services/API';
 import * as SessionRedux from './redux'
 
 const SESSION_TIMEOUT_THRESHOLD = 300; // Will refresh the access token 5 minutes before it expires
@@ -26,10 +26,10 @@ export const onRequestFailed = (exception) => {
 export const authorize = () => {
   return (dispatch, getState) => {
     const session = getState().session;
-    SessionAPI.authorize(session)
-    .then((res) => {
-      dispatch(SessionRedux.update({ 'client': res.client }));
-    }).catch(err => onRequestFailed(err, dispatch));
+    API.authorize(session)
+      .then((res) => {
+        dispatch(SessionRedux.update({ 'client': res.client }));
+      }).catch(err => onRequestFailed(err, dispatch));
   }
 }
 
@@ -54,7 +54,7 @@ export const refreshToken = () => {
     if (!session.tokens.refresh.value || !session.user.id) {
       return Promise.reject();
     } else {
-      SessionAPI.refresh(session.tokens.refresh, session.user, session.tokens.access)
+      API.refresh(session.tokens.refresh, session.user, session.tokens.access)
       .then((res) => {
         dispatch(SessionRedux.update({ 'tokens': res.tokens, 'user': res.user }));
         setSessionTimeout(res.tokens.access.expiresIn);
@@ -67,7 +67,7 @@ export const refreshToken = () => {
 export const revoke = () => {
   return (dispatch, getState) => {
     const session = getState().session;
-    SessionAPI.revoke(Object.keys(session.tokens).map(tokenKey => ({
+    API.revoke(Object.keys(session.tokens).map(tokenKey => ({
       type: session.tokens[tokenKey].type,
       value: session.tokens[tokenKey].value,
     })), session.tokens.access)
@@ -75,27 +75,3 @@ export const revoke = () => {
     .catch(onRequestFailed);
   }
 };
-
-export const forgotPassword = (email) => {
-  return (dispatch, getState) => {
-    let session = getState().session;
-    SessionAPI.forgotPassword(email, session)
-    .then((res) => {
-      console.log(res);
-    }).catch((err) => {
-      console.log(err)
-    });
-  }
-}
-
-export const resetPassword = (password, resetToken) => {
-  return (dispatch, getState) => {
-    let session = getState().session;
-    SessionAPI.resetPassword(password, resetToken, session)
-    .then((res) => {
-      console.log(res);
-    }).catch((err) => {
-      console.log(err)
-    });
-  }
-}
