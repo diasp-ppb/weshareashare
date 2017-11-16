@@ -5,6 +5,7 @@ import { Button, Text, Divider } from 'react-native-elements';
 import { connect } from 'react-redux'
 import * as Session from '../Redux/Session';
 import * as API from '../Services/API';
+import Toast from 'react-native-root-toast';
 
 const t = require('tcomb-form-native');
 const Form = t.form.Form;
@@ -58,13 +59,8 @@ class SignInForm extends Component {
           this.props.authUser(res);
         })
         .catch(err => {
-          if (err.response && err.response.json) {
-            err.response.json().then((json) => {
-            var statusRes = err.response.status;
-            var messageRes = json[0].message;
-            this.setState({serverResponse: messageRes});
-            });
-          }
+          this.setState({serverResponse: err.response});
+          Toast.show(this.state.serverResponse, ApplicationStyles.toast);
 
           this.props.onRequestFailed(err);
         });
@@ -83,7 +79,6 @@ class SignInForm extends Component {
         <View style={ApplicationStyles.form}>
 
           <Text h4 style={ApplicationStyles.subTitle}>Sign in</Text>
-          <Text>{this.state.serverResponse}</Text>
 
           <View style={ApplicationStyles.container}>
             <Form

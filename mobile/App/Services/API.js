@@ -1,5 +1,5 @@
 import { Buffer } from 'buffer';
-import { fetchApi } from 'Fetch';
+import { fetchApi } from './Fetch';
 
 const endPoints = {
   authorize: '/clients',

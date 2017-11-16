@@ -4,6 +4,7 @@ import { Images, ApplicationStyles } from '../Themes/index';
 import { connect } from 'react-redux';
 import { Button, Text, Divider } from 'react-native-elements';
 import * as API from '../Services/API';
+import Toast from 'react-native-root-toast';
 
 const t = require('tcomb-form-native');
 import * as Utils from '../Services/Utils'
@@ -44,7 +45,7 @@ let defaultOptions = {
   },
 };
 
-export default class ResetPassword extends Component {
+class ResetPassword extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -64,11 +65,11 @@ export default class ResetPassword extends Component {
     this.setState({options: defaultOptions});
     if(value) {
       API.resetPassword(value.password, value.token, this.state.session)
-        .then((res) => {
-          console.log(res)
-          this.setState({value: null});
-        }).catch((err) => {
-          this.setState({serverResponse: err.message})
+        .then(res => {
+          this.setState({value: null, serverResponse: ''});
+        }).catch(err => {
+          this.setState({serverResponse: err.response});
+          Toast.show(this.state.serverResponse, ApplicationStyles.toast);
         })
     } else {
       if (this.state.value.repeatPassword && !Utils.samePasswords(this.state.value)) {

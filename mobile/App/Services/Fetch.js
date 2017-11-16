@@ -3,10 +3,10 @@ import _ from 'lodash';
 
 const API_URL = 'http://172.30.2.19:1337';
 
-export const fetchApi = (endPoint, payload = {}, method = 'get', session, headers = {}) => {
-  console.log(session);
-  console.log(payload);
-  return fetchival(`${API_URL}${endPoint}`, {
+export const fetchApi =
+  (endPoint, payload = {}, method = 'get', session, headers = {}) => new Promise((resolve, reject) => {
+
+  (fetchival(`${API_URL}${endPoint}`, {
     headers: _.pickBy({
       ...(session.tokens.access.value ? {
         Authorization: `Bearer ${session.tokens.access.value}`,
@@ -15,5 +15,17 @@ export const fetchApi = (endPoint, payload = {}, method = 'get', session, header
       }),
       ...headers,
     }, item => !_.isEmpty(item)),
-  })[method.toLowerCase()](payload)
-};
+  })[method.toLowerCase()](payload))
+  .then((res) => {
+    resolve(res)
+  }).catch((e) => {
+    if (e.response && e.response.json) {
+      e.response.json().then((json) => {
+        if (json) reject(json);
+        reject(e);
+      });
+    } else {
+      reject(e);
+    }
+  });
+});

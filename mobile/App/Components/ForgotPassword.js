@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { View, Image } from 'react-native';
+import Toast from 'react-native-root-toast';
 import { Images, ApplicationStyles } from '../Themes/index';
 import { Button, Text, Divider } from 'react-native-elements';
 import * as API from '../Services/API';
@@ -40,10 +41,10 @@ class ForgotPassword extends Component {
     if(value) {
       API.forgotPassword(value.email, this.state.session)
         .then(res => {
-          console.log(res);
-          this.setState({value: null});
+          this.setState({value: null, serverResponse: ''});
         }).catch(err => {
-          this.setState({serverResponse: err.message})
+          this.setState({serverResponse: err.response});
+          Toast.show(this.state.serverResponse, ApplicationStyles.toast);
         })
     }
   }
@@ -88,7 +89,6 @@ class ForgotPassword extends Component {
     );
   }
 }
-
 
 const mapStateToProps = (state) => {
   return { session: state };
