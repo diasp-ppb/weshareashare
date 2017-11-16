@@ -24,6 +24,10 @@ const ApplicationStyles = {
     color: Colors.text,
     fontFamily: Fonts.type.OpenSans,
   },
+  subSubTitle: {
+    textAlign: 'center',
+    fontSize: Fonts.size.h6,
+  },
   infoText: {
     padding: 0,
     justifyContent: 'flex-start',

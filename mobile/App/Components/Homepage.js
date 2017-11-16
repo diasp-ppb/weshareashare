@@ -31,6 +31,11 @@ export default class Homepage extends Component {
                   Start forms 
                 </Text>
               </Button>
+              <Button style={styles.btn} onPress={() => {navigate('ContactUs')}}>
+                <Text style={styles.btnText}>
+                  Contact us
+                </Text>
+              </Button>
             </View>
           </Image>
         </View>
