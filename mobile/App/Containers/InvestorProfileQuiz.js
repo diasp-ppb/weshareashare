@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Text,
   View,
+  KeyboardAvoidingView,
 } from 'react-native';
 
 import { GiftedChat, Actions, InputToolbar, Bubble } from 'react-native-gifted-chat';
@@ -210,7 +211,6 @@ export default class InvestorProfileQuiz extends React.Component {
 
           this.onReceive(returnMessage.text);
         } else if (this.state.skip) {
-          this.progress += this.progressStep;
           this.state.skip = false;
           const nextMessage = this.getStateMessage();
           this.state.currentQuestionKey = nextMessage.key;
@@ -263,13 +263,14 @@ export default class InvestorProfileQuiz extends React.Component {
 
     chooseQuestion(questionId) {
       const questions = this.state.questions;
+      let index;
 
       const getQuestionFromKey = function (id) {
         for (const key in questions) {
           if (questions.hasOwnProperty(key)) {
             const element = questions[key];
             if (id === element.key) {
-              this.messageIndex = parseInt(key);
+              index = parseInt(key);
               return element;
             }
           }
@@ -277,6 +278,7 @@ export default class InvestorProfileQuiz extends React.Component {
       };
 
       const question = getQuestionFromKey(questionId);
+      this.messageIndex = index;
       this.state.currentQuestionKey = question.key;
       this.setState({ optionsButtons: this.createOptionsButtons(question.options) });
       this.onReceive(question.text);
@@ -363,7 +365,7 @@ export default class InvestorProfileQuiz extends React.Component {
 
     render() {
       return (
-        <View style={styles.backgroundChat}>
+        <KeyboardAvoidingView style={styles.backgroundChat} behavior="padding">
           <GiftedChat
             messages={this.state.messages}
             onSend={this.onSend}
@@ -381,7 +383,7 @@ export default class InvestorProfileQuiz extends React.Component {
             renderInputToolbar={this.renderInputToolbar}
             onPressAvatar={this.onPressActions}
           />
-        </View>
+        </KeyboardAvoidingView>
 
 
       );
