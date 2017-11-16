@@ -30,6 +30,11 @@ module.exports = {
       unique: true,
     },
 
+    person: {
+      model: 'Person',
+      unique: true,
+    },
+
     notifications: {
       collection: 'notification',
       via: 'receiver'
@@ -91,4 +96,3 @@ module.exports = {
     };
   },
 };
-

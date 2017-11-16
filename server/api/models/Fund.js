@@ -9,7 +9,6 @@ module.exports = {
   attributes: {
     participant: {
       model: 'person',
-      via: 'subscription',
       required: true,
       unique: true
     },

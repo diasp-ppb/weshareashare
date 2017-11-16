@@ -6,8 +6,25 @@
  */
 
 module.exports = {
-  postSubscription(req, res) {
-    parsedAttrs = Fund.parseAttrs(req.allParams());
+  async postSubscription(req, res) {
+    let parsedAttrs = Fund.parseAttrs(req.allParams());
+    let participantAttrs = parsedAttrs.participant;
+    let userid = req.headers['user-id'];
+
+    participantAttrs['user'] = userid;
+
+    try {
+      let user = await User.findOne({id: userid});
+
+      if (user.person) {
+        Person.update(user.person, participantAttrs).meta({fetch: true}).then();
+      } else {
+        Person.create(participantAttrs).meta({fetch: true}).then();
+      }
+    } catch(err) {
+      return res.serverError(err);
+    }
+
     return res.ok();
   },
 

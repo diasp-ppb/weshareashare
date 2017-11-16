@@ -8,6 +8,11 @@
 module.exports = {
 
   attributes: {
+    user: {
+      model: 'User',
+      unique: true
+    },
+
     name: {
       type: 'string',
       required: true,
@@ -72,22 +77,14 @@ module.exports = {
       required: true,
     },
 
-    email: {
-      type: 'string',
-      required: true,
-      unique: true
-    },
-
     subscription: {
       model: 'fund',
-      via: 'participant',
       required: false,
       unique: true
     },
 
     contributor: {
       model: 'contributor',
-      required: true,
       unique: true
     },
 
@@ -107,13 +104,18 @@ module.exports = {
       cellphone: attrs.CELLPHONE,
       NIF: attrs.NIF,
       identificationNumber: attrs.ID,
-      birthday: attrs.BIRTHDAY,
+      birthday: new Date(attrs.BIRTHDAY),
       profession: attrs.JOB,
-      employer: attrs.EMPLOYER,
-      email: attrs.EMAIL
+      employer: attrs.EMPLOYER
     };
 
     return parsed;
+  },
+
+  afterCreate(newRecord, cb) {
+    User.update(newRecord.user, {person: newRecord.id}).then(function() {
+      return next();
+    });
   },
 
 };
