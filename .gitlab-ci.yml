@@ -1,0 +1,90 @@
+image: node:8.8.1-alpine
+
+before_script:
+  - 'which ssh-agent || (apk update && apk add openssh-client bash grep)'
+  - eval $(ssh-agent -s)
+  - echo "$SSH_PRIVATE_KEY" | ssh-add -
+  - mkdir -p ~/.ssh
+  - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+  - '[[ -f /.dockerenv ]] && echo "$SSH_SERVER_HOSTKEYS" > ~/.ssh/known_hosts'
+
+#cache:
+#  paths:
+#  - ./server/node_modules/
+#  - ./mobile/node_modules/
+#  - ./desktop/node_modules/
+
+stages:
+  - test_server
+  - test_mobile
+  - test_desktop
+  - build
+  - deploy_staging
+  - deploy_production
+
+test_server:
+  stage: test_server
+  script: 
+    - echo "**Running Server tests**"
+#    - npm --prefix ./server install
+#    - npm --prefix ./server test
+    - echo "**Terminating Server tests**"
+  
+test_mobile:
+  stage: test_mobile
+  script: 
+    - echo "**Running Mobile tests**"
+#    - npm --prefix ./mobile install
+    - echo "**Terminating Mobile tests**"
+  
+test_desktop:
+  stage: test_desktop
+  script: 
+    - echo "**Running Desktop tests**"
+#    - npm --prefix ./desktop install
+#    - npm --prefix ./desktop test
+    - echo "**Terminating Desktop tests**"
+
+build:
+  stage: build
+  script: 
+    - echo "Building the app"
+    - cd server/
+    - npm install npm@latest
+    - rm -rf /usr/local/lib/node_modules
+    - mv node_modules /usr/local/lib/
+    - npm install
+    - export NODE_ENV=production
+    - echo "Finishing building the app"
+
+deploy_staging:
+  stage: deploy_staging
+  tags:
+    - server
+  script:
+    - echo "Deploy to staging server"
+    - ssh ws_admin@178.62.11.121 "cd /srv/weshareashare"
+    - ssh -t ws_admin@178.62.11.121 "sudo git fetch"
+    - ssh ws_admin@178.62.11.121 "cd server"
+    - ssh -t ws_admin@178.62.11.121 "sudo rm -rf node_modules/""
+    - ssh -t ws_admin@178.62.11.121 "sudo npm install bcrypt"
+    - ssh -t ws_admin@178.62.11.121 "sudo npm install"
+    - ssh ws_admin@178.62.11.121 "cd ../desktop"
+    - ssh -t ws_admin@178.62.11.121 "sudo npm install"
+    - echo "Deployed to staging server"
+  environment:
+    name: staging
+  only:
+  - development
+
+deploy_production:
+  stage: deploy_production
+  tags:
+    - server
+  script:
+    - echo "Deploy to production server"
+    - echo "ups, they don't have one gg wp#excelmasterrace"
+  environment:
+    name: production
+  only:
+  - master
