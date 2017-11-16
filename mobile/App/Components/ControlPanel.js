@@ -20,65 +20,79 @@ export default class ControlPanel extends Component {
     render() {
         return (
             <ScrollView style={styles.container}>
-                <Text style={styles.controlText}>WeShareAShare</Text>
-                <View>
-                    <Icon name="account" size={30} color="#fff" />
-                    <Text> User Name </Text>
-                    <Text> email.exemplo@stoik.com </Text>
+                <Text style={styles.company}>WeShareAShare</Text>
+                <View style={styles.profile}>
+                    <Icon name="account-circle" size={70} color="#fff" />
+                    <View>
+                    <Text  style={[styles.buttonText,styles.profileInfo]}> Luis Lobo Jordão </Text>
+                    <Text  style={[styles.buttonText,styles.profileInfo]}> email.exemplo@stoik.com </Text>
+                    </View>
                 </View>
                 <View>
                     <TouchableOpacity style={styles.button} onPress={this.context.drawer.close}>
-                        <Icon name="comment-text" size={30} color="#fff"/>
-
-                        <Text>Notification</Text>
+                        <Icon style={[styles.icon, styles.notification]} name="comment-text" size={35} color="#fff"/>
+                        <Text style={[styles.buttonText,styles.notification]}>Notifications</Text>
                     </TouchableOpacity>
                 </View>
 
                 <View>
+                    <View style={styles.header}>
                     <Text style={styles.controlText}>Save</Text>
+                    <View style={styles.leftMark}/>
+                </View>
                     <TouchableOpacity style={styles.button} onPress={this.context.drawer.close}>
-                        <Icon name="trending-up" size={30} color="#fff"/>
-                        <Text>Simulation</Text>
+                        <Icon  style={styles.icon} name="chart-line" size={35} color="#fff"/>
+                        <Text  style={styles.buttonText}>Simulation</Text>
                     </TouchableOpacity>
                 </View>
 
                 <View>
-                    <Text style={styles.controlText}>Invest</Text>
-                    <TouchableOpacity style={styles.button} onPress={this.context.drawer.close}>
-                        <Icon name="folder-multiple-outline" size={30} color="#fff"/>
-                        <Text>Portfolio</Text>
+                    <View style={styles.header}>
+                        <Text style={styles.controlText}>Invest</Text>
+                        <View style={styles.leftMark}/>
+                    </View>
+                        <TouchableOpacity style={styles.button} onPress={this.context.drawer.close}>
+                        <Icon style={styles.icon} name="home" size={35} color="#fff"/>
+                        <Text style={styles.buttonText}>Portfolio</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.button} onPress={this.context.drawer.close}>
-                        <Icon name="poll" size={30} color="#fff"/>
-                        <Text>Profitability</Text>
-                    </TouchableOpacity>
-                </View>
-
-                <View>
-                    <Text style={styles.controlText}>Share</Text>
-                    <TouchableOpacity style={styles.button} onPress={this.context.drawer.close}>
-                        <Icon name="tab" size={30} color="#fff"/>
-                        <Text>WeShareAShare</Text>
+                        <Icon  style={styles.icon} name="trending-up" size={35} color="#fff"/>
+                        <Text  style={styles.buttonText}>Profitability</Text>
                     </TouchableOpacity>
                 </View>
 
                 <View>
+                    <View style={styles.header}>
+                        <Text style={styles.controlText}>Share</Text>
+                        <View style={styles.leftMark}/>
+                    </View>
+                    <TouchableOpacity style={styles.button} onPress={this.context.drawer.close}>
+                        <Icon  style={styles.icon} name="book-multiple" size={35} color="#fff"/>
+                        <Text  style={styles.buttonText}>WeShareAShare</Text>
+                    </TouchableOpacity>
+                </View>
+
+
+                <View>
+                    <View style={styles.header}>
                     <Text style={styles.controlText}>More</Text>
+                        <View style={styles.leftMark}/>
+                    </View>
                     <TouchableOpacity style={styles.button} onPress={this.context.drawer.close}>
-                        <Icon name="poll" size={30} color="#fff"/>
-                        <Text>FAQ</Text>
+                        <Icon style={styles.icon} name="help" size={35} color="#fff"/>
+                        <Text style={styles.buttonText}>FAQ</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.button} onPress={this.context.drawer.close}>
-                        <Icon name="email" size={30} color="#fff" />
-                        <Text>Contact us</Text>
+                        <Icon  style={styles.icon} name="email" size={35} color="#fff" />
+                        <Text  style={styles.buttonText}>Contact us</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.button} onPress={this.context.drawer.close}>
-                        <Icon name="information-variant" size={30} color="#fff"/>
-                        <Text>About us</Text>
+                        <Icon  style={styles.icon} name="information-variant" size={35} color="#fff"/>
+                        <Text  style={styles.buttonText}>About us</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.button} onPress={this.context.drawer.close}>
-                        <Icon name="power" size={30} color="#fff"/>
-                        <Text>Logout</Text>
+                        <Icon style={styles.icon} name="power" size={35} color="#fff"/>
+                        <Text style={styles.buttonText}>Logout</Text>
                     </TouchableOpacity>
                 </View>
             </ScrollView>
@@ -86,19 +100,64 @@ export default class ControlPanel extends Component {
     }
 }
 
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 20,
-        backgroundColor: '#455A63',
+        backgroundColor: "#455A63",
+        paddingTop:20,
     },
     controlText: {
-        color: 'white',
+        backgroundColor:"#596a71",
+        color: "#32BACC",
+        textAlignVertical:'center',
+        textAlign:'left',
+        paddingTop:12,
+        paddingBottom:12,
+        paddingLeft:10,
+        fontSize:'19',
+        flex:1,
+    },
+    buttonText: {
+        color:'white',
+        textAlign:'center',
+        paddingTop:10,
+        fontSize:'17',
+        marginLeft:10,
     },
     button: {
-        backgroundColor: '#455A63',
-        borderWidth: 1,
-        borderColor: 'black',
+        borderWidth: 0,
         padding: 10,
+        flex: 1,
+        flexDirection: 'row',
+    },
+    icon: {
+        marginLeft:10,
+    },
+    company: {
+        color: "#FFFFFF",
+        fontSize: 30,
+        textAlign: 'center',
+        padding: 10,
+        fontWeight: 'bold',
+    },
+    profile: {
+        flex: 1,
+        flexDirection:'row',
+    },
+    profileInfo: {
+        textAlign:'left'
+    },
+    header: {
+        flex:1,
+        flexDirection: 'row',
+    },
+    leftMark: {
+        backgroundColor: '#30C4D7',
+        width: 5,
+
+    },
+    notification: {
+        color: "#32BACC",
     }
 })
