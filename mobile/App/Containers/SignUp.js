@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableHighlight, Image, Picker } from 'react-native';
+import { View, Image } from 'react-native';
 import { Button, Text, Divider } from 'react-native-elements';
 import { ApplicationStyles, Images } from '../Themes';
 import * as Session from '../Redux/Session';
 import { connect } from 'react-redux';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import * as SessionAPI from '../Redux/Session/api';
+import * as API from '../Services/API';
+import Toast from 'react-native-root-toast';
 
 const t = require('tcomb-form-native');
-
 const Form = t.form.Form;
 import * as Utils from '../Services/Utils';
 
@@ -44,13 +43,12 @@ const defaultOptions = {
       maxLength: 32,
       password: true,
       secureTextEntry: true,
-    },
+    }
   },
 };
 
 class SignUpForm extends Component {
   constructor(props) {
-    console.log(props.session.session);
     super(props);
     this.state = {
       session: props.session.session,
@@ -61,79 +59,72 @@ class SignUpForm extends Component {
   }
 
   onChange = (value) => {
-    this.setState({ value });
+    this.setState({value})
   }
 
   onSignUp = () => {
-    const values = this.refs.form.getValue();
-    this.setState({ options: defaultOptions });
-    if (values) {
-      SessionAPI.register(values, this.state.session)
+    let values = this.refs.form.getValue();
+    this.setState({options: defaultOptions});
+    
+    if(values) {
+      API.register(values, this.state.session)
         .then((res) => {
           this.props.createUser(res);
-        }).catch((err) => {
-          if (err.response && err.response.json) {
-            err.response.json().then((json) => {
-              const statusRes = err.response.status;
-              const messageRes = json[0].message;
-              this.setState({ serverResponse: messageRes });
-            });
-          }
-
+        })
+        .catch(err => {
+          this.setState({serverResponse: err.response});
+          Toast.show(this.state.serverResponse, ApplicationStyles.toast);
           this.props.onRequestFailed(err);
         });
-    } else if (this.state.value.repeatPassword && !Utils.samePasswords(this.state.value)) {
-      this.setState({ options: t.update(this.state.options, {
-        fields: {
-          repeatPassword: {
-            hasError: { $set: true },
-            error: { $set: 'Password must match' },
-          },
-        },
-      }) });
+    } 
+    else {
+      if (this.state.value.repeatPassword && !Utils.samePasswords(this.state.value)) {
+        this.setState({options: t.update(this.state.options, {
+          fields: {
+            repeatPassword: {
+              hasError: { $set: true },
+              error: { $set: 'Password must match' }
+            }
+          }
+        })});
+      }
     }
   }
 
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <KeyboardAwareScrollView>
-        <View style={ApplicationStyles.mainContainer}>
-          <Text h1 style={ApplicationStyles.headerTitle}>Stoik PPR</Text>
-          <Image
-            source={Images.logo}
-            style={ApplicationStyles.logo}
-            resizeMode="contain"
-          />
-          <View style={ApplicationStyles.form}>
+      <View style={ApplicationStyles.mainContainer}>
+        <Text h1 style={ApplicationStyles.headerTitle}>Stoik PPR</Text>
+        <Image
+          source={Images.logo}
+          style={ApplicationStyles.logo}
+          resizeMode="contain"/>
+        <View style={ApplicationStyles.form}>
 
-            <Text h4 style={ApplicationStyles.subTitle}>Sign up</Text>
-            <Text>{this.state.serverResponse}</Text>
+          <Text h4 style={ApplicationStyles.subTitle}>Sign up</Text>
 
-            <View style={ApplicationStyles.container}>
-              <Form
-                ref="form"
-                type={SignUpParams}
-                options={this.state.options}
-                value={this.state.value}
-                onChange={this.onChange}
-              />
-              <Button
-                buttonStyle={ApplicationStyles.btn}
-                onPress={this.onSignUp}
-                underlayColor="#99d9f4"
-                title="Sign up"
-              />
-            </View>
-            <Divider style={ApplicationStyles.divider} />
-            <Text h5 style={ApplicationStyles.infoText}>Already have an account?
-              <Text style={ApplicationStyles.linkText} onPress={() => navigate('SignIn')}>
-                {' '}Sign in here
-              </Text>
-            </Text>
+          <View style={ApplicationStyles.container}>
+            <Form
+              ref="form"
+              type={SignUpParams}
+              options={this.state.options}
+              value={this.state.value}
+              onChange={this.onChange}/>
+            <Button
+              buttonStyle={ApplicationStyles.btn}
+              onPress={this.onSignUp}
+              underlayColor='#99d9f4'
+              title='Sign up' />
           </View>
+          <Divider style={ApplicationStyles.divider}/>
+          <Text h5 style={ApplicationStyles.infoText}>Already have an account?
+            <Text style={ApplicationStyles.linkText} onPress={() => navigate('SignIn')}>
+              {' '}Sign in here
+            </Text>
+          </Text>
         </View>
-      </KeyboardAwareScrollView>
+      </View>
     );
   }
 }
@@ -145,6 +136,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   createUser: (res) => dispatch(Session.createUser(res)),
   onRequestFailed: (exception) => dispatch(Session.onRequestFailed(exception)),
-});
+})
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm)
