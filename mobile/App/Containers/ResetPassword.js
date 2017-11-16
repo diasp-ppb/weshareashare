@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, TouchableHighlight, Image } from 'react-native';
+import { View, Image } from 'react-native';
 import { Images, ApplicationStyles } from '../Themes/index';
+import { connect } from 'react-redux';
 import { Button, Text, Divider } from 'react-native-elements';
+import * as API from '../Services/API';
+import Toast from 'react-native-root-toast';
 
 const t = require('tcomb-form-native');
 import * as Utils from '../Services/Utils'
@@ -9,12 +12,23 @@ const Form = t.form.Form;
 
 const ResetParams = t.subtype(t.struct({
   password: Utils.Password,
-  repeatPassword: Utils.Password
+  repeatPassword: Utils.Password,
+  email: Utils.Email,
 }), Utils.samePasswords);
 
 let defaultOptions = {
   auto: 'placeholders',
   fields: {
+    email: {
+      placeholder: 'Email',
+      error: 'Insert a valid email',
+      maxLength: 32,
+    },
+    token: {
+      placeholder: 'Insert your token',
+      error: 'Insert a valid token',
+      maxLength: 8,
+    },
     password: {
       placeholder: 'Your new password',
       secureTextEntry: true,
@@ -31,12 +45,14 @@ let defaultOptions = {
   },
 };
 
-export default class ForgotPassword extends Component {
+class ResetPassword extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      session: props.session.session,
       value: {},
-      options: defaultOptions
+      options: defaultOptions,
+      serverResponse: '',
     };
   }
 
@@ -48,7 +64,13 @@ export default class ForgotPassword extends Component {
     let value = this.refs.form.getValue();
     this.setState({options: defaultOptions});
     if(value) {
-      this.setState({value: null});
+      API.resetPassword(value.password, value.token, this.state.session)
+        .then(res => {
+          this.setState({value: null, serverResponse: ''});
+        }).catch(err => {
+          this.setState({serverResponse: err.response});
+          Toast.show(this.state.serverResponse, ApplicationStyles.toast);
+        })
     } else {
       if (this.state.value.repeatPassword && !Utils.samePasswords(this.state.value)) {
         this.setState({options: t.update(this.state.options, {
@@ -99,3 +121,9 @@ export default class ForgotPassword extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return { session: state };
+}
+
+export default connect(mapStateToProps, null)(ResetPassword)

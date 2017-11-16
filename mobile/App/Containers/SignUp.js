@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
-import { StyleSheet, View, TouchableHighlight, Image, Picker } from 'react-native';
+import React, { Component } from 'react';
+import { View, Image } from 'react-native';
 import { Button, Text, Divider } from 'react-native-elements';
-import { ApplicationStyles, Images } from '../Themes'
+import { ApplicationStyles, Images } from '../Themes';
 import * as Session from '../Redux/Session';
 import { connect } from 'react-redux';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import * as SessionAPI from '../Redux/Session/api';
+import * as API from '../Services/API';
+import Toast from 'react-native-root-toast';
 
 const t = require('tcomb-form-native');
 const Form = t.form.Form;
@@ -49,7 +49,6 @@ const defaultOptions = {
 
 class SignUpForm extends Component {
   constructor(props) {
-    console.log(props.session.session);
     super(props);
     this.state = {
       session: props.session.session,
@@ -66,26 +65,19 @@ class SignUpForm extends Component {
   onSignUp = () => {
     let values = this.refs.form.getValue();
     this.setState({options: defaultOptions});
+    
     if(values) {
-
-      SessionAPI.register(values, this.state.session)
-      .then((res) => {
-        this.props.createUser(res);
-      }).catch(err => {
-        
-        if (err.response && err.response.json) {
-          err.response.json().then((json) => {
-          var statusRes = err.response.status;
-          var messageRes = json[0].message;
-          this.setState({serverResponse: messageRes});
-          });
-        }
-        
-        this.props.onRequestFailed(err); 
-      });
-
-      
-    } else {
+      API.register(values, this.state.session)
+        .then((res) => {
+          this.props.createUser(res);
+        })
+        .catch(err => {
+          this.setState({serverResponse: err.response});
+          Toast.show(this.state.serverResponse, ApplicationStyles.toast);
+          this.props.onRequestFailed(err);
+        });
+    } 
+    else {
       if (this.state.value.repeatPassword && !Utils.samePasswords(this.state.value)) {
         this.setState({options: t.update(this.state.options, {
           fields: {
@@ -102,7 +94,6 @@ class SignUpForm extends Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <KeyboardAwareScrollView>
       <View style={ApplicationStyles.mainContainer}>
         <Text h1 style={ApplicationStyles.headerTitle}>Stoik PPR</Text>
         <Image
@@ -112,7 +103,6 @@ class SignUpForm extends Component {
         <View style={ApplicationStyles.form}>
 
           <Text h4 style={ApplicationStyles.subTitle}>Sign up</Text>
-          <Text>{this.state.serverResponse}</Text>
 
           <View style={ApplicationStyles.container}>
             <Form
@@ -135,7 +125,6 @@ class SignUpForm extends Component {
           </Text>
         </View>
       </View>
-      </KeyboardAwareScrollView>
     );
   }
 }

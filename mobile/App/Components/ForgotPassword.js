@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, TouchableHighlight, Image } from 'react-native';
+import { View, Image } from 'react-native';
+import Toast from 'react-native-root-toast';
 import { Images, ApplicationStyles } from '../Themes/index';
 import { Button, Text, Divider } from 'react-native-elements';
-import * as Session from '../Redux/Session'
+import * as API from '../Services/API';
 import { connect } from 'react-redux'
 
 const t = require('tcomb-form-native');
@@ -27,8 +28,10 @@ class ForgotPassword extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      session: props.session.session,
       value: {},
-      options: defaultOptions
+      options: defaultOptions,
+      serverResponse: '',
     };
   }
 
@@ -36,8 +39,13 @@ class ForgotPassword extends Component {
     let value = this.refs.form.getValue();
     this.setState({options: defaultOptions});
     if(value) {
-      this.props.requestForgotPassword(value.email);
-      this.setState({value: null});
+      API.forgotPassword(value.email, this.state.session)
+        .then(res => {
+          this.setState({value: null, serverResponse: ''});
+        }).catch(err => {
+          this.setState({serverResponse: err.response});
+          Toast.show(this.state.serverResponse, ApplicationStyles.toast);
+        })
     }
   }
 
@@ -68,7 +76,7 @@ class ForgotPassword extends Component {
               buttonStyle={ApplicationStyles.btn}
               onPress={this.onRequest}
               underlayColor='#99d9f4'
-              title='Send me a reset link' />
+              title='Send me a reset token' />
           </View>
           <Divider style={ApplicationStyles.divider}/>
           <Text h5 style={ApplicationStyles.infoText}>Already registered?
@@ -82,8 +90,8 @@ class ForgotPassword extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  requestForgotPassword: (email) => dispatch(Session.forgotPassword(email)),
-})
+const mapStateToProps = (state) => {
+  return { session: state };
+};
 
-export default connect(null, mapDispatchToProps)(ForgotPassword)
+export default connect(mapStateToProps, null)(ForgotPassword)
