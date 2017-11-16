@@ -7,7 +7,7 @@ import ResetPassword from '../Containers/ResetPassword';
 import InvestorProfileQuiz from '../Containers/InvestorProfileQuiz';
 import User from '../Containers/User';
 import ContactUs from '../Containers/ContactUs';
-
+import AboutUs from '../Containers/AboutUs';
 import styles from './Styles/NavigationStyles';
 
 // Manifest of possible screens
@@ -20,6 +20,7 @@ const PrimaryNav = StackNavigator({
   InvestorProfileQuiz: {screen: InvestorProfileQuiz},
   User: {screen: User},
   ContactUs: {screen: ContactUs},
+  AboutUs: {screen: AboutUs},
 }, {
   // Default config for all screens
   headerMode: 'none',
