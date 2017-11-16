@@ -41,6 +41,7 @@ class RootContainer extends Component {
             captureGestures={true}
             tweenHandler={Drawer.tweenPresets.parallax}
             panCloseMask={0.2}
+            panOpenMask={0.2}
             disabled={false}
             acceptDoubleTap={true}
             negotiatePan={true}

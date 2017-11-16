@@ -90,7 +90,7 @@ export default class ControlPanel extends Component {
                         <Icon  style={styles.icon} name="information-variant" size={35} color="#fff"/>
                         <Text  style={styles.buttonText}>About us</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.button} onPress={this.context.drawer.close}>
+                    <TouchableOpacity style={[styles.button,styles.lastInMenu]} onPress={this.context.drawer.close}>
                         <Icon style={styles.icon} name="power" size={35} color="#fff"/>
                         <Text style={styles.buttonText}>Logout</Text>
                     </TouchableOpacity>
@@ -159,5 +159,8 @@ const styles = StyleSheet.create({
     },
     notification: {
         color: "#32BACC",
+    },
+    lastInMenu : {
+        paddingBottom:40
     }
 })

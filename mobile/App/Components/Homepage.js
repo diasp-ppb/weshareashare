@@ -34,9 +34,6 @@ export default class Homepage extends Component {
                   Start forms
                 </Text>
               </Button>
-              <Button style={styles.button} onPress={this.context.drawer.open}>
-                <Text>Open Drawer</Text>
-              </Button>
             </View>
           </Image>
         </View>
