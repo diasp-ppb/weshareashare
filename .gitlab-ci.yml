@@ -64,13 +64,13 @@ deploy_staging:
   script:
     - echo "Deploy to staging server"
     - ssh ws_admin@178.62.11.121 "cd /srv/weshareashare"
-    - ssh -t ws_admin@178.62.11.121 "sudo git fetch"
+    - ssh -tt ws_admin@178.62.11.121 "sudo git fetch"
     - ssh ws_admin@178.62.11.121 "cd server"
-    - ssh -t ws_admin@178.62.11.121 "sudo rm -rf node_modules/""
-    - ssh -t ws_admin@178.62.11.121 "sudo npm install bcrypt"
-    - ssh -t ws_admin@178.62.11.121 "sudo npm install"
+    - ssh -tt ws_admin@178.62.11.121 "sudo rm -rf node_modules/""
+    - ssh -tt ws_admin@178.62.11.121 "sudo npm install bcrypt"
+    - ssh -tt ws_admin@178.62.11.121 "sudo npm install"
     - ssh ws_admin@178.62.11.121 "cd ../desktop"
-    - ssh -t ws_admin@178.62.11.121 "sudo npm install"
+    - ssh -tt ws_admin@178.62.11.121 "sudo npm install"
     - echo "Deployed to staging server"
   environment:
     name: staging
