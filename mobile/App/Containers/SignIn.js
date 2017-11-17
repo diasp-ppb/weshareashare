@@ -1,15 +1,15 @@
-import React, { Component } from 'react'
-import { View, Image } from 'react-native';
+import React, { Component } from 'react';
+import { View, TouchableHighlight, Image } from 'react-native';
 import { Images, ApplicationStyles } from '../Themes/index';
 import { Button, Text, Divider } from 'react-native-elements';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import * as Session from '../Redux/Session';
-import * as API from '../Services/API';
-import Toast from 'react-native-root-toast';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const t = require('tcomb-form-native');
+
 const Form = t.form.Form;
-import * as Utils from '../Services/Utils'
+import * as Utils from '../Services/Utils';
 
 const SignInParams = t.struct({
   email: Utils.Email,
@@ -38,62 +38,53 @@ class SignInForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      session: props.session.session,
       value: {},
       options: defaultOptions,
-      serverResponse: '',
     };
   }
 
   onChange = (value) => {
-    this.setState({value});
+    this.setState({ value });
   }
 
   onSignIn = () => {
-    let values = this.refs.form.getValue();
-    this.setState({value: null});
-
+    const values = this.refs.form.getValue();
     if (values) {
-      API.authenticate(values.email, values.password, this.state.session)
-        .then((res) => {
-          this.props.authUser(res);
-        })
-        .catch(err => {
-          this.setState({serverResponse: err.response});
-          Toast.show(this.state.serverResponse, ApplicationStyles.toast);
-
-          this.props.onRequestFailed(err);
-        });
-    } 
+      this.setState({ value: null });
+      this.props.authUser(values.email, values.password);
+    }
   }
 
   render() {
-    const { navigate } = this.props.navigation;    
+    const { navigate } = this.props.navigation;
     return (
       <View style={ApplicationStyles.mainContainer}>
         <Text h1 style={ApplicationStyles.headerTitle}>Stoik PPR</Text>
         <Image
           source={Images.logo}
           style={ApplicationStyles.logo}
-          resizeMode="contain"/>
+          resizeMode="contain"
+        />
         <View style={ApplicationStyles.form}>
-
           <Text h4 style={ApplicationStyles.subTitle}>Sign in</Text>
-
-          <View style={ApplicationStyles.container}>
-            <Form
-              ref="form"
-              type={SignInParams}
-              options={this.state.options}
-              value={this.state.value}
-              onChange={this.onChange}/>
-            <Button
-              buttonStyle={ApplicationStyles.btn}
-              onPress={this.onSignIn}
-              underlayColor='#99d9f4'
-              title='Sign in' />
-          </View>
-          <Divider style={ApplicationStyles.divider}/>
+          <KeyboardAwareScrollView>
+            <View style={ApplicationStyles.container}>
+              <Form
+                ref="form"
+                type={SignInParams}
+                options={this.state.options}
+                value={this.state.value}
+                onChange={this.onChange}
+              />
+              <Button
+                buttonStyle={ApplicationStyles.btn}
+                onPress={this.onSignIn}
+                underlayColor="#99d9f4"
+                title="Sign in"
+              />
+            </View>
+          </KeyboardAwareScrollView>
+          <Divider style={ApplicationStyles.divider} />
           <Text h5 style={ApplicationStyles.infoText}>
             <Text style={ApplicationStyles.linkText} onPress={() => navigate('ForgotPassword')}>
               {' '}Forgot your password?
@@ -110,13 +101,8 @@ class SignInForm extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return { session: state };
-};
-
 const mapDispatchToProps = (dispatch) => ({
-  authUser: (res) => dispatch(Session.authenticate(res)),
-  onRequestFailed: (exception) => dispatch(Session.onRequestFailed(exception)),
-})
+  authUser: (email, password) => dispatch(Session.authenticate(email, password)),
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignInForm)
+export default connect(null, mapDispatchToProps)(SignInForm);

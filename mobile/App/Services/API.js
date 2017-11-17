@@ -11,6 +11,10 @@ const endPoints = {
   resetPassword: '/users/auth/resetPassword',
   contactUs: '/contactUs',
   document: '/documents',
+  subscriptionForms: '/forms/subscription',
+  //TODO check with diogo
+  fatca: '/fatca',
+  investorProfile: '/'
 };
 
 export const authorize = (session) =>
@@ -43,4 +47,7 @@ export const uploadDocument = (session) => {
 
 export const deleteDocument = (documentID, session) => {
   fetchApi(endPoints.document + `\${documentID}`, {}, 'delete', session)
+}
+export const subscriptionForms = (formData, session) => {
+  fetchApi(endPoints.subscriptionForms, formData, 'post', session)
 }
