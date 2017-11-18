@@ -40,11 +40,12 @@ class ForgotPassword extends Component {
     this.setState({options: defaultOptions});
     if(value) {
       API.forgotPassword(value.email, this.state.session)
-        .then(res => {
+        .then(() => {
+          Toast.show('A reset token was sent to ' + value.email + '. You can use it to reset your password.', ApplicationStyles.toastSuccess);
           this.setState({value: null, serverResponse: ''});
         }).catch(err => {
           this.setState({serverResponse: err.response});
-          Toast.show(this.state.serverResponse, ApplicationStyles.toast);
+          Toast.show(this.state.serverResponse, ApplicationStyles.toastError);
         })
     }
   }

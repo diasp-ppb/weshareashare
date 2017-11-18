@@ -70,10 +70,11 @@ class SignUpForm extends Component {
       API.register(values, this.state.session)
         .then((res) => {
           this.props.createUser(res);
+          this.setState({value: null, serverResponse: ''});
         })
         .catch(err => {
           this.setState({serverResponse: err.response});
-          Toast.show(this.state.serverResponse, ApplicationStyles.toast);
+          Toast.show(this.state.serverResponse, ApplicationStyles.toastError);
           this.props.onRequestFailed(err);
         });
     } 

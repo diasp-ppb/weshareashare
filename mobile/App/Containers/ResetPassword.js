@@ -65,11 +65,12 @@ class ResetPassword extends Component {
     this.setState({options: defaultOptions});
     if(value) {
       API.resetPassword(value.password, value.token, this.state.session)
-        .then(res => {
+        .then(() => {
           this.setState({value: null, serverResponse: ''});
+          Toast.show('Your password has been successfully changed.', ApplicationStyles.toastSuccess);
         }).catch(err => {
           this.setState({serverResponse: err.response});
-          Toast.show(this.state.serverResponse, ApplicationStyles.toast);
+          Toast.show(this.state.serverResponse, ApplicationStyles.toastError);
         })
     } else {
       if (this.state.value.repeatPassword && !Utils.samePasswords(this.state.value)) {

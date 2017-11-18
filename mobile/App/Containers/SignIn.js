@@ -51,17 +51,16 @@ class SignInForm extends Component {
 
   onSignIn = () => {
     let values = this.refs.form.getValue();
-    this.setState({value: null});
 
     if (values) {
       API.authenticate(values.email, values.password, this.state.session)
         .then((res) => {
           this.props.authUser(res);
+          this.setState({value: null, serverResponse: ''});
         })
         .catch(err => {
           this.setState({serverResponse: err.response});
           Toast.show(this.state.serverResponse, ApplicationStyles.toast);
-
           this.props.onRequestFailed(err);
         });
     } 

@@ -12,7 +12,7 @@ module.exports = {
     let file = req.file();
 
     if(!file || !params) {
-      return res.badRequest();
+      return res.badRequest({response: 'Invalid parameters'});
     }
 
     let document;

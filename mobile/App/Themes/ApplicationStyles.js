@@ -4,9 +4,17 @@ import Colors from './Colors';
 import Toast from 'react-native-root-toast';
 
 const ApplicationStyles = {
-  toast: {
+  toastError: {
     duration: Toast.durations.SHORT,
     position: Toast.positions.BOTTOM,
+    shadow: true,
+    animation: true,
+    hideOnPress: true,
+    delay: 0,
+  },
+  toastSuccess: {
+    duration: Toast.durations.LONG,
+    position: Toast.positions.CENTER,
     shadow: true,
     animation: true,
     hideOnPress: true,

@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import { View, Image } from 'react-native';
-import { Images, ApplicationStyles } from '../Themes/index';
-import { Button, Text, Divider } from 'react-native-elements';
+import { View } from 'react-native';
+import { ApplicationStyles } from '../Themes/index';
+import { Button, Text } from 'react-native-elements';
 import { connect } from 'react-redux'
-import * as Session from '../Redux/Session';
 import * as API from '../Services/API';
 import Toast from 'react-native-root-toast';
 
@@ -28,31 +27,37 @@ const defaultOptions = {
     },
     firstName: {
       placeholder: 'First name',
+      maxLength: 32,
+      error: 'Insert your first name',
     },
     lastName: {
       placeholder: 'Last name',
+      maxLength: 32,
+      error: 'Insert your last name',
     },
     subject: {
       placeholder: 'Subject',
+      maxLength: 64,
+      error: 'Insert the message subject',
     },
     message: {
       message: 'Your message here...',
       multiline: true,
       stylesheet: {
-          ...Form.stylesheet,
-          textbox: {
-            ...Form.stylesheet.textbox,
-            normal: {
-              ...Form.stylesheet.textbox.normal,
-              height: 100
-            },
-            error: {
-              ...Form.stylesheet.textbox.error,
-              height: 100
+        ...Form.stylesheet,
+        textbox: {
+          ...Form.stylesheet.textbox,
+          normal: {
+            ...Form.stylesheet.textbox.normal,
+            height: 100
+          },
+          error: {
+            ...Form.stylesheet.textbox.error,
+            height: 100
           }
         }
       },
-    },
+    }
   },
 };
 
@@ -60,6 +65,7 @@ class ContactUs extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      session: props.session.session,
       value: {},
       options: defaultOptions,
       serverResponse: '',
@@ -72,19 +78,16 @@ class ContactUs extends Component {
 
   onSubmit = () => {
     let values = this.refs.form.getValue();
-   // this.setState({value: null});
 
     if (values) {
-      console.log('ola');
       API.contactUs(values, this.state.session)
-        .then((res) => {
-          this.props.authUser(res);
+        .then(() => {
+          Toast.show('Your message has been received. Thank you very much!', ApplicationStyles.toastSuccess);
+          this.setState({value: null, serverResponse: ''});
         })
         .catch(err => {
           this.setState({serverResponse: err.response});
-          Toast.show(this.state.serverResponse, ApplicationStyles.toast);
-
-          this.props.onRequestFailed(err);
+          Toast.show(this.state.serverResponse, ApplicationStyles.toastError);
         });
     } 
   }
@@ -110,17 +113,15 @@ class ContactUs extends Component {
               onPress={this.onSubmit}
               underlayColor='#99d9f4'
               title='Submit' />
-          </View>   
-
+          </View>
         </View>
       </View>
     );
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  authUser: (res) => dispatch(Session.authenticate(res)),
-  onRequestFailed: (exception) => dispatch(Session.onRequestFailed(exception)),
-})
+const mapStateToProps = (state) => {
+  return { session: state };
+};
 
-export default connect(null, mapDispatchToProps)(ContactUs)
+export default connect(mapStateToProps, null)(ContactUs)

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { Font } from 'expo';
 import Expo from 'expo';
 import RootContainer from './Containers/RootContainer'
 import createStore from './Redux'

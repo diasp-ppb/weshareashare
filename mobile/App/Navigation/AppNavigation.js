@@ -5,7 +5,6 @@ import SignUp from '../Containers/SignUp';
 import ForgotPassword from '../Components/ForgotPassword';
 import ResetPassword from '../Containers/ResetPassword';
 import InvestorProfileQuiz from '../Containers/InvestorProfileQuiz';
-import User from '../Containers/User';
 import ContactUs from '../Containers/ContactUs';
 import AboutUs from '../Containers/AboutUs';
 import styles from './Styles/NavigationStyles';
@@ -18,7 +17,6 @@ const PrimaryNav = StackNavigator({
   ForgotPassword: { screen: ForgotPassword },
   ResetPassword: { screen: ResetPassword },
   InvestorProfileQuiz: {screen: InvestorProfileQuiz},
-  User: {screen: User},
   ContactUs: {screen: ContactUs},
   AboutUs: {screen: AboutUs},
 }, {

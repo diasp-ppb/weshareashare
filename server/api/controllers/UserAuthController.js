@@ -92,7 +92,7 @@ module.exports = {
   revoke(req, res) {
     const params = req.allParams();
     if (!params.tokens || !params.tokens.length) {
-      return res.badRequest();
+      return res.badRequest({response: 'Invalid parameters'});
     }
     let counter = 0;
 
@@ -116,7 +116,7 @@ module.exports = {
     const params = req.allParams();
     console.log(params);
     if(!params.email) {
-      return res.badRequest();
+      return res.badRequest({response: 'Invalid parameters'});
     }
 
     let user, token;
@@ -156,7 +156,7 @@ module.exports = {
   async resetPassword(req, res) {
     const params = req.allParams();
     if (!params.newPassword || !params.email) {
-      return res.badRequest();
+      return res.badRequest({response: 'Invalid parameters'});
     }
 
     let token, user;
