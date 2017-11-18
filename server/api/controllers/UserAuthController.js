@@ -33,7 +33,7 @@ module.exports = {
   signin(req, res) {
     passport.authenticate(['basic'], { session: false }, (authErr, user) => {
       if (authErr || !user) {
-        return res.unauthorized({"response": "The email address or password you entered is not valid."});
+        return res.unauthorized({'response': 'The email address or password you entered is not valid.'});
       }
 
       Token.findOrAdd({
@@ -131,7 +131,7 @@ module.exports = {
     }
 
     try {
-      token = await Token.findOrAdd({user: user.id, type: 'reset'})
+      token = await Token.findOrAdd({user: user.id, type: 'reset'});
     } catch (err) {
       res.serverError(err);
     }
@@ -170,7 +170,7 @@ module.exports = {
       user = await User.update(
         {email: params.email},
         {password: params.password}
-      ).meta({fetch: true})
+      ).meta({fetch: true});
     } catch (err) {
       res.serverError(err);
     }

@@ -83,17 +83,17 @@ export default class CustomActions extends React.Component {
   }
 
   renderRepeatQuestions() {
-    this.renderSeparator = function(){
-        return  (
-            <View style={styles.separator}/>
-        );
+    this.renderSeparator = function () {
+      return (
+        <View style={styles.separator} />
+      );
     };
 
-    this.renderAnswer = function(key){
-        return (
-            <Text style={styles.item, styles.answer}>{this.props.answers[key]}</Text>
-        );
-    }
+    this.renderAnswer = function (key) {
+      return (
+        <Text style={styles.item, styles.answer}>{this.props.answers[key]}</Text>
+      );
+    };
 
     return (
       <View style={styles.previous}>

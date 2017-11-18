@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { View, Image } from 'react-native';
 import { Images, ApplicationStyles } from '../Themes/index';
 import { connect } from 'react-redux';
@@ -7,7 +7,9 @@ import * as API from '../Services/API';
 import Toast from 'react-native-root-toast';
 
 const t = require('tcomb-form-native');
-import * as Utils from '../Services/Utils'
+
+import * as Utils from '../Services/Utils';
+
 const Form = t.form.Form;
 
 const ResetParams = t.subtype(t.struct({
@@ -17,7 +19,7 @@ const ResetParams = t.subtype(t.struct({
   email: Utils.Email,
 }), Utils.samePasswords);
 
-let defaultOptions = {
+const defaultOptions = {
   auto: 'placeholders',
   fields: {
     email: {
@@ -35,7 +37,7 @@ let defaultOptions = {
       secureTextEntry: true,
       maxLength: 32,
       password: true,
-      error: 'Insert a valid password'
+      error: 'Insert a valid password',
     },
     repeatPassword: {
       placeholder: 'Repeat password',
@@ -59,31 +61,29 @@ class ResetPassword extends Component {
   }
 
   onChange = (value) => {
-    this.setState({value});
+    this.setState({ value });
   }
 
   onReset = () => {
-    let values = this.refs.form.getValue();
-    if(values) {
+    const values = this.refs.form.getValue();
+    if (values) {
       API.resetPassword(values, this.state.session)
         .then(() => {
-          this.setState({value: null, serverResponse: ''});
+          this.setState({ value: null, serverResponse: '' });
           Toast.show('Your password has been successfully changed.', ApplicationStyles.toastSuccess);
-        }).catch(err => {
-          this.setState({serverResponse: err.response});
+        }).catch((err) => {
+          this.setState({ serverResponse: err.response });
           Toast.show(this.state.serverResponse, ApplicationStyles.toastError);
-        })
-    } else {
-      if (this.state.value.repeatPassword && !Utils.samePasswords(this.state.value)) {
-        this.setState({options: t.update(this.state.options, {
-          fields: {
-            repeatPassword: {
-              hasError: { $set: true },
-              error: { $set: 'Password must match' }
-            }
-          }
-        })});
-      }
+        });
+    } else if (this.state.value.repeatPassword && !Utils.samePasswords(this.state.value)) {
+      this.setState({ options: t.update(this.state.options, {
+        fields: {
+          repeatPassword: {
+            hasError: { $set: true },
+            error: { $set: 'Password must match' },
+          },
+        },
+      }) });
     }
   }
 
@@ -95,24 +95,27 @@ class ResetPassword extends Component {
         <Image
           source={Images.logo}
           style={ApplicationStyles.logo}
-          resizeMode="contain"/>
+          resizeMode="contain"
+        />
         <View style={ApplicationStyles.form}>
           <Text h4 style={ApplicationStyles.subTitle}>Reset password</Text>
-          <Text style={{textAlign:'center', justifyContent: 'flex-start'}}>You can reset you password by using the token sent to your email.</Text>
+          <Text style={{ textAlign: 'center', justifyContent: 'flex-start' }}>You can reset you password by using the token sent to your email.</Text>
           <View style={ApplicationStyles.container}>
             <Form
               ref="form"
               type={ResetParams}
               options={this.state.options}
               value={this.state.value}
-              onChange={this.onChange}/>
+              onChange={this.onChange}
+            />
             <Button
               buttonStyle={ApplicationStyles.btn}
               onPress={this.onReset}
-              underlayColor='#99d9f4'
-              title='Reset password' />
+              underlayColor="#99d9f4"
+              title="Reset password"
+            />
           </View>
-          <Divider style={ApplicationStyles.divider}/>
+          <Divider style={ApplicationStyles.divider} />
           <Text h5 style={ApplicationStyles.infoText}>Not supposed to be here?
             <Text style={ApplicationStyles.linkText} onPress={() => navigate('Homepage')}>
               {' '}Go to the homepage
@@ -126,6 +129,6 @@ class ResetPassword extends Component {
 
 const mapStateToProps = (state) => {
   return { session: state };
-}
+};
 
-export default connect(mapStateToProps, null)(ResetPassword)
+export default connect(mapStateToProps, null)(ResetPassword);

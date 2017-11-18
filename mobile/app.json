@@ -3,9 +3,6 @@
   "displayName": "WeShareAShare",
   "expo": {
     "sdkVersion": "21.0.0",
-    "orientation": "portrait",
-    "android": {
-        "package": "com.companyoffukunaga.william"
-    }
+    "orientation": "portrait"
   }
 }

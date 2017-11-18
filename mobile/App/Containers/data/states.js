@@ -85,21 +85,21 @@ module.exports = [
   {
     id: 'death',
     states: [
-        {
-          text: "What is your employer's name?",
-          options: [],
-          key: 'BOSS',
-        },
-        {
-          text: 'Tell me your email please?',
-          options: [],
-          key: 'EMAIL',
-        },
-        {
-          text: 'Do you want updates?',
-          options: [],
-          key: 'UPDATES',
-        },
+      {
+        text: "What is your employer's name?",
+        options: [],
+        key: 'BOSS',
+      },
+      {
+        text: 'Tell me your email please?',
+        options: [],
+        key: 'EMAIL',
+      },
+      {
+        text: 'Do you want updates?',
+        options: [],
+        key: 'UPDATES',
+      },
       // ask for another
     ],
   },

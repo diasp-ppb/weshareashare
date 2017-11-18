@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
-import { View, TouchableHighlight, Image } from 'react-native';
-import { ApplicationStyles } from '../Themes/index';
+import { View, Image } from 'react-native';
 import { Button, Text, Divider } from 'react-native-elements';
 import { connect } from 'react-redux';
-import * as Session from '../Redux/Session';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import * as API from '../Services/API';
 import Toast from 'react-native-root-toast';
+import { ApplicationStyles, Images } from '../Themes/index';
+import * as Session from '../Redux/Session';
+import * as API from '../Services/API';
+import * as Utils from '../Services/Utils';
 
 const t = require('tcomb-form-native');
+
 const Form = t.form.Form;
-import * as Utils from '../Services/Utils';
 
 const SignInParams = t.struct({
   email: Utils.Email,
@@ -51,16 +52,16 @@ class SignInForm extends Component {
   }
 
   onSignIn = () => {
-    let values = this.refs.form.getValue();
+    const values = this.refs.form.getValue();
 
     if (values) {
       API.authenticate(values.email, values.password, this.state.session)
         .then((res) => {
           this.props.authUser(res);
-          this.setState({value: null, serverResponse: ''});
+          this.setState({ value: null, serverResponse: '' });
         })
-        .catch(err => {
-          this.setState({serverResponse: err.response});
+        .catch((err) => {
+          this.setState({ serverResponse: err.response });
           Toast.show(this.state.serverResponse, ApplicationStyles.toast);
           this.props.onRequestFailed(err);
         });
@@ -120,6 +121,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   authUser: (res) => dispatch(Session.authenticate(res)),
   onRequestFailed: (exception) => dispatch(Session.onRequestFailed(exception)),
-})
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignInForm)
+export default connect(mapStateToProps, mapDispatchToProps)(SignInForm);

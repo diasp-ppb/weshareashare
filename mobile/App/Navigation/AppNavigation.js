@@ -7,7 +7,7 @@ import ResetPassword from '../Containers/ResetPassword';
 import InvestorProfileQuiz from '../Containers/InvestorProfileQuiz';
 import FormOverview from '../Containers/FormOverview';
 import ContactUs from '../Containers/ContactUs';
-import AboutUs from '../Containers/AboutUs';
+import AboutUs from '../Components/AboutUs';
 import styles from './Styles/NavigationStyles';
 
 // Manifest of possible screens

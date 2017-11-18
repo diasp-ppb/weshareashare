@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { NavigationActions } from 'react-navigation';
 import { View, Image } from 'react-native';
 import { Button, Text } from 'native-base';
 import { Images } from '../Themes/index';
@@ -15,12 +14,12 @@ export default class FormOverview extends Component {
         <View style={styles.container}>
           <Image source={Images.background} style={styles.canvas}>
             <View style={styles.btnGroup}>
-              <Button style={styles.btn} onPress={() => { navigate('InvestorProfileQuiz', {formIndex: 1}); }}>
+              <Button style={styles.btn} onPress={() => { navigate('InvestorProfileQuiz', { formIndex: 1 }); }}>
                 <Text style={styles.btnText}>
                   Participant
                 </Text>
               </Button>
-              <Button style={styles.btn} onPress={() => { navigate('InvestorProfileQuiz', {formIndex: 2}); }}>
+              <Button style={styles.btn} onPress={() => { navigate('InvestorProfileQuiz', { formIndex: 2 }); }}>
                 <Text style={styles.btnText}>
                   Subscription
                 </Text>
@@ -32,7 +31,3 @@ export default class FormOverview extends Component {
     );
   }
 }
-
-const mapDispatchToProps = (dispatch) => ({
-
-});

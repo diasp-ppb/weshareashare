@@ -20,7 +20,6 @@ const formatTokenResponse = (accessToken, refreshToken, user) => ({
       expiresIn: expiresIn(accessToken.expiresAt),
     },
 
-    
     refresh: {
       type: 'refresh',
       value: refreshToken.value,
@@ -50,7 +49,7 @@ module.exports = {
             name: user.username,
             email: user.email,
           }
-        })
+        });
         return user;
       }).then((user) => {
         Token.findOrAdd({
@@ -68,12 +67,12 @@ module.exports = {
         });
       }).catch((err) => {
         sails.helpers.customValidation({model: User, err: err})
-        .then((customErrors) => {
-          return res.serverError(customErrors);
-        }).catch((error) => {
-          return res.serverError(error);
+          .then((customErrors) => {
+            return res.serverError(customErrors);
+          }).catch((error) => {
+            return res.serverError(error);
+          });
       });
-    })
   },
 
   getAll(req, res) {
