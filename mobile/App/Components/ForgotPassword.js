@@ -80,6 +80,11 @@ class ForgotPassword extends Component {
               title='Send me a reset token' />
           </View>
           <Divider style={ApplicationStyles.divider}/>
+          <Text h5 style={ApplicationStyles.infoText}>Already have a reset token?
+            <Text style={ApplicationStyles.linkText} onPress={() => navigate('ResetPassword')}>
+              {' '}Reset password.
+            </Text>
+          </Text>
           <Text h5 style={ApplicationStyles.infoText}>Already registered?
             <Text style={ApplicationStyles.linkText} onPress={() => navigate('SignIn')}>
               {' '}Sign In here.

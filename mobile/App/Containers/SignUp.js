@@ -43,6 +43,7 @@ const defaultOptions = {
       maxLength: 32,
       password: true,
       secureTextEntry: true,
+      hasError: false,
     }
   },
 };

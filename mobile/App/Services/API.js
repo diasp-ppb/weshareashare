@@ -31,11 +31,11 @@ export const revoke = (tokens, session) =>
 export const forgotPassword = (email, session) =>
   fetchApi(endPoints.forgotPassword, { email: email }, 'post', session)
 
-export const resetPassword = (password, resetToken, session) =>
-  fetchApi(endPoints.resetPassword, {password: password, resetToken: resetToken}, 'post', session)
+export const resetPassword = (formData, session) =>
+  fetchApi(endPoints.resetPassword, formData, 'post', session)
 
 export const contactUs = (formData, session) =>
-  fetchApi(endPoints.contactUs, {formData}, 'post', session)
+  fetchApi(endPoints.contactUs, formData, 'post', session)
 
 export const uploadDocument = (session) => {
   fetchApi(endPoints.document, {}, 'post', session)

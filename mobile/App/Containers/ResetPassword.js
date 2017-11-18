@@ -11,6 +11,7 @@ import * as Utils from '../Services/Utils'
 const Form = t.form.Form;
 
 const ResetParams = t.subtype(t.struct({
+  token: t.String,
   password: Utils.Password,
   repeatPassword: Utils.Password,
   email: Utils.Email,
@@ -40,7 +41,8 @@ let defaultOptions = {
       placeholder: 'Repeat password',
       secureTextEntry: true,
       maxLength: 32,
-      password: true
+      password: true,
+      hasError: false,
     },
   },
 };
@@ -61,10 +63,9 @@ class ResetPassword extends Component {
   }
 
   onReset = () => {
-    let value = this.refs.form.getValue();
-    this.setState({options: defaultOptions});
-    if(value) {
-      API.resetPassword(value.password, value.token, this.state.session)
+    let values = this.refs.form.getValue();
+    if(values) {
+      API.resetPassword(values, this.state.session)
         .then(() => {
           this.setState({value: null, serverResponse: ''});
           Toast.show('Your password has been successfully changed.', ApplicationStyles.toastSuccess);
@@ -97,7 +98,7 @@ class ResetPassword extends Component {
           resizeMode="contain"/>
         <View style={ApplicationStyles.form}>
           <Text h4 style={ApplicationStyles.subTitle}>Reset password</Text>
-          <Text style={{textAlign:'center', justifyContent: 'flex-start'}}>This link will be available during the next 3 hours.</Text>
+          <Text style={{textAlign:'center', justifyContent: 'flex-start'}}>You can reset you password by using the token sent to your email.</Text>
           <View style={ApplicationStyles.container}>
             <Form
               ref="form"

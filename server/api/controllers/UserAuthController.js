@@ -155,7 +155,7 @@ module.exports = {
 
   async resetPassword(req, res) {
     const params = req.allParams();
-    if (!params.newPassword || !params.email) {
+    if (!params.password || !params.email) {
       return res.badRequest({response: 'Invalid parameters'});
     }
 
@@ -168,8 +168,8 @@ module.exports = {
 
     try {
       user = await User.update(
-        {id: token.user, email: params.email},
-        {password: params.newPassword}
+        {email: params.email},
+        {password: params.password}
       ).meta({fetch: true})
     } catch (err) {
       res.serverError(err);

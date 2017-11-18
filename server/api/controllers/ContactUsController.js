@@ -7,7 +7,7 @@
 
 module.exports = {
   async create(req, res) {
-    let params = (req.allParams()).formData;
+    let params = req.allParams();
 
     if(!params.firstName || !params.lastName || !params.email || !params.subject || !params.message) {
       return res.badRequest({response: 'Invalid parameters'});

@@ -7,6 +7,7 @@ const ApplicationStyles = {
   toastError: {
     duration: Toast.durations.SHORT,
     position: Toast.positions.BOTTOM,
+    backgroundColor: '#F44336',
     shadow: true,
     animation: true,
     hideOnPress: true,
@@ -15,6 +16,7 @@ const ApplicationStyles = {
   toastSuccess: {
     duration: Toast.durations.LONG,
     position: Toast.positions.CENTER,
+    backgroundColor: '#66BB6A',
     shadow: true,
     animation: true,
     hideOnPress: true,
