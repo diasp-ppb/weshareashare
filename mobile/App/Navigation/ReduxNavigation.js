@@ -1,15 +1,15 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import * as ReactNavigation from 'react-navigation';
-import { BackHandler } from "react-native";
-import AppNavigation from './AppNavigation'
-import { connect } from 'react-redux'
+import { BackHandler } from 'react-native';
+import AppNavigation from './AppNavigation';
+import { connect } from 'react-redux';
 
 class ReduxNavigation extends Component {
   componentDidMount() {
-    BackHandler.addEventListener("hardwareBackPress", this.onBackPress);
+    BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
   }
   componentWillUnmount() {
-    BackHandler.removeEventListener("hardwareBackPress", this.onBackPress);
+    BackHandler.removeEventListener('hardwareBackPress', this.onBackPress);
   }
   onBackPress = () => {
     const { dispatch, nav } = this.props;
@@ -24,12 +24,12 @@ class ReduxNavigation extends Component {
     const { dispatch, nav } = this.props;
     const navigation = ReactNavigation.addNavigationHelpers({
       dispatch,
-      state: nav
+      state: nav,
     });
 
     return <AppNavigation navigation={navigation} />;
   }
 }
 
-const mapStateToProps = state => ({ nav: state.nav })
-export default connect(mapStateToProps)(ReduxNavigation)
+const mapStateToProps = (state) => ({ nav: state.nav });
+export default connect(mapStateToProps)(ReduxNavigation);

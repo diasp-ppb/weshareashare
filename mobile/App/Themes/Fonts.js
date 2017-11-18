@@ -20,7 +20,7 @@ const size = {
 
 const style = {
   h1: {
-    //fontFamily: type.base,
+    // fontFamily: type.base,
     fontSize: size.h1,
   },
   h2: {

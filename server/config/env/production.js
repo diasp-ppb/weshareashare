@@ -30,7 +30,7 @@ module.exports = {
     shortcuts: false,
   },
   security: {
-    csrf: true,
+    csrf: false,
     cors: {
       allRoutes: true,
       allowOrigins: '*',
@@ -39,7 +39,7 @@ module.exports = {
   },
   session: {
     cookie: {
-      secure: true,
+      secure: false,
       maxAge: 24 * 60 * 60 * 1000,  // 24 hours
     },
   },
@@ -49,14 +49,14 @@ module.exports = {
   },
   http: {
     cache: 365.25 * 24 * 60 * 60 * 1000, // One year
-    // trustProxy: true,
+    trustProxy: false,
   },
-  port: 443,
-  ssl: {
-    ca: require('fs').readFileSync(require('path').resolve(__dirname,'../ssl/my-gd-bundle.crt')),
-    key: require('fs').readFileSync(require('path').resolve(__dirname,'../ssl/my-ssl.key')),
-    cert: require('fs').readFileSync(require('path').resolve(__dirname,'../ssl/my-ssl.crt'))
-  },
+  port: 1337,
+  // ssl: {
+  //   ca: require('fs').readFileSync(require('path').resolve(__dirname,'../ssl/my-gd-bundle.crt')),
+  //   key: require('fs').readFileSync(require('path').resolve(__dirname,'../ssl/my-ssl.key')),
+  //   cert: require('fs').readFileSync(require('path').resolve(__dirname,'../ssl/my-ssl.crt'))
+  // },
   custom: {
     safeEmailEnvironment: true,
     email: new Email({
@@ -70,7 +70,7 @@ module.exports = {
       transport: {
         host: 'smtp.gmail.com',
         port: 587,
-        secure: false,
+        secure: true,
         tls: {
           rejectUnauthorized: false
         },

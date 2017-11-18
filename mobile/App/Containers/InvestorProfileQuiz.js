@@ -1,28 +1,33 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import {
     TouchableOpacity,
     StyleSheet,
     Text,
+    Keyboard,
     View,
+    KeyboardAvoidingView,
+    Platform,
 } from 'react-native';
 
-import {GiftedChat, InputToolbar, Bubble} from 'react-native-gifted-chat';
+import { GiftedChat, Actions, InputToolbar, Bubble } from 'react-native-gifted-chat';
+import ReduxNavigation from '../Navigation/ReduxNavigation';
+import { NavigationActions } from 'react-navigation';
 import CustomActions from './CustomActions';
 import * as Progress from 'react-native-progress';
 
-const STATES = require("./data/states.js");
+const STATES = require('./data/states.js');
 
-export default class InvestorProfileQuiz extends Component {
+export default class InvestorProfileQuiz extends React.Component {
     constructor(props) {
         super(props);
 
-        this.formHeader = 0;
+        this.formHeader = props.navigation.state.params.formIndex;
         this.messageIndex = 0;
         this.progress = 0;
-        this.progressStep = 1 / STATES[this.formHeader].states.length;
         this.maxMessageIndex = 0;
-        this.maxHeaders = 1;
+        this.currentHeader = 0;
+        this.progressStep = 1 / STATES[this.currentHeader].states.length;
 
         this.state = {
             messages: [],
@@ -34,6 +39,7 @@ export default class InvestorProfileQuiz extends Component {
             skip: false,
             questions: STATES[1].states,
             currentQuestionKey: null,
+            answers: {}
         };
 
         this._isMounted = false;
@@ -47,43 +53,41 @@ export default class InvestorProfileQuiz extends Component {
         this.onPressActions = this.onPressActions.bind(this);
         this.chooseQuestion = this.chooseQuestion.bind(this);
         this.endForm = this.endForm.bind(this);
-
     }
 
     componentWillMount() {
         this._isMounted = true;
 
-        this.maxMessageIndex = STATES[this.formHeader].states.length - 1;
+        this.maxMessageIndex = STATES[this.currentHeader].states.length - 1;
 
         this.setState(() => {
             return {
                 messages: [
                     {
                         _id: Math.round(Math.random() * 1000000),
-                        text: STATES[this.formHeader].states[this.messageIndex].text,
-                        options: STATES[this.formHeader].states[this.messageIndex].options,
+                        text: STATES[this.currentHeader].states[this.messageIndex].text,
+                        options: STATES[this.currentHeader].states[this.messageIndex].options,
                         renderAvatar: null,
                         user: {
                             _id: 2,
-                            name: 'React Native'
-                        }
-                    }
-                ]
+                            name: 'React Native',
+                        },
+                    },
+                ],
             };
         });
 
         this.setState((previousState) => {
-            const messages = previousState.messages
+            const messages = previousState.messages;
             return {
                 optionsButtons: this.createOptionsButtons(messages[messages.length - 1].options),
             };
         });
-
-
     }
 
     componentWillUnmount() {
         this._isMounted = false;
+        
     }
 
     onLoadEarlier() {
@@ -108,56 +112,48 @@ export default class InvestorProfileQuiz extends Component {
 
     onSend(messages = []) {
         this.setState((previousState) => {
-            for (var i = 0, len = messages.length; i < len; i++) {
+            for (let i = 0, len = messages.length; i < len; i++) {
                 messages[i].createdAt = null;
-                //TODO passa a key da pergunta para identificar o parametro a enviar
+                // TODO passa a key da pergunta para identificar o parametro a enviar
                 messages[i].key = this.state.currentQuestionKey;
             }
-            
+
             console.log(messages);
             return {
                 messages: GiftedChat.append(previousState.messages, messages),
             };
         });
         this.answerDemo(messages);
-
     }
 
-    endForm(){
-        const sendForm = function(form){
+    endForm() {
+        const { navigate } = this.props.navigation;
+
+        const sendForm = function (form) {
             fetch('https://127.0.0.1:3000/endpoint/', {
                 method: 'POST',
                 headers: {
-                  'Accept': 'application/json',
-                  'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(form)
-              })
-        }
+                body: JSON.stringify(form),
+            });
+        };
 
-        let form = STATES[this.formHeader-1];
-        let jsonToSend = {};
+        const form = STATES[this.currentHeader - 1];
+        const jsonToSend = {};
         jsonToSend[form.id] = {};
-        let answers = [];
-        let messages = this.state.messages;
-        for (var message in messages) {
-            if (messages.hasOwnProperty(message)) {
-                var element = messages[message];
-                if(element.hasOwnProperty("key")){
-                    jsonToSend[form.id][element.key] = element.text;
-                }
-            }
-        }
+        const answers = [];
+        const messages = this.state.messages;
 
-        sendForm(jsonToSend);
+        //sendForm(jsonToSend);
+        navigate('FormOverview');
     }
 
 
     answerUser(messages) {
-        for (var i = 0, len = messages.length; i < len; i++) {
-            //TODO passa a key da pergunta para identificar o parametro a enviar
-            messages[i].key = this.state.currentQuestionKey;
-        }
+        // TODO passa a key da pergunta para identificar o parametro a enviar
+        messages.key = this.state.currentQuestionKey;
         this.setState((previousState) => {
             return {
                 messages: GiftedChat.append(previousState.messages, messages),
@@ -170,56 +166,49 @@ export default class InvestorProfileQuiz extends Component {
 
 
     answerDemo(messages) {
-
-        console.log(messages);
         this.getStateMessage = function () {
             this.messageIndex++;
-
-            if (this.messageIndex > this.maxMessageIndex) {
-                this.formHeader++;
-                if(this.formHeader > this.maxHeaders){
+            if (this.messageIndex >= this.maxMessageIndex) {
+                if(this.currentHeader !== 0){
                     this.endForm();
+                    return;
                 }
-                this.maxMessageIndex = STATES[this.formHeader].states.length;
+                this.currentHeader = this.formHeader;
+                this.maxMessageIndex = STATES[this.currentHeader].states.length;
                 this.messageIndex = 0;
                 this.progress = 0;
-                this.progressStep = 1 / STATES[this.formHeader].states.length;
+                this.progressStep = 1 / STATES[this.currentHeader].states.length;
             }
-            return STATES[this.formHeader].states[this.messageIndex];
-        }
+            return STATES[this.currentHeader].states[this.messageIndex];
+        };
 
-
-        this.getDisplayMessage = function (message) {
-            switch (message) {
-                case "help":
-                    return "Press the + button for additional options.";
-                case "exit":
-                    return "You can continue this later.";
-                case "skip":
-                    return "You can fill this field manually later or go back through options.\n" + this.getStateMessage();
-                default:
-                    return this.getStateMessage();
-            }
-            return "hey";
-        }
-
+        this.saveAnswer = function (key, answer){
+            if(this.state.answers[key] === null || this.state.answers[key] === undefined)
+            this.progress += this.progressStep;
+            this.state.answers[key] = answer;
+        };
 
         setTimeout(() => {
             if (this._isMounted === true) {
                 if (messages.length > 0) {
                     // TODO check if first answer is yes then start form cycle
-                    this.progress += this.progressStep;
-                    var returnMessage = this.getDisplayMessage(messages["0"].text);
+
+                    if(messages[0].key !== undefined && messages[0].key != null){
+                        this.saveAnswer(messages[0].key, messages[0].text);
+                    }
+                    const returnMessage = this.getStateMessage();
+                    if(returnMessage == null || returnMessage == undefined){
+                        return;
+                    }
                     this.state.currentQuestionKey = returnMessage.key;
-                    this.setState({optionsButtons: this.createOptionsButtons(returnMessage.options)});
+                    this.setState({ optionsButtons: this.createOptionsButtons(returnMessage.options) });
 
                     this.onReceive(returnMessage.text);
                 } else if (this.state.skip) {
-                    this.progress += this.progressStep;
                     this.state.skip = false;
-                    var nextMessage = this.getStateMessage();
-                    this.state.currentQuestionKey = nextMessage.key;                    
-                    this.setState({optionsButtons: this.createOptionsButtons(nextMessage.options)});
+                    const nextMessage = this.getStateMessage();
+                    this.state.currentQuestionKey = nextMessage.key;
+                    this.setState({ optionsButtons: this.createOptionsButtons(nextMessage.options) });
                     this.onReceive(nextMessage.text);
                 }
             }
@@ -231,10 +220,10 @@ export default class InvestorProfileQuiz extends Component {
             return {
                 messages: GiftedChat.append(previousState.messages, {
                     _id: Math.round(Math.random() * 1000000),
-                    text: text,
+                    text,
                     renderAvatar: null,
                     user: {
-                        _id: 2
+                        _id: 2,
                     },
                 }),
             };
@@ -242,23 +231,21 @@ export default class InvestorProfileQuiz extends Component {
     }
 
     createOptionsButtons = function (options) {
-
         if (options && options.length > 0) {
-            let Items = options.map((s, i) => {
-
+            const Items = options.map((s, i) => {
                 return (
                     <TouchableOpacity
                         key={i}
                         style={styles.options}
                         onPress={
                             () => this.answerUser({
-                                    _id: Math.round(Math.random() * 1000000),
-                                    text: s,
-                                    user: {_id: 1},
-                                }
-                            )}
+                                _id: Math.round(Math.random() * 1000000),
+                                text: s,
+                                user: { _id: 1 },
+                            },
+                        )}
                     >
-                        <Text style={{fontSize: 16}}>{s}</Text>
+                        <Text style={{ fontSize: 16 }}>{s}</Text>
                     </TouchableOpacity>
                 );
             });
@@ -268,24 +255,26 @@ export default class InvestorProfileQuiz extends Component {
         return [];
     }
 
-    chooseQuestion(questionId){
+    chooseQuestion(questionId) {
         const questions = this.state.questions;
+        let index;
 
-        const getQuestionFromKey = function(id){
-            for (var key in questions) {
+        const getQuestionFromKey = function (id) {
+            for (const key in questions) {
                 if (questions.hasOwnProperty(key)) {
-                    var element = questions[key];
-                    if(id === element.key){
-                        this.messageIndex = parseInt(key);
+                    const element = questions[key];
+                    if (id === element.key) {
+                        index = parseInt(key);
                         return element;
                     }
                 }
             }
-        }
+        };
 
         const question = getQuestionFromKey(questionId);
-        this.state.currentQuestionKey = question.key;        
-        this.setState({optionsButtons: this.createOptionsButtons(question.options)});
+        this.messageIndex = index;
+        this.state.currentQuestionKey = question.key;
+        this.setState({ optionsButtons: this.createOptionsButtons(question.options) });
         this.onReceive(question.text);
     }
 
@@ -293,140 +282,151 @@ export default class InvestorProfileQuiz extends Component {
         props.chooseQuestion = this.chooseQuestion;
         return (
             <CustomActions
-            
-                    chooseQuestion={this.chooseQuestion}
-                    {...props}
-                
+                answers={this.state.answers}
+                chooseQuestion={this.chooseQuestion}
+                {...props}
             />
         );
     }
 
     renderFooter(props) {
 
-        nothing = function () {
-
-        };
-
-
         return (
-            <View style={{alignItems: "center"}}>
+            <View style={{ alignItems: 'center' }}>
                 {this.state.optionsButtons}
-                <TouchableOpacity
-                    style={styles.learnMore}
-                    onPress={
-                        nothing
-                    }
-                >
-                    <Text> Learn More </Text>
-                </TouchableOpacity>
                 <View style={styles.progressBar}>
-                    <Progress.Bar progress={this.progress} width={200}/>
+                    <Progress.Bar progress={this.progress} width={200} />
                 </View>
             </View>
         );
-
     }
 
     renderInputToolbar(props) {
         const toolbar = InputToolbar;
         if (this.state.optionsButtons.length > 0) {
             props.textInputProps.editable = false;
-            props.textInputProps.placeholder = "Choose an option from above";
+            props.textInputProps.placeholder = 'Choose an option from above';
         }
         return (
             <InputToolbar
                 {...props}
-            />);
+            />
+        );
     }
 
     onPressActions(option) {
-        //for skipping 
+        // for skipping
         this.state.skip = true;
         this.answerDemo([]);
     }
 
     renderBubble(props) {
         return (
-            <Bubble {...props}
-                    wrapperStyle={
-                        {
-                            left: {
-                                backgroundColor: '#D3D3D3',
-                            },
-                            right: {
-                                backgroundColor: '#7cc0d2'
-                            }
-                        }
+            <Bubble
+                {...props}
+                wrapperStyle={
+                    {
+                        left: {
+                            backgroundColor: '#D3D3D3',
+                        },
+                        right: {
+                            backgroundColor: '#7cc0d2',
+                        },
                     }
-                    textStyle={
-                        {
-                            right: {
-                                color: '#000000'
-                            }
-                        }
+                }
+                textStyle={
+                    {
+                        right: {
+                            color: '#000000',
+                        },
                     }
+                }
             />
         );
     }
 
 
     render() {
-        return (
-            <View style={styles.backgroundChat}>
-                <GiftedChat
-                    messages={this.state.messages}
-                    onSend={this.onSend}
-                    isLoadingEarlier={this.state.isLoadingEarlier}
-                    onPress={this.onPress}
-                    textInputProps={this.textInputProps}
+        //READ ME if you are wondering if this could not be refactored into shorter code,
+        //just know that react native is a bitch and will fuck you
+        if(Platform.OS === 'android'){
+            return (
+                <KeyboardAvoidingView style={styles.backgroundChat} behavior="padding">
+                    <GiftedChat
+                        messages={this.state.messages}
+                        onSend={this.onSend}
+                        isLoadingEarlier={this.state.isLoadingEarlier}
+                        onPress={this.onPress}
+                        textInputProps={this.textInputProps}
 
-                    user={{
-                        _id: 1, // sent messages should have same user._id
-                    }}
-                    renderBubble={this.renderBubble}
-                    renderAvatar={null}
-                    renderActions={this.renderCustomActions}
-                    renderFooter={this.renderFooter}
-                    renderInputToolbar={this.renderInputToolbar}
-                    onPressAvatar={this.onPressActions}
-                />
-            </View>
+                        user={{
+                            _id: 1, // sent messages should have same user._id
+                        }}
+                        renderBubble={this.renderBubble}
+                        renderAvatar={null}
+                        renderActions={this.renderCustomActions}
+                        renderFooter={this.renderFooter}
+                        renderInputToolbar={this.renderInputToolbar}
+                        onPressAvatar={this.onPressActions}
+                    />
+                </KeyboardAvoidingView>
+            );
+        } else{
+            return (
+                <View  style={styles.backgroundChat}>
+                    <GiftedChat
+                        messages={this.state.messages}
+                        onSend={this.onSend}
+                        isLoadingEarlier={this.state.isLoadingEarlier}
+                        onPress={this.onPress}
+                        textInputProps={this.textInputProps}
 
+                        user={{
+                            _id: 1, // sent messages should have same user._id
+                        }}
+                        renderBubble={this.renderBubble}
+                        renderAvatar={null}
+                        renderActions={this.renderCustomActions}
+                        renderFooter={this.renderFooter}
+                        renderInputToolbar={this.renderInputToolbar}
+                        onPressAvatar={this.onPressActions}
+                    />
+                </View>
+            );
+        }
 
-        );
     }
 }
 
-const
-    styles = StyleSheet.create({
-        backgroundChat: {
-            backgroundColor: "#455A64",
-            flex: 1
-        },
-        progressBar: {
-            alignItems: "center",
-            flex: 1,
-            marginBottom: 5,
-            marginTop: 10
-        },
-        learnMore: {
-            backgroundColor: "#b4b3b6",
-            alignSelf: "stretch",
-            alignItems: "center",
-            minHeight: 25,
-            minWidth: 20,
-            borderRadius: 30,
-            marginHorizontal: 20,
-            paddingTop: 5,
-        },
-        options: {
-            backgroundColor: "#d8d8d8",
-            minWidth: 20,
-            minHeight: 25,
-            alignSelf: "stretch",
-            alignItems: "center",
-            borderRadius: 30,
-            marginHorizontal: 20,
-            marginBottom: 10
-        }
-    });
+const styles = StyleSheet.create({
+    backgroundChat: {
+        backgroundColor: '#455A64',
+        flex: 1,
+    },
+    progressBar: {
+        alignItems: 'center',
+        flex: 1,
+        marginBottom: 5,
+        marginTop: 10,
+    },
+    learnMore: {
+        backgroundColor: '#b4b3b6',
+        alignSelf: 'stretch',
+        alignItems: 'center',
+        minHeight: 25,
+        minWidth: 20,
+        borderRadius: 30,
+        marginHorizontal: 20,
+        paddingTop: 5,
+    },
+    options: {
+        backgroundColor: '#d8d8d8',
+        minWidth: 20,
+        minHeight: 25,
+        alignSelf: 'stretch',
+        alignItems: 'center',
+        borderRadius: 30,
+        marginHorizontal: 20,
+        marginBottom: 10,
+    },
+});

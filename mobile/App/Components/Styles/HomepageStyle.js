@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native'
-import { Metrics, Colors, Fonts } from '../../Themes/index'
+import { StyleSheet } from 'react-native';
+import { Metrics, Colors, Fonts } from '../../Themes/index';
 
 export default StyleSheet.create({
   mainContainer: {
@@ -22,7 +22,7 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    minHeight: Metrics.DEVICE_HEIGHT/2,
+    minHeight: Metrics.DEVICE_HEIGHT / 2,
   },
   canvas: {
     position: 'absolute',
@@ -43,6 +43,6 @@ export default StyleSheet.create({
   },
   btnText: {
     color: Colors.text,
-    fontSize: Fonts.h5
+    fontSize: Fonts.h5,
   },
 });
