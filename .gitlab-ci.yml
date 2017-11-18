@@ -24,22 +24,22 @@ stages:
 
 test_server:
   stage: test_server
-  script: 
+  script:
     - echo "**Running Server tests**"
 #    - npm --prefix ./server install
 #    - npm --prefix ./server test
     - echo "**Terminating Server tests**"
-  
+
 test_mobile:
   stage: test_mobile
-  script: 
+  script:
     - echo "**Running Mobile tests**"
 #    - npm --prefix ./mobile install
     - echo "**Terminating Mobile tests**"
-  
+
 test_desktop:
   stage: test_desktop
-  script: 
+  script:
     - echo "**Running Desktop tests**"
 #    - npm --prefix ./desktop install
 #    - npm --prefix ./desktop test
@@ -47,7 +47,7 @@ test_desktop:
 
 build:
   stage: build
-  script: 
+  script:
     - echo "Building the app"
     - cd server/
     - npm install npm@latest
@@ -63,14 +63,7 @@ deploy_staging:
     - server
   script:
     - echo "Deploy to staging server"
-    - ssh ws_admin@178.62.11.121 "cd /srv/weshareashare"
-    - ssh -tt ws_admin@178.62.11.121 "sudo git fetch"
-    - ssh ws_admin@178.62.11.121 "cd server"
-    - ssh -tt ws_admin@178.62.11.121 "sudo rm -rf node_modules/""
-    - ssh -tt ws_admin@178.62.11.121 "sudo npm install bcrypt"
-    - ssh -tt ws_admin@178.62.11.121 "sudo npm install"
-    - ssh ws_admin@178.62.11.121 "cd ../desktop"
-    - ssh -tt ws_admin@178.62.11.121 "sudo npm install"
+    - ssh ws_admin@178.62.11.121 "sudo sh ~/scripts/initServer.sh"
     - echo "Deployed to staging server"
   environment:
     name: staging
