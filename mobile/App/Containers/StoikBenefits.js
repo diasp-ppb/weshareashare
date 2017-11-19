@@ -45,6 +45,7 @@ export default class StoikBenefits extends Component {
               <View style={ApplicationStyles.benefitItem} />
               <Text style={ApplicationStyles.benefitTextItem}>Support a cause</Text>
             </View>
+            
           </View>
   
           <View>

@@ -5,7 +5,13 @@ export default StyleSheet.create({
   mainContainer: {
     flex: 1,
     backgroundColor: Colors.background,
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
+  },
+  container: {
+    flex: 1,
+    backgroundColor: Colors.background,
+    justifyContent: 'space-around',
+    paddingHorizontal: Metrics.marginHorizontal * 3,
   },
   backgroundImage: {
     position: 'absolute',
@@ -13,6 +19,17 @@ export default StyleSheet.create({
     left: 0,
     bottom: 0,
     right: 0,
+  },
+  title: {
+    alignSelf: 'center',
+    color: Colors.text,
+    fontFamily: Fonts.type.OpenSans,
+  },
+  subTitle: {
+    alignSelf: 'center',
+    color: Colors.stoikOrange,
+    fontFamily: Fonts.type.OpenSans,
+    marginVertical: 30,
   },
   container: {
     flex: 1,
@@ -34,53 +51,31 @@ export default StyleSheet.create({
     height: null,
     width: null,
   },
-  btn: {
-    alignSelf: 'center',
-    marginVertical: Metrics.smallMargin,
-    paddingVertical: Metrics.smallMargin,
-    backgroundColor: Colors.background,
-    borderRadius: 8,
-    width: Metrics.DEVICE_WIDTH / 2.7,
+  causesText: {
+    color: Colors.stoikOrange,
+    textAlign: 'center',
+    fontSize: Fonts.size.h6,
+  },
+  causesView: {
+    backgroundColor: Colors.stoikGrey,
+    width: 130, 
+    height: 130, 
+    borderRadius: 130/2, 
     alignItems: 'center',
     justifyContent: 'center',
   },
-  btnText: {
-    color: Colors.text,
-    fontSize: Fonts.h5,
-  },
-  logo: {
-    alignSelf: 'center',
-    padding: Metrics.MARGIN,
-    width: Metrics.DEVICE_WIDTH / 1.2,
-    height: Metrics.DEVICE_HEIGHT / 7,
-  },
   h1: {
-    fontSize: Metrics.FONT_SIZE_TITLE / 2.5,
+    fontSize: Metrics.FONT_SIZE_TITLE / 2.2,
     alignSelf: 'center',
     paddingVertical: Metrics.PADDING,
     justifyContent: 'center',
     textAlign: 'center',
-    fontWeight: 'bold',
+    flexWrap: 'wrap',
   },
   h2: {
     fontSize: Metrics.FONT_SIZE_TITLE / 2.5,
     alignSelf: 'center',
     paddingVertical: Metrics.PADDING,
     backgroundColor: 'rgba(0,0,0,0)',
-    color: '#FFF',
-  },
-  circle: {
-    width: 100,
-    height: 100,
-    borderRadius: 100 / 2,
-    backgroundColor: 'darkorange',
-    margin: 20,
-  },
-  circleBot: {
-    width: 100,
-    height: 100,
-    borderRadius: 100 / 2,
-    backgroundColor: 'darkorange',
-    bottom: 20,
   },
 });
