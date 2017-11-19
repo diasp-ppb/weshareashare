@@ -10,7 +10,6 @@ import ContactUs from '../Containers/ContactUs';
 import AboutUs from '../Components/AboutUs';
 import styles from './Styles/NavigationStyles';
 
-// Manifest of possible screens
 const PrimaryNav = StackNavigator({
   Homepage: { screen: Homepage },
   SignIn: { screen: SignIn },

@@ -8,7 +8,6 @@ import * as Session from '../Redux/Session';
 import * as API from '../Services/API';
 import * as Utils from '../Services/Utils';
 
-
 const t = require('tcomb-form-native');
 
 const Form = t.form.Form;
@@ -95,7 +94,7 @@ class SignUpForm extends Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <View style={ApplicationStyles.mainContainer}>
+      <View style={ApplicationStyles.mainContainer} >
         <Text h1 style={ApplicationStyles.headerTitle}>Stoik PPR</Text>
         <Image
           source={Images.logo}
@@ -105,7 +104,6 @@ class SignUpForm extends Component {
         <View style={ApplicationStyles.form}>
 
           <Text h4 style={ApplicationStyles.subTitle}>Sign up</Text>
-
           <View style={ApplicationStyles.container}>
             <Form
               ref="form"

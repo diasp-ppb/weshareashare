@@ -38,7 +38,6 @@ class ForgotPassword extends Component {
 
   onRequest = () => {
     const value = this.refs.form.getValue();
-    this.setState({ options: defaultOptions });
     if (value) {
       API.forgotPassword(value.email, this.state.session)
         .then(() => {

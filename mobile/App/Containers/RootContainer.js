@@ -17,10 +17,15 @@ class RootContainer extends Component {
       this.props.startup();
     }
   }
-    state={
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      session: this.props.session.session,
       drawerOpen: false,
-      drawerDisabled: false,
     };
+    this.state.drawerDisabled = this.state.session.user.id === null;
+  }
 
     closeDrawer = () => {
       this._drawer.close();
@@ -28,8 +33,7 @@ class RootContainer extends Component {
     openDrawer = () => {
       this._drawer.open();
     };
-
-
+  
     render() {
       return (
         <Drawer
@@ -40,7 +44,7 @@ class RootContainer extends Component {
           tweenHandler={Drawer.tweenPresets.parallax}
           panCloseMask={0.2}
           panOpenMask={0.2}
-          disabled={false}
+          disabled={this.state.drawerDisabled}
           acceptDoubleTap
           negotiatePan
         >
@@ -53,9 +57,13 @@ class RootContainer extends Component {
     }
 }
 
+const mapStateToProps = (state) => {
+  return { session: state };
+};
+
 const mapDispatchToProps = (dispatch) => ({
   startup: () => dispatch(StartupActions.startup()),
   authorizeClient: () => dispatch(Session.authorize()),
 });
 
-export default connect(null, mapDispatchToProps)(RootContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(RootContainer);

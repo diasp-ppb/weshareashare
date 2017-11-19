@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { View, Image } from 'react-native';
 import { Button, Text, Divider } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Toast from 'react-native-root-toast';
 import { ApplicationStyles, Images } from '../Themes/index';
 import * as Session from '../Redux/Session';
@@ -62,7 +61,7 @@ class SignInForm extends Component {
         })
         .catch((err) => {
           this.setState({ serverResponse: err.response });
-          Toast.show(this.state.serverResponse, ApplicationStyles.toast);
+          Toast.show(this.state.serverResponse, ApplicationStyles.toastError);
           this.props.onRequestFailed(err);
         });
     }
@@ -80,23 +79,21 @@ class SignInForm extends Component {
         />
         <View style={ApplicationStyles.form}>
           <Text h4 style={ApplicationStyles.subTitle}>Sign in</Text>
-          <KeyboardAwareScrollView>
-            <View style={ApplicationStyles.container}>
-              <Form
-                ref="form"
-                type={SignInParams}
-                options={this.state.options}
-                value={this.state.value}
-                onChange={this.onChange}
-              />
-              <Button
-                buttonStyle={ApplicationStyles.btn}
-                onPress={this.onSignIn}
-                underlayColor="#99d9f4"
-                title="Sign in"
-              />
-            </View>
-          </KeyboardAwareScrollView>
+          <View style={ApplicationStyles.container}>
+            <Form
+              ref="form"
+              type={SignInParams}
+              options={this.state.options}
+              value={this.state.value}
+              onChange={this.onChange}
+            />
+            <Button
+              buttonStyle={ApplicationStyles.btn}
+              onPress={this.onSignIn}
+              underlayColor="#99d9f4"
+              title="Sign in"
+            />
+          </View>
           <Divider style={ApplicationStyles.divider} />
           <Text h5 style={ApplicationStyles.infoText}>
             <Text style={ApplicationStyles.linkText} onPress={() => navigate('ForgotPassword')}>
