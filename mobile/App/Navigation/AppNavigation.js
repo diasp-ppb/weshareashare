@@ -8,6 +8,7 @@ import InvestorProfileQuiz from '../Containers/InvestorProfileQuiz';
 import FormOverview from '../Containers/FormOverview';
 import ContactUs from '../Containers/ContactUs';
 import AboutUs from '../Components/AboutUs';
+import StoikBenefits from '../Containers/StoikBenefits';
 import styles from './Styles/NavigationStyles';
 
 const PrimaryNav = StackNavigator({
@@ -17,9 +18,10 @@ const PrimaryNav = StackNavigator({
   ForgotPassword: { screen: ForgotPassword },
   ResetPassword: { screen: ResetPassword },
   InvestorProfileQuiz: { screen: InvestorProfileQuiz },
-  ContactUs: {screen: ContactUs},
-  AboutUs: {screen: AboutUs},
+  ContactUs: { screen: ContactUs},
+  AboutUs: { screen: AboutUs},
   FormOverview: { screen: FormOverview },
+  StoikBenefits: { screen: StoikBenefits },
 }, {
   // Default config for all screens
   headerMode: 'none',

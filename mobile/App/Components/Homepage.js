@@ -43,6 +43,11 @@ export default class Homepage extends Component {
                   About us
                   </Text>
                 </Button>
+                <Button style={styles.btn} onPress={() => { navigate('StoikBenefits'); }}>
+                  <Text style={styles.btnText}>
+                  Stoik benefits
+                  </Text>
+                </Button>
               </View>
             </Image>
           </View>
