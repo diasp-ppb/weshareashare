@@ -27,6 +27,7 @@ module.exports = {
     migrate: 'safe',
   },
   blueprints: {
+    rest: false,
     shortcuts: false,
   },
   security: {
@@ -52,11 +53,6 @@ module.exports = {
     trustProxy: false,
   },
   port: 1337,
-  // ssl: {
-  //   ca: require('fs').readFileSync(require('path').resolve(__dirname,'../ssl/my-gd-bundle.crt')),
-  //   key: require('fs').readFileSync(require('path').resolve(__dirname,'../ssl/my-ssl.key')),
-  //   cert: require('fs').readFileSync(require('path').resolve(__dirname,'../ssl/my-ssl.crt'))
-  // },
   custom: {
     safeEmailEnvironment: true,
     email: new Email({
