@@ -10,6 +10,7 @@ export default class StoikBenefits extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      sizeItem: 30,
     };
   }
 
@@ -17,17 +18,41 @@ export default class StoikBenefits extends Component {
     const { navigate } = this.props.navigation;
     return (
       <View style={ApplicationStyles.mainContainer}>
-        <View style={ApplicationStyles.form}>
-          <Text h3 style={ApplicationStyles.subTitle}>Stoik PPR benefits</Text>
+        <View style={ApplicationStyles.stoikBenefitsContainer}>
 
-          <Text style={ApplicationStyles.subSubTitle}>Hello! Send us a message and we'll get back to you via email as soon as possible.
-          Your feedback is extremely important to us.</Text>
-
-          <View>
-          <Divider style={ApplicationStyles.divider} />
-          <Text style={ApplicationStyles.subSubTitle}>By joining We Share a Share, 
-          you can make a profit and make an impact in the same journey.</Text>
+          <View style={{marginVertical: 30}}>
+            <Text h3 style={ApplicationStyles.subTitle}>Stoik PPR benefits</Text>
           </View>
+
+          <View style={{flex: 1, justifyContent: 'space-around'}}>
+
+            <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+              <View style={ApplicationStyles.benefitItem} />
+              <Text style={ApplicationStyles.benefitTextItem}>Possibility of automatizing savings</Text>
+            </View>
+
+            <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+              <View style={ApplicationStyles.benefitItem} />
+              <Text style={ApplicationStyles.benefitTextItem}>Diverse and global portfolio at a low cost</Text>
+            </View>
+
+            <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+              <View style={ApplicationStyles.benefitItem} />
+              <Text style={ApplicationStyles.benefitTextItem}>Fiscal advantages</Text>
+            </View>
+
+            <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+              <View style={ApplicationStyles.benefitItem} />
+              <Text style={ApplicationStyles.benefitTextItem}>Support a cause</Text>
+            </View>
+          </View>
+  
+          <View>
+            <Divider style={ApplicationStyles.divider} />
+            <Text style={ApplicationStyles.subSubTitle}>By joining We Share a Share, 
+            you can make a profit and make an impact in the same journey.</Text>
+          </View>
+
         </View>
       </View>
     );

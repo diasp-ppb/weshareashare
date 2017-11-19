@@ -49,6 +49,18 @@ const ApplicationStyles = {
     fontWeight: 'bold',
     color: Colors.stoikOrange,
   },
+  benefitTextItem: {
+    fontSize: Fonts.size.h4,
+    flex: 1, 
+    flexWrap: 'wrap',
+  },
+  benefitItem: {
+    width: 25, 
+    height: 25, 
+    borderRadius: 25/2, 
+    backgroundColor: Colors.stoikOrange,
+    marginHorizontal: Metrics.marginHorizontal,
+  },
   form: {
     flex: 1,
     margin: Metrics.MARGIN,
@@ -71,6 +83,11 @@ const ApplicationStyles = {
     padding: Metrics.PADDING,
     paddingBottom: 1.2,
     backgroundColor: '#ffffff',
+  },
+  stoikBenefitsContainer: {
+    flex: 1, 
+    margin: Metrics.MARGIN, 
+    justifyContent: 'space-around'
   },
   divider: {
     backgroundColor: Colors.charcoal,
