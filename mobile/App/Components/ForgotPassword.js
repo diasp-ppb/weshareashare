@@ -31,14 +31,18 @@ class ForgotPassword extends Component {
     this.state = {
       session: props.session.session,
       value: {},
+      processingRequest: false,
       options: defaultOptions,
       serverResponse: '',
     };
   }
 
   onRequest = () => {
+    if(this.state.processingRequest)
+      return;
     const value = this.refs.form.getValue();
     if (value) {
+      this.state.processingRequest = true;
       API.forgotPassword(value.email, this.state.session)
         .then(() => {
           Toast.show(`A reset token was sent to ${value.email}. You can use it to reset your password.`, ApplicationStyles.toastSuccess);
@@ -46,7 +50,7 @@ class ForgotPassword extends Component {
         }).catch((err) => {
           this.setState({ serverResponse: err.response });
           Toast.show(this.state.serverResponse, ApplicationStyles.toastError);
-        });
+        }).then(() => this.state.processingRequest = false);
     }
   }
 

@@ -55,6 +55,7 @@ class SignUpForm extends Component {
     this.state = {
       session: props.session.session,
       value: {},
+      processingRequest: false,
       options: defaultOptions,
       serverResponse: '',
     };
@@ -65,10 +66,13 @@ class SignUpForm extends Component {
   }
 
   onSignUp = () => {
+    if(this.state.processingRequest)
+      return;
     const values = this.refs.form.getValue();
     this.setState({ options: defaultOptions });
 
     if (values) {
+      this.state.processingRequest = true;
       API.register(values, this.state.session)
         .then((res) => {
           this.props.createUser(res);
@@ -78,7 +82,8 @@ class SignUpForm extends Component {
           this.setState({ serverResponse: err.response });
           Toast.show(this.state.serverResponse, ApplicationStyles.toastError);
           this.props.onRequestFailed(err);
-        });
+        }).then(() => this.state.processingRequest = false);
+
     } else if (this.state.value.repeatPassword && !Utils.samePasswords(this.state.value)) {
       this.setState({ options: t.update(this.state.options, {
         fields: {

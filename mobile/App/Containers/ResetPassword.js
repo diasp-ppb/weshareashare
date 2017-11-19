@@ -55,6 +55,7 @@ class ResetPassword extends Component {
     this.state = {
       session: props.session.session,
       value: {},
+      processingRequest: false,
       options: defaultOptions,
       serverResponse: '',
     };
@@ -65,8 +66,11 @@ class ResetPassword extends Component {
   }
 
   onReset = () => {
+    if(this.state.processingRequest)
+      return;
     const values = this.refs.form.getValue();
     if (values) {
+      this.state.processingRequest = true;
       API.resetPassword(values, this.state.session)
         .then(() => {
           this.setState({ value: null, serverResponse: '' });
@@ -74,7 +78,8 @@ class ResetPassword extends Component {
         }).catch((err) => {
           this.setState({ serverResponse: err.response });
           Toast.show(this.state.serverResponse, ApplicationStyles.toastError);
-        });
+        }).then(() => this.state.processingRequest = false);
+
     } else if (this.state.value.repeatPassword && !Utils.samePasswords(this.state.value)) {
       this.setState({ options: t.update(this.state.options, {
         fields: {

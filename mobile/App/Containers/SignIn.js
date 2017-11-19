@@ -40,6 +40,7 @@ class SignInForm extends Component {
     super(props);
     this.state = {
       session: props.session.session,
+      processingRequest: false,
       value: {},
       options: defaultOptions,
       serverResponse: '',
@@ -51,9 +52,12 @@ class SignInForm extends Component {
   }
 
   onSignIn = () => {
+    if(this.state.processingRequest)
+      return;
     const values = this.refs.form.getValue();
 
     if (values) {
+      this.state.processingRequest = true;
       API.authenticate(values.email, values.password, this.state.session)
         .then((res) => {
           this.props.authUser(res);
@@ -63,7 +67,7 @@ class SignInForm extends Component {
           this.setState({ serverResponse: err.response });
           Toast.show(this.state.serverResponse, ApplicationStyles.toastError);
           this.props.onRequestFailed(err);
-        });
+        }).then(() => this.state.processingRequest = false);
     }
   }
 
