@@ -11,7 +11,7 @@ import {
 import { GiftedChat, Actions, InputToolbar, Bubble } from 'react-native-gifted-chat';
 import CustomActions from './CustomActions';
 import * as Progress from 'react-native-progress';
-
+import Header from '../Components/HeaderBar';
 const STATES = require('./data/states.js');
 
 export default class InvestorProfileQuiz extends React.Component {
@@ -365,8 +365,9 @@ export default class InvestorProfileQuiz extends React.Component {
 
     render() {
       return (
-        <KeyboardAvoidingView style={styles.backgroundChat} behavior="padding">
-          <GiftedChat
+          <KeyboardAvoidingView style={styles.backgroundChat} behavior="padding">
+              <Header/>
+              <GiftedChat
             messages={this.state.messages}
             onSend={this.onSend}
             isLoadingEarlier={this.state.isLoadingEarlier}

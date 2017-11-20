@@ -6,7 +6,6 @@ import StartupActions from '../Redux/StartupRedux'
 import ReduxPersist from '../Config/ReduxPersist'
 import * as Session from '../Redux/Session';
 
-
 import Drawer from 'react-native-drawer';
 import ControlPanel from '../Components/ControlPanel';
 
