@@ -14,11 +14,14 @@ import { GiftedChat, Actions, InputToolbar, Bubble } from 'react-native-gifted-c
 import ReduxNavigation from '../Navigation/ReduxNavigation';
 import { NavigationActions } from 'react-navigation';
 import CustomActions from './CustomActions';
+import { connect } from 'react-redux';
+import * as Session from '../Redux/Session';
+
 import * as Progress from 'react-native-progress';
 
 const STATES = require('./data/states.js');
 
-export default class InvestorProfileQuiz extends React.Component {
+class InvestorProfileQuiz extends React.Component {
     constructor(props) {
         super(props);
 
@@ -39,7 +42,8 @@ export default class InvestorProfileQuiz extends React.Component {
             skip: false,
             questions: STATES[1].states,
             currentQuestionKey: null,
-            answers: {}
+            answers: {},
+            jsonToSend: {},
         };
 
         this._isMounted = false;
@@ -87,7 +91,7 @@ export default class InvestorProfileQuiz extends React.Component {
 
     componentWillUnmount() {
         this._isMounted = false;
-        
+
     }
 
     onLoadEarlier() {
@@ -140,13 +144,15 @@ export default class InvestorProfileQuiz extends React.Component {
             });
         };
 
-        const form = STATES[this.currentHeader - 1];
+        const form = STATES[this.currentHeader];
         const jsonToSend = {};
-        jsonToSend[form.id] = {};
-        const answers = [];
-        const messages = this.state.messages;
+        const answers = this.state.answers;
+        jsonToSend.id = form.id;
+        jsonToSend.form = answers;
+        this.setState({jsonToSend: null});
 
         //sendForm(jsonToSend);
+        this.props.subscription(jsonToSend.id, jsonToSend.form);
         navigate('FormOverview');
     }
 
@@ -397,6 +403,12 @@ export default class InvestorProfileQuiz extends React.Component {
 
     }
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  subscription: (id, form) => dispatch(Session.subscription(id, form)),
+});
+
+export default connect(null, mapDispatchToProps)(InvestorProfileQuiz);
 
 const styles = StyleSheet.create({
     backgroundChat: {

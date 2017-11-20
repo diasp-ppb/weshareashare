@@ -115,14 +115,14 @@ const styles = StyleSheet.create({
         paddingTop:12,
         paddingBottom:12,
         paddingLeft:10,
-        fontSize:'19',
+        fontSize:19,
         flex:1,
     },
     buttonText: {
         color:'white',
         textAlign:'center',
         paddingTop:10,
-        fontSize:'17',
+        fontSize:17,
         marginLeft:10,
     },
     button: {

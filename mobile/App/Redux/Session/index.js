@@ -49,7 +49,7 @@ export const authenticate = (res) => {
 
 export const subscription = (res) => {
     return (dispatch) => {
-        dispatch(SessionRedux.update({'tokens': res.tokens, 'form': res.form}));
+        dispatch(SessionRedux.update({'form': res.form}));
     }
 }
 

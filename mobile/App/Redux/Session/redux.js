@@ -24,6 +24,10 @@ export const initialState = {
   client: {
     id: null,
   },
+  form: {
+    participants: null,
+    subscription: null,
+  }
 };
 
 export const reducer = (state = initialState, action) => {
