@@ -13,6 +13,8 @@ module.exports = {
 
     participantAttrs['user'] = userid;
 
+    let fillPdf = require("fill-pdf");
+
     try {
       let user = await User.findOne({id: userid});
 
@@ -21,6 +23,61 @@ module.exports = {
       } else {
         Person.create(participantAttrs).meta({fetch: true}).then();
       }
+
+      let person = await Person.findOne({id: userid}).populate('subscription');
+
+      let pdfTemplatePath = "../../resources/subscription_template.pdf";
+      let birthday = new Date(/*person.birthday*/);
+
+      let formData = {
+        //Participante
+        Nome_Participante: person.name,
+        Genero_Participante: person.genre.toLowerCase(),
+        Morada_Participante: person.address,
+        Localidade_Participante: person.area,
+        Codigo_Postal_Participante: person.postal,
+        Telefone_Participante: person.telephone,
+        Telemovel_Participante: person.cellphone,
+        Contribuinte_Participante: person.NIF,
+        BI_Participante: person.identificationNumber,
+        Dia_Nascimento_Participante: birthday.getDate(),
+        Mes_Nascimento_Participante: birthday.getMonth(),
+        Ano_Nascimento_Participante: birthday.getFullYear(),
+        Profissao_Participante: person.profession,
+        Entidade_Patronal_Participante: person.employer,
+        Email_Participante: user.email,
+        Receber_Email: 'yes',
+        /* /Subscrição
+        Valor_Entrega: person.subscription.subscriptionValue,
+        //Comissao_Subscricao: 20,
+        //Comissao_Reembolso: 5,
+        Forma_Pagamento: person.subscription.paymentMethod, //'Transferencia' 'Deposito' ' Cheque'
+        Numero_Cheque: person.subscription.checkNo,
+        Banco: person.subscription.checkBank,
+        Transferencia_PPR: 'Yes',
+        //SDD
+        Nome: person.name,
+        IBAN: person.subscription.accountNo,
+        Valor_Mensal: person.subscription.debitAmount,
+        Crescimento_Anual: person.subscription.debitGrowth,
+        Periodicidade: person.subscription.periodicity, //'Mensal' 'Trimestral' 'Semestral' 'Anual'
+        Mes: 11,
+        Ano: 2017,*/
+      };
+
+      //formData.Nome_Participante = encoding.convert(formData.Nome_Participante, 'ISO-8859-1', 'UTF-8');
+      //formData.Morada_Participante = encoding.convert(formData.Morada_Participante, 'ISO-8859-1', 'UTF-8');
+      //formData.Nome = encoding.convert(formData.Nome, 'ISO-8859-1', 'UTF-8');
+
+      fillPdf.generatePdf(formData, pdfTemplatePath, ['drop_xfa','need_appearances'], function(err, output) {
+        if ( !err ) {
+          console.log(formData);
+        }
+        else{
+          throw err;
+        }
+      });
+
     } catch(err) {
       return res.serverError(err);
     }
@@ -36,7 +93,7 @@ module.exports = {
     return res.ok();
   },
 
-  createSubscriptionPDF(req, res){
+  /*createSubscriptionPDF(req, res){
     //let encoding = require('encoding');
     let fillPdf = require("fill-pdf");
 
@@ -49,6 +106,8 @@ module.exports = {
       let person = await Person.findOne({id: userid}).populate('subscription');
 
       let pdfTemplatePath = "";
+      let birthday = new Date(person.birthday);
+
       let formData = {
         //Participante
         Nome_Participante: person.name,
@@ -60,29 +119,29 @@ module.exports = {
         Telemovel_Participante: person.cellphone,
         Contribuinte_Participante: person.NIF,
         BI_Participante: person.identificationNumber,
-        Dia_Nascimento_Participante: '18',
-        Mes_Nascimento_Participante: '12',
-        Ano_Nascimento_Participante: '1996',
+        Dia_Nascimento_Participante: birthday.getDate(),
+        Mes_Nascimento_Participante: birthday.getMonth(),
+        Ano_Nascimento_Participante: birthday.getFullYear(),
         Profissao_Participante: person.profession,
         Entidade_Patronal_Participante: person.employer,
         Email_Participante: user.email,
         Receber_Email: 'yes',
-        /*//Subscrição
-        Valor_Entrega: 200,
-        Comissao_Subscricao: 20,
-        Comissao_Reembolso: 5,
-        Forma_Pagamento: 'Cheque', //'Transferencia' 'Deposito' ' Cheque'
-        Numero_Cheque: '1234567789999999',
-        Banco: 'BCP',
+        //Subscrição
+        Valor_Entrega: person.subscription.subscriptionValue,
+        //Comissao_Subscricao: 20,
+        //Comissao_Reembolso: 5,
+        Forma_Pagamento: person.subscription.paymentMethod, //'Transferencia' 'Deposito' ' Cheque'
+        Numero_Cheque: person.subscription.checkNo,
+        Banco: person.subscription.checkBank,
         Transferencia_PPR: 'Yes',
-        /* //SDD
-        Nome: 'Inês Filipa Noronha Meneses Gomes Proença',
-        IBAN: '1234123412341234567891212',
-        Valor_Mensal: 50,
-        Crescimento_Anual: 20,
-        Periodicidade: 'Mensal', //'Mensal' 'Trimestral' 'Semestral' 'Anual'
+        //SDD
+        Nome: person.name,
+        IBAN: person.subscription.accountNo,
+        Valor_Mensal: person.subscription.debitAmount,
+        Crescimento_Anual: person.subscription.debitGrowth,
+        Periodicidade: person.subscription.periodicity, //'Mensal' 'Trimestral' 'Semestral' 'Anual'
         Mes: 11,
-        Ano: 2017,*/
+        Ano: 2017,
       };
 
       //formData.Nome_Participante = encoding.convert(formData.Nome_Participante, 'ISO-8859-1', 'UTF-8');
@@ -106,6 +165,6 @@ module.exports = {
     }
 
     return res.ok();
-  }
+  }*/
 
 };
