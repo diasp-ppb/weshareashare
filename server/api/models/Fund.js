@@ -15,7 +15,6 @@ module.exports = {
 
     contributor: {
       model: 'contributor',
-      via: 'funds',
       required: false
     },
 
