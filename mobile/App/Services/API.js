@@ -12,7 +12,6 @@ const endPoints = {
   contactUs: '/contactUs',
   document: '/documents',
   subscriptionForms: '/forms/subscription',
-  //TODO check with diogo
   fatca: '/fatca',
   investorProfile: '/'
 };
@@ -32,10 +31,10 @@ export const refresh = (refreshToken, user, session) =>
 export const revoke = (tokens, session) =>
   fetchApi(endPoints.revoke, { tokens }, 'post', session);
 
-export const forgotPassword = (email, session) =>
-  fetchApi(endPoints.forgotPassword, { email: email }, 'post', session)
-
 export const resetPassword = (formData, session) =>
+  fetchApi(endPoints.forgotPassword, formData, 'post', session)
+
+export const updatePassword = (formData, session) =>
   fetchApi(endPoints.resetPassword, formData, 'post', session)
 
 export const contactUs = (formData, session) =>

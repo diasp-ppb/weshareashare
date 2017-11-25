@@ -8,7 +8,7 @@ import React, { Component, PropTypes } from 'react';
 import { FormValidationMessage } from 'react-native-elements';
 
 // Consts and Libs
-import { AppFonts } from '@theme/';
+import { Fonts } from '@theme/';
 
 /* Component ==================================================================== */
 class CustomFormValidationMessage extends Component {
@@ -36,7 +36,7 @@ class CustomFormValidationMessage extends Component {
       labelStyle: [{
         marginLeft: 0,
         marginRight: 0,
-        fontFamily: AppFonts.base.family,
+        fontFamily: Fonts.base.family,
       }],
     };
 

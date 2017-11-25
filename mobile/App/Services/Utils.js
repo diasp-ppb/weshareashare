@@ -1,15 +1,25 @@
-const t = require('tcomb-form-native');
+const FormValidation = require('tcomb-form-native');
 
-export const Password = t.refinement(t.String, (psw) => {
-  return psw.length >= 8;
-});
+/**
+ * Password Validation - Must be 6 chars long
+ */
+export const validPassword = FormValidation.refinement(
+  FormValidation.String, (password) => {
+    if (password.length < 8) return false; // Too short
+    if (password.search(/\d/) === -1) return false; // No numbers
+    if (password.search(/[a-zA-Z]/) === -1) return false; // No letters
+    return true;
+  },
+);
 
-export const Email = t.refinement(t.String, (email) => {
-  const reg = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-  return reg.test(email);
-});
+/**
+ * Email Validation
+ */
+export const validEmail = FormValidation.refinement(
+  FormValidation.String, (email) => {
+    const regularExpression = /^.+@.+\..+$/i;
 
-export const samePasswords = (x) => {
-  return x.password === x.repeatPassword;
-};
+    return regularExpression.test(email);
+  },
+);
 

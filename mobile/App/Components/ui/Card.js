@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { Card } from 'react-native-elements';
 
 // Consts and Libs
-import { AppSizes, AppColors, AppStyles } from '@theme/';
+import { Metrics, Colors, ApplicationStyles } from '@theme/';
 
 /* Component ==================================================================== */
 class CustomCard extends Component {
@@ -33,16 +33,16 @@ class CustomCard extends Component {
     // Defaults
     const props = {
       dividerStyle: [{
-        backgroundColor: AppColors.border,
+        backgroundColor: Colors.border,
       }],
       ...this.props,
       containerStyle: [{
-        backgroundColor: AppColors.cardBackground,
-        borderRadius: AppSizes.borderRadius,
-        borderColor: AppColors.border,
+        backgroundColor: Colors.cardBackground,
+        borderRadius: Metrics.borderRadius,
+        borderColor: Colors.border,
       }],
       titleStyle: [
-        AppStyles.h2,
+        ApplicationStyles.h2,
         { marginBottom: 15 },
       ],
     };

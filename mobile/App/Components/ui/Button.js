@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { Button } from 'react-native-elements';
 
 // Consts and Libs
-import { AppColors, AppFonts, AppSizes } from '@theme/';
+import { Colors, Fonts, Metrics } from '@theme/';
 
 /* Component ==================================================================== */
 class CustomButton extends Component {
@@ -40,9 +40,9 @@ class CustomButton extends Component {
       color: '#fff',
       fontWeight: 'bold',
       onPress: this.props.onPress,
-      fontFamily: AppFonts.base.family,
-      fontSize: AppFonts.base.size,
-      borderRadius: AppSizes.borderRadius,
+      fontFamily: Fonts.base.family,
+      fontSize: Fonts.base.size,
+      borderRadius: Fonts.borderRadius,
       raised: true,
       buttonStyle: {
         padding: 12,
@@ -52,7 +52,7 @@ class CustomButton extends Component {
         marginRight: 0,
       },
       ...this.props,
-      backgroundColor: this.props.backgroundColor || AppColors.brand.primary,
+      backgroundColor: this.props.backgroundColor || Colors.brand.primary,
       small: false,
       large: false,
       icon: (this.props.icon && this.props.icon.name)
@@ -91,13 +91,13 @@ class CustomButton extends Component {
     if (this.props.outlined) {
       props.raised = false;
       props.backgroundColor = this.props.backgroundColor || 'transparent';
-      props.color = AppColors.brand.primary;
+      props.color = Colors.brand.primary;
       props.buttonStyle.borderWidth = 1;
-      props.buttonStyle.borderColor = AppColors.brand.primary;
+      props.buttonStyle.borderColor = Colors.brand.primary;
 
       if (props.icon && props.icon.name) {
         props.icon = {
-          color: AppColors.brand.primary,
+          color: Colors.brand.primary,
           ...props.icon,
         };
       }

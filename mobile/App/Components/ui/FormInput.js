@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { FormInput } from 'react-native-elements';
 
 // Consts and Libs
-import { AppColors, AppFonts } from '@theme/';
+import { Colors, Fonts } from '@theme/';
 
 /* Component ==================================================================== */
 class CustomFormInput extends Component {
@@ -34,7 +34,7 @@ class CustomFormInput extends Component {
     const props = {
       ...this.props,
       containerStyle: [{
-        borderBottomColor: AppColors.border,
+        borderBottomColor: Colors.border,
         borderBottomWidth: 1,
         backgroundColor: 'rgba(255,255,255,0.05)',
         marginTop: 10,
@@ -42,8 +42,8 @@ class CustomFormInput extends Component {
         marginRight: 0,
       }],
       inputStyle: [{
-        color: AppColors.textPrimary,
-        fontFamily: AppFonts.base.family,
+        color: Colors.textPrimary,
+        fontFamily: Fonts.base.family,
         paddingHorizontal: 0,
         paddingVertical: 3,
       }],
