@@ -8,7 +8,6 @@ import ReduxPersist from '../Config/ReduxPersist';
 import * as Session from '../Redux/Session';
 import ControlPanel from '../Components/ControlPanel';
 
-
 class RootContainer extends Component {
   componentDidMount() {
     // if redux persist is not active fire startup action
@@ -33,7 +32,7 @@ class RootContainer extends Component {
     openDrawer = () => {
       this._drawer.open();
     };
-  
+
     render() {
       return (
         <Drawer

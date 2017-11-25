@@ -3,7 +3,7 @@ import { View, Image } from 'react-native';
 import Toast from 'react-native-root-toast';
 import { connect } from 'react-redux';
 import { Button, Text, Divider } from 'react-native-elements';
-import { Images, ApplicationStyles } from '../Themes/index';
+import { Assets, ApplicationStyles } from '../Themes/index';
 import * as API from '../Services/API';
 import * as Utils from '../Services/Utils';
 
@@ -60,7 +60,7 @@ class ForgotPassword extends Component {
       <View style={ApplicationStyles.mainContainer}>
         <Text h1 style={ApplicationStyles.headerTitle}>Stoik PPR</Text>
         <Image
-          source={Images.logo}
+          source={Assets.logo}
           style={ApplicationStyles.logo}
           resizeMode="contain"
         />

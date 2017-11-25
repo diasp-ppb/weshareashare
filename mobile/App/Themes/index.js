@@ -1,7 +1,7 @@
 import Colors from './Colors';
 import Fonts from './Fonts';
 import Metrics from './Metrics';
-import Images from './Images';
+import Assets from './Assets';
 import ApplicationStyles from './ApplicationStyles';
 
-export { Colors, Fonts, Images, Metrics, ApplicationStyles };
+export { Colors, Fonts, Assets, Metrics, ApplicationStyles };

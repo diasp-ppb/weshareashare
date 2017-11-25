@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { View, Image } from 'react-native';
 import { Button, Text } from 'native-base';
-import { Images } from '../Themes/index';
+import { Assets } from '../Themes/index';
 import styles from './Styles/HomepageStyle';
 import { StoikHeader } from './StoikHeader';
 
@@ -16,7 +16,7 @@ export default class Homepage extends Component {
         <View style={styles.mainContainer}>
           <StoikHeader />
           <View style={styles.container}>
-            <Image source={Images.background} style={styles.canvas}>
+            <Image source={Assets.background} style={styles.canvas}>
               <View style={styles.btnGroup}>
                 <Button style={styles.btn} onPress={() => { navigate('SignIn'); }}>
                   <Text style={styles.btnText}>

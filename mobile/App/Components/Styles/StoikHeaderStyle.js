@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Fonts, Metrics, Colors } from '../../Themes/index';
+import { Metrics, Colors, Fonts } from '@theme/';
 
 export default StyleSheet.create({
   container: {
@@ -44,6 +44,5 @@ export default StyleSheet.create({
   },
   sideBtnText: {
     color: Colors.stoikGrey,
-  },
-  h5: Fonts.style.h5,
+  }
 });

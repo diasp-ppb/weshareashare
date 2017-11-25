@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { View, Image } from 'react-native';
+import { View } from 'react-native';
 import { Button, Text } from 'react-native-elements';
-import { Images } from '../Themes/index';
+import { Assets } from '@theme/';
 import styles from './Styles/AboutUsStyle';
 
 export default class AboutUs extends Component {
@@ -21,10 +21,10 @@ export default class AboutUs extends Component {
               was born from the desire to join 2 typically disconnected
               worlds: Finance and Causes.</Text>
           </View>
-          
+
           <View style={{flex: 1}}>
             <Text h4 style={styles.subTitle}>Supported causes</Text>
-            
+
             <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-around'}}>
               <View style={styles.causesView}>
                 <Text style={styles.causesText}>People</Text>
@@ -40,7 +40,7 @@ export default class AboutUs extends Component {
               </View>
             </View>
           </View>
-          
+
         </View>
       </View>
     );

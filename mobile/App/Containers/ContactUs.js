@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import Toast from 'react-native-root-toast';
-import { Button, Text } from 'react-native-elements';
+import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { ApplicationStyles } from '../Themes/index';
 import * as API from '../Services/API';
+import { Text } from '@ui/'
+
 
 const t = require('tcomb-form-native');
 
@@ -98,8 +100,8 @@ class ContactUs extends Component {
     return (
       <View style={ApplicationStyles.mainContainer}>
         <View style={ApplicationStyles.form}>
-          <Text h3 style={ApplicationStyles.subTitle}>Contact us</Text>
-          <Text style={ApplicationStyles.subSubTitle}>Hello! Send us a message and we'll get back to you via email as soon as possible.
+          <Text h1>Contact us</Text>
+          <Text h4>Hello! Send us a message and we'll get back to you via email as soon as possible.
           Your feedback is extremely important to us.</Text>
 
           <View style={ApplicationStyles.container}>

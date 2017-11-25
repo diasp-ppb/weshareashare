@@ -3,7 +3,7 @@ import { View, Image } from 'react-native';
 import { Button, Text, Divider } from 'react-native-elements';
 import { connect } from 'react-redux';
 import Toast from 'react-native-root-toast';
-import { ApplicationStyles, Images } from '../Themes/index';
+import { ApplicationStyles, Assets } from '../Themes/index';
 import * as Session from '../Redux/Session';
 import * as API from '../Services/API';
 import * as Utils from '../Services/Utils';
@@ -73,7 +73,7 @@ class SignInForm extends Component {
       <View style={ApplicationStyles.mainContainer}>
         <Text h1 style={ApplicationStyles.headerTitle}>Stoik PPR</Text>
         <Image
-          source={Images.logo}
+          source={Assets.logo}
           style={ApplicationStyles.logo}
           resizeMode="contain"
         />

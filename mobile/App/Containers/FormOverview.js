@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Image } from 'react-native';
 import { Button, Text } from 'native-base';
-import { Images } from '../Themes/index';
+import { Assets } from '@theme/'
 import styles from '../Components/Styles/HomepageStyle';
 import { StoikHeader } from '../Components/StoikHeader';
 
@@ -12,7 +12,7 @@ export default class FormOverview extends Component {
       <View style={styles.mainContainer}>
         <StoikHeader />
         <View style={styles.container}>
-          <Image source={Images.background} style={styles.canvas}>
+          <Image source={Assets.background} style={styles.canvas}>
             <View style={styles.btnGroup}>
               <Button style={styles.btn} onPress={() => { navigate('InvestorProfileQuiz', { formIndex: 1 }); }}>
                 <Text style={styles.btnText}>

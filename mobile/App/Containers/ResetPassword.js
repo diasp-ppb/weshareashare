@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Image } from 'react-native';
-import { Images, ApplicationStyles } from '../Themes/index';
+import { Assets, ApplicationStyles } from '../Themes/index';
 import { connect } from 'react-redux';
 import { Button, Text, Divider } from 'react-native-elements';
 import * as API from '../Services/API';
@@ -93,7 +93,7 @@ class ResetPassword extends Component {
       <View style={ApplicationStyles.mainContainer}>
         <Text h1 style={ApplicationStyles.headerTitle}>Stoik PPR</Text>
         <Image
-          source={Images.logo}
+          source={Assets.logo}
           style={ApplicationStyles.logo}
           resizeMode="contain"
         />
