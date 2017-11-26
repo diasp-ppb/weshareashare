@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 
 import { GiftedChat, Actions, InputToolbar, Bubble } from 'react-native-gifted-chat';
-import ReduxNavigation from '../Navigation/ReduxNavigation';
+import ReduxNavigation from '../../Navigation/ReduxNavigation';
 import { NavigationActions } from 'react-navigation';
 import CustomActions from './CustomActions';
 import * as Progress from 'react-native-progress';
@@ -87,7 +87,7 @@ export default class InvestorProfileQuiz extends React.Component {
 
     componentWillUnmount() {
         this._isMounted = false;
-        
+
     }
 
     onLoadEarlier() {

@@ -16,7 +16,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  submit: API.passwordUpdate,
+  submit: API.updatePassword,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormRender);

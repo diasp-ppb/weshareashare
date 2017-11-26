@@ -37,15 +37,16 @@ class CustomFormInput extends Component {
         borderBottomColor: Colors.border,
         borderBottomWidth: 1,
         backgroundColor: 'rgba(255,255,255,0.05)',
-        marginTop: 10,
+        marginTop: 5,
         marginLeft: 0,
         marginRight: 0,
       }],
       inputStyle: [{
         color: Colors.textPrimary,
         fontFamily: Fonts.base.family,
+        fontSize: Fonts.base.size * 1.25,
         paddingHorizontal: 0,
-        paddingVertical: 3,
+        paddingVertical: 0,
       }],
     };
 

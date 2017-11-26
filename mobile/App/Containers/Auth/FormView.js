@@ -7,10 +7,10 @@ import PropTypes from 'prop-types';
 import {
   View,
   ScrollView,
-  AsyncStorage,
   TouchableOpacity,
   StyleSheet,
   Image,
+  KeyboardAvoidingView
 } from 'react-native';
 import FormValidation from 'tcomb-form-native';
 
@@ -110,6 +110,7 @@ class AuthForm extends Component {
           },
           Token: {
             template: TcombTextInput,
+            autoCapitalize: 'none',
             error: 'Please enter your token',
             clearButtonMode: 'while-editing',
           },
@@ -204,6 +205,12 @@ class AuthForm extends Component {
         style={[ApplicationStyles.container]}
         contentContainerStyle={[ApplicationStyles.container]}
       >
+        <Image
+          source={Assets.logo}
+          style={ApplicationStyles.logo}
+          resizeMode="contain"
+        />
+        <Card>
           <Alerts
             status={this.state.resultMsg.status}
             success={this.state.resultMsg.success}
@@ -236,7 +243,7 @@ class AuthForm extends Component {
 
           <Spacer size={10} />
 
-          {this.props.formType === 'login' &&
+          {this.props.formType === 'SignIn' &&
             <View>
               <TouchableOpacity onPress={console.log()}>
                 <Text p style={[ApplicationStyles.textCenterAligned, ApplicationStyles.link]}>
@@ -254,7 +261,8 @@ class AuthForm extends Component {
             </View>
           }
 
-        <Spacer size={60} />
+          <Spacer size={60} />
+        </Card>
       </ScrollView>
     );
   }

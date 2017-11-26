@@ -6,8 +6,6 @@ import { connect } from 'react-redux';
 import { ApplicationStyles } from '../Themes/index';
 import * as API from '../Services/API';
 import { Text } from '@ui/'
-
-
 const t = require('tcomb-form-native');
 
 const Form = t.form.Form;
@@ -16,7 +14,7 @@ import * as Utils from '../Services/Utils';
 const ContactUsParams = t.struct({
   firstName: t.String,
   lastName: t.String,
-  email: Utils.Email,
+  email: Utils.validEmail,
   subject: t.String,
   message: t.String,
 });

@@ -8,7 +8,7 @@ import * as Session from '@redux/Session';
 import FormRender from './FormView';
 
 const mapStateToProps = state => ({
-  user: state.user,
+  session: state.session,
   formType: 'SignUp',
   formFields: ['Email', 'Password', 'ConfirmPassword', 'FirstName', 'LastName'],
   buttonTitle: 'Sign Up',
