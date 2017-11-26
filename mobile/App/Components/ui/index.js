@@ -3,7 +3,6 @@
  *
  */
 
-import Alerts from './Alerts';
 import Button from './Button';
 import Card from './Card';
 import Spacer from './Spacer';
@@ -16,7 +15,6 @@ import FormLabel from './FormLabel';
 import FormValidationMessage from './FormValidationMessage';
 
 export {
-  Alerts,
   Button,
   Card,
   Spacer,

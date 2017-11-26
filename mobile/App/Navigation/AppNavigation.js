@@ -1,17 +1,20 @@
 import { StackNavigator } from 'react-navigation';
-import Homepage from '../Components/Homepage';
-import InvestorProfileQuiz from '../Containers/Onboarding/InvestorProfileQuiz';
-import FormOverview from '../Containers/Onboarding/FormOverview';
-import ContactUs from '../Containers/ContactUs';
-import AboutUs from '../Components/AboutUs';
-import StoikBenefits from '../Containers/StoikBenefits';
-import styles from './Styles/NavigationStyles';
+import Homepage from '@components/Homepage';
+
+// Onboarding Screens
+import InvestorProfileQuiz from '@containers/Onboarding/InvestorProfileQuiz';
+import FormOverview from '@containers/Onboarding/FormOverview';
 
 // Auth screens
 import PasswordReset from '@containers/Auth/PasswordResetContainer';
 import PasswordUpdate from '@containers/Auth/PasswordUpdateContainer';
 import SignIn from '@containers/Auth/SignInContainer';
 import SignUp from '@containers/Auth/SignUpContainer';
+
+// General screens
+import ContactUs from '@containers/ContactUs/ContactUsContainer';
+import AboutUs from '@components/AboutUs';
+import StoikBenefits from '@components/StoikBenefits';
 
 
 const PrimaryNav = StackNavigator({
@@ -28,10 +31,7 @@ const PrimaryNav = StackNavigator({
 }, {
   // Default config for all screens
   headerMode: 'none',
-  initialRouteName: 'SignUp',
-  navigationOptions: {
-    headerStyle: styles.header,
-  },
+  initialRouteName: 'Homepage',
 });
 
 export default PrimaryNav;

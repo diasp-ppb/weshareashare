@@ -10,5 +10,4 @@ const fonts = {
   RobotoMedium: require('@assets/Fonts/Roboto_Medium.ttf'),
 };
 
-
 export default { ...images, ...fonts };

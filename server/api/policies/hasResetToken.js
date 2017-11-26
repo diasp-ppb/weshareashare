@@ -4,17 +4,15 @@
 
 module.exports = (req, res, next) => {
   const params = req.allParams();
-  if(!params.token){
+  if(!params.Token){
     return res.unauthorized();
   }
-  console.log(params.token)
 
   Token.findOne({
     type: 'reset',
-    value: params.token.value,
+    value: params.Token,
     expiresAt: { '>=': new Date() },
   }).then((token) => {
-    console.log(token)
     if (!token) {
       return res.unauthorized();
     }

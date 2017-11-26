@@ -3,7 +3,7 @@
  *
  */
 import { connect } from 'react-redux';
-import * as API from '@services/API';
+import { Users } from '@services/API';
 import FormRender from './FormView';
 
 const mapStateToProps = state => ({
@@ -12,11 +12,11 @@ const mapStateToProps = state => ({
   formFields: ['Email', 'Token', 'Password', 'ConfirmPassword'],
   buttonTitle: 'Update password',
   successMessage: 'Your password has been successfully updated',
-  introText: 'Use the token received to update your password',
+  introText: 'Use the token received in your email to update your password',
 });
 
-const mapDispatchToProps = {
-  submit: API.updatePassword,
-};
+const mapDispatchToProps = (dispatch) => ({
+  submit: Users.updatePassword,
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormRender);

@@ -19,7 +19,9 @@ export const initialState = {
   },
   user: {
     id: null,
-    username: null,
+    email: null,
+    firstName: null,
+    lastName: null,
   },
   client: {
     id: null,

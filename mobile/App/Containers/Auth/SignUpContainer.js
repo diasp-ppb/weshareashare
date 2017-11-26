@@ -3,7 +3,7 @@
  *
  */
 import { connect } from 'react-redux';
-import * as API from '@services/API';
+import { Users } from '@services/API';
 import * as Session from '@redux/Session';
 import FormRender from './FormView';
 
@@ -16,9 +16,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  submit: API.register,
-  createUser: (res) => dispatch(Session.createUser(res)),
-  onRequestFailed: (exception) => dispatch(Session.onRequestFailed(exception)),
+  submit: Users.register,
+  onSuccessfulSubmit: (res) => dispatch(Session.createUser(res)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormRender);

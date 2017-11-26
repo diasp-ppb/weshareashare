@@ -3,7 +3,7 @@
  *
  */
 import { connect } from 'react-redux';
-import * as API from '@services/API';
+import { Users } from '@services/API';
 import FormRender from './FormView';
 
 const mapStateToProps = state => ({
@@ -15,8 +15,8 @@ const mapStateToProps = state => ({
   introText: 'Enter your email. We\'ll send you instructions to safely reset your password',
 });
 
-const mapDispatchToProps = {
-  submit: API.resetPassword,
-};
+const mapDispatchToProps = (dispatch) => ({
+  submit: Users.resetPassword,
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormRender);

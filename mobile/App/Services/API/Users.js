@@ -6,8 +6,8 @@ const endPoints = {
   authenticate: '/users/auth',
   revoke: '/users/auth/revoke',
   refresh: '/users/auth/refresh',
-  forgotPassword: '/users/auth/resetRequest',
-  resetPassword: '/users/auth/resetPassword'
+  resetPassword: '/users/auth/resetRequest',
+  updatePassword: '/users/auth/resetPassword'
 };
 
 export const register = (formData, session) =>
@@ -23,7 +23,7 @@ export const revoke = (tokens, session) =>
   fetchApi(endPoints.revoke, { tokens }, 'post', session);
 
 export const resetPassword = (formData, session) =>
-  fetchApi(endPoints.forgotPassword, formData, 'post', session)
+  fetchApi(endPoints.resetPassword, formData, 'post', session)
 
 export const updatePassword = (formData, session) =>
-  fetchApi(endPoints.resetPassword, formData, 'post', session)
+  fetchApi(endPoints.updatePassword, formData, 'post', session)

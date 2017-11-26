@@ -1,4 +1,4 @@
-import * as API from '../../Services/API';
+import { Clients, Users } from '@services/API';
 import * as SessionRedux from './redux';
 
 const SESSION_TIMEOUT_THRESHOLD = 300; // Will refresh the access token 5 minutes before it expires
@@ -26,7 +26,7 @@ export const onRequestFailed = (exception) => {
 export const authorize = () => {
   return (dispatch, getState) => {
     const session = getState().session;
-    API.authorize(session)
+    Clients.authorize(session)
       .then((res) => {
         dispatch(SessionRedux.update({ client: res.client }));
       }).catch((err) => onRequestFailed(err, dispatch));
@@ -54,7 +54,7 @@ export const refreshToken = () => {
     if (!session.tokens.refresh.value || !session.user.id) {
       return Promise.reject();
     }
-    API.refresh(session.tokens.refresh, session.user, session.tokens.access)
+    Users.refresh(session.tokens.refresh, session.user, session.tokens.access)
       .then((res) => {
         dispatch(SessionRedux.update({ tokens: res.tokens, user: res.user }));
         setSessionTimeout(res.tokens.access.expiresIn);
@@ -66,7 +66,7 @@ export const refreshToken = () => {
 export const revoke = () => {
   return (dispatch, getState) => {
     const session = getState().session;
-    API.revoke(Object.keys(session.tokens).map((tokenKey) => ({
+    Users.revoke(Object.keys(session.tokens).map((tokenKey) => ({
       type: session.tokens[tokenKey].type,
       value: session.tokens[tokenKey].value,
     })), session.tokens.access)

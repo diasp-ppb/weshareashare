@@ -52,7 +52,7 @@ class CustomButton extends Component {
         marginRight: 0,
       },
       ...this.props,
-      backgroundColor: this.props.backgroundColor || Colors.brand.primary,
+      backgroundColor: this.props.backgroundColor || Colors.stoikGrey,
       small: false,
       large: false,
       icon: (this.props.icon && this.props.icon.name)
@@ -91,9 +91,9 @@ class CustomButton extends Component {
     if (this.props.outlined) {
       props.raised = false;
       props.backgroundColor = this.props.backgroundColor || 'transparent';
-      props.color = Colors.brand.primary;
+      props.color = Colors.stoikOrange;
       props.buttonStyle.borderWidth = 1;
-      props.buttonStyle.borderColor = Colors.brand.primary;
+      props.buttonStyle.borderColor = Colors.stoikOrange;
 
       if (props.icon && props.icon.name) {
         props.icon = {

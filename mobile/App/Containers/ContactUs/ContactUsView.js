@@ -1,7 +1,3 @@
-/**
- * Login/Sign Up/Forgot Password Screen
- *
- */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -9,23 +5,22 @@ import {
   ScrollView,
   TouchableOpacity,
   StyleSheet,
-  Image,
-  KeyboardAvoidingView,
-  Divider
+  KeyboardAvoidingView
 } from 'react-native';
 import FormValidation from 'tcomb-form-native';
 import Toast from 'react-native-root-toast';
 
 // Consts and Libs
-import { ApplicationStyles, Metrics, Colors, Assets } from '@theme/';
+import { ApplicationStyles, Metrics, Colors } from '@theme/';
 
 // Components
 import { Card, Spacer, Text, Button } from '@ui/';
 import * as Utils from '@services/Utils'
 import TcombTextInput from '@components/tcomb/TextInput';
 
+
 /* Component ==================================================================== */
-class AuthForm extends Component {
+class ContactUs extends Component {
   static propTypes = {
     user: PropTypes.shape({
       email: PropTypes.string,
@@ -34,7 +29,7 @@ class AuthForm extends Component {
     }),
     submit: PropTypes.func,
     onSuccessfulSubmit: PropTypes.func,
-    formType: PropTypes.oneOf(['SignIn', 'SignUp', 'PasswordReset', 'PasswordUpdate']),
+    formType: PropTypes.oneOf(['ContactUs']),
     formFields: PropTypes.arrayOf(PropTypes.string),
     buttonTitle: PropTypes.string,
     successMessage: PropTypes.string,
@@ -47,13 +42,17 @@ class AuthForm extends Component {
 
     const formFields = {};
     if (props.formFields.indexOf('Email') > -1) formFields.Email = Utils.validEmail;
-    if (props.formFields.indexOf('Password') > -1) formFields.Password = Utils.validPassword;
-    if (props.formFields.indexOf('ConfirmPassword') > -1) formFields.ConfirmPassword = Utils.validPassword;
     if (props.formFields.indexOf('FirstName') > -1) formFields.FirstName = FormValidation.String;
     if (props.formFields.indexOf('LastName') > -1) formFields.LastName = FormValidation.String;
-    if (props.formFields.indexOf('Token') > -1) formFields.Token = FormValidation.String;
+    if (props.formFields.indexOf('Message') > -1) formFields.Message = FormValidation.String;
+    if (props.formFields.indexOf('Subject') > -1) formFields.Subject = FormValidation.String;
 
     this.state = {
+      resultMsg: {
+        status: '',
+        success: '',
+        error: '',
+      },
       form_fields: FormValidation.struct(formFields),
       form_values: {
         Email: (props.user && props.user.email) ? props.user.email : '',
@@ -68,12 +67,6 @@ class AuthForm extends Component {
             autoCapitalize: 'none',
             clearButtonMode: 'while-editing',
           },
-          Token: {
-            template: TcombTextInput,
-            autoCapitalize: 'none',
-            error: 'Please enter your token',
-            clearButtonMode: 'while-editing',
-          },
           FirstName: {
             template: TcombTextInput,
             error: 'Please enter your first name',
@@ -84,17 +77,15 @@ class AuthForm extends Component {
             error: 'Please enter your first name',
             clearButtonMode: 'while-editing',
           },
-          Password: {
+          Subject: {
             template: TcombTextInput,
-            error: 'Passwords must be more than 8 characters and contain letters and numbers',
+            error: 'Please enter your subject',
             clearButtonMode: 'while-editing',
-            secureTextEntry: true,
           },
-          ConfirmPassword: {
+          Message: {
             template: TcombTextInput,
-            error: 'Your passwords must match',
+            error: 'Please enter your message',
             clearButtonMode: 'while-editing',
-            secureTextEntry: true,
           },
         },
       },
@@ -102,37 +93,10 @@ class AuthForm extends Component {
   }
 
   /**
-    * Password Confirmation - password fields must match
-    * - Sets the error and returns bool of whether to process form or not
-    */
-  passwordsMatch = (form) => {
-    const error = form.Password !== form.ConfirmPassword;
-
-    this.setState({
-      options: FormValidation.update(this.state.options, {
-        fields: {
-          ConfirmPassword: {
-            hasError: { $set: error },
-            error: { $set: error ? 'Passwords don\'t match' : '' },
-          },
-        },
-      }),
-      form_values: form,
-    });
-
-    return error;
-  }
-
-  /**
-    * Handle Form Submit
-    */
+   * Handle Form Submit
+   */
   handleSubmit = () => {
     const formData = this.form.getValue();
-
-    if (formData && formData.Password && formData.ConfirmPassword) {
-      const passwordsDontMatch = this.passwordsMatch(formData);
-      if (passwordsDontMatch) return false;
-    }
 
     if (formData) {
       this.setState({ form_values: formData }, () => {
@@ -141,22 +105,17 @@ class AuthForm extends Component {
         if (this.scrollView) this.scrollView.scrollTo({ y: 0 });
 
         if (this.props.submit) {
-          this.props.submit(formData, this.props.session)
-          .then((res) => {
+          this.props.submit(formData)
+          .then(() => {
             this.setState({
               resultMsg: { success: this.props.successMessage },
             }, () => {
               Toast.show(this.state.resultMsg.success, ApplicationStyles.toastSuccess);
-
-              if (this.props.onSuccessfulSubmit) {
-                this.props.onSuccessfulSubmit(res);
-              }
-
               return true;
             });
           }).catch(err => {
             this.setState({ resultMsg: { error: err.response } })
-            Toast.show(this.state.resultMsg.error, ApplicationStyles.toastError);
+            Toast.show(this.state.resultMsg, ApplicationStyles.toastError);
           });
         } else {
           this.setState({ resultMsg: { error: 'Submit function missing' } });
@@ -169,7 +128,6 @@ class AuthForm extends Component {
 
   render = () => {
     const Form = FormValidation.form.Form;
-    const { navigate } = this.props.navigation;
 
     return (
 
@@ -179,24 +137,19 @@ class AuthForm extends Component {
         style={[ApplicationStyles.container]}
         contentContainerStyle={[ApplicationStyles.container]}
       >
-        <Image
-          source={Assets.logo}
-          style={ApplicationStyles.logo}
-          resizeMode="contain"
-        />
         <Card>
 
           {(!!this.props.introTitle || !!this.props.introText) &&
-            <View>
-              {!!this.props.introTitle &&
-                <Text h1>{this.props.introTitle}</Text>
-              }
-              {!!this.props.introText &&
-                <Text>{this.props.introText}</Text>
-              }
+          <View>
+            {!!this.props.introTitle &&
+            <Text h1>{this.props.introTitle}</Text>
+            }
+            {!!this.props.introText &&
+            <Text>{this.props.introText}</Text>
+            }
 
-              <Spacer size={10} />
-            </View>
+            <Spacer size={10} />
+          </View>
           }
 
           <Form
@@ -204,50 +157,14 @@ class AuthForm extends Component {
             type={this.state.form_fields}
             value={this.state.form_values}
             options={this.state.options}
-            style={[ApplicationStyles.centerAligned]}
           />
 
           <Spacer size={20} />
 
           <Button title={this.props.buttonTitle} onPress={this.handleSubmit} />
 
-          <Spacer size={20} />
-
-          {this.props.formType === 'SignIn' &&
-            <View>
-              <TouchableOpacity onPress={() => navigate('PasswordReset')}>
-                <Text p style={[ApplicationStyles.textCenterAligned, ApplicationStyles.link]}>
-                  Forgot your password?
-                </Text>
-              </TouchableOpacity>
-
-              <Spacer size={10} />
-
-              <Text p style={[ApplicationStyles.textCenterAligned]}>
-                - or -
-              </Text>
-
-              <Spacer size={10} />
-
-              <TouchableOpacity onPress={() => navigate('SignUp')}>
-                <Text p style={[ApplicationStyles.textCenterAligned, ApplicationStyles.link]}>
-                  Sign up here
-                </Text>
-              </TouchableOpacity>
-            </View>
-          }
-
-          {this.props.formType === 'PasswordReset' &&
-          <View>
-            <TouchableOpacity onPress={() => navigate('PasswordUpdate')}>
-              <Text p style={[ApplicationStyles.textCenterAligned, ApplicationStyles.link]}>
-                Already have a token?
-              </Text>
-            </TouchableOpacity>
-          </View>
-          }
-
           <Spacer size={10} />
+
         </Card>
       </ScrollView>
     );
@@ -255,4 +172,4 @@ class AuthForm extends Component {
 }
 
 /* Export Component ==================================================================== */
-export default AuthForm;
+export default ContactUs;
