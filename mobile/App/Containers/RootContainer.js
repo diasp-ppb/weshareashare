@@ -11,23 +11,27 @@ import ControlPanel from '../Components/ControlPanel';
 
 
 class RootContainer extends Component {
+
   componentDidMount () {
     // if redux persist is not active fire startup action
     if (!ReduxPersist.active) {
       this.props.authorizeClient();
-      this.props.startup()
+      this.props.startup();
     }
   }
+
     state={
         drawerOpen: false,
         drawerDisabled: false,
     };
 
+
     closeDrawer = () => {
         this._drawer.close()
     };
     openDrawer = () => {
-        this._drawer.open()
+        this._drawer.open();
+        console.log("open");
     };
 
 
@@ -35,19 +39,19 @@ class RootContainer extends Component {
     return (
         <Drawer
             type="static"
+            ref={(ref) => this._drawer = ref}
             content={<ControlPanel />}
             openDrawerOffset={0.2}
             captureGestures={true}
             tweenHandler={Drawer.tweenPresets.parallax}
             panCloseMask={0.2}
-            panOpenMask={0.2}
+            panOpenMask={0.1}
             disabled={false}
-            acceptDoubleTap={true}
             negotiatePan={true}
         >
           <View style={{ flex: 1 }}>
             <StatusBar barStyle="light-content" />
-            <ReduxNavigation />
+            <ReduxNavigation/>
           </View>
         </Drawer>
     );
@@ -58,5 +62,7 @@ const mapDispatchToProps = (dispatch) => ({
   startup: () => dispatch(StartupActions.startup()),
   authorizeClient: () => dispatch(Session.authorize()),
 })
+
+
 
 export default connect(null, mapDispatchToProps)(RootContainer)
