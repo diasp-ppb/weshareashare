@@ -7,9 +7,9 @@
       <div class="box">
         <div v-show="error" style="color:red; word-wrap:break-word;">{{ error }}</div>
         <form v-on:submit.prevent="login">
-          <label class="label">Email</label>
+          <label class="label">Username</label>
           <p class="control">
-            <input v-model="data.body.username" class="input" type="text" placeholder="email@example.org">
+            <input v-model="data.body.username" class="input" type="text" placeholder="your username">
           </p>
           <label class="label">Password</label>
           <p class="control">
@@ -58,6 +58,14 @@ export default {
   },
   methods: {
     login () {
+      if (this.data.body.username === 'weshareashare' && this.data.body.password === '12345678') {
+        this.$router.push({path: '/'})
+      } else {
+        console.log('error login')
+        this.error = 'Your username and/or password are invalid.'
+      }
+
+      /*
       var redirect = this.$auth.redirect()
       this.$auth.login({
         headers: {
@@ -85,7 +93,7 @@ export default {
           }
           console.log(err.config)
         }
-      })
+      }) */
     }
   }
   // filters: {
