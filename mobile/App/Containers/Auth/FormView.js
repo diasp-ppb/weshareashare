@@ -179,14 +179,14 @@ class AuthForm extends Component {
     this.keyboardDidHideListener.remove();
   }
   
-  _keyboardDidShow = (event) => {
+  _keyboardDidShow = () => {
     Animated.timing(this.imageHeight, {
       duration: 500,
       toValue: Metrics.DEVICE_HEIGHT / 20,
     }).start();
   };
   
-  _keyboardDidHide = (event) => {
+  _keyboardDidHide = () => {
     Animated.timing(this.imageHeight, {
       duration: 500,
       toValue: Metrics.DEVICE_HEIGHT / 7,

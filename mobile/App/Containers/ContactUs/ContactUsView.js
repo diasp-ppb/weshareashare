@@ -5,13 +5,15 @@ import {
   ScrollView,
   TouchableOpacity,
   StyleSheet,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  Animated,
+  Keyboard,
 } from 'react-native';
 import FormValidation from 'tcomb-form-native';
 import Toast from 'react-native-root-toast';
 
 // Consts and Libs
-import { ApplicationStyles, Metrics, Colors } from '@theme/';
+import { ApplicationStyles, Metrics, Colors, Assets } from '@theme/';
 
 // Components
 import { Card, Spacer, Text, Button } from '@ui/';
@@ -60,6 +62,7 @@ class ContactUs extends Component {
         LastName: (props.user && props.user.lastName) ? props.user.lastName : '',
       },
       options: {
+        auto: 'placeholders',
         fields: {
           Email: {
             template: TcombTextInput,
@@ -90,6 +93,7 @@ class ContactUs extends Component {
         },
       },
     };
+    this.imageHeight = new Animated.Value(Metrics.DEVICE_HEIGHT / 7);
   }
 
   /**
@@ -125,18 +129,45 @@ class ContactUs extends Component {
 
     return true;
   }
+  
+  
+  componentWillMount () {
+    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
+    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
+  }
+  
+  componentWillUnmount() {
+    this.keyboardDidShowListener.remove();
+    this.keyboardDidHideListener.remove();
+  }
+  
+  _keyboardDidShow = () => {
+    Animated.timing(this.imageHeight, {
+      duration: 500,
+      toValue: Metrics.DEVICE_HEIGHT / 20,
+    }).start();
+  };
+  
+  _keyboardDidHide = () => {
+    Animated.timing(this.imageHeight, {
+      duration: 500,
+      toValue: Metrics.DEVICE_HEIGHT / 7,
+    }).start();
+  };
 
   render = () => {
     const Form = FormValidation.form.Form;
 
     return (
-
-      <ScrollView
-        automaticallyAdjustContentInsets={true}
-        ref={(a) => { this.scrollView = a; }}
-        style={[ApplicationStyles.container]}
-        contentContainerStyle={[ApplicationStyles.container]}
+  
+      <KeyboardAvoidingView
+        style={ApplicationStyles.container}
+        behavior="padding"
       >
+        <Animated.Image
+          source={Assets.logo}
+          style={[ApplicationStyles.logo, {height: this.imageHeight}]}
+        />
         <Card>
 
           {(!!this.props.introTitle || !!this.props.introText) &&
@@ -166,7 +197,7 @@ class ContactUs extends Component {
           <Spacer size={10} />
 
         </Card>
-      </ScrollView>
+      </KeyboardAvoidingView>
     );
   }
 }
