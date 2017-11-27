@@ -1,18 +1,16 @@
-import React, { Component } from 'react'
-import { View, StatusBar } from 'react-native'
-import ReduxNavigation from '../Navigation/ReduxNavigation'
-import { connect } from 'react-redux'
-import StartupActions from '../Redux/StartupRedux'
-import ReduxPersist from '../Config/ReduxPersist'
-import * as Session from '../Redux/Session';
-
+import React, { Component } from 'react';
+import { View, StatusBar } from 'react-native';
+import { connect } from 'react-redux';
 import Drawer from 'react-native-drawer';
+import ReduxNavigation from '../Navigation/ReduxNavigation';
+import StartupActions from '../Redux/StartupRedux';
+import ReduxPersist from '../Config/ReduxPersist';
+import * as Session from '../Redux/Session';
 import ControlPanel from '../Components/ControlPanel';
 
 
 class RootContainer extends Component {
-
-  componentDidMount () {
+  componentDidMount() {
     // if redux persist is not active fire startup action
     if (!ReduxPersist.active) {
       this.props.authorizeClient();
@@ -20,23 +18,25 @@ class RootContainer extends Component {
     }
   }
 
-    state={
-        drawerOpen: false,
-        drawerDisabled: false,
+  constructor(props) {
+    super(props);
+    this.state = {
+      session: this.props.session.session,
+      drawerOpen: false,
     };
+    this.state.drawerDisabled = this.state.session.user.id === null;
+  }
 
 
     closeDrawer = () => {
-        this._drawer.close()
+      this._drawer.close();
     };
     openDrawer = () => {
-        this._drawer.open();
-        console.log("open");
+      this._drawer.open();
     };
-
-
-  render () {
-    return (
+  
+    render() {
+      return (
         <Drawer
             type="static"
             ref={(ref) => this._drawer = ref}
@@ -54,15 +54,17 @@ class RootContainer extends Component {
             <ReduxNavigation/>
           </View>
         </Drawer>
-    );
-  }
+      );
+    }
 }
+
+const mapStateToProps = (state) => {
+  return { session: state };
+};
 
 const mapDispatchToProps = (dispatch) => ({
   startup: () => dispatch(StartupActions.startup()),
   authorizeClient: () => dispatch(Session.authorize()),
-})
+});
 
-
-
-export default connect(null, mapDispatchToProps)(RootContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(RootContainer);

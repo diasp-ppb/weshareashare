@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native'
-import { Metrics, Colors, Fonts } from '../../Themes/index'
+import { StyleSheet } from 'react-native';
+import { Metrics, Colors, Fonts } from '../../Themes/index';
 
 export default StyleSheet.create({
   mainContainer: {
@@ -22,7 +22,7 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    minHeight: Metrics.DEVICE_HEIGHT/1.5,
+    minHeight: Metrics.DEVICE_HEIGHT / 1.5,
   },
   canvas: {
     position: 'absolute',
@@ -40,14 +40,14 @@ export default StyleSheet.create({
     paddingVertical: Metrics.smallMargin,
     backgroundColor: Colors.background,
     borderRadius: 8,
-    width:Metrics.DEVICE_WIDTH/2.7,
+    width: Metrics.DEVICE_WIDTH / 2.7,
     alignItems: 'center',
     justifyContent: 'center',
   },
   btnText: {
     color: Colors.text,
     fontSize: Fonts.h5,
-},
+  },
   logo: {
     alignSelf: 'center',
     padding: Metrics.MARGIN,
@@ -55,15 +55,32 @@ export default StyleSheet.create({
     height: Metrics.DEVICE_HEIGHT / 7,
   },
   h1: {
-    fontSize: Metrics.FONT_SIZE_TITLE/2,
+    fontSize: Metrics.FONT_SIZE_TITLE / 2.5,
     alignSelf: 'center',
     paddingVertical: Metrics.PADDING,
+    justifyContent: 'center',
+    textAlign: 'center',
+    fontWeight: 'bold',
   },
   h2: {
-    fontSize: Metrics.FONT_SIZE_TITLE/2.5,
+    fontSize: Metrics.FONT_SIZE_TITLE / 2.5,
     alignSelf: 'center',
     paddingVertical: Metrics.PADDING,
     backgroundColor: 'rgba(0,0,0,0)',
     color: '#FFF',
+  },
+  circle: {
+    width: 100,
+    height: 100,
+    borderRadius: 100 / 2,
+    backgroundColor: 'darkorange',
+    margin: 20,
+  },
+  circleBot: {
+    width: 100,
+    height: 100,
+    borderRadius: 100 / 2,
+    backgroundColor: 'darkorange',
+    bottom: 20,
   },
 });

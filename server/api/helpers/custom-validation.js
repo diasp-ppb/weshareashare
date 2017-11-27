@@ -19,9 +19,9 @@ module.exports = {
 
 
   fn: function (inputs, exits) {
-    let customErrors = [];
     let data = _.pick(inputs.err, ['code', 'details', 'attrNames']);
     let model = inputs.model;
+    let newError = {};
     let identity = model.identity;
 
     let attrs = _.omit(_.mapValues(model.attributes, (v) => {
@@ -53,9 +53,7 @@ module.exports = {
           (data.code === 'E_INVALID_NEW_RECORD' && field === 'maxLength' && _.includes(data.details, 'maximum length')) ||
           (data.code === 'E_INVALID_NEW_RECORD' && field === 'minLength' && _.includes(data.details, 'minimum length')) ||
           (data.code === 'E_INVALID_NEW_RECORD' && field === 'isEmail' && _.includes(data.details, 'valid email address'))
-        ) {
-          console.log(field);
-        } else {
+        ) {} else {
           return;
         }
 
@@ -71,24 +69,23 @@ module.exports = {
         }
 
         if (!(customMessage !== phrase && typeof customMessage ===
-            'string')) {} else {
-          const newError = {
+            'string')) {}
+        else {
+          newError = {
             'attribute': attr,
-            'message': customMessage,
+            'response': customMessage,
             'rule': {},
           };
           newError['rule'][field] = value;
-          customErrors.push(newError);
         }
+
       });
     });
 
-    if(_.isEmpty(customErrors)) {
-      return exits.success(inputs.err);
-    }
-    else {
-      return exits.success(customErrors);
-    }
+    if(newError !== {})
+      return exits.success(newError);
+    return exits.success(inputs.err);
+
   }
 };
 

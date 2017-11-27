@@ -83,19 +83,29 @@ export default class CustomActions extends React.Component {
   }
 
   renderRepeatQuestions() {
-    const answered = function (answeredQuestion) {
-
+    this.renderSeparator = function () {
+      return (
+        <View style={styles.separator} />
+      );
     };
+
+    this.renderAnswer = function (key) {
+      return (
+        <Text style={styles.item, styles.answer}>{this.props.answers[key]}</Text>
+      );
+    };
+
     return (
       <View style={styles.previous}>
         <FlatList
           data={this.state.questions}
           renderItem={({ item }) =>
-            (<TouchableOpacity onPress={() => this.getQuestion(item.key)}>
+            (<TouchableOpacity style={styles.block} onPress={() => this.getQuestion(item.key)}>
               <Text style={styles.item}>{item.key}</Text>
-              {item.answer !== undefined && item.answer !== null ? answered(true) : answered(false)}
+              {this.renderAnswer(item.key)}
             </TouchableOpacity>)
           }
+          ItemSeparatorComponent={this.renderSeparator}
         />
       </View>
     );
@@ -176,10 +186,25 @@ const styles = StyleSheet.create({
     paddingTop: 22,
   },
   item: {
-    flex: 9,
     padding: 10,
     fontSize: 18,
     height: 44,
+  },
+  block: {
+    flex: 1,
+    padding: 10,
+    height: 44,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  answer: {
+    color: '#AAAAAA',
+  },
+  separator: {
+    flex: 1,
+    height: 1,
+    backgroundColor: '#4E4E4E',
   },
 });
 
@@ -195,6 +220,7 @@ CustomActions.defaultProps = {
   wrapperStyle: {},
   iconTextStyle: {},
   chooseQuestion: () => {},
+  answers: {},
 };
 
 CustomActions.propTypes = {
@@ -205,4 +231,5 @@ CustomActions.propTypes = {
   wrapperStyle: ViewPropTypes.style,
   iconTextStyle: Text.propTypes.style,
   chooseQuestion: PropTypes.func,
+  answers: PropTypes.object,
 };

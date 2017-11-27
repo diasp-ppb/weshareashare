@@ -10,7 +10,7 @@ module.exports = {
     let params = req.allParams();
 
     if(!params.firstName || !params.lastName || !params.email || !params.subject || !params.message) {
-      return res.badRequest();
+      return res.badRequest({response: 'Invalid parameters'});
     }
 
     let contact;

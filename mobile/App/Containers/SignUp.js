@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import { View, Image } from 'react-native';
 import { Button, Text, Divider } from 'react-native-elements';
+import { connect } from 'react-redux';
+import Toast from 'react-native-root-toast';
 import { ApplicationStyles, Images } from '../Themes';
 import * as Session from '../Redux/Session';
-import { connect } from 'react-redux';
 import * as API from '../Services/API';
-import Toast from 'react-native-root-toast';
+import * as Utils from '../Services/Utils';
 import HeaderBar from '../Components/HeadBar/HeadBar';
 
 const t = require('tcomb-form-native');
+
 const Form = t.form.Form;
-import * as Utils from '../Services/Utils';
 
 const SignUpParams = t.subtype(t.struct({
   username: t.String,
@@ -44,7 +45,8 @@ const defaultOptions = {
       maxLength: 32,
       password: true,
       secureTextEntry: true,
-    }
+      hasError: false,
+    },
   },
 };
 
@@ -54,41 +56,44 @@ class SignUpForm extends Component {
     this.state = {
       session: props.session.session,
       value: {},
+      processingRequest: false,
       options: defaultOptions,
       serverResponse: '',
     };
   }
 
   onChange = (value) => {
-    this.setState({value})
+    this.setState({ value });
   }
 
   onSignUp = () => {
-    let values = this.refs.form.getValue();
-    this.setState({options: defaultOptions});
-    
-    if(values) {
+    if(this.state.processingRequest)
+      return;
+    const values = this.refs.form.getValue();
+    this.setState({ options: defaultOptions });
+
+    if (values) {
+      this.state.processingRequest = true;
       API.register(values, this.state.session)
         .then((res) => {
           this.props.createUser(res);
+          this.setState({ value: null, serverResponse: '' });
         })
-        .catch(err => {
-          this.setState({serverResponse: err.response});
-          Toast.show(this.state.serverResponse, ApplicationStyles.toast);
+        .catch((err) => {
+          this.setState({ serverResponse: err.response });
+          Toast.show(this.state.serverResponse, ApplicationStyles.toastError);
           this.props.onRequestFailed(err);
-        });
-    } 
-    else {
-      if (this.state.value.repeatPassword && !Utils.samePasswords(this.state.value)) {
-        this.setState({options: t.update(this.state.options, {
-          fields: {
-            repeatPassword: {
-              hasError: { $set: true },
-              error: { $set: 'Password must match' }
-            }
-          }
-        })});
-      }
+        }).then(() => this.state.processingRequest = false);
+
+    } else if (this.state.value.repeatPassword && !Utils.samePasswords(this.state.value)) {
+      this.setState({ options: t.update(this.state.options, {
+        fields: {
+          repeatPassword: {
+            hasError: { $set: true },
+            error: { $set: 'Password must match' },
+          },
+        },
+      }) });
     }
   }
 
@@ -105,25 +110,27 @@ class SignUpForm extends Component {
         <Image
           source={Images.logo}
           style={ApplicationStyles.logo}
-          resizeMode="contain"/>
+          resizeMode="contain"
+        />
         <View style={ApplicationStyles.form}>
 
           <Text h4 style={ApplicationStyles.subTitle}>Sign up</Text>
-
           <View style={ApplicationStyles.container}>
             <Form
               ref="form"
               type={SignUpParams}
               options={this.state.options}
               value={this.state.value}
-              onChange={this.onChange}/>
+              onChange={this.onChange}
+            />
             <Button
               buttonStyle={ApplicationStyles.btn}
               onPress={this.onSignUp}
-              underlayColor='#99d9f4'
-              title='Sign up' />
+              underlayColor="#99d9f4"
+              title="Sign up"
+            />
           </View>
-          <Divider style={ApplicationStyles.divider}/>
+          <Divider style={ApplicationStyles.divider} />
           <Text h5 style={ApplicationStyles.infoText}>Already have an account?
             <Text style={ApplicationStyles.linkText} onPress={() => navigate('SignIn')}>
               {' '}Sign in here
@@ -143,6 +150,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   createUser: (res) => dispatch(Session.createUser(res)),
   onRequestFailed: (exception) => dispatch(Session.onRequestFailed(exception)),
-})
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm)
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm);

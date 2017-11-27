@@ -33,7 +33,7 @@ module.exports = {
   signin(req, res) {
     passport.authenticate(['basic'], { session: false }, (authErr, user) => {
       if (authErr || !user) {
-        return res.unauthorized({"response": "The email address or password you entered is not valid."});
+        return res.unauthorized({'response': 'The email address or password you entered is not valid.'});
       }
 
       Token.findOrAdd({
@@ -92,7 +92,7 @@ module.exports = {
   revoke(req, res) {
     const params = req.allParams();
     if (!params.tokens || !params.tokens.length) {
-      return res.badRequest();
+      return res.badRequest({response: 'Invalid parameters'});
     }
     let counter = 0;
 
@@ -116,7 +116,7 @@ module.exports = {
     const params = req.allParams();
     console.log(params);
     if(!params.email) {
-      return res.badRequest();
+      return res.badRequest({response: 'Invalid parameters'});
     }
 
     let user, token;
@@ -131,7 +131,7 @@ module.exports = {
     }
 
     try {
-      token = await Token.findOrAdd({user: user.id, type: 'reset'})
+      token = await Token.findOrAdd({user: user.id, type: 'reset'});
     } catch (err) {
       res.serverError(err);
     }
@@ -155,8 +155,8 @@ module.exports = {
 
   async resetPassword(req, res) {
     const params = req.allParams();
-    if (!params.newPassword || !params.email) {
-      return res.badRequest();
+    if (!params.password || !params.email) {
+      return res.badRequest({response: 'Invalid parameters'});
     }
 
     let token, user;
@@ -168,9 +168,9 @@ module.exports = {
 
     try {
       user = await User.update(
-        {id: token.user, email: params.email},
-        {password: params.newPassword}
-      ).meta({fetch: true})
+        {email: params.email},
+        {password: params.password}
+      ).meta({fetch: true});
     } catch (err) {
       res.serverError(err);
     }

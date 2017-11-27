@@ -1,20 +1,10 @@
 version: "3"
 
 services:
-  postgres:
-    image: postgres
-    ports:
-      - "127.0.0.1:5432:5432"
-    environment:
-      POSTGRES_DB: weshareashare
-      POSTGRES_PASSWORD: 123456
-      POSTGRES_USER: weshareashare
   sails:
     build: .
     ports:
          - '1337:1337'
-    depends_on:
-      - postgres
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules

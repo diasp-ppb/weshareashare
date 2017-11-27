@@ -4,9 +4,19 @@ import Colors from './Colors';
 import Toast from 'react-native-root-toast';
 
 const ApplicationStyles = {
-  toast: {
+  toastError: {
     duration: Toast.durations.SHORT,
     position: Toast.positions.BOTTOM,
+    backgroundColor: '#F44336',
+    shadow: true,
+    animation: true,
+    hideOnPress: true,
+    delay: 0,
+  },
+  toastSuccess: {
+    duration: Toast.durations.LONG,
+    position: Toast.positions.CENTER,
+    backgroundColor: '#66BB6A',
     shadow: true,
     animation: true,
     hideOnPress: true,
@@ -23,6 +33,10 @@ const ApplicationStyles = {
     alignSelf: 'center',
     color: Colors.text,
     fontFamily: Fonts.type.OpenSans,
+  },
+  subSubTitle: {
+    textAlign: 'center',
+    fontSize: Fonts.size.h6,
   },
   infoText: {
     padding: 0,
