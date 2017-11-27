@@ -11,6 +11,7 @@ import HeaderBar from '../Components/HeadBar/HeadBar';
 const t = require('tcomb-form-native');
 const Form = t.form.Form;
 import * as Utils from '../Services/Utils'
+import Homepage from "../Components/Homepage";
 
 const SignInParams = t.struct({
   email: Utils.Email,
@@ -74,7 +75,7 @@ class SignInForm extends Component {
 
         <View style={{flex:1, flexDirection:'column'}}>
           <View style={{height: 60}}>
-            <HeaderBar  pageName="SingIn" navigation={this.props.navigation} />
+            <HeaderBar  screenName="SingIn" navigation={this.props.navigation} backScreen="Homepage" />
           </View>
       <View style={ApplicationStyles.mainContainer}>
         <Image

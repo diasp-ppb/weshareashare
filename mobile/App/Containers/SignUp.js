@@ -6,6 +6,7 @@ import * as Session from '../Redux/Session';
 import { connect } from 'react-redux';
 import * as API from '../Services/API';
 import Toast from 'react-native-root-toast';
+import HeaderBar from '../Components/HeadBar/HeadBar';
 
 const t = require('tcomb-form-native');
 const Form = t.form.Form;
@@ -94,7 +95,12 @@ class SignUpForm extends Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <View style={ApplicationStyles.mainContainer}>
+        <View style={{flex:1, flexDirection:'column'}}>
+            <View style={{height: 60}}>
+                <HeaderBar  screenName="SingUp" navigation={this.props.navigation} backScreen="Homepage" />
+            </View>
+
+          <View style={ApplicationStyles.mainContainer}>
         <Text h1 style={ApplicationStyles.headerTitle}>Stoik PPR</Text>
         <Image
           source={Images.logo}
@@ -125,6 +131,7 @@ class SignUpForm extends Component {
           </Text>
         </View>
       </View>
+        </View>
     );
   }
 }

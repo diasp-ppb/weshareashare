@@ -14,8 +14,8 @@ export default  class HeadBar extends Component {
  render () {
      return(
        <Header
-         leftComponent={<LeftComponent navigation={this.props.navigation} />}
-         centerComponent={<MiddleComponent/>}
+         leftComponent={<LeftComponent navigation={this.props.navigation} backScreen={this.props.backScreen} />}
+         centerComponent={<MiddleComponent screenName={this.props.screenName}/>}
          rightComponent={<RightComponent/>}
          outerContainerStyles={{ backgroundColor: '#455A64' }}
        />

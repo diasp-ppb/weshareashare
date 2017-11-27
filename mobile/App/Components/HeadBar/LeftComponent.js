@@ -15,7 +15,7 @@ export default  class LeftComponent extends Component {
     render () {
         const { navigate } = this.props.navigation;
         return(
-            <TouchableOpacity  onPress={()=> navigate('ForgotPassword')} >
+            <TouchableOpacity  onPress={()=> navigate(this.props.backScreen)} >
                 <Icon style= {styles.button} name="arrow-left" size={30} color="#fff"/>
             </TouchableOpacity>
         )
