@@ -16,7 +16,6 @@ import ContactUs from '@containers/ContactUs/ContactUsContainer';
 import AboutUs from '@components/AboutUs';
 import StoikBenefits from '@components/StoikBenefits';
 
-
 const PrimaryNav = StackNavigator({
   Homepage: { screen: Homepage },
   InvestorProfileQuiz: { screen: InvestorProfileQuiz },

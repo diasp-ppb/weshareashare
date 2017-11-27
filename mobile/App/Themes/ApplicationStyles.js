@@ -10,10 +10,12 @@ const ApplicationStyles = {
     backgroundColor: Colors.background,
   },
   container: {
-    position: 'relative',
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: Colors.background,
+    width: Metrics.DEVICE_WIDTH,
+    height: Metrics.DEVICE_HEIGHT,
+    paddingTop: 24,
+    backgroundColor: 'white'
   },
   containerCentered: {
     justifyContent: 'center',
@@ -112,7 +114,6 @@ const ApplicationStyles = {
     fontWeight: '900',
   },
   link: {
-    textDecorationLine: 'underline',
     color: Colors.stoikOrange,
   },
   subtext: {
@@ -169,9 +170,12 @@ const ApplicationStyles = {
     marginHorizontal: Metrics.marginHorizontal,
   },
   logo: {
+    height: Metrics.DEVICE_HEIGHT / 7,
     alignSelf: 'center',
-    width: Metrics.DEVICE_WIDTH / 1.5,
-    height: Metrics.DEVICE_HEIGHT / 7.5,
+    resizeMode: 'contain',
+    marginBottom: 20,
+    padding:10,
+    marginTop:20
   },
   divider: {
     backgroundColor: Colors.charcoal,

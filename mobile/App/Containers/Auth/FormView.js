@@ -10,8 +10,10 @@ import {
   TouchableOpacity,
   StyleSheet,
   Image,
+  Animated,
   KeyboardAvoidingView,
-  Divider
+  Divider,
+  Keyboard,
 } from 'react-native';
 import FormValidation from 'tcomb-form-native';
 import Toast from 'react-native-root-toast';
@@ -61,6 +63,7 @@ class AuthForm extends Component {
         LastName: (props.user && props.user.lastName) ? props.user.lastName : '',
       },
       options: {
+        auto: 'placeholders',
         fields: {
           Email: {
             template: TcombTextInput,
@@ -99,6 +102,7 @@ class AuthForm extends Component {
         },
       },
     };
+    this.imageHeight = new Animated.Value(Metrics.DEVICE_HEIGHT / 7);
   }
 
   /**
@@ -137,9 +141,7 @@ class AuthForm extends Component {
     if (formData) {
       this.setState({ form_values: formData }, () => {
         this.setState({ resultMsg: { status: 'One moment...' } });
-
-        if (this.scrollView) this.scrollView.scrollTo({ y: 0 });
-
+        
         if (this.props.submit) {
           this.props.submit(formData, this.props.session)
           .then((res) => {
@@ -166,6 +168,30 @@ class AuthForm extends Component {
 
     return true;
   }
+  
+  componentWillMount () {
+    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
+    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
+  }
+  
+  componentWillUnmount() {
+    this.keyboardDidShowListener.remove();
+    this.keyboardDidHideListener.remove();
+  }
+  
+  _keyboardDidShow = (event) => {
+    Animated.timing(this.imageHeight, {
+      duration: 500,
+      toValue: Metrics.DEVICE_HEIGHT / 20,
+    }).start();
+  };
+  
+  _keyboardDidHide = (event) => {
+    Animated.timing(this.imageHeight, {
+      duration: 500,
+      toValue: Metrics.DEVICE_HEIGHT / 7,
+    }).start();
+  };
 
   render = () => {
     const Form = FormValidation.form.Form;
@@ -173,16 +199,13 @@ class AuthForm extends Component {
 
     return (
 
-      <ScrollView
-        automaticallyAdjustContentInsets={true}
-        ref={(a) => { this.scrollView = a; }}
-        style={[ApplicationStyles.container]}
-        contentContainerStyle={[ApplicationStyles.container]}
-      >
-        <Image
+        <KeyboardAvoidingView
+          style={ApplicationStyles.container}
+          behavior="padding"
+        >
+        <Animated.Image
           source={Assets.logo}
-          style={ApplicationStyles.logo}
-          resizeMode="contain"
+          style={[ApplicationStyles.logo, {height: this.imageHeight}]}
         />
         <Card>
 
@@ -231,7 +254,7 @@ class AuthForm extends Component {
 
               <TouchableOpacity onPress={() => navigate('SignUp')}>
                 <Text p style={[ApplicationStyles.textCenterAligned, ApplicationStyles.link]}>
-                  Sign up here
+                  Do not have an account?
                 </Text>
               </TouchableOpacity>
             </View>
@@ -246,10 +269,20 @@ class AuthForm extends Component {
             </TouchableOpacity>
           </View>
           }
+  
+          {this.props.formType === 'SignUp' &&
+          <View>
+            <TouchableOpacity onPress={() => navigate('SignIn')}>
+              <Text p style={[ApplicationStyles.textCenterAligned, ApplicationStyles.link]}>
+                Already have an account?
+              </Text>
+            </TouchableOpacity>
+          </View>
+          }
 
           <Spacer size={10} />
         </Card>
-      </ScrollView>
+      </KeyboardAvoidingView>
     );
   }
 }
