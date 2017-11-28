@@ -6,6 +6,10 @@ import styles from '../../Components/Styles/HomepageStyle';
 import { StoikHeader } from '../../Components/StoikHeader';
 
 export default class FormOverview extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    title: 'Onboarding',
+  });
+  
   render() {
     const { navigate } = this.props.navigation;
     return (

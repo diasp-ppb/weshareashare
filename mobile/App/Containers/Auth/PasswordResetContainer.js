@@ -8,6 +8,7 @@ import FormRender from './FormView';
 
 const mapStateToProps = state => ({
   session: state.session,
+  screenName: 'Password Reset',
   formType: 'PasswordReset',
   formFields: ['Email'],
   buttonTitle: 'Send reset token',

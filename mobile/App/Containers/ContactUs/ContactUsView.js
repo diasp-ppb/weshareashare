@@ -22,6 +22,10 @@ import TcombTextInput from '@components/tcomb/TextInput';
 
 /* Component ==================================================================== */
 class ContactUs extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    title: 'Contact Us',
+  });
+  
   static propTypes = {
     user: PropTypes.shape({
       email: PropTypes.string,
@@ -141,7 +145,7 @@ class ContactUs extends Component {
   _keyboardDidShow = () => {
     Animated.timing(this.imageHeight, {
       duration: 500,
-      toValue: Metrics.DEVICE_HEIGHT / 20,
+      toValue: Metrics.DEVICE_HEIGHT / 15,
     }).start();
   };
   

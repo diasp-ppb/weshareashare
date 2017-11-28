@@ -14,7 +14,6 @@ const ApplicationStyles = {
     flexDirection: 'column',
     width: Metrics.DEVICE_WIDTH,
     height: Metrics.DEVICE_HEIGHT,
-    paddingTop: 24,
     backgroundColor: 'white'
   },
   containerCentered: {
@@ -173,9 +172,6 @@ const ApplicationStyles = {
     height: Metrics.DEVICE_HEIGHT / 7,
     alignSelf: 'center',
     resizeMode: 'contain',
-    marginBottom: 10,
-    padding:5,
-    marginTop:20
   },
   divider: {
     backgroundColor: Colors.charcoal,

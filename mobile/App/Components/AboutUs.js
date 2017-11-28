@@ -5,7 +5,9 @@ import { Assets } from '@theme/';
 import styles from './Styles/AboutUsStyle';
 
 export default class AboutUs extends Component {
-
+  static navigationOptions = ({ navigation }) => ({
+    title: 'About Us',
+  });
   render() {
     const {navigate} = this.props.navigation;
 
@@ -14,9 +16,6 @@ export default class AboutUs extends Component {
         <View style={styles.container}>
 
           <View>
-            <View style={{marginVertical: 10}}>
-              <Text h3 style={styles.title}>About us</Text>
-            </View>
             <Text style={styles.h1}>WeShareAShare is a not-for-profit project that
               was born from the desire to join 2 typically disconnected
               worlds: Finance and Causes.</Text>

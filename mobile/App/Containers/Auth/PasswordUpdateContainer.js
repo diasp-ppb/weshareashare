@@ -9,6 +9,7 @@ import FormRender from './FormView';
 const mapStateToProps = state => ({
   session: state.session,
   formType: 'PasswordUpdate',
+  screenName: 'Password Update',
   formFields: ['Email', 'Token', 'Password', 'ConfirmPassword'],
   buttonTitle: 'Update password',
   successMessage: 'Your password has been successfully updated',

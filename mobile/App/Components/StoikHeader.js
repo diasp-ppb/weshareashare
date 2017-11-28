@@ -6,10 +6,6 @@ import { Assets, Fonts } from '@theme/';
 export const StoikHeader = () => {
   return (
     <View style={styles.container}>
-      <Text style={[styles.h1]}>
-        Stoik PPR
-      </Text>
-
       <Image
         source={Assets.logo}
         style={styles.logo}

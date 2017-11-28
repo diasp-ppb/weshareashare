@@ -36,6 +36,7 @@ class AuthForm extends Component {
     }),
     submit: PropTypes.func,
     onSuccessfulSubmit: PropTypes.func,
+    screenName: PropTypes.string,
     formType: PropTypes.oneOf(['SignIn', 'SignUp', 'PasswordReset', 'PasswordUpdate']),
     formFields: PropTypes.arrayOf(PropTypes.string),
     buttonTitle: PropTypes.string,
@@ -183,7 +184,7 @@ class AuthForm extends Component {
     if(this.props.formFields.length > 3)
       Animated.timing(this.imageHeight, {
         duration: 500,
-        toValue: Metrics.DEVICE_HEIGHT / 20,
+        toValue: Metrics.DEVICE_HEIGHT / 15,
       }).start();
   };
   

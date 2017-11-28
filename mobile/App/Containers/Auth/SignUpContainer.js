@@ -10,6 +10,7 @@ import FormRender from './FormView';
 const mapStateToProps = state => ({
   session: state.session,
   formType: 'SignUp',
+  screenName: 'Sign Up',
   formFields: ['Email', 'Password', 'ConfirmPassword', 'FirstName', 'LastName'],
   buttonTitle: 'Sign Up',
   successMessage: 'Your account was created with success!',

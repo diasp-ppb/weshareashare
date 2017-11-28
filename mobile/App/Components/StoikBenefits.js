@@ -13,6 +13,10 @@ export default class StoikBenefits extends Component {
       sizeItem: 30,
     };
   }
+  
+  static navigationOptions = ({ navigation }) => ({
+    title: 'Stoik Benefits',
+  });
 
   render() {
     const { navigate } = this.props.navigation;

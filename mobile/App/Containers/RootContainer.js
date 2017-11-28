@@ -6,6 +6,7 @@ import ReduxNavigation from '../Navigation/ReduxNavigation';
 import StartupActions from '../Redux/StartupRedux';
 import ReduxPersist from '../Config/ReduxPersist';
 import * as Session from '../Redux/Session';
+import { Colors } from '@theme/';
 
 class RootContainer extends Component {
   static propTypes = {
@@ -28,7 +29,7 @@ class RootContainer extends Component {
     render() {
       return (
         <View style={{ flex: 1 }}>
-          <StatusBar barStyle="light-content" />
+          <StatusBar backgroundColor="#455a64" barStyle="light-content"/>
           <ReduxNavigation />
         </View>
       );
