@@ -37,16 +37,16 @@ class RootContainer extends Component {
     render() {
       return (
         <Drawer
-          type="static"
-          content={<ControlPanel />}
-          openDrawerOffset={0.2}
-          captureGestures
-          tweenHandler={Drawer.tweenPresets.parallax}
-          panCloseMask={0.2}
-          panOpenMask={0.2}
-          disabled={false}
-          acceptDoubleTap
-          negotiatePan
+            type="static"
+            ref={(ref) => this._drawer = ref}
+            content={<ControlPanel />}
+            openDrawerOffset={0.2}
+            captureGestures={true}
+            tweenHandler={Drawer.tweenPresets.parallax}
+            panCloseMask={0.2}
+            panOpenMask={0.1}
+            disabled={false}
+            negotiatePan={true}
         >
           <View style={{ flex: 1 }}>
             <StatusBar barStyle="light-content" />
