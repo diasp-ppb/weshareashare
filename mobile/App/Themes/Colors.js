@@ -24,6 +24,7 @@ const Colors = {
   banner: '#5F3E63',
   text: '#455a64',
   lightGrey: '#B4B4B4',
+  topBarText: '#26c6da',
 };
 
 export default Colors;

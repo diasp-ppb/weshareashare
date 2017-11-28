@@ -5,6 +5,7 @@ import SignUp from '../Containers/SignUp';
 import ForgotPassword from '../Components/ForgotPassword';
 import ResetPassword from '../Containers/ResetPassword';
 import InvestorProfileQuiz from '../Containers/InvestorProfileQuiz';
+import WeShareAShareForm from '../Components/weShareAShareForm';
 import FormOverview from '../Containers/FormOverview';
 import ContactUs from '../Containers/ContactUs';
 import AboutUs from '../Components/AboutUs';
@@ -17,13 +18,14 @@ const PrimaryNav = StackNavigator({
   ForgotPassword: { screen: ForgotPassword },
   ResetPassword: { screen: ResetPassword },
   InvestorProfileQuiz: { screen: InvestorProfileQuiz },
+  WeShareAShareForm: { screen: WeShareAShareForm },
   ContactUs: {screen: ContactUs},
   AboutUs: {screen: AboutUs},
   FormOverview: { screen: FormOverview },
 }, {
   // Default config for all screens
   headerMode: 'none',
-  initialRouteName: 'Homepage',
+  initialRouteName: 'WeShareAShareForm',
   navigationOptions: {
     headerStyle: styles.header,
   },
