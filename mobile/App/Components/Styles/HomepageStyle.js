@@ -41,6 +41,13 @@ export default StyleSheet.create({
     backgroundColor: Colors.background,
     borderRadius: 8,
   },
+  orangeNextBtn: {
+    alignSelf: 'flex-end',
+    margin: Metrics.baseMargin,
+    padding: Metrics.baseMargin,
+    backgroundColor: Colors.stoikOrange,
+    borderRadius: 8,
+  },
   btnText: {
     color: Colors.text,
     fontSize: Fonts.h5,

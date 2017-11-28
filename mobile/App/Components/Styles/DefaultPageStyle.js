@@ -35,16 +35,10 @@ export default StyleSheet.create({
     height: null,
     width: null,
   },
-  topBannerTextContainer:{
-      /*
-            flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center' ,
-      */
-  },
   topBannerText: {
-      marginVertical: Metrics.PADDING,
-
+    // flex:.2,
+    // minHeight: 30,
+    marginVertical: Metrics.PADDING,
     color: '#26c6da', //ele nao quer saber de Colors. ou de Fonts. por alguma razao
     fontSize: 26,
     alignSelf: 'center',
