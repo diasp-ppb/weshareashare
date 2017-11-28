@@ -4,30 +4,38 @@ import { Button, Text } from 'native-base';
 import { Images } from '../Themes/index';
 import styles from '../Components/Styles/HomepageStyle';
 import { StoikHeader } from '../Components/StoikHeader';
+import {ApplicationStyles} from "../Themes";
+import HeaderBar from '../Components/HeadBar/HeadBar';
+
 
 export default class FormOverview extends Component {
-  render() {
-    const { navigate } = this.props.navigation;
-    return (
-      <View style={styles.mainContainer}>
-        <StoikHeader />
-        <View style={styles.container}>
-          <Image source={Images.background} style={styles.canvas}>
-            <View style={styles.btnGroup}>
-              <Button style={styles.btn} onPress={() => { navigate('InvestorProfileQuiz', { formIndex: 1 }); }}>
-                <Text style={styles.btnText}>
-                  Participant
-                </Text>
-              </Button>
-              <Button style={styles.btn} onPress={() => { navigate('InvestorProfileQuiz', { formIndex: 2 }); }}>
-                <Text style={styles.btnText}>
-                  Subscription
-                </Text>
-              </Button>
+    render() {
+        const { navigate } = this.props.navigation;
+        return (
+            <View style={ApplicationStyles.firstContainer}>
+                <View style={ApplicationStyles.headBar}>
+                    <HeaderBar  screenName="" navigation={this.props.navigation} backScreen="Homepage" />
+                </View>
+                <View style={styles.mainContainer}>
+                    <StoikHeader />
+                    <View style={styles.container}>
+                        <Image source={Images.background} style={styles.canvas}>
+                            <View style={styles.btnGroup}>
+                                <Button style={styles.btn} onPress={() => { navigate('InvestorProfileQuiz', { formIndex: 1 }); }}>
+                                    <Text style={styles.btnText}>
+                                        Participant
+                                    </Text>
+                                </Button>
+                                <Button style={styles.btn} onPress={() => { navigate('InvestorProfileQuiz', { formIndex: 2 }); }}>
+                                    <Text style={styles.btnText}>
+                                        Subscription
+                                    </Text>
+                                </Button>
+                            </View>
+                        </Image>
+                    </View>
+                </View>
             </View>
-          </Image>
-        </View>
-      </View>
-    );
-  }
+        );
+    }
 }

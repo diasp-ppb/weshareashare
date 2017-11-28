@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   button: {
-      marginTop: 10,
+      marginTop: 15,
       color: '#26C6DA'
   },
   sideByside: {
@@ -14,10 +14,12 @@ export default StyleSheet.create({
     },
     title: {
       marginLeft:35,
-        marginBottom:5,
         color: '#26C6DA',
         fontSize:20,
 
+    },
+    textBack: {
+    marginTop: 22,
+        color: '#26C6DA',
     }
-
 });

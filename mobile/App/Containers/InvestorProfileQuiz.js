@@ -1,5 +1,4 @@
 import React from 'react';
-
 import {
     TouchableOpacity,
     StyleSheet,
@@ -15,7 +14,6 @@ import ReduxNavigation from '../Navigation/ReduxNavigation';
 import { NavigationActions } from 'react-navigation';
 import CustomActions from './CustomActions';
 import * as Progress from 'react-native-progress';
-import Header from '../Components/HeaderBar';
 const STATES = require('./data/states.js');
 
 export default class InvestorProfileQuiz extends React.Component {

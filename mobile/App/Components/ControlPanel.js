@@ -8,8 +8,6 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import styles from './Styles/ControlPanelStyle';
 
-import styles from './Styles/ControlPanelStyle';
-
 export default class ControlPanel extends Component {
     static contextTypes = {
       drawer: PropTypes.object.isRequired,

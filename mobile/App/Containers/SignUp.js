@@ -100,9 +100,9 @@ class SignUpForm extends Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-        <View style={{flex:1, flexDirection:'column'}}>
-            <View style={{height: 60}}>
-                <HeaderBar  screenName="SingUp" navigation={this.props.navigation} backScreen="Homepage" />
+        <View style={ApplicationStyles.firstContainer}>
+            <View style={ApplicationStyles.headBar}>
+                <HeaderBar  screenName="" navigation={this.props.navigation} backScreen="Homepage" />
             </View>
 
           <View style={ApplicationStyles.mainContainer}>

@@ -116,6 +116,14 @@ const ApplicationStyles = {
     fontSize: 14,
     color: Colors.text,
   },
+    firstContainer: {
+        flex:1,
+        flexDirection:'column',
+    },
+    headBar: {
+        height: 65,
+    }
+
 
 };
 
