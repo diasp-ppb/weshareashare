@@ -1,4 +1,4 @@
-import { StackNavigator } from 'react-navigation';
+import { StackNavigator, DrawerNavigator } from 'react-navigation';
 import Homepage from '@components/Homepage';
 
 // Onboarding Screens
@@ -16,21 +16,49 @@ import ContactUs from '@containers/ContactUs/ContactUsContainer';
 import AboutUs from '@components/AboutUs';
 import StoikBenefits from '@components/StoikBenefits';
 
-const PrimaryNav = StackNavigator({
-  Homepage: { screen: Homepage },
-  InvestorProfileQuiz: { screen: InvestorProfileQuiz },
-  ContactUs: { screen: ContactUs},
-  AboutUs: { screen: AboutUs},
-  FormOverview: { screen: FormOverview },
-  StoikBenefits: { screen: StoikBenefits },
+import ControlPanel from '@components/ControlPanel';
+
+const AuthStack = StackNavigator({
   PasswordReset: { screen: PasswordReset },
   PasswordUpdate: { screen: PasswordUpdate },
   SignIn: { screen: SignIn },
-  SignUp: { screen: SignUp }
+  SignUp: { screen: SignUp },
+  Homepage: { screen: Homepage },
+  StoikBenefits: { screen: StoikBenefits },
+  ContactUs: { screen: ContactUs},
+  AboutUs: { screen: AboutUs},
+}, {
+  headerMode: 'float',
+  navigationOptions: {
+    headerStyle: {backgroundColor: '#E73536'},
+    title: 'You are not logged in',
+    headerTintColor: 'white'
+  }
+})
+
+const DrawerStack = DrawerNavigator({
+  ContactUs: { screen: ContactUs},
+  AboutUs: { screen: AboutUs},
+  InvestorProfileQuiz: { screen: InvestorProfileQuiz },
+  FormOverview: { screen: FormOverview },
+}, {
+  headerMode: 'float',
+  gesturesEnabled: false,
+  contentComponent: ControlPanel,
+  navigationOptions: ({navigation}) => ({
+    headerStyle: {backgroundColor: '#4C3E54'},
+    title: 'Welcome!',
+    headerTintColor: 'white',
+  })
+})
+
+const PrimaryNav = StackNavigator({
+  authStack: { screen: AuthStack },
+  drawerStack: { screen: DrawerStack },
 }, {
   // Default config for all screens
   headerMode: 'none',
-  initialRouteName: 'Homepage',
+  initialRouteName: 'drawerStack',
 });
 
 export default PrimaryNav;
