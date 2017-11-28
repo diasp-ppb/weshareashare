@@ -173,8 +173,8 @@ const ApplicationStyles = {
     height: Metrics.DEVICE_HEIGHT / 7,
     alignSelf: 'center',
     resizeMode: 'contain',
-    marginBottom: 20,
-    padding:10,
+    marginBottom: 10,
+    padding:5,
     marginTop:20
   },
   divider: {

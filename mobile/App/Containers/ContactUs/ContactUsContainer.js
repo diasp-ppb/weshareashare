@@ -13,7 +13,7 @@ const mapStateToProps = state => ({
   formFields: ['Email', 'FirstName', 'LastName', 'Subject', 'Message'],
   buttonTitle: 'Submit',
   successMessage: 'Your message has been received. Thank you very much!',
-  introText: 'Hello! Send us a message and we\'ll get back to you via email as soon as possible.\nYour feedback is extremely important to us',
+  introText: 'Send us a message and we\'ll get back to you via email as soon as possible.\nYour feedback is extremely important to us',
 });
 
 const mapDispatchToProps = (dispatch) => ({

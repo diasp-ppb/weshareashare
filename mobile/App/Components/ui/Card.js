@@ -38,8 +38,7 @@ class CustomCard extends Component {
       ...this.props,
       containerStyle: [{
         backgroundColor: Colors.cardBackground,
-        borderRadius: Metrics.borderRadius,
-        borderColor: Colors.border,
+
       }],
       titleStyle: [
         ApplicationStyles.h2,

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
   View,
-  ScrollView,
   TouchableOpacity,
   StyleSheet,
   KeyboardAvoidingView,
@@ -77,7 +76,7 @@ class ContactUs extends Component {
           },
           LastName: {
             template: TcombTextInput,
-            error: 'Please enter your first name',
+            error: 'Please enter your last name',
             clearButtonMode: 'while-editing',
           },
           Subject: {
@@ -105,11 +104,9 @@ class ContactUs extends Component {
     if (formData) {
       this.setState({ form_values: formData }, () => {
         this.setState({ resultMsg: { status: 'One moment...' } });
-
-        if (this.scrollView) this.scrollView.scrollTo({ y: 0 });
-
+        
         if (this.props.submit) {
-          this.props.submit(formData)
+          this.props.submit(formData, this.props.session)
           .then(() => {
             this.setState({
               resultMsg: { success: this.props.successMessage },
@@ -170,19 +167,6 @@ class ContactUs extends Component {
         />
         <Card>
 
-          {(!!this.props.introTitle || !!this.props.introText) &&
-          <View>
-            {!!this.props.introTitle &&
-            <Text h1>{this.props.introTitle}</Text>
-            }
-            {!!this.props.introText &&
-            <Text>{this.props.introText}</Text>
-            }
-
-            <Spacer size={10} />
-          </View>
-          }
-
           <Form
             ref={(b) => { this.form = b; }}
             type={this.state.form_fields}
@@ -194,7 +178,20 @@ class ContactUs extends Component {
 
           <Button title={this.props.buttonTitle} onPress={this.handleSubmit} />
 
-          <Spacer size={10} />
+          <Spacer size={20} />
+  
+          {(!!this.props.introTitle || !!this.props.introText) &&
+          <View>
+            {!!this.props.introTitle &&
+            <Text h1>{this.props.introTitle}</Text>
+            }
+            {!!this.props.introText &&
+            <Text>{this.props.introText}</Text>
+            }
+    
+            <Spacer size={10} />
+          </View>
+          }
 
         </Card>
       </KeyboardAvoidingView>

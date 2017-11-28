@@ -180,10 +180,11 @@ class AuthForm extends Component {
   }
   
   _keyboardDidShow = () => {
-    Animated.timing(this.imageHeight, {
-      duration: 500,
-      toValue: Metrics.DEVICE_HEIGHT / 20,
-    }).start();
+    if(this.props.formFields.length > 3)
+      Animated.timing(this.imageHeight, {
+        duration: 500,
+        toValue: Metrics.DEVICE_HEIGHT / 20,
+      }).start();
   };
   
   _keyboardDidHide = () => {
