@@ -9,7 +9,7 @@ import InvestorProfileQuiz  from './Containers/InvestorProfileQuiz';
 export default class App extends Component {
   render() {
     return (
-        <InvestorProfileQuiz />
+        <SubsForms/>
     );
   }
 }

@@ -294,6 +294,6 @@ const styles = StyleSheet.create({
     button: {
         marginBottom: 10,
         alignItems: "center",
-        background: "#3cb0fd",
+        backgroundColor: "#3cb0fd",
     }
 });
