@@ -6,6 +6,7 @@ import ForgotPassword from '../Components/ForgotPassword';
 import ResetPassword from '../Containers/ResetPassword';
 import InvestorProfileQuiz from '../Containers/InvestorProfileQuiz';
 import FormOverview from '../Containers/FormOverview';
+import SubsForms from '../Containers/SubsForms';
 
 import styles from './Styles/NavigationStyles';
 
@@ -18,6 +19,7 @@ const PrimaryNav = StackNavigator({
   ResetPassword: { screen: ResetPassword },
   InvestorProfileQuiz: { screen: InvestorProfileQuiz },
   FormOverview: { screen: FormOverview },
+  SubsForms: { screen: SubsForms },
 }, {
   // Default config for all screens
   headerMode: 'none',

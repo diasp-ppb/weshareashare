@@ -39,6 +39,11 @@ export default class FormOverview extends Component{
                                     Subscription
                                 </Text>
                             </Button>
+                            <Button style={styles.btn} onPress={() => { navigate('SubsForms'); }}>
+                                <Text style={styles.btnText}>
+                                  Testing
+                                </Text>
+                            </Button>
                             <Button style={styles.btn} onPress={() => { sendForm() }}>
                                 <Text style={styles.btnText}>
                                     Send data
