@@ -1,0 +1,16 @@
+div
+  | The following message was sent using the We Share a Share app #[strong Contact Us] form,
+  h3 Message
+  | !{contact.message}
+  hr
+div
+  h3 Additional information
+  p
+    strong Name:
+    |  #{ contact.firstName } #{ contact.lastName }
+  p
+    strong Email:
+    |  #{ contact.email }
+  p
+    strong Subject:
+    |  #{ contact.subject }

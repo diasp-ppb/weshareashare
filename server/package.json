@@ -6,22 +6,32 @@
   "keywords": [],
   "dependencies": {
     "async": "2.0.1",
+    "bcrypt": "1.0.3",
+    "email-templates": "^3.1.6",
+    "express-validator": "^4.3.0",
     "grunt": "1.0.1",
     "lodash": "3.10.1",
+    "moment": "^2.19.1",
+    "nodemailer": "^4.3.1",
+    "passport": "^0.4.0",
+    "passport-http": "^0.3.0",
+    "passport-http-bearer": "^1.0.1",
+    "pug": "^2.0.0-rc.4",
+    "rand-token": "^0.3.0",
     "sails": "^1.0.0-37",
-    "sails-hook-grunt": "^2.0.0",
     "sails-hook-orm": "^2.0.0-16",
-    "sails-hook-sockets": "^1.4.0",
+    "sails-hook-sockets": "^0.13.13",
     "sails-postgresql": "^1.0.0-11"
   },
   "devDependencies": {
-    "eslint": "3.5.0"
+    "eslint": "3.5.0",
+    "mocha": "^4.0.1",
+    "supertest": "^3.0.0"
   },
   "scripts": {
     "start": "NODE_ENV=production node app.js",
-    "test": "npm run lint && npm run custom-tests && echo 'Done.'",
+    "test": "npm run lint && npm run custom-tests && node ./node_modules/mocha/bin/mocha test/lifecycle.test.js test/integration/**/*.test.js && echo 'Done.'",
     "lint": "node ./node_modules/eslint/bin/eslint . --max-warnings=0 && echo '✔  Your code looks good.'",
-    "custom-tests": "echo \"(No other custom tests yet.)\" && echo",
     "debug": "node debug app.js"
   },
   "main": "app.js",
@@ -32,6 +42,7 @@
   "author": "weshareashare",
   "license": "",
   "engines": {
-    "node": "8"
+    "node": "8",
+    "npm": "5.5.1"
   }
 }

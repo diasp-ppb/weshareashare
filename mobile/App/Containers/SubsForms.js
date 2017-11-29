@@ -2,6 +2,7 @@ import { StyleSheet, View, TextInput, StatusBar } from 'react-native';
 import { Container, Content, Card, CardItem, Body, List, ListItem, Text, Radio } from 'native-base';
 import RadioButtonsForm from '../Components/RadioButtonsForm';
 
+
 var React = require('react');
 var { AppRegistry, TouchableHighlight } = React;
 
@@ -31,7 +32,6 @@ var Subscription = React.createClass({
           </Container>
         );
     }
-});
 
 var styles = StyleSheet.create({
   container: {
@@ -40,14 +40,13 @@ var styles = StyleSheet.create({
     paddingTop: 20,
     backgroundColor: '#ffffff',
   },
-  messageCard: {
+  message: {
     borderRadius: 10,
     height: 70,
     borderColor: '#80deea',
     borderWidth: 1,
-    paddingHorizontal: 15,
-    paddingVertical: 6,
-    backgroundColor: "#76D2DE",
+    backgroundColor: '#80deea',
+    color: '#455a64',
     elevation: 20,
   },
 });

@@ -1,77 +1,108 @@
 import Fonts from './Fonts';
 import Metrics from './Metrics';
 import Colors from './Colors';
+import Toast from 'react-native-root-toast';
 
 const ApplicationStyles = {
-  screen: {
-    mainContainer: {
-      flex: 1,
-      backgroundColor: Colors.transparent,
-    },
-    backgroundImage: {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      bottom: 0,
-      right: 0,
-    },
-    container: {
-      flex: 1,
-      paddingTop: Metrics.baseMargin,
-      backgroundColor: Colors.transparent,
-    },
-    section: {
-      margin: Metrics.section,
-      padding: Metrics.baseMargin,
-    },
-    sectionText: {
-      ...Fonts.style.normal,
-      paddingVertical: Metrics.doubleBaseMargin,
-      color: Colors.snow,
-      marginVertical: Metrics.smallMargin,
-      textAlign: 'center',
-    },
-    subtitle: {
-      color: Colors.snow,
-      padding: Metrics.smallMargin,
-      marginBottom: Metrics.smallMargin,
-      marginHorizontal: Metrics.smallMargin,
-    },
-    titleText: {
-      ...Fonts.style.h2,
-      fontSize: 14,
-      color: Colors.text,
-    },
+  toast: {
+    duration: Toast.durations.SHORT,
+    position: Toast.positions.BOTTOM,
+    shadow: true,
+    animation: true,
+    hideOnPress: true,
+    delay: 0,
   },
-  darkLabelContainer: {
-    padding: Metrics.smallMargin,
-    paddingBottom: Metrics.doubleBaseMargin,
-    borderBottomColor: Colors.border,
-    borderBottomWidth: 1,
-    marginBottom: Metrics.baseMargin,
+  headerTitle: {
+    alignSelf: 'center',
+    padding: Metrics.PADDING * 1.2,
+    paddingBottom: Metrics.PADDING * 0.4,
+    color: Colors.text,
+    fontFamily: Fonts.type.OpenSans,
   },
-  darkLabel: {
-    fontFamily: Fonts.type.bold,
-    color: Colors.snow,
+  subTitle: {
+    alignSelf: 'center',
+    color: Colors.text,
+    fontFamily: Fonts.type.OpenSans,
   },
-  groupContainer: {
-    margin: Metrics.smallMargin,
-    flexDirection: 'row',
+  infoText: {
+    padding: 0,
+    justifyContent: 'flex-start',
+    alignSelf: 'center',
+    color: 'lightgrey',
+  },
+  linkText: {
+    alignSelf: 'center',
+    fontWeight: 'bold',
+    color: Colors.stoikOrange,
+  },
+  form: {
+    flex: 1,
+    margin: Metrics.MARGIN,
+    padding: Metrics.PADDING,
+    borderRadius: 4,
     justifyContent: 'space-around',
-    alignItems: 'center',
   },
-  sectionTitle: {
-    ...Fonts.style.h4,
-    color: Colors.coal,
-    backgroundColor: Colors.ricePaper,
-    padding: Metrics.smallMargin,
-    marginTop: Metrics.smallMargin,
-    marginHorizontal: Metrics.baseMargin,
-    borderWidth: 1,
-    borderColor: Colors.ember,
-    alignItems: 'center',
+  logo: {
+    alignSelf: 'center',
+    width: Metrics.DEVICE_WIDTH / 1.5,
+    height: Metrics.DEVICE_HEIGHT / 7.5,
+  },
+  mainContainer: {
+    flex: 1,
+    backgroundColor: Colors.background,
+  },
+  container: {
+    justifyContent: 'center',
+    marginTop: Metrics.MARGIN,
+    padding: Metrics.PADDING,
+    paddingBottom: 1.2,
+    backgroundColor: '#ffffff',
+  },
+  divider: {
+    backgroundColor: Colors.charcoal,
+    margin: Metrics.MARGIN,
+  },
+  backgroundImage: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+  },
+  btn: {
+    backgroundColor: Colors.stoikGrey,
+    borderRadius: 8,
+  },
+  btnText: {
+    color: Colors.text,
+    fontSize: Fonts.h5,
+  },
+  section: {
+    margin: Metrics.section,
+    padding: Metrics.baseMargin,
+  },
+  sectionText: {
+    paddingVertical: Metrics.doubleBaseMargin,
+    marginVertical: Metrics.smallMargin,
     textAlign: 'center',
   },
+  title: {
+    paddingVertical: Metrics.doubleBaseMargin,
+    marginVertical: Metrics.smallMargin,
+    textAlign: 'center',
+    color: Colors.text,
+  },
+  subtitle: {
+    padding: Metrics.smallMargin,
+    marginBottom: Metrics.smallMargin,
+    marginHorizontal: Metrics.smallMargin,
+  },
+  titleText: {
+    ...Fonts.style.h2,
+    fontSize: 14,
+    color: Colors.text,
+  },
+
 };
 
 export default ApplicationStyles;
