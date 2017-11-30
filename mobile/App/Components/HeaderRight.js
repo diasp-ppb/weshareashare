@@ -8,12 +8,14 @@ import styles from "./Styles/HeadBarStyle";
 
 export default class RightComponent extends Component {
   render () {
-    return(
+      const { navigate } = this.props.navigation;
+
+      return(
       <View style={styles.sideByside}>
         <TouchableOpacity style={styles.pullLeft}>
           <Icon style= {styles.button} name="bell" size={30} color="#fff"/>
         </TouchableOpacity>
-        <TouchableOpacity >
+        <TouchableOpacity onPress={() => navigate("DrawerOpen")}>
           <Icon style= {styles.button} name="menu" size={30} color="#fff"/>
         </TouchableOpacity>
       </View>
