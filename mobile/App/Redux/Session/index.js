@@ -23,6 +23,14 @@ export const onRequestFailed = (exception) => {
   };
 };
 
+export const logout = () => {
+  return (dispatch, getState) => {
+    let session = getState().session;
+    clearSession(dispatch);
+    dispatch(SessionRedux.update({ client: session.client }));
+  };
+}
+
 export const authorize = () => {
   return (dispatch, getState) => {
     const session = getState().session;

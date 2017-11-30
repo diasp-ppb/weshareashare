@@ -12,7 +12,7 @@ import AboutUs from '@components/AboutUs';
 import StoikBenefits from '@components/StoikBenefits';
 
 // Drawer and header style
-import ControlPanel from '@components/ControlPanel';
+import ControlPanel from '@containers/ControlPanel/ControlPanelContainer';
 import HeaderRight from '@components/HeaderRight';
 
 import { Metrics, Colors } from '@theme/';

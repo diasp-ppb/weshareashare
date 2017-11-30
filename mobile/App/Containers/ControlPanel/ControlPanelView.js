@@ -8,10 +8,36 @@ import {
 } from 'react-native'
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { NavigationActions } from 'react-navigation';
 
-import styles from './Styles/ControlPanelStyle';
+import styles from './ControlPanelStyle';
 
-export default class ControlPanel extends Component {
+class ControlPanel extends Component {
+  static propTypes = {
+    user: PropTypes.shape({
+      email: PropTypes.string,
+      firstName: PropTypes.string,
+      lastName: PropTypes.string,
+    }),
+    onLogout: PropTypes.func,
+  }
+  
+  constructor(props) {
+    super(props);
+  }
+  
+  logout = () => {
+    const resetAction = NavigationActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({ routeName: 'visitorStack'})
+      ],
+      key: null
+    })
+/*    if(this.props.onLogout)
+      this.props.onLogout();*/
+    this.props.navigation.dispatch(resetAction)
+  }
   
   render() {
     const { navigate } = this.props.navigation;
@@ -21,8 +47,8 @@ export default class ControlPanel extends Component {
         <View style={styles.profile}>
           <Icon name="account-circle" size={60} color="#fff" />
           <View>
-            <Text  style={[styles.buttonText,styles.profileInfo]}> Luis Lobo Jordão </Text>
-            <Text  style={[styles.buttonText,styles.profileInfo]}> email.exemplo@stoik.com </Text>
+            <Text  style={[styles.buttonText,styles.profileInfo]}> { this.props.user.firstName + ' ' + this.props.user.lastName } </Text>
+            <Text  style={[styles.buttonText,styles.profileInfo]}> { this.props.user.email } </Text>
           </View>
         </View>
         <View>
@@ -87,7 +113,7 @@ export default class ControlPanel extends Component {
             <Icon  style={styles.icon} name="information-variant" size={35} color="#fff"/>
             <Text  style={styles.buttonText}>About us</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.button,styles.lastInMenu]} >
+          <TouchableOpacity style={[styles.button,styles.lastInMenu]} onPress={this.logout}>
             <Icon style={styles.icon} name="power" size={35} color="#fff"/>
             <Text style={styles.buttonText}>Logout</Text>
           </TouchableOpacity>
@@ -96,3 +122,6 @@ export default class ControlPanel extends Component {
     )
   }
 }
+
+/* Export Component ==================================================================== */
+export default ControlPanel;
