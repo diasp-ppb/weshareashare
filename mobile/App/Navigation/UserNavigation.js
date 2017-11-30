@@ -20,7 +20,7 @@ import { Metrics, Colors } from '@theme/';
 const navigationOptions = ({navigation }) => ({
     headerStyle: { backgroundColor: Colors.stoikGrey },
     headerTintColor: 'white',
-    headerRight: <HeaderRight navigation={navigation}/>
+    headerRight: <HeaderRight navigation={navigation} currentState={true}/>
 });
 
 const UserNavigationStack = StackNavigator({
