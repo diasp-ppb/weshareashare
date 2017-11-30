@@ -92,4 +92,10 @@ module.exports = {
     return parsed;
   },
 
+  afterCreate(newRecord, cb) {
+    Person.update(newRecord.participant, {subscription: newRecord.id}).then(function() {
+      return newRecord.id;
+    });
+  },
+
 };

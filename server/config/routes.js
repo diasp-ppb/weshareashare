@@ -87,4 +87,12 @@ module.exports.routes = {
     controller: 'FundController',
     action: 'postInvestorProfile',
   },
+
+  'get /subscription': {
+    cors: {
+      allowRequestHeaders: 'Content-Type, Client-ID',
+    },
+    controller: 'FundController',
+    action: 'fillSubscriptionPDF',
+  },
 };

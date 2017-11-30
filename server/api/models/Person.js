@@ -83,11 +83,6 @@ module.exports = {
       unique: true
     },
 
-    contributor: {
-      model: 'contributor',
-      unique: true
-    },
-
     investorProfile: {
       model: 'profile'
     }

@@ -19,17 +19,44 @@ module.exports = {
     try {
       let user = await User.findOne({id: userid});
 
-      participantAttrs.subscription = 1;
       if (user.person) {
         Person.update(user.person, participantAttrs).meta({fetch: true}).then();
       } else {
         Person.create(participantAttrs).meta({fetch: true}).then();
       }
 
-      parsedAttrs.participant = userid;
-      Fund.create(parsedAttrs).meta({fetch: true}).then();
+      let person = await Person.findOne({user: userid});
 
-      let person = await Person.findOne({id: userid}).populate('subscription');
+      parsedAttrs.participant = userid;
+      if(person.subscription){
+        Fund.update(person.subscription, parsedAttrs).meta({fetch: true}).then();
+      } else {
+        Fund.create(parsedAttrs).meta({fetch: true}).then();
+      }
+
+    } catch(err) {
+      return res.serverError(err);
+    }
+
+    return res.ok();
+  },
+
+  postFacta(req, res) {
+    return res.ok();
+  },
+
+  postInvestorProfile(req, res) {
+    return res.ok();
+  },
+
+  async fillSubscriptionPDF(req, res) {
+    let userid = req.headers['user-id'];
+
+    const fillPdf = require("fill-pdf");
+    const encoding = require('encoding');
+
+    try {
+      let person = await Person.findOne({id: userid}).populate('user').populate('subscription');
 
       let pdfTemplatePath = "../../resources/subscription_template.pdf";
       let birthday;
@@ -59,7 +86,7 @@ module.exports = {
         Ano_Nascimento_Participante: birthday.getFullYear(),
         Profissao_Participante: person.profession,
         Entidade_Patronal_Participante: person.employer,
-        Email_Participante: user.email,
+        Email_Participante: person.user.email,
         Receber_Email: 'yes',
         //Subscrição
         Valor_Entrega: person.subscription.subscriptionValue,
@@ -107,14 +134,6 @@ module.exports = {
       return res.serverError(err);
     }
 
-    return res.ok();
-  },
-
-  postFacta(req, res) {
-    return res.ok();
-  },
-
-  postInvestorProfile(req, res) {
     return res.ok();
   },
 
