@@ -49,9 +49,10 @@ export const authenticate = (res) => {
 }
 
 export const subscription = (res) => {
-    return (dispatch) => {
+    return (dispatch, getState) => {
+        dispatch(FormRedux.update({[res.key]: res.value}));
         console.log(getState());
-        dispatch(FormRedux.update({'form': res.form}));
+
     }
 }
 

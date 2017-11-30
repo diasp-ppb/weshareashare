@@ -1,6 +1,9 @@
-import { StyleSheet, View, TextInput, StatusBar } from 'react-native';
+import { StyleSheet, View, TextInput, StatusBar, TouchableOpacity } from 'react-native';
 import { Container, Content, Card, CardItem, Body, List, ListItem, Text, Radio } from 'native-base';
 import RadioButtonsForm from '../Components/RadioButtonsForm';
+
+import { connect } from 'react-redux';
+import * as Session from '../Redux/Session';
 
 var React = require('react');
 var { AppRegistry, TouchableHighlight } = React;
@@ -20,7 +23,21 @@ var answers = [
   }
 ];
 
+var option = null;
+
+var saveOption = function(key){
+    console.log(key);
+    option = key;
+}
+
 var Subscription = React.createClass({
+
+    // saveToProps: function(){
+    //     console.log(option);
+    //     console.log("next clicked");
+    //     this.props.subscription("chave", option);
+    // },
+
     render: function() {
         return (
           <Container style={styles.container}>
@@ -35,12 +52,25 @@ var Subscription = React.createClass({
                     </Body>
                   </CardItem>
                 </Card>
-                <RadioButtonsForm answers={answers}/>
+                <RadioButtonsForm saveOption={saveOption} answers={answers}/>
+                <View style={{flex:2, flexDirection: 'row'}}></View>
+                <TouchableOpacity style={{borderWidth: 0,
+                padding: 10,
+                flex: 1,
+                flexDirection: 'row',}} onPress={() => this.props.subscription({key: "name", value:option})}>
+                    <Text>Next</Text>
+                </TouchableOpacity>
              </Content>
           </Container>
         );
     }
 });
+
+const mapDispatchToProps = (dispatch) => ({
+  subscription: (id, form) => dispatch(Session.subscription(id, form)),
+});
+
+export default connect(null, mapDispatchToProps)(Subscription);
 
 var styles = StyleSheet.create({
   container: {
@@ -67,4 +97,4 @@ var styles = StyleSheet.create({
   },
 });
 
-export default Subscription;
+//export default Subscription;

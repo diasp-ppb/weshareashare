@@ -8,7 +8,7 @@ class RadioButtonsForm extends Component {
 
   answersArr = this.props.answers.map(answer => {
     return (
-      <ListItem key={answer.key}>
+      <ListItem onPress={() => this.props.saveOption(answer.key)}  key={answer.key}>
           <Radio selected={false}/>
           <Text>{answer.text}</Text>
       </ListItem>
