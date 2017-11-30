@@ -13,7 +13,6 @@ const mapStateToProps = state => ({
   formFields: ['Email', 'Token', 'Password', 'ConfirmPassword'],
   buttonTitle: 'Update password',
   successMessage: 'Your password has been successfully updated',
-  introText: 'Use the token received in your email to update your password',
 });
 
 const mapDispatchToProps = (dispatch) => ({

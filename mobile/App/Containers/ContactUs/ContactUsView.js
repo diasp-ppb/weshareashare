@@ -165,6 +165,8 @@ class ContactUs extends Component {
         style={ApplicationStyles.container}
         behavior="padding"
       >
+        <Spacer size={10}/>
+  
         <Animated.Image
           source={Assets.logo}
           style={[ApplicationStyles.logo, {height: this.imageHeight}]}

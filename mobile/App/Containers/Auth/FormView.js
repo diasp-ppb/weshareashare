@@ -44,10 +44,14 @@ class AuthForm extends Component {
     introTitle: PropTypes.string,
     introText: PropTypes.string,
   }
-
+  
+  static navigationOptions = ({ navigation }) => ({
+    title: typeof(navigation.state.params)==='undefined' || typeof(navigation.state.params.title) === 'undefined' ? '': navigation.state.params.title,
+  });
+  
   constructor(props) {
     super(props);
-
+    
     const formFields = {};
     if (props.formFields.indexOf('Email') > -1) formFields.Email = Utils.validEmail;
     if (props.formFields.indexOf('Password') > -1) formFields.Password = Utils.validPassword;
@@ -55,7 +59,7 @@ class AuthForm extends Component {
     if (props.formFields.indexOf('FirstName') > -1) formFields.FirstName = FormValidation.String;
     if (props.formFields.indexOf('LastName') > -1) formFields.LastName = FormValidation.String;
     if (props.formFields.indexOf('Token') > -1) formFields.Token = FormValidation.String;
-
+    
     this.state = {
       form_fields: FormValidation.struct(formFields),
       form_values: {
@@ -105,14 +109,14 @@ class AuthForm extends Component {
     };
     this.imageHeight = new Animated.Value(Metrics.DEVICE_HEIGHT / 7);
   }
-
+  
   /**
-    * Password Confirmation - password fields must match
-    * - Sets the error and returns bool of whether to process form or not
-    */
+   * Password Confirmation - password fields must match
+   * - Sets the error and returns bool of whether to process form or not
+   */
   passwordsMatch = (form) => {
     const error = form.Password !== form.ConfirmPassword;
-
+    
     this.setState({
       options: FormValidation.update(this.state.options, {
         fields: {
@@ -124,22 +128,22 @@ class AuthForm extends Component {
       }),
       form_values: form,
     });
-
+    
     return error;
   }
-
+  
   /**
-    * Handle Form Submit
-    */
+   * Handle Form Submit
+   */
   handleSubmit = () => {
     const formData = this.form.getValue();
     const { navigate } = this.props.navigation;
-
+    
     if (formData && formData.Password && formData.ConfirmPassword) {
       const passwordsDontMatch = this.passwordsMatch(formData);
       if (passwordsDontMatch) return false;
     }
-
+    
     if (formData) {
       this.setState({ form_values: formData }, () => {
         this.setState({ resultMsg: { status: 'One moment...' } });
@@ -151,7 +155,7 @@ class AuthForm extends Component {
               resultMsg: { success: this.props.successMessage },
             }, () => {
               Toast.show(this.state.resultMsg.success, ApplicationStyles.toastSuccess);
-
+              
               if (this.props.onSuccessfulSubmit) {
                 this.props.onSuccessfulSubmit(res);
                 navigate("userStack");
@@ -167,11 +171,12 @@ class AuthForm extends Component {
         }
       });
     }
-
+    
     return true;
   }
   
   componentWillMount () {
+    this.props.navigation.setParams({ title: this.props.screenName })
     this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
     this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
   }
@@ -195,36 +200,37 @@ class AuthForm extends Component {
       toValue: Metrics.DEVICE_HEIGHT / 7,
     }).start();
   };
-
+  
   render = () => {
     const Form = FormValidation.form.Form;
     const { navigate } = this.props.navigation;
-
+    
     return (
-
-        <KeyboardAvoidingView
-          style={ApplicationStyles.container}
-          behavior="padding"
-        >
+      
+      <KeyboardAvoidingView
+        style={ApplicationStyles.container}
+        behavior="padding"
+      >
+        <Spacer size={10}/>
         <Animated.Image
           source={Assets.logo}
           style={[ApplicationStyles.logo, {height: this.imageHeight}]}
         />
         <Card>
-
+          
           {(!!this.props.introTitle || !!this.props.introText) &&
-            <View>
-              {!!this.props.introTitle &&
-                <Text h1>{this.props.introTitle}</Text>
-              }
-              {!!this.props.introText &&
-                <Text>{this.props.introText}</Text>
-              }
-
-              <Spacer size={10} />
-            </View>
+          <View>
+            {!!this.props.introTitle &&
+            <Text h1>{this.props.introTitle}</Text>
+            }
+            {!!this.props.introText &&
+            <Text>{this.props.introText}</Text>
+            }
+            
+            <Spacer size={10} />
+          </View>
           }
-
+          
           <Form
             ref={(b) => { this.form = b; }}
             type={this.state.form_fields}
@@ -232,37 +238,37 @@ class AuthForm extends Component {
             options={this.state.options}
             style={[ApplicationStyles.centerAligned]}
           />
-
+          
           <Spacer size={20} />
-
+          
           <Button title={this.props.buttonTitle} onPress={this.handleSubmit} />
-
+          
           <Spacer size={20} />
-
+          
           {this.props.formType === 'SignIn' &&
-            <View>
-              <TouchableOpacity onPress={() => navigate('PasswordReset')}>
-                <Text p style={[ApplicationStyles.textCenterAligned, ApplicationStyles.link]}>
-                  Forgot your password?
-                </Text>
-              </TouchableOpacity>
-
-              <Spacer size={10} />
-
-              <Text p style={[ApplicationStyles.textCenterAligned]}>
-                - or -
+          <View>
+            <TouchableOpacity onPress={() => navigate('PasswordReset')}>
+              <Text p style={[ApplicationStyles.textCenterAligned, ApplicationStyles.link]}>
+                Forgot your password?
               </Text>
-
-              <Spacer size={10} />
-
-              <TouchableOpacity onPress={() => navigate('SignUp')}>
-                <Text p style={[ApplicationStyles.textCenterAligned, ApplicationStyles.link]}>
-                  Do not have an account?
-                </Text>
-              </TouchableOpacity>
-            </View>
+            </TouchableOpacity>
+            
+            <Spacer size={10} />
+            
+            <Text p style={[ApplicationStyles.textCenterAligned]}>
+              - or -
+            </Text>
+            
+            <Spacer size={10} />
+            
+            <TouchableOpacity onPress={() => navigate('SignUp')}>
+              <Text p style={[ApplicationStyles.textCenterAligned, ApplicationStyles.link]}>
+                Do not have an account?
+              </Text>
+            </TouchableOpacity>
+          </View>
           }
-
+          
           {this.props.formType === 'PasswordReset' &&
           <View>
             <TouchableOpacity onPress={() => navigate('PasswordUpdate')}>
@@ -272,7 +278,7 @@ class AuthForm extends Component {
             </TouchableOpacity>
           </View>
           }
-  
+          
           {this.props.formType === 'SignUp' &&
           <View>
             <TouchableOpacity onPress={() => navigate('SignIn')}>
@@ -282,7 +288,7 @@ class AuthForm extends Component {
             </TouchableOpacity>
           </View>
           }
-
+          
           <Spacer size={10} />
         </Card>
       </KeyboardAvoidingView>
