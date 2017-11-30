@@ -1,5 +1,6 @@
 import { StyleSheet, View, TextInput, StatusBar, TouchableOpacity } from 'react-native';
 import { Container, Content, Card, CardItem, Body, List, ListItem, Text, Radio } from 'native-base';
+import { ApplicationStyles } from '../Themes/index';
 import RadioButtonsForm from '../Components/RadioButtonsForm';
 import PersonalDataForm from '../Components/PersonalDataForm';
 
@@ -8,6 +9,28 @@ import * as Session from '../Redux/Session';
 
 var React = require('react');
 var { AppRegistry, TouchableHighlight } = React;
+var t = require('tcomb-form-native');
+
+var Form = t.form.Form;
+
+var Gender = t.enums({
+    'M': 'Male',
+    'F': 'Female'
+});
+
+var Person = t.struct({
+    name: t.String,
+    gender: Gender,
+    birthDate: t.Date,
+    address: t.String,
+    postal: t.String,
+    city: t.String,
+    id: t.Number,
+    nif: t.Number,
+    job: t.String,
+    nationality: t.String
+});
+
 
 var answers = [
   {
@@ -32,13 +55,6 @@ var saveOption = function(key){
 }
 
 var Subscription = React.createClass({
-
-    // saveToProps: function(){
-    //     console.log(option);
-    //     console.log("next clicked");
-    //     this.props.subscription("chave", option);
-    // },
-
     render: function() {
         return (
           <Container style={styles.container}>
@@ -53,7 +69,12 @@ var Subscription = React.createClass({
                     </Body>
                   </CardItem>
                 </Card>
-                <RadioButtonsForm saveOption={saveOption} answers={answers}/>
+                <View style={ApplicationStyles.form}>
+                    <View style={ApplicationStyles.container}>
+                        <PersonalDataForm/>
+                    </View>
+                </View>
+                {/* <RadioButtonsForm saveOption={saveOption} answers={answers}/> */}
                 <View style={{flex:2, flexDirection: 'row'}}></View>
                 <TouchableOpacity style={{borderWidth: 0,
                 padding: 10,
