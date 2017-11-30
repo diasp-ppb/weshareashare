@@ -30,6 +30,8 @@ passport.deserializeUser((id, next) =>
 passport.use(
   new BasicStrategy(
     (email, password, next) => {
+      sails.log('basic!!!');
+
       User.findOne({
         email: email,
       }).then((user) => {
@@ -68,6 +70,7 @@ passport.use(
 passport.use(
   new BearerStrategy(
     (tokenValue, next) => {
+      sails.log('bearer!!!');
       Token.findOne({
         value: tokenValue, type: 'access'
       }).then((userToken) => {

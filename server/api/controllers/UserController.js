@@ -37,6 +37,7 @@ module.exports = {
     let params = req.allParams();
     User.create(params).meta({fetch: true})
       .then((user) => {
+        sails.log(user);
         return user;
       }).then((user) => {
         let email = sails.config.custom.email;
@@ -84,4 +85,3 @@ module.exports = {
       });
   },
 };
-

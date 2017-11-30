@@ -34,6 +34,11 @@ module.exports = {
       unique: true,
     },
 
+    isAdmin: {
+      type: 'boolean',
+      defaultsTo : false
+    },
+
     notifications: {
       collection: 'notification',
       via: 'receiver'
@@ -69,4 +74,3 @@ module.exports = {
     }
   },
 };
-
