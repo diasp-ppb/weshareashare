@@ -8,9 +8,9 @@ class RadioButtonsForm extends Component {
 
   answersArr = this.props.answers.map(answer => {
     return (
-      <ListItem>
+      <ListItem key={answer.key}>
           <Radio selected={false}/>
-          <Text>{answer}</Text>
+          <Text>{answer.text}</Text>
       </ListItem>
     );
   });

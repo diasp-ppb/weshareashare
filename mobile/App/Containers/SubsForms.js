@@ -6,9 +6,18 @@ var React = require('react');
 var { AppRegistry, TouchableHighlight } = React;
 
 var answers = [
-  'Preservar o capital',
-  'Fazer crescer o capital',
-  'Fazer crescer o capital substancialmente',
+  {
+    key: 'PRESERVAR',
+    text: 'Preservar o capital'
+  },
+  {
+    key: 'CRESCER',
+    text: 'Fazer crescer o capital'
+  },
+  {
+    key: 'SUBSTANCIALMENTE',
+    text: 'Fazer crescer o capital substancialmente'
+  }
 ];
 
 var Subscription = React.createClass({
