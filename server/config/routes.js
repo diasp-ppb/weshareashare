@@ -95,4 +95,12 @@ module.exports.routes = {
     controller: 'FundController',
     action: 'fillSubscriptionPDF',
   },
+
+  'get /fatca': {
+    cors: {
+      allowRequestHeaders: 'Content-Type, Client-ID',
+    },
+    controller: 'FundController',
+    action: 'fillFatcaPDF',
+  },
 };

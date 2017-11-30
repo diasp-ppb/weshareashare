@@ -112,10 +112,61 @@ module.exports = {
 
       fillPdf.generatePdf(formData, pdfTemplatePath, ['drop_xfa','need_appearances'], function(err, output) {
         if ( !err ) {
+          //save output somewhere
+          var filepath = "./resources/filled/subscription_" + userid + ".pdf"
+          var fs = require('fs');
+          fs.writeFile(filepath, output, function(err) {
+              if(err) {
+                  return console.log(err);
+              }
+
+              console.log("The file was saved!");
+          });
+        }
+        else{
+          throw err;
+        }
+      });
+
+    } catch(err) {
+      return res.serverError(err);
+    }
+
+    return res.ok();
+  },
+
+  async fillFatcaPDF(req, res) {
+    let userid = req.headers['user-id'];
+
+    const fillPdf = require("fill-pdf");
+    const encoding = require('encoding');
+
+    try {
+      let person = await Person.findOne({id: userid}).populate('user').populate('subscription');
+
+      let pdfTemplatePath = "../../resources/fatca_template.pdf";
+      let date = new Date();
+      let isUSPerson;
+      (person.subscription.fatca) ? isUSPerson='yes' : isUSPerson='no';
+
+      let formData = {
+        NIF: person.NIF,
+        name: person.name,
+        day: date.getDate(),
+        month: date.getMonth() + 1,
+        year: date.getFullYear(),
+        isUSPerson: isUSPerson,
+        locale: 'Lisboa'
+      };
+
+      formData.name = encoding.convert(formData.name, 'ISO-8859-1', 'UTF-8');
+
+      fillPdf.generatePdf(formData, pdfTemplatePath, ['drop_xfa','need_appearances'], function(err, output) {
+        if ( !err ) {
           console.log(formData);
 
           //save output somewhere
-          var filepath = "./resources/filled/subscription_" + userid + ".pdf"
+          var filepath = "./resources/filled/fatca_" + userid + ".pdf"
           var fs = require('fs');
           fs.writeFile(filepath, output, function(err) {
               if(err) {
