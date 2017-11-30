@@ -19,7 +19,7 @@ export default class ControlPanel extends Component {
       <ScrollView style={styles.container}>
         <Text style={styles.company}>WeShareAShare</Text>
         <View style={styles.profile}>
-          <Icon name="account-circle" size={70} color="#fff" />
+          <Icon name="account-circle" size={60} color="#fff" />
           <View>
             <Text  style={[styles.buttonText,styles.profileInfo]}> Luis Lobo Jordão </Text>
             <Text  style={[styles.buttonText,styles.profileInfo]}> email.exemplo@stoik.com </Text>
