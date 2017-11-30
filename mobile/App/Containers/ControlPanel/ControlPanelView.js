@@ -8,7 +8,6 @@ import {
 } from 'react-native'
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { NavigationActions } from 'react-navigation';
 
 import styles from './ControlPanelStyle';
 
@@ -27,16 +26,9 @@ class ControlPanel extends Component {
   }
   
   logout = () => {
-    const resetAction = NavigationActions.reset({
-      index: 0,
-      actions: [
-        NavigationActions.navigate({ routeName: 'visitorStack'})
-      ],
-      key: null
-    })
 /*    if(this.props.onLogout)
       this.props.onLogout();*/
-    this.props.navigation.dispatch(resetAction)
+    this.props.navigation.dispatch(this.props.resetAction)
   }
   
   render() {

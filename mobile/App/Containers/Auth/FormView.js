@@ -158,7 +158,7 @@ class AuthForm extends Component {
               
               if (this.props.onSuccessfulSubmit) {
                 this.props.onSuccessfulSubmit(res);
-                navigate("userStack");
+                this.props.navigation.dispatch(this.props.resetAction);
               }
               return true;
             });
