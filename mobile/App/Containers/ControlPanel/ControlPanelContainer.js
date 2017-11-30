@@ -22,7 +22,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onLogout: dispatch(Session.logout()),
+  onLogout: () => dispatch(Session.logout()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormRender);

@@ -151,17 +151,15 @@ class AuthForm extends Component {
         if (this.props.submit) {
           this.props.submit(formData, this.props.session)
           .then((res) => {
-            this.setState({
-              resultMsg: { success: this.props.successMessage },
-            }, () => {
+            if (this.props.onSuccessfulSubmit) {
+              this.props.onSuccessfulSubmit(res)
+            } else {
+              this.setState({
+                resultMsg: {success: this.props.successMessage},
+              });
               Toast.show(this.state.resultMsg.success, ApplicationStyles.toastSuccess);
-              
-              if (this.props.onSuccessfulSubmit) {
-                this.props.onSuccessfulSubmit(res);
-                this.props.navigation.dispatch(this.props.resetAction);
-              }
-              return true;
-            });
+            }
+            return true;
           }).catch(err => {
             this.setState({ resultMsg: { error: err.response } })
             Toast.show(this.state.resultMsg.error, ApplicationStyles.toastError);

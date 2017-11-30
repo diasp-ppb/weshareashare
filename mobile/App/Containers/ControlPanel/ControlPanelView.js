@@ -26,8 +26,8 @@ class ControlPanel extends Component {
   }
   
   logout = () => {
-/*    if(this.props.onLogout)
-      this.props.onLogout();*/
+    if(this.props.onLogout)
+      this.props.onLogout();
     this.props.navigation.dispatch(this.props.resetAction)
   }
   

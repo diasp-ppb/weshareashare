@@ -1,5 +1,6 @@
 import { Clients, Users } from '@services/API';
 import * as SessionRedux from './redux';
+import { NavigationActions } from 'react-navigation';
 
 const SESSION_TIMEOUT_THRESHOLD = 300; // Will refresh the access token 5 minutes before it expires
 let sessionTimeout = null;
@@ -12,22 +13,31 @@ const setSessionTimeout = (duration) => {
   );
 };
 
-const clearSession = (dispatch) => {
+const clearSession = (dispatch, session) => {
   clearTimeout(sessionTimeout);
-  dispatch(SessionRedux.update(SessionRedux.initialState));
+  dispatch(SessionRedux.reset({ client: session.client }));
 };
 
-export const onRequestFailed = (exception) => {
+export const onRequestFailed = (session) => {
   return (dispatch) => {
-    clearSession(dispatch);
+    clearSession(dispatch, session);
   };
 };
+
+const resetAction = NavigationActions.reset({
+  index: 0,
+  actions: [
+    NavigationActions.navigate({ routeName: 'userStack'})
+  ],
+  key: null
+})
 
 export const logout = () => {
   return (dispatch, getState) => {
     let session = getState().session;
-    clearSession(dispatch);
-    dispatch(SessionRedux.update({ client: session.client }));
+    clearSession(dispatch, session);
+    session = getState().session;
+    console.log(session)
   };
 }
 
@@ -37,12 +47,13 @@ export const authorize = () => {
     Clients.authorize(session)
       .then((res) => {
         dispatch(SessionRedux.update({ client: res.client }));
-      }).catch((err) => onRequestFailed(err, dispatch));
+      }).catch((err) => onRequestFailed(session));
   };
 };
 
 export const createUser = (res) => {
   return (dispatch) => {
+    dispatch(resetAction);
     dispatch(SessionRedux.update({ tokens: res.tokens, user: res.user }));
     setSessionTimeout(res.tokens.access.expiresIn);
   };
@@ -50,6 +61,7 @@ export const createUser = (res) => {
 
 export const authenticate = (res) => {
   return (dispatch) => {
+    dispatch(resetAction);
     dispatch(SessionRedux.update({ tokens: res.tokens, user: res.user }));
     setSessionTimeout(res.tokens.access.expiresIn);
   };
@@ -67,7 +79,7 @@ export const refreshToken = () => {
         dispatch(SessionRedux.update({ tokens: res.tokens, user: res.user }));
         setSessionTimeout(res.tokens.access.expiresIn);
       })
-      .catch(onRequestFailed);
+      .catch(onRequestFailed(session));
   };
 };
 
@@ -79,6 +91,6 @@ export const revoke = () => {
       value: session.tokens[tokenKey].value,
     })), session.tokens.access)
       .then(clearSession(dispatch))
-      .catch(onRequestFailed);
+      .catch(onRequestFailed(session));
   };
 };

@@ -30,7 +30,7 @@ class ContactUs extends Component {
     user: PropTypes.shape({
       email: PropTypes.string,
       firstName: PropTypes.string,
-      lastName: PropTypes.string,
+      lastName: PropTypes.string
     }),
     submit: PropTypes.func,
     onSuccessfulSubmit: PropTypes.func,
@@ -51,7 +51,7 @@ class ContactUs extends Component {
     if (props.formFields.indexOf('LastName') > -1) formFields.LastName = FormValidation.String;
     if (props.formFields.indexOf('Message') > -1) formFields.Message = FormValidation.String;
     if (props.formFields.indexOf('Subject') > -1) formFields.Subject = FormValidation.String;
-
+    console.log(this.props.session);
     this.state = {
       resultMsg: {
         status: '',
