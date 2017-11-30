@@ -5,7 +5,7 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.background,
-    maxHeight: Metrics.DEVICE_HEIGHT / 2,
+    maxHeight: Metrics.DEVICE_HEIGHT / 3,
   },
   h1: {
     fontFamily: Fonts.h1.family,
