@@ -67,6 +67,10 @@ module.exports = {
         host: 'smtp.gmail.com',
         port: 587,
         secure: true,
+        auth: {
+          user: 'weshareasharetest@gmail.com',
+          pass: 'ws_admin'
+        },
         tls: {
           rejectUnauthorized: false
         },
