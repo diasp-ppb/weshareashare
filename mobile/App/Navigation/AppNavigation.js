@@ -1,23 +1,17 @@
+import { Platform, StatusBar } from 'react-native';
 import { StackNavigator } from 'react-navigation';
-import Homepage from '../Containers/Homepage';
-import SignIn from '../Containers/SignIn';
-import SignUp from '../Containers/SignUp';
-import ResetPassword from '../Containers/ResetPassword'
 
-import styles from './Styles/NavigationStyles';
+import UserStack from './UserNavigation';
+import VisitorStack from './VisitorNavigation';
 
-// Manifest of possible screens
 const PrimaryNav = StackNavigator({
-  Homepage: { screen: Homepage },
-  SignIn: { screen: SignIn },
-  SignUp: { screen: SignUp },
-  ResetPassword: { screen: ResetPassword },
+  visitorStack: { screen: VisitorStack },
+  userStack: { screen: UserStack },
 }, {
-  // Default config for all screens
   headerMode: 'none',
-  initialRouteName: 'Homepage',
-  navigationOptions: {
-    headerStyle: styles.header,
+  initialRouteName: 'userStack',
+  cardStyle: {
+    paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight,
   },
 });
 

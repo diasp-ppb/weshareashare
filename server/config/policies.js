@@ -34,11 +34,18 @@ module.exports.policies = {
     resetPassword: ['hasClientId', 'hasResetToken'],
   },
 
+  ContactUsController: {
+    create: ['hasClientId'],
+  },
+
+  DocumentController: {
+    '*': 'hasOAuthBearer'
+  }
+
   FundController: {
     '*': 'hasClientId',
     postSubscription: [],
     postFacta: [],
     postInvestorProfile: [],
   },
-
 };

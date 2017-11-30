@@ -16,6 +16,7 @@
 module.exports = function resNotFound(data) {
 
   // Get access to `req` and `res`
+  data = data || {response: 'Invalid request'};
   var req = this.req;
   var res = this.res;
 

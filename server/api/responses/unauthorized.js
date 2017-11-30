@@ -16,6 +16,7 @@
 module.exports = function resUnauthorized(data) {
 
   // Get access to `req` and `res`
+  data = data || {response: 'Unauthorized request'};
   var req = this.req;
   var res = this.res;
 

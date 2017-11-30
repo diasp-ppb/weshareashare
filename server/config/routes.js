@@ -59,6 +59,30 @@ module.exports.routes = {
     action: 'resetPassword',
   },
 
+  'post /contactUs': {
+    cors: {
+      allowRequestHeaders: 'Content-Type, Client-ID',
+    },
+    controller: 'ContactUsController',
+    action: 'create',
+  },
+
+  'post /documents': {
+    cors: {
+      allowRequestHeaders: 'Content-Type, Client-ID',
+    },
+    controller: 'DocumentController',
+    action: 'upload',
+  },
+
+  'delete /documents/:id': {
+    cors: {
+      allowRequestHeaders: 'Content-Type, Client-ID',
+    },
+    controller: 'DocumentController',
+    action: 'delete',
+  },
+
   'get /users': {
     controller: 'UserController',
     action: 'getAll',

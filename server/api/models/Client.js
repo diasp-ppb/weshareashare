@@ -5,9 +5,6 @@
  * @docs        :: http://sailsjs.org/documentation/concepts/models-and-orm/models
  */
 
-const uid = require('rand-token').uid;
-const ID_LENGTH = 32;
-
 module.exports = {
   updatedAt: false,
   attributes: {
@@ -15,16 +12,5 @@ module.exports = {
       type: 'string',
       required: true,
     },
-    name: {
-      type: 'string',
-      required: true,
-    },
-  },
-
-  parseAttrs(attrs) {
-    return {
-      id: uid(ID_LENGTH),
-      name: String(attrs.name).trim(),
-    };
   },
 };

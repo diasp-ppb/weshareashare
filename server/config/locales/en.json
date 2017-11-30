@@ -1,4 +1,14 @@
 {
   "Welcome": "Welcome",
-  "A brand new app.": "A brand new app."
+  "user.email.required": "Email is required",
+  "user.email.unique": "Email address is already taken",
+  "user.email.maxLength": "Username is too long (max: 64 characters).",
+  "user.email.isEmail": "Email address is invalid.",
+  "user.firstName.required": "First name is required",
+  "user.firstName.maxLength": "First name is too long (max: 64 characters).",
+  "user.lastName.required": "Last name is required",
+  "user.lastName.maxLength": "Last name is too long (max: 64 characters).",
+  "user.password.required": "Password is required",
+  "user.password.maxLength": "Username is too long (max: 32 characters).",
+  "user.password.minLength": "Username is too short (max: 8 characters)."
 }

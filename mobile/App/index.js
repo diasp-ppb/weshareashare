@@ -1,25 +1,25 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { Font } from 'expo';
 import Expo from 'expo';
-import RootContainer from './Containers/RootContainer'
-import createStore from './Redux'
+import RootContainer from './Containers/RootContainer';
+import { Assets } from '@theme/'
+import createStore from './Redux';
 
-const store = createStore()
+const store = createStore();
 
 export default class App extends Component {
   constructor() {
     super();
     this.state = {
-      isReady: false
+      isReady: false,
     };
   }
   async componentWillMount() {
     await Expo.Font.loadAsync({
-      'OpenSans': require('./Assets/Fonts/OpenSans-Regular.ttf'),
-      'OpenSans-Bold': require('./Assets/Fonts/OpenSans-Bold.ttf'),
-      'OpenSans-Italic': require('./Assets/Fonts/OpenSans-Italic.ttf'),
-      'Roboto_medium': require('./Assets/Fonts/Roboto_Medium.ttf'),
+      OpenSans: Assets.OpenSansRegular,
+      'OpenSans-Bold': Assets.OpenSansBold,
+      'OpenSans-Italic': Assets.OpenSansItalic,
+      Roboto_medium: Assets.RobotoMedium,
     });
 
     this.setState({ isReady: true });

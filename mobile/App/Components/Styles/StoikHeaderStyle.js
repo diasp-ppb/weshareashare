@@ -1,17 +1,24 @@
-import { StyleSheet } from 'react-native'
-import { Fonts, Metrics, Colors } from '../../Themes/index'
+import { StyleSheet } from 'react-native';
+import { Metrics, Colors, Fonts } from '@theme/';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.background,
-    maxHeight: Metrics.DEVICE_HEIGHT/2,
+    maxHeight: Metrics.DEVICE_HEIGHT / 3,
   },
   h1: {
+    fontFamily: Fonts.h1.family,
+    fontSize: Fonts.h1.size * 1.5,
+    lineHeight: Fonts.h1.lineHeight,
     color: Colors.text,
-    fontSize: Metrics.FONT_SIZE_TITLE,
-    alignSelf: 'center',
+    fontWeight: '600',
     paddingVertical: Metrics.PADDING,
+    margin: 0,
+    marginBottom: 4,
+    left: 0,
+    right: 0,
+    alignSelf: 'center',
   },
   logo: {
     alignSelf: 'center',
@@ -44,6 +51,5 @@ export default StyleSheet.create({
   },
   sideBtnText: {
     color: Colors.stoikGrey,
-  },
-  h5: Fonts.style.h5,
+  }
 });

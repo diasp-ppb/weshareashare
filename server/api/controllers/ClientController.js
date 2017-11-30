@@ -5,10 +5,12 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
+const uid = require('rand-token').uid;
+const ID_LENGTH = 32;
+
 module.exports = {
   create(req, res) {
-    let params = Client.parseAttrs(req.allParams());
-    Client.create(params).meta({fetch: true})
+    Client.create({id: uid(ID_LENGTH)}).meta({fetch: true})
       .then((client) => {
         return res.ok({ client });
       })

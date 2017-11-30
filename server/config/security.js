@@ -49,7 +49,7 @@ module.exports.security = {
   *                                                                           *
   ****************************************************************************/
 
-  // csrf: false
+  csrf: false,
 
   tokens: {
     access: {
@@ -61,7 +61,7 @@ module.exports.security = {
       life: (3600 * 24 * 90) // 90 days
     },
     reset: {
-      length: 32,
+      length: 8,
       life: 3600 * 24 // 1 day
     }
   }

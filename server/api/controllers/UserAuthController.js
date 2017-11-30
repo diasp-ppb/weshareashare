@@ -11,16 +11,22 @@ const expiresIn = expiresAt =>
   ).asSeconds());
 
 const formatTokenResponse = (accessToken, refreshToken, user) => ({
-  tokens: [{
-    type: 'access',
-    value: accessToken.value,
-    expiresIn: expiresIn(accessToken.expiresAt),
-  }, {
-    type: 'refresh',
-    value: refreshToken.value,
-  }],
+  tokens: {
+    access: {
+      type: 'access',
+      value: accessToken.value,
+      expiresIn: expiresIn(accessToken.expiresAt),
+    },
+    refresh: {
+      type: 'refresh',
+      value: refreshToken.value,
+    }
+  },
   user: {
     id: user.id,
+    email: user.email,
+    firstName: user.firstName,
+    lastName: user.lastName,
   },
 });
 
@@ -28,7 +34,7 @@ module.exports = {
   signin(req, res) {
     passport.authenticate(['basic'], { session: false }, (authErr, user) => {
       if (authErr || !user) {
-        return res.unauthorized();
+        return res.unauthorized({'response': 'The email address or password you entered is not valid.'});
       }
 
       Token.findOrAdd({
@@ -87,7 +93,7 @@ module.exports = {
   revoke(req, res) {
     const params = req.allParams();
     if (!params.tokens || !params.tokens.length) {
-      return res.badRequest();
+      return res.badRequest({response: 'Invalid parameters'});
     }
     let counter = 0;
 
@@ -107,58 +113,77 @@ module.exports = {
     });
   },
 
-  resetRequest(req, res) {
+  async resetRequest(req, res) {
     const params = req.allParams();
-    if(!params.email) {
-      return res.badRequest();
+    if(!params.Email) {
+      return res.badRequest({response: 'Invalid parameters'});
     }
 
-    User.findOne({
-      email: params.email
-    }).then((user) => {
-      if(!user) {
-        return res.badRequest({response: 'The selected email doesn\'t exist in our platform.'});
-      }
-
-      Token.findOrAdd({
-        user: user.id,
-        type: 'reset',
-      }).then(() => {
-        return res.ok({response: 'An email with a link to reset the password was sent to this account.'});
-      }).catch((err) => {
-        return res.serverError(err);
-      });
-    }).catch((err) => {
+    let user, token;
+    try {
+      user = await User.findOne({email: params.Email});
+    } catch(err) {
       res.serverError(err);
+    }
+
+    if (!user) {
+      return res.badRequest({response: 'This email doesn\'t exist in our platform.'});
+    }
+
+    try {
+      token = await Token.findOrAdd({user: user.id, type: 'reset'});
+    } catch (err) {
+      res.serverError(err);
+    }
+
+    let email = sails.config.custom.email;
+    email.send({
+      template: 'passwordReset',
+      message: {
+        to: user.email
+      },
+      locals: {
+        name: user.username,
+        token: token.value,
+      }
+    }).then(() => {
+      return res.ok({response: 'An email with a token to reset the password was sent to this account.'});
+    }).catch((err) => {
+      return res.serverError(err);
     });
   },
 
-  resetPassword: function (req, res) {
+  async resetPassword(req, res) {
     const params = req.allParams();
-    const token = params.token;
-    if (!params.newPassword) {
-      return res.badRequest();
+    if (!params.Password || !params.Email) {
+      return res.badRequest({response: 'Invalid parameters'});
     }
 
-    Token.find({
-      value: token.value,
-    }).then((token) => {
-      User.update({
-        id: token.user
-      }, {password: params.newPassword}).meta({fetch: true})
-        .then((user) => {
-          console.log(user);
-        }).catch((err) => {
-          throw(err);
-        });
-    }).then(() => {
-      Token.destroy({
-        value: token.value,
-      }).then(() => {
-        res.ok({response: 'Password updated with success!'});
-      });
-    }).catch((err) => {
+    let token, user;
+    try {
+      token = await Token.find({value: params.Token});
+    } catch (err) {
       res.serverError(err);
-    });
+    }
+
+    try {
+      user = await User.update(
+        {email: params.Email},
+        {password: params.Password}
+      ).meta({fetch: true});
+    } catch (err) {
+      res.serverError(err);
+    }
+
+    if(user.length !== 0) {
+      Token.destroy({value: token.value})
+        .then(() => {
+          res.ok({response: 'Password updated with success!'});
+        }).catch((err) => {
+          res.serverError(err);
+        });
+    } else {
+      return res.badRequest({response: 'The selected email and reset token are not valid!'});
+    }
   },
 };

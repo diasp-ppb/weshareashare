@@ -29,9 +29,9 @@ passport.deserializeUser((id, next) =>
  */
 passport.use(
   new BasicStrategy(
-    (username, password, next) => {
+    (email, password, next) => {
       User.findOne({
-        username: username,
+        email: email,
       }).then((user) => {
         if(!user) {
           return next(401);

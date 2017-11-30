@@ -1,37 +1,31 @@
 import fetchival from 'fetchival';
 import _ from 'lodash';
 
-const API_URL = 'http://172.18.0.1/1337'
+const API_URL = 'https://api.weshareashare.org';
 
-export const exceptionExtractError = (exception) => {
-  if (!exception.Errors) return false;
-  let error = false;
-  const errorKeys = Object.keys(exception.Errors);
-  if (errorKeys.length > 0) {
-    error = exception.Errors[errorKeys[0]][0].message;
-  }
-  return error;
-};
+export const fetchApi =
+  (endPoint, payload = {}, method = 'get', session, headers = {}) => new Promise((resolve, reject) => {
 
-export const fetchApi = (endPoint, payload = {}, method = 'get', accessToken, headers = {}) => {
-  return fetchival(`${API_URL}${endPoint}`, {
+  (fetchival(`${API_URL}${endPoint}`, {
     headers: _.pickBy({
-      ...(accessToken ? {
-        Authorization: `Bearer ${accessToken}`,
+      ...(session.tokens.access.value ? {
+        Authorization: `Bearer ${session.tokens.access.value}`,
       } : {
-        'Client-ID': '8puWuJWZYls1Ylawxm6CMiYREhsGGSyw',
+        'client-id': session.client.id,
       }),
       ...headers,
     }, item => !_.isEmpty(item)),
-  })[method.toLowerCase()](payload)
-    .catch((e) => {
-      if (e.response && e.response.json) {
-        e.response.json().then((json) => {
-          if (json) throw json;
-          throw e;
-        });
-      } else {
-        throw e;
-      }
-    });
-};
+  })[method.toLowerCase()](payload))
+  .then((res) => {
+    resolve(res)
+  }).catch((e) => {
+    if (e.response && e.response.json) {
+      e.response.json().then((json) => {
+        if (json) reject(json);
+        reject(e);
+      });
+    } else {
+      reject(e);
+    }
+  });
+});

@@ -4,7 +4,9 @@ var sails = require('sails');
 before(function(done) {
 
   // Increase the Mocha timeout so that Sails has enough time to lift, even if you have a bunch of assets.
-  this.timeout(5000);
+  this.timeout(20000);
+
+  process.env.PORT = 9999;
 
   sails.lift({
     // We might want to skip the Grunt hook,

@@ -2,6 +2,7 @@
   "name": "WeShareAShare",
   "displayName": "WeShareAShare",
   "expo": {
-    "sdkVersion": "21.0.0"
+    "sdkVersion": "21.0.0",
+    "orientation": "portrait"
   }
 }
