@@ -19,7 +19,7 @@ const store = new Vuex.Store({
   },
   state: {
     pkg,
-    clientId: null
+    clientId: 'test'
   },
   mutations: {
     updateClientId: function (state, clientId) {

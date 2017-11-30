@@ -47,6 +47,10 @@ export default {
     })
   },
 
+  created () {
+    console.log(this.$store.getters.clientId)
+  },
+
   computed: mapGetters({
     sidebar: 'sidebar'
   }),

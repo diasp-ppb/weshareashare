@@ -4,7 +4,8 @@
  * @description :: A model definition.  Represents a database table/collection/etc.
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
  */
-
+const bcrypt = require('bcrypt');
+const SALT_ROUNDS = 10;
 const PASSWORD_MIN_LENGTH = 8;
 const PASSWORD_MAX_LENGTH = 32;
 const USERNAME_MAX_LENGTH = 32;
@@ -30,5 +31,28 @@ module.exports = {
       unique: true,
     },
   },
-};
 
+  customToJson: () => {
+    return _.omit(this, ['password']);
+  },
+
+  beforeCreate (attrs, next) {
+    bcrypt.hash(attrs.password, SALT_ROUNDS)
+      .then(function(hash) {
+        attrs.password = hash;
+        next();
+      });
+  },
+
+  beforeUpdate (attrs, next) {
+    if(attrs.password){
+      bcrypt.hash(attrs.password, SALT_ROUNDS)
+        .then(function(hash) {
+          attrs.password = hash;
+          next();
+        });
+    } else {
+      return next();
+    }
+  },
+};
