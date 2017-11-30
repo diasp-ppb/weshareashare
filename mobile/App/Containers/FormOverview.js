@@ -29,7 +29,7 @@ export default class FormOverview extends Component{
                 <View style={styles.container}>
                     <Image source={Images.background} style={styles.canvas}>
                         <View style={styles.btnGroup}>
-                            <Button style={styles.btn} onPress={() => { navigate('SubsForms', {formIndex: 1}); }}>
+                            <Button style={styles.btn} onPress={() => { navigate('SubsForms', {index: 1}); }}>
                                 <Text style={styles.btnText}>
                                     Participant
                                 </Text>

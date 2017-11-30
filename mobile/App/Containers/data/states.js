@@ -17,7 +17,7 @@ module.exports = [
       },
       {
         text: 'Are you male or female?',
-        options: ['male', 'female'],
+        options: [{key:'M',text:'male'}, {key:'F',text:'female'}],
         key: 'GENDER',
       },
       {
