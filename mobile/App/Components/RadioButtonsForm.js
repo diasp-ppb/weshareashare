@@ -6,19 +6,27 @@ class RadioButtonsForm extends Component {
     super(props);
   };
 
-  answersArr = this.props.answers.map(answer => {
-    return (
-      <ListItem onPress={() => this.props.saveOption(answer.key)}  key={answer.key}>
-          <Radio selected={false}/>
-          <Text>{answer.text}</Text>
-      </ListItem>
-    );
-  });
+  state = {
+    selected: null,
+  }
+
+  onPress = (key) => {
+    this.setState({selected: key});
+  }
 
   render() {
     return (
        <List>
-       { this.answersArr }
+       {
+         this.props.answers.map(answer => {
+           return (
+             <ListItem onPress={() => this.onPress(answer.key)} key={answer.key}>
+                 <Radio selected={this.state.selected == answer.key}/>
+                 <Text>{answer.text}</Text>
+             </ListItem>
+           );
+         })
+       }
        </List>
     );
   };
