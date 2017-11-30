@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import RadioButton from 'radio-button-react-native';
 import { View, Image, ScrollView } from 'react-native';
 import { Button, Text } from 'native-base';
-import { Images } from '@theme/';
 import styles from './Styles/HomepageStyle.js';
 import CauseStyles from './Styles/CausesFormStyle.js';
 
@@ -10,10 +9,10 @@ export default class weShareAShareForm extends Component {
   constructor(props) {
     super(props);
     this.causesAndDescriptions = [
-      { image: Images.logoGrupoLobo, cause: 'Grupo Lobo', description: 'Etiam eget diam et elit gravida vestibulum. Cras interdum egestas lectus, nec commodo nisi tincidunt sit amet. Integer in orci viverra, pharetra nisl nec, condimentum justo. Fusce facilisis velit sed nulla dictum commodo. Fusce a sollicitudin dolor, id aliquam augue. Suspendisse potenti. Suspendisse nec urna vitae nulla efficitur bibendum id et lacus. Fusce quis nisl vitae lorem fringilla ornare. Quisque eu ex et mauris iaculis molestie nec et neque.' },
-      { image: Images.logoWikipedia, cause: 'Wikipedia', description: 'Curabitur molestie felis id venenatis imperdiet.' },
-      { image: Images.logoAmnistiaInternacional, cause: 'Amnistia Internacional', description: 'Vestibulum sagittis, est non luctus imperdiet, nibh mauris congue arcu, eget bibendum diam sem ac nisi. ' },
-      { image: Images.logoWorldPressPhoto, cause: 'World Press Photo', description: 'Aenean rhoncus, nunc eget pulvinar dictum, libero arcu rhoncus ligula, a euismod nisl nisi gravida orci. Donec sed lacus placerat, elementum enim vel, rhoncus nisl.' },
+      { image: require('../Assets/logoGrupoLobo.png'), cause: 'Grupo Lobo', description: 'Etiam eget diam et elit gravida vestibulum. Integer in orci viverra, pharetra nisl nec, condimentum justo. Fusce facilisis velit sed nulla dictum commodo. Fusce a sollicitudin dolor, id aliquam augue. Suspendisse potenti. Suspendisse nec urna vitae nulla efficitur bibendum id et lacus. Fusce quis nisl vitae lorem fringilla ornare. Quisque eu ex et mauris iaculis molestie nec et neque.' },
+      { image: require('../Assets/logoWikipedia.png'), cause: 'Wikipedia', description: 'Curabitur molestie felis id venenatis imperdiet.' },
+      { image: require('../Assets/logoAmnistiaInternacional.png'), cause: 'Amnistia Internacional', description: 'Vestibulum sagittis, est non luctus imperdiet, nibh mauris congue arcu, eget bibendum diam sem ac nisi. ' },
+      { image: require('../Assets/logoWorldPressPhoto.png'), cause: 'World Press Photo', description: 'Aenean rhoncus, nunc eget pulvinar dictum, libero arcu rhoncus ligula, a euismod nisl nisi gravida orci. Donec sed lacus placerat, elementum enim vel, rhoncus nisl.' },
     ];
     this.state = {
       value: 0,
@@ -25,7 +24,7 @@ export default class weShareAShareForm extends Component {
   onRequest = () => {
     const { navigate } = this.props.navigation;
     console.log(`chose ${this.causesAndDescriptions[this.state.value].cause}!`);
-    navigate('InvestorProfileQuiz');
+    navigate('OnboardingOverview');
   }
 
   handleOnPress(value) {
@@ -77,7 +76,7 @@ export default class weShareAShareForm extends Component {
           </ScrollView>
         </View>
         <View>
-          <Button style={styles.orangeNextBtn} onPress={() => { this.onRequest(); }}>
+          <Button style={styles.orangeNextBtn} onPress={() => { console.log('need to be done')} }>
             <Text style={styles.btnText}>
                 Next
             </Text>

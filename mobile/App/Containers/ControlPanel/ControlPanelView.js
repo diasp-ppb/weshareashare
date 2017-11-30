@@ -79,7 +79,7 @@ class ControlPanel extends Component {
             <Text style={styles.controlText}>Share</Text>
             <View style={styles.leftMark} />
           </View>
-          <TouchableOpacity style={styles.button} >
+          <TouchableOpacity style={styles.button} onPress={() => navigate('WeShareAShare')} >
             <Icon style={styles.icon} name="book-multiple" size={35} color="#fff" />
             <Text style={styles.buttonText}>WeShareAShare</Text>
           </TouchableOpacity>
