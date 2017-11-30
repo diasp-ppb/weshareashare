@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 import { StackNavigator, DrawerNavigator } from 'react-navigation';
 
@@ -17,26 +17,26 @@ import HeaderRight from '@components/HeaderRight';
 
 import { Metrics, Colors } from '@theme/';
 
-const navigationOptions = ({navigation }) => ({
-    headerStyle: { backgroundColor: Colors.stoikGrey },
-    headerTintColor: 'white',
-    headerRight: <HeaderRight navigation={navigation} currentState={true}/>
+const navigationOptions = ({ navigation }) => ({
+  headerStyle: { backgroundColor: Colors.stoikGrey },
+  headerTintColor: 'white',
+  headerRight: <HeaderRight navigation={navigation} currentState />,
 });
 
 const UserNavigationStack = StackNavigator({
-    OnboardingOverview: {screen: FormOverview },
-    InvestorProfileQuiz: {screen: InvestorProfileQuiz },
-    StoikBenefits: { screen: StoikBenefits },
-    ContactUs: { screen: ContactUs},
-    AboutUs: { screen: AboutUs},
+  OnboardingOverview: { screen: FormOverview },
+  InvestorProfileQuiz: { screen: InvestorProfileQuiz },
+  StoikBenefits: { screen: StoikBenefits },
+  ContactUs: { screen: ContactUs },
+  AboutUs: { screen: AboutUs },
 }, {
-    headerMode: 'float',
-    navigationOptions: navigationOptions
+  headerMode: 'float',
+  navigationOptions,
 });
 
-export default UserStack = DrawerNavigator({
-    UserNavigationStack: { screen: UserNavigationStack },
+export default DrawerNavigator({
+  UserNavigationStack: { screen: UserNavigationStack },
 }, {
-    gesturesEnabled: false,
-    contentComponent: ControlPanel,
+  gesturesEnabled: false,
+  contentComponent: ControlPanel,
 });

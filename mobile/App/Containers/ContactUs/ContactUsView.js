@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
   View,
-  TouchableOpacity,
-  StyleSheet,
   KeyboardAvoidingView,
   Animated,
   Keyboard,
@@ -12,11 +10,11 @@ import FormValidation from 'tcomb-form-native';
 import Toast from 'react-native-root-toast';
 
 // Consts and Libs
-import { ApplicationStyles, Metrics, Colors, Assets } from '@theme/';
+import { ApplicationStyles, Metrics, Assets } from '@theme/';
 
 // Components
 import { Card, Spacer, Text, Button } from '@ui/';
-import * as Utils from '@services/Utils'
+import * as Utils from '@services/Utils';
 import TcombTextInput from '@components/tcomb/TextInput';
 
 
@@ -25,12 +23,12 @@ class ContactUs extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: 'Contact Us',
   });
-  
+
   static propTypes = {
     user: PropTypes.shape({
       email: PropTypes.string,
       firstName: PropTypes.string,
-      lastName: PropTypes.string
+      lastName: PropTypes.string,
     }),
     submit: PropTypes.func,
     onSuccessfulSubmit: PropTypes.func,
@@ -51,7 +49,7 @@ class ContactUs extends Component {
     if (props.formFields.indexOf('LastName') > -1) formFields.LastName = FormValidation.String;
     if (props.formFields.indexOf('Message') > -1) formFields.Message = FormValidation.String;
     if (props.formFields.indexOf('Subject') > -1) formFields.Subject = FormValidation.String;
-    console.log(this.props.session);
+
     this.state = {
       resultMsg: {
         status: '',
@@ -99,6 +97,16 @@ class ContactUs extends Component {
     this.imageHeight = new Animated.Value(Metrics.DEVICE_HEIGHT / 7);
   }
 
+  componentWillMount() {
+    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
+    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
+  }
+
+  componentWillUnmount() {
+    this.keyboardDidShowListener.remove();
+    this.keyboardDidHideListener.remove();
+  }
+
   /**
    * Handle Form Submit
    */
@@ -108,20 +116,20 @@ class ContactUs extends Component {
     if (formData) {
       this.setState({ form_values: formData }, () => {
         this.setState({ resultMsg: { status: 'One moment...' } });
-        
+
         if (this.props.submit) {
           this.props.submit(formData, this.props.session)
-          .then(() => {
-            this.setState({
-              resultMsg: { success: this.props.successMessage },
-            }, () => {
-              Toast.show(this.state.resultMsg.success, ApplicationStyles.toastSuccess);
-              return true;
+            .then(() => {
+              this.setState({
+                resultMsg: { success: this.props.successMessage },
+              }, () => {
+                Toast.show(this.state.resultMsg.success, ApplicationStyles.toastSuccess);
+                return true;
+              });
+            }).catch((err) => {
+              this.setState({ resultMsg: { error: err.response } });
+              Toast.show(this.state.resultMsg, ApplicationStyles.toastError);
             });
-          }).catch(err => {
-            this.setState({ resultMsg: { error: err.response } })
-            Toast.show(this.state.resultMsg, ApplicationStyles.toastError);
-          });
         } else {
           this.setState({ resultMsg: { error: 'Submit function missing' } });
         }
@@ -130,25 +138,14 @@ class ContactUs extends Component {
 
     return true;
   }
-  
-  
-  componentWillMount () {
-    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
-    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
-  }
-  
-  componentWillUnmount() {
-    this.keyboardDidShowListener.remove();
-    this.keyboardDidHideListener.remove();
-  }
-  
+
   _keyboardDidShow = () => {
     Animated.timing(this.imageHeight, {
       duration: 500,
       toValue: Metrics.DEVICE_HEIGHT / 15,
     }).start();
   };
-  
+
   _keyboardDidHide = () => {
     Animated.timing(this.imageHeight, {
       duration: 500,
@@ -160,16 +157,16 @@ class ContactUs extends Component {
     const Form = FormValidation.form.Form;
 
     return (
-  
+
       <KeyboardAvoidingView
         style={ApplicationStyles.container}
         behavior="padding"
       >
-        <Spacer size={10}/>
-  
+        <Spacer size={10} />
+
         <Animated.Image
           source={Assets.logo}
-          style={[ApplicationStyles.logo, {height: this.imageHeight}]}
+          style={[ApplicationStyles.logo, { height: this.imageHeight }]}
         />
         <Card>
 
@@ -185,7 +182,7 @@ class ContactUs extends Component {
           <Button title={this.props.buttonTitle} onPress={this.handleSubmit} />
 
           <Spacer size={20} />
-  
+
           {(!!this.props.introTitle || !!this.props.introText) &&
           <View>
             {!!this.props.introTitle &&
@@ -194,7 +191,7 @@ class ContactUs extends Component {
             {!!this.props.introText &&
             <Text>{this.props.introText}</Text>
             }
-    
+
             <Spacer size={10} />
           </View>
           }

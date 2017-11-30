@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Metrics, Colors, Fonts } from '@theme/';
+import { Metrics, Colors } from '@theme/';
 
 export default StyleSheet.create({
   mainContainer: {
@@ -29,10 +29,6 @@ export default StyleSheet.create({
     color: Colors.stoikOrange,
     marginVertical: 30,
   },
-  container: {
-    flex: 1,
-    backgroundColor: Colors.background,
-  },
   btnGroup: {
     flex: 1,
     justifyContent: 'center',
@@ -57,7 +53,7 @@ export default StyleSheet.create({
     backgroundColor: Colors.stoikGrey,
     width: 130,
     height: 130,
-    borderRadius: 130/2,
+    borderRadius: 130 / 2,
     alignItems: 'center',
     justifyContent: 'center',
   },

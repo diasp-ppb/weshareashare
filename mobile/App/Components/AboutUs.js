@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import { Button, Text } from 'react-native-elements';
-import { Assets } from '@theme/';
+import { Text } from 'react-native-elements';
 import styles from './Styles/AboutUsStyle';
 
 export default class AboutUs extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: 'About Us',
   });
-  render() {
-    const {navigate} = this.props.navigation;
 
+  render() {
     return (
       <View style={styles.mainContainer}>
         <View style={styles.container}>
@@ -21,10 +19,10 @@ export default class AboutUs extends Component {
               worlds: Finance and Causes.</Text>
           </View>
 
-          <View style={{flex: 1}}>
+          <View style={{ flex: 1 }}>
             <Text h4 style={styles.subTitle}>Supported causes</Text>
 
-            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-around'}}>
+            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-around' }}>
               <View style={styles.causesView}>
                 <Text style={styles.causesText}>People</Text>
               </View>
@@ -33,7 +31,7 @@ export default class AboutUs extends Component {
               </View>
             </View>
 
-            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
+            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
               <View style={styles.causesView}>
                 <Text style={styles.causesText}>Arts & Culture</Text>
               </View>
@@ -44,4 +42,4 @@ export default class AboutUs extends Component {
       </View>
     );
   }
-};
+}

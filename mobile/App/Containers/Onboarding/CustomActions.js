@@ -10,8 +10,6 @@ import {
   Text,
 } from 'react-native';
 
-import NavBar, { NavButton, NavButtonText, NavTitle } from 'react-native-nav';
-
 const STATES = require('./data/states.js');
 
 export default class CustomActions extends React.Component {
@@ -28,13 +26,6 @@ export default class CustomActions extends React.Component {
     this.changeAnswersSheet = this.changeAnswersSheet.bind(this);
     this.renderRepeatQuestions = this.renderRepeatQuestions.bind(this);
     this.getQuestion = this.getQuestion.bind(this);
-  }
-
-  setModalVisible(visible = false) {
-    this.setState({ modalVisible: visible });
-  }
-  setModalQuestionsVisible(visible = false) {
-    this.setState({ changeAnswer: visible });
   }
 
   onActionsPress() {
@@ -67,15 +58,22 @@ export default class CustomActions extends React.Component {
     });
   }
 
-  changeAnswersSheet(item) {
-    return (
-      <Text style={styles.item}> {item.key} </Text>
-    );
+  setModalVisible(visible = false) {
+    this.setState({ modalVisible: visible });
+  }
+  setModalQuestionsVisible(visible = false) {
+    this.setState({ changeAnswer: visible });
   }
 
   getQuestion(key) {
     this.setModalQuestionsVisible(false);
     if (key !== 'CANCEL') { this.props.chooseQuestion(key); }
+  }
+
+  changeAnswersSheet(item) {
+    return (
+      <Text style={styles.item}> {item.key} </Text>
+    );
   }
 
   selectImages(images) {

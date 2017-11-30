@@ -1,6 +1,6 @@
 import { Clients, Users } from '@services/API';
-import * as SessionRedux from './redux';
 import { NavigationActions } from 'react-navigation';
+import * as SessionRedux from './redux';
 
 const SESSION_TIMEOUT_THRESHOLD = 300; // Will refresh the access token 5 minutes before it expires
 let sessionTimeout = null;
@@ -27,19 +27,17 @@ export const onRequestFailed = (session) => {
 const resetAction = NavigationActions.reset({
   index: 0,
   actions: [
-    NavigationActions.navigate({ routeName: 'userStack'})
+    NavigationActions.navigate({ routeName: 'userStack' }),
   ],
-  key: null
-})
+  key: null,
+});
 
 export const logout = () => {
   return (dispatch, getState) => {
-    let session = getState().session;
+    const session = getState().session;
     clearSession(dispatch, session);
-    session = getState().session;
-    console.log(session)
   };
-}
+};
 
 export const authorize = () => {
   return (dispatch, getState) => {
@@ -47,7 +45,7 @@ export const authorize = () => {
     Clients.authorize(session)
       .then((res) => {
         dispatch(SessionRedux.update({ client: res.client }));
-      }).catch((err) => onRequestFailed(session));
+      }).catch(() => onRequestFailed(session));
   };
 };
 

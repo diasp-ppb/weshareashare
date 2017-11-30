@@ -9,7 +9,7 @@ export default class Homepage extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: 'Stoik PPR',
   });
-  
+
   render() {
     const { navigate } = this.props.navigation;
     return (

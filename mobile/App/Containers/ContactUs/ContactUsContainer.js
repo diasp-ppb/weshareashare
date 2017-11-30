@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { ContactUs } from '@services/API';
 import FormRender from './ContactUsView';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   session: state.session,
   user: state.session.user,
   formType: 'ContactUs',
@@ -16,7 +16,7 @@ const mapStateToProps = state => ({
   introText: 'Send us a message and we\'ll get back to you via email as soon as possible.\nYour feedback is extremely important to us',
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = () => ({
   submit: ContactUs.contactUs,
 });
 

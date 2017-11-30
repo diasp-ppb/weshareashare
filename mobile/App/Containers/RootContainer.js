@@ -6,7 +6,6 @@ import ReduxNavigation from '../Navigation/ReduxNavigation';
 import StartupActions from '../Redux/StartupRedux';
 import ReduxPersist from '../Config/ReduxPersist';
 import * as Session from '../Redux/Session';
-import { Colors } from '@theme/';
 
 class RootContainer extends Component {
   static propTypes = {
@@ -22,18 +21,14 @@ class RootContainer extends Component {
     }
   }
 
-  constructor(props) {
-    super(props);
+  render() {
+    return (
+      <View style={{ flex: 1 }}>
+        <StatusBar backgroundColor="#455a64" barStyle="light-content" />
+        <ReduxNavigation />
+      </View>
+    );
   }
-
-    render() {
-      return (
-        <View style={{ flex: 1 }}>
-          <StatusBar backgroundColor="#455a64" barStyle="light-content"/>
-          <ReduxNavigation />
-        </View>
-      );
-    }
 }
 
 const mapStateToProps = (state) => {

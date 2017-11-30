@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { View, Image } from 'react-native';
-import { Button, Divider } from 'react-native-elements';
-import { connect } from 'react-redux';
-import { ApplicationStyles, Assets, Metrics } from '@theme/';
+import { View } from 'react-native';
+import { Divider } from 'react-native-elements';
+import { ApplicationStyles,Metrics } from '@theme/';
 import { Text } from '@ui/';
 
 export default class StoikBenefits extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    title: 'Stoik Benefits',
+  });
 
   constructor(props) {
     super(props);
@@ -13,17 +15,13 @@ export default class StoikBenefits extends Component {
       sizeItem: 30,
     };
   }
-  
-  static navigationOptions = ({ navigation }) => ({
-    title: 'Stoik Benefits',
-  });
 
   render() {
     const { navigate } = this.props.navigation;
     return (
       <View style={[ApplicationStyles.container, ApplicationStyles.containerCentered]}>
 
-        <View style={{paddingVertical: Metrics.PADDING}}>
+        <View style={{ paddingVertical: Metrics.PADDING }}>
           <Text h1>Stoik PPR benefits</Text>
         </View>
 

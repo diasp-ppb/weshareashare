@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 import { StackNavigator } from 'react-navigation';
 
@@ -14,24 +14,24 @@ import ContactUs from '@containers/ContactUs/ContactUsContainer';
 import AboutUs from '@components/AboutUs';
 import StoikBenefits from '@components/StoikBenefits';
 
-import { Metrics, Colors } from '@theme';
+import { Colors } from '@theme';
 
 const navigationOptions = {
-  headerStyle: {backgroundColor: Colors.stoikGrey},
+  headerStyle: { backgroundColor: Colors.stoikGrey },
   headerTintColor: 'white',
 };
 
-export default VisitorStack = StackNavigator({
-    Homepage: { screen: Homepage },
-    PasswordReset: { screen: PasswordReset },
-    PasswordUpdate: { screen: PasswordUpdate },
-    SignIn: { screen: SignIn },
-    SignUp: { screen: SignUp },
-    StoikBenefits: { screen: StoikBenefits },
-    ContactUs: { screen: ContactUs},
-    AboutUs: { screen: AboutUs},
-  }, {
-    headerMode: 'float',
-    navigationOptions: navigationOptions
-  }
-)
+export default StackNavigator({
+  Homepage: { screen: Homepage },
+  PasswordReset: { screen: PasswordReset },
+  PasswordUpdate: { screen: PasswordUpdate },
+  SignIn: { screen: SignIn },
+  SignUp: { screen: SignUp },
+  StoikBenefits: { screen: StoikBenefits },
+  ContactUs: { screen: ContactUs },
+  AboutUs: { screen: AboutUs },
+}, {
+  headerMode: 'float',
+  navigationOptions,
+},
+);

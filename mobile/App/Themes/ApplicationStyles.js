@@ -14,7 +14,7 @@ const ApplicationStyles = {
     flexDirection: 'column',
     width: Metrics.DEVICE_WIDTH,
     height: Metrics.DEVICE_HEIGHT,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
   containerCentered: {
     justifyContent: 'center',
@@ -155,16 +155,16 @@ const ApplicationStyles = {
   subTitle: {
     alignSelf: 'center',
     color: Colors.text,
-    ...Fonts.h2
+    ...Fonts.h2,
   },
   subSubTitle: {
     textAlign: 'center',
-    ...Fonts.h5
+    ...Fonts.h5,
   },
   benefitItem: {
     width: 25,
     height: 25,
-    borderRadius: 25/2,
+    borderRadius: 25 / 2,
     backgroundColor: Colors.stoikOrange,
     marginHorizontal: Metrics.marginHorizontal,
   },
@@ -190,7 +190,7 @@ const ApplicationStyles = {
   },
   btnText: {
     color: Colors.text,
-    ...Fonts.h5
+    ...Fonts.h5,
   },
   title: {
     paddingVertical: Metrics.doubleBaseMargin,

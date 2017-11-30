@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { NavigationActions, addNavigationHelpers } from 'react-navigation';
 import { BackHandler } from 'react-native';
-import AppNavigation from './AppNavigation';
 import { connect } from 'react-redux';
+import AppNavigation from './AppNavigation';
 
 class ReduxNavigation extends Component {
   componentDidMount() {

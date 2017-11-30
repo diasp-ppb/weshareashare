@@ -99,7 +99,7 @@ const Subscription = React.createClass({
   },
 });
 
-var styles = StyleSheet.create({
+let styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     marginTop: 50,

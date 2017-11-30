@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { Users } from '@services/API';
 import FormRender from './FormView';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   session: state.session,
   formType: 'PasswordUpdate',
   screenName: 'Password Update',
@@ -15,7 +15,7 @@ const mapStateToProps = state => ({
   successMessage: 'Your password has been successfully updated',
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = () => ({
   submit: Users.updatePassword,
 });
 

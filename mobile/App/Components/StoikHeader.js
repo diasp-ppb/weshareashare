@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableHighlight, Image } from 'react-native';
 import styles from './Styles/StoikHeaderStyle';
-import { Assets, Fonts } from '@theme/';
+import { Assets } from '@theme/';
 
 export const StoikHeader = () => {
   return (

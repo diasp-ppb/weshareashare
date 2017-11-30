@@ -1,5 +1,5 @@
 import { Platform, StatusBar } from 'react-native';
-import { StackNavigator, DrawerNavigator } from 'react-navigation';
+import { StackNavigator } from 'react-navigation';
 
 import UserStack from './UserNavigation';
 import VisitorStack from './VisitorNavigation';
