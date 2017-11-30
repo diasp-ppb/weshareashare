@@ -40,7 +40,7 @@ module.exports.policies = {
 
   DocumentController: {
     '*': 'hasOAuthBearer'
-  }
+  },
 
   FundController: {
     '*': 'hasClientId',

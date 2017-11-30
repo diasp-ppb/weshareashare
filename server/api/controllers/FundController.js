@@ -210,8 +210,6 @@ module.exports = {
       let type = ['DA e CA', 'O e PG', 'Acoes'];
       let profitability = ['2 a 4', '5 a 9', '10 a 15'];
 
-      console.log(person);
-
       let formData = {
         Nome: person.name,
         NIF: person.NIF,
@@ -232,17 +230,13 @@ module.exports = {
 
       fillPdf.generatePdf(formData, pdfTemplatePath, ['drop_xfa','need_appearances'], function(err, output) {
         if ( !err ) {
-          console.log(formData);
-
           //save output somewhere
           var filepath = "./resources/filled/investor_profile_" + userid + ".pdf"
           var fs = require('fs');
           fs.writeFile(filepath, output, function(err) {
               if(err) {
-                  return console.log(err);
+                  throw err;
               }
-
-              console.log("The file was saved!");
           });
         }
         else{
