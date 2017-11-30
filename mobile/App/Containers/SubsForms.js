@@ -2,12 +2,9 @@ import { StyleSheet, View, TextInput, StatusBar, TouchableOpacity } from 'react-
 import { Container, Content, Card, CardItem, Body, List, ListItem, Text, Radio } from 'native-base';
 import RadioButtonsForm from '../Components/RadioButtonsForm';
 import PersonalDataForm from '../Components/PersonalDataForm';
-<<<<<<< Updated upstream
 
 import { connect } from 'react-redux';
 import * as Session from '../Redux/Session';
-=======
->>>>>>> Stashed changes
 
 var React = require('react');
 var { AppRegistry, TouchableHighlight } = React;
@@ -56,8 +53,6 @@ var Subscription = React.createClass({
                     </Body>
                   </CardItem>
                 </Card>
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
                 <RadioButtonsForm saveOption={saveOption} answers={answers}/>
                 <View style={{flex:2, flexDirection: 'row'}}></View>
                 <TouchableOpacity style={{borderWidth: 0,
@@ -66,12 +61,6 @@ var Subscription = React.createClass({
                 flexDirection: 'row',}} onPress={() => this.props.subscription({key: "name", value:option})}>
                     <Text>Next</Text>
                 </TouchableOpacity>
-=======
-                <PersonalDataForm/>
->>>>>>> Stashed changes
-=======
-                <PersonalDataForm/>
->>>>>>> Stashed changes
              </Content>
           </Container>
         );
