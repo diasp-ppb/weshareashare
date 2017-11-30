@@ -20,7 +20,7 @@ module.exports = {
   datastores: {
     default: {
       adapter: 'sails-postgresql',
-      url: 'postgresql://weshareashare:ws_admin@postgresql:5432/weshareashare',
+      url: 'postgresql://weshareashare:ws_admin@127.0.0.1:5432/weshareashare',
     },
   },
   models: {
@@ -50,11 +50,11 @@ module.exports = {
   },
   http: {
     cache: 365.25 * 24 * 60 * 60 * 1000, // One year
-    trustProxy: false,
+    trustProxy: true,
   },
   port: 1337,
   custom: {
-    safeEmailEnvironment: true,
+    safeEmailEnvironment: false,
     email: new Email({
       message: {
         from: 'WeShareAShare  <noreply@stoik.com>',
