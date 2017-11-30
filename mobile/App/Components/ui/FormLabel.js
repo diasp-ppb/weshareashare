@@ -32,9 +32,10 @@ class CustomFormLabel extends Component {
     const props = {
       ...this.props,
       labelStyle: [{
-        color: Colors.label,
+        color: Colors.lightGrey,
         fontFamily: Fonts.base.family,
         fontSize: Fonts.base.size * 1.25,
+        fontWeight: '300',
         marginLeft: 0,
         marginRight: 0,
       }],

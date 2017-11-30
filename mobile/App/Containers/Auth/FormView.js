@@ -107,18 +107,10 @@ class AuthForm extends Component {
         },
       },
     };
-    this.imageHeight = new Animated.Value(Metrics.DEVICE_HEIGHT / 7);
   }
 
   componentWillMount() {
     this.props.navigation.setParams({ title: this.props.screenName });
-    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
-    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
-  }
-
-  componentWillUnmount() {
-    this.keyboardDidShowListener.remove();
-    this.keyboardDidHideListener.remove();
   }
 
   /**
@@ -184,23 +176,7 @@ class AuthForm extends Component {
 
     return error;
   }
-
-  _keyboardDidShow = () => {
-    if (this.props.formFields.length > 3) {
-      Animated.timing(this.imageHeight, {
-        duration: 500,
-        toValue: Metrics.DEVICE_HEIGHT / 15,
-      }).start();
-    }
-  };
-
-  _keyboardDidHide = () => {
-    Animated.timing(this.imageHeight, {
-      duration: 500,
-      toValue: Metrics.DEVICE_HEIGHT / 7,
-    }).start();
-  };
-
+  
   render = () => {
     const Form = FormValidation.form.Form;
     const { navigate } = this.props.navigation;
@@ -211,11 +187,6 @@ class AuthForm extends Component {
         style={ApplicationStyles.container}
         behavior="padding"
       >
-        <Spacer size={10} />
-        <Animated.Image
-          source={Assets.logo}
-          style={[ApplicationStyles.logo, { height: this.imageHeight }]}
-        />
         <Card>
 
           {(!!this.props.introTitle || !!this.props.introText) &&

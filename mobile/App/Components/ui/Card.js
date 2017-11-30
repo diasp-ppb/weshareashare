@@ -5,6 +5,7 @@
  *
  */
 import React, { Component } from 'react';
+import { Platform } from 'react-native';
 import PropTypes from 'prop-types';
 import { Card } from 'react-native-elements';
 
@@ -38,7 +39,19 @@ class CustomCard extends Component {
       ...this.props,
       containerStyle: [{
         backgroundColor: Colors.cardBackground,
-
+        borderWidth: 0,
+        borderColor: Colors.cardBackground,
+        ...Platform.select({
+          ios: {
+            shadowColor: 'rgba(0,0,0, .2)',
+            shadowOffset: { height: 0, width: 0 },
+            shadowOpacity: 0,
+            shadowRadius: 0,
+          },
+          android: {
+            elevation: 0,
+          },
+        }),
       }],
       titleStyle: [
         ApplicationStyles.h2,

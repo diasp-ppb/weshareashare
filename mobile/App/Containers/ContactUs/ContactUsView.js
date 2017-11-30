@@ -94,17 +94,6 @@ class ContactUs extends Component {
         },
       },
     };
-    this.imageHeight = new Animated.Value(Metrics.DEVICE_HEIGHT / 7);
-  }
-
-  componentWillMount() {
-    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
-    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
-  }
-
-  componentWillUnmount() {
-    this.keyboardDidShowListener.remove();
-    this.keyboardDidHideListener.remove();
   }
 
   /**
@@ -139,20 +128,6 @@ class ContactUs extends Component {
     return true;
   }
 
-  _keyboardDidShow = () => {
-    Animated.timing(this.imageHeight, {
-      duration: 500,
-      toValue: Metrics.DEVICE_HEIGHT / 15,
-    }).start();
-  };
-
-  _keyboardDidHide = () => {
-    Animated.timing(this.imageHeight, {
-      duration: 500,
-      toValue: Metrics.DEVICE_HEIGHT / 7,
-    }).start();
-  };
-
   render = () => {
     const Form = FormValidation.form.Form;
 
@@ -162,12 +137,6 @@ class ContactUs extends Component {
         style={ApplicationStyles.container}
         behavior="padding"
       >
-        <Spacer size={10} />
-
-        <Animated.Image
-          source={Assets.logo}
-          style={[ApplicationStyles.logo, { height: this.imageHeight }]}
-        />
         <Card>
 
           <Form

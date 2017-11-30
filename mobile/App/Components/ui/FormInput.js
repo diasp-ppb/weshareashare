@@ -34,7 +34,7 @@ class CustomFormInput extends Component {
     const props = {
       ...this.props,
       containerStyle: [{
-        borderBottomColor: Colors.border,
+        borderBottomColor: Colors.lightBlue,
         borderBottomWidth: 1,
         backgroundColor: 'rgba(255,255,255,0.05)',
         marginTop: 5,
