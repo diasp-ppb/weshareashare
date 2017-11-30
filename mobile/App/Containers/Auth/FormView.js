@@ -133,6 +133,7 @@ class AuthForm extends Component {
     */
   handleSubmit = () => {
     const formData = this.form.getValue();
+    const { navigate } = this.props.navigation;
 
     if (formData && formData.Password && formData.ConfirmPassword) {
       const passwordsDontMatch = this.passwordsMatch(formData);
@@ -153,8 +154,8 @@ class AuthForm extends Component {
 
               if (this.props.onSuccessfulSubmit) {
                 this.props.onSuccessfulSubmit(res);
+                navigate("userStack");
               }
-
               return true;
             });
           }).catch(err => {
