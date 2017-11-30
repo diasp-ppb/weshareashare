@@ -24,7 +24,8 @@ const Colors = {
   banner: '#5F3E63',
   text: '#455a64',
   lightGrey: '#B4B4B4',
-  label: '#777777'
+  label: '#777777',
+  topBarText: '#26c6da',
 };
 
 const app = {
