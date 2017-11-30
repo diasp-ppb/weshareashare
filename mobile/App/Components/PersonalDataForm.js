@@ -1,5 +1,29 @@
 import React, { Component } from 'react';
-import { Form, Item, Input, Text } from 'native-base';
+import { Item, Input, Text } from 'native-base';
+var t = require('tcomb-form-native');
+
+var Form = t.form.Form;
+
+var Gender = t.enums({
+    'M': 'Male',
+    'F': 'Female'
+});
+
+var Person = t.struct({
+    name: t.String,
+    gender: Gender,
+    address: t.String,
+    postal: t.String,
+    city: t.String,
+    id: t.Number,
+    nif: t.Number,
+    job: t.String,
+    nationality: t.String
+});
+
+var options = {
+    auto:'placeholders',
+}
 
 class PersonalDataForm extends Component {
   constructor(props) {
@@ -8,39 +32,11 @@ class PersonalDataForm extends Component {
 
   render() {
     return (
-      <Form>
-        <Item>
-          <Input placeholder="Nome Completo"/>
-        </Item>
-        <Item>
-          <Input placeholder="dd"/>
-          <Text>/</Text>
-          <Input placeholder="mm"/>
-          <Text>/</Text>
-          <Input placeholder="aaaa"/>
-        </Item>
-        <Item>
-          <Input placeholder="Morada"/>
-        </Item>
-        <Item>
-          <Input placeholder="Código Postal"/>
-        </Item>
-        <Item>
-          <Input placeholder="Localidade"/>
-        </Item>
-        <Item>
-          <Input placeholder="Número do Cartão de Cidadão"/>
-        </Item>
-        <Item>
-          <Input placeholder="NIF"/>
-        </Item>
-        <Item>
-          <Input placeholder="Profissão"/>
-        </Item>
-        <Item last>
-          <Input placeholder="Nacionalidade"/>
-        </Item>
-      </Form>
+      <Form
+          ref="form"
+          type={Person}
+          options={options}
+      />
     );
   };
 };
