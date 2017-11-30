@@ -62,7 +62,7 @@ module.exports = {
       views: {
         root: path.resolve('views/emails'),
       },
-      send: this.safeEmailEnvironment,
+      send: true,
       transport: {
         host: 'smtp.gmail.com',
         port: 587,

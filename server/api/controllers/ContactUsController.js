@@ -17,9 +17,9 @@ module.exports = {
     try {
       contact = await ContactUs.create({
         firstName: params.FirstName,
-        lastName: params.lastName,
-        email: params.email,
-        subject: params.subject,
+        lastName: params.LastName,
+        email: params.Email,
+        subject: params.Subject,
         message: params.Message
       }).meta({fetch: true});
     } catch (err) {
