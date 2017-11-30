@@ -5,6 +5,7 @@ import configureStore from './CreateStore';
 export const reducers = combineReducers({
   nav: require('./NavigationRedux').reducer,
   session: require('./Session/redux').reducer,
+  forms: require('./Session/reduxForm').reducer,
 });
 
 export default () => {

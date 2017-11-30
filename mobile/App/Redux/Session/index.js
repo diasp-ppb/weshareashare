@@ -1,5 +1,6 @@
 import * as API from '../../Services/API';
-import * as SessionRedux from './redux'
+import * as SessionRedux from './redux';
+import * as FormRedux from './reduxForm';
 
 const SESSION_TIMEOUT_THRESHOLD = 300; // Will refresh the access token 5 minutes before it expires
 let sessionTimeout = null;
@@ -49,7 +50,8 @@ export const authenticate = (res) => {
 
 export const subscription = (res) => {
     return (dispatch) => {
-        dispatch(SessionRedux.update({'form': res.form}));
+        console.log(getState());
+        dispatch(FormRedux.update({'form': res.form}));
     }
 }
 

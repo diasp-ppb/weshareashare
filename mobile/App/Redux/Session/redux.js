@@ -23,10 +23,6 @@ export const initialState = {
   },
   client: {
     id: null,
-  },
-  form: {
-    participants: null,
-    subscription: null,
   }
 };
 

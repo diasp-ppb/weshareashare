@@ -16,7 +16,7 @@ var Subscription = React.createClass({
         return (
           <Container style={styles.container}>
              <Content>
-               <Card>
+               <Card style={styles.messageBackground}>
                   <CardItem style={styles.messageCard}>
                     <Body>
                       <Text>
@@ -38,15 +38,23 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 50,
     paddingTop: 20,
-    backgroundColor: '#ffffff',
+    //backgroundColor: '#ffffff',
   },
   messageCard: {
-    borderRadius: 10,
-    height: 70,
+    borderRadius: 20,
     borderColor: '#80deea',
     borderWidth: 1,
     backgroundColor: '#80deea',
     elevation: 20,
+  },
+  messageBackground: {
+    borderRadius: 20,
+    height: 70,
+    borderColor: '#80deea',
+    borderWidth: 1,
+    marginRight: 50,
+    marginLeft: 10,
+    backgroundColor: '#80deea',
   },
 });
 
