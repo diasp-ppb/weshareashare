@@ -8,6 +8,7 @@
 module.exports = {
   async postSubscription(req, res) {
     let parsedAttrs = Fund.parseAttrs(req.allParams());
+    let investorAttrs = Profile.parseAttrs(req.allParams())
     let participantAttrs = parsedAttrs.participant;
     let userid = req.headers['user-id'];
 
@@ -27,11 +28,18 @@ module.exports = {
 
       let person = await Person.findOne({user: userid});
 
-      parsedAttrs.participant = userid;
+      parsedAttrs.participant = person.id;
       if(person.subscription){
         Fund.update(person.subscription, parsedAttrs).meta({fetch: true}).then();
       } else {
         Fund.create(parsedAttrs).meta({fetch: true}).then();
+      }
+
+      investorAttrs.person = person.id;
+      if(person.investorProfile){
+        Profile.update(person.investorProfile, investorAttrs).meta({fetch: true}).then();
+      } else {
+        Profile.create(investorAttrs).meta({fetch: true}).then();
       }
 
     } catch(err) {
@@ -117,10 +125,8 @@ module.exports = {
           var fs = require('fs');
           fs.writeFile(filepath, output, function(err) {
               if(err) {
-                  return console.log(err);
+                  throw err;
               }
-
-              console.log("The file was saved!");
           });
         }
         else{
@@ -163,10 +169,73 @@ module.exports = {
 
       fillPdf.generatePdf(formData, pdfTemplatePath, ['drop_xfa','need_appearances'], function(err, output) {
         if ( !err ) {
+          //save output somewhere
+          var filepath = "./resources/filled/fatca_" + userid + ".pdf"
+          var fs = require('fs');
+          fs.writeFile(filepath, output, function(err) {
+              if(err) {
+                  throw err;
+              }
+          });
+        }
+        else{
+          throw err;
+        }
+      });
+
+    } catch(err) {
+      return res.serverError(err);
+    }
+
+    return res.ok();
+  },
+
+  async fillInvestorProfilePDF(req, res) {
+    let userid = req.headers['user-id'];
+
+    const fillPdf = require("fill-pdf");
+    const encoding = require('encoding');
+
+    try {
+      let person = await Person.findOne({id: userid}).populate('user').populate('investorProfile');
+
+      let pdfTemplatePath = "../../resources/investor_profile_template.pdf";
+      let date = new Date();
+      let age = Math.floor((date-person.birthday)/31557600000);
+      let duration = ['< 1', '1 a 3', '> 3'];
+      let percentage = ['< 25', '25 a 50', '> 50'];
+      let goal = ['Preservar o capital', 'Crescer moderadamente', 'Crescer substancialmente'];
+      let feeling = ['Insatisfeito', 'Razoavel', 'Muito Satisfeito'];
+      let risk = ['Nunca', 'Sim', 'Sem duvida'];
+      let type = ['DA e CA', 'O e PG', 'Acoes'];
+      let profitability = ['2 a 4', '5 a 9', '10 a 15'];
+
+      console.log(person);
+
+      let formData = {
+        Nome: person.name,
+        NIF: person.NIF,
+        Idade: age,
+        Prazo_Investimento: duration[person.investorProfile.duration - 1],
+        Percentagem_Poupanca: percentage[person.investorProfile.percentage - 1],
+        Objetivo: goal[person.investorProfile.goal - 1],
+        Como_Se_Sente: feeling[person.investorProfile.feeling - 1],
+        Risco: risk[person.investorProfile.risk - 1],
+        Ativos: type[person.investorProfile.type - 1],
+        Rentabilidade: profitability[person.investorProfile.profitability - 1],
+        Dia: date.getDate(),
+        Mes: date.getMonth() + 1,
+        Ano: date.getFullYear(),
+      };
+
+      formData.Nome = encoding.convert(formData.Nome, 'ISO-8859-1', 'UTF-8');
+
+      fillPdf.generatePdf(formData, pdfTemplatePath, ['drop_xfa','need_appearances'], function(err, output) {
+        if ( !err ) {
           console.log(formData);
 
           //save output somewhere
-          var filepath = "./resources/filled/fatca_" + userid + ".pdf"
+          var filepath = "./resources/filled/investor_profile_" + userid + ".pdf"
           var fs = require('fs');
           fs.writeFile(filepath, output, function(err) {
               if(err) {

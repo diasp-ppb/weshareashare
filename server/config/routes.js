@@ -103,4 +103,12 @@ module.exports.routes = {
     controller: 'FundController',
     action: 'fillFatcaPDF',
   },
+
+  'get /investorprofile': {
+    cors: {
+      allowRequestHeaders: 'Content-Type, Client-ID',
+    },
+    controller: 'FundController',
+    action: 'fillInvestorProfilePDF',
+  },
 };
