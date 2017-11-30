@@ -22,7 +22,7 @@ export default class RightComponent extends Component {
         <TouchableOpacity style={styles.pullLeft} onPress={() => this.props.switchState}>
           <Icon style={styles.button} name={this.NotificationIcon()} size={30} color="#fff" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigate('DrawerOpen')}>
+        <TouchableOpacity style={styles.pullLeft} onPress={() => navigate('DrawerOpen')}>
           <Icon style={styles.button} name="menu" size={30} color="#fff" />
         </TouchableOpacity>
       </View>
