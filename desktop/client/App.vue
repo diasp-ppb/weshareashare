@@ -41,6 +41,10 @@ export default {
     document.addEventListener('visibilitychange', handler)
     window.addEventListener('DOMContentLoaded', handler)
     window.addEventListener('resize', handler)
+
+    this.axios.post('http://localhost:1337/clients').then((response) => {
+      this.updateClientId(response.data.client.id)
+    })
   },
 
   computed: mapGetters({
@@ -49,7 +53,8 @@ export default {
 
   methods: mapActions([
     'toggleDevice',
-    'toggleSidebar'
+    'toggleSidebar',
+    'updateClientId'
   ])
 }
 </script>

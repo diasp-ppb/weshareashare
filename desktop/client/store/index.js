@@ -18,9 +18,13 @@ const store = new Vuex.Store({
     menu
   },
   state: {
-    pkg
+    pkg,
+    clientId: null
   },
   mutations: {
+    updateClientId: function (state, clientId) {
+      this.state.clientId = clientId
+    }
   }
 })
 

@@ -27,6 +27,16 @@ export default {
     }
   },
 
+  created: function () {
+    /* this.$http.post('http://localhost:1337/clients')
+      .then(response => {
+        console.log(response)
+        // this.sources = response.data.sources;
+      }, response => {
+        // error callback
+      }) */
+  },
+
   components: {
     Levelbar
   }
