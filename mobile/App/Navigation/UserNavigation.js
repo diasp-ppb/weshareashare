@@ -8,7 +8,7 @@ import FormOverview from '@containers/Onboarding/FormOverview';
 // General Screens
 import ContactUs from '@containers/ContactUs/ContactUsContainer';
 import AboutUs from '@components/AboutUs';
-import StoikBenefits from '@components/StoikBenefits';
+import Mainpage from '@components/Mainpage';
 
 // Drawer and header style
 import ControlPanel from '@containers/ControlPanel/ControlPanelContainer';
@@ -23,9 +23,9 @@ const navigationOptions = ({ navigation }) => ({
 });
 
 const UserNavigationStack = StackNavigator({
+  Mainpage: { screen: Mainpage },
   OnboardingOverview: { screen: FormOverview },
   InvestorProfileQuiz: { screen: InvestorProfileQuiz },
-  StoikBenefits: { screen: StoikBenefits },
   ContactUs: { screen: ContactUs },
   AboutUs: { screen: AboutUs },
 }, {

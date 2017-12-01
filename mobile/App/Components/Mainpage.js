@@ -1,12 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import { View, Image } from 'react-native';
 import { Button, Text } from 'native-base';
+import I18n from '@i18n/i18n';
 import StepIndicator from '@components/StepIndicator';
 import { Assets, ApplicationStyles, Colors, Fonts } from '@theme/';
 
 export default class Homepage extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: 'Página inicial',
+    title: I18n.t('mainPage'),
   });
 
   constructor(props) {

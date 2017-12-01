@@ -3,7 +3,7 @@ import { View, Image } from 'react-native';
 import { Divider } from 'react-native-elements';
 import { ApplicationStyles, Metrics, Assets } from '@theme/';
 import { Text } from '@ui/';
-import styles from './Styles/StoikHeaderStyle'
+import styles from '../../Components/Styles/StoikHeaderStyle'
 
 export default class StoikBenefits extends Component {
   static navigationOptions = ({ navigation }) => ({

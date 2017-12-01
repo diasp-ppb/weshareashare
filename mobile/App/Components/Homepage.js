@@ -1,8 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { View, Image } from 'react-native';
 import { Button, Text } from 'native-base';
+import I18n from '@i18n/i18n';
 import { Assets } from '@theme/';
 import styles from './Styles/HomepageStyle';
+import { ApplicationStyles } from '@theme/'
 import { StoikHeader } from './StoikHeader';
 
 export default class Homepage extends Component {
@@ -13,29 +15,29 @@ export default class Homepage extends Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <View style={styles.mainContainer}>
+      <View style={ApplicationStyles.mainContainer}>
         <StoikHeader />
-        <View style={styles.container}>
+        <View style={ApplicationStyles.container}>
           <Image source={Assets.background} style={styles.canvas}>
             <View style={styles.btnGroup}>
               <Button style={styles.btn} onPress={() => { navigate('SignIn'); }}>
                 <Text style={styles.btnText}>
-                  Sign In
+                  {I18n.t('signIn')}
                 </Text>
               </Button>
               <Button style={styles.btn} onPress={() => { navigate('SignUp'); }}>
                 <Text style={styles.btnText}>
-                  Sign Up
+                  {I18n.t('signUp')}
                 </Text>
               </Button>
               <Button style={styles.btn} onPress={() => { navigate('ContactUs'); }}>
                 <Text style={styles.btnText}>
-                  Contact us
+                  {I18n.t('contactUs')}
                 </Text>
               </Button>
               <Button style={styles.btn} onPress={() => { navigate('AboutUs'); }}>
                 <Text style={styles.btnText}>
-                  About us
+                  {I18n.t('aboutUs')}
                 </Text>
               </Button>
             </View>

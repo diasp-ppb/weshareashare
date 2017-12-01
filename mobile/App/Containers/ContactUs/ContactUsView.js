@@ -17,11 +17,10 @@ import { Card, Spacer, Text, Button } from '@ui/';
 import * as Utils from '@services/Utils';
 import TcombTextInput from '@components/tcomb/TextInput';
 
-
 /* Component ==================================================================== */
 class ContactUs extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: 'Contact Us',
+    title: typeof (navigation.state.params) === 'undefined' || typeof (navigation.state.params.title) === 'undefined' ? '' : navigation.state.params.title,
   });
 
   static propTypes = {
@@ -96,6 +95,10 @@ class ContactUs extends Component {
         },
       },
     };
+  }
+
+  componentWillMount() {
+    this.props.navigation.setParams({ title: this.props.screenName });
   }
 
   /**

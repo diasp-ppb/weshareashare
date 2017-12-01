@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import RadioButton from 'radio-button-react-native';
 import { View, Image, ScrollView } from 'react-native';
 import { Button, Text } from 'native-base';
-import styles from './Styles/HomepageStyle.js';
-import CauseStyles from './Styles/CausesFormStyle.js';
+import CauseStyles from './CausesStyle.js';
 
 export default class weShareAShareForm extends Component {
   constructor(props) {
@@ -76,8 +75,8 @@ export default class weShareAShareForm extends Component {
           </ScrollView>
         </View>
         <View>
-          <Button style={styles.orangeNextBtn} onPress={() => { console.log('need to be done')} }>
-            <Text style={styles.btnText}>
+          <Button style={CauseStyles.orangeNextBtn} onPress={() => { console.log('need to be done')} }>
+            <Text style={CauseStyles.btnText}>
               Next
             </Text>
           </Button>

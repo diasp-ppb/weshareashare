@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import { Text as CustomText } from '@ui/';
 import { Text } from 'react-native-elements';
+import I18n from '@i18n/i18n';
 import styles from './Styles/AboutUsStyle';
 import { ApplicationStyles } from '@theme/';
 
 export default class AboutUs extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: 'About Us',
+    title: I18n.t('aboutUs'),
   });
 
   render() {

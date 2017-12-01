@@ -4,14 +4,13 @@ import { Metrics, Colors, Fonts } from '@theme/';
 export default StyleSheet.create({
   topBannerText: {
     marginVertical: Metrics.PADDING,
-    color: '#26c6da', //ele nao quer saber de Colors. ou de Fonts. por alguma razao
+    color: '#26c6da',
     fontSize: 26,
     alignSelf: 'center',
   },
   radioButtonsGroup:{
     flex:1,
     paddingTop: 20,
-    //  paddingBottom: Metrics.smallMargin,
     paddingLeft: 20,
     paddingRight:  Metrics.smallMargin,
     height: Metrics.DEVICE_HEIGHT - 70, //70 = header height + paddingTop + real padding
@@ -41,5 +40,16 @@ export default StyleSheet.create({
   },
   thisbtn: {
     backgroundColor:'white',
-  }
+  },
+  orangeNextBtn: {
+    alignSelf: 'flex-end',
+    margin: Metrics.baseMargin,
+    padding: Metrics.baseMargin,
+    backgroundColor: Colors.stoikOrange,
+    borderRadius: 8,
+  },
+  btnText: {
+    textAlign: 'center',
+    color: Colors.text,
+  },
 });
