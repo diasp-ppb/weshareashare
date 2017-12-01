@@ -51,17 +51,10 @@ class Causes extends Component {
 
   render () {
     return (
-      <View style={[ApplicationStyles.container]}>
-        <View>
-          <Text style={styles.topBannerText}>
-            Choose a cause:
-          </Text>
-        </View>
-        <View style={styles.radioButtonsGroup}>
-          <ScrollView>
-            {this.createCausesButtons()}
-          </ScrollView>
-        </View>
+      <View style={styles.radioButtonsGroup}>
+        <ScrollView>
+          {this.createCausesButtons()}
+        </ScrollView>
       </View>
     );
   }

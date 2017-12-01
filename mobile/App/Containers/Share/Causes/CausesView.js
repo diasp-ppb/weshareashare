@@ -58,7 +58,7 @@ export default class TabViewExample extends PureComponent {
   render() {
     return (
       <TabViewAnimated
-        style={ApplicationStyles.mainContainer}
+        style={ApplicationStyles.container}
         navigationState={this.state}
         renderScene={this._renderScene}
         renderHeader={this._renderHeader}
