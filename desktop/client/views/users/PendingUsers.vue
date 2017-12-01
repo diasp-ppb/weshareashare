@@ -1,63 +1,66 @@
 <template>
-  <div class="tile is-ancestor">
-    <div class="tile is-parent is-6">
-      <article class="tile is-child box">
-        <h1 class="title">Font Awesome</h1>
-        <h3 class="subtitle">
-          <a href="http://fontawesome.io/examples/">More Examples</a>
-        </h3>
-        <div class="content">
-          <p>
-            <i class="fa fa-camera-retro"></i>
-          </p>
-          <p>
-            <i class="fa fa-camera-retro fa-lg"></i> fa-lg
-          </p>
-          <p>
-            <i class="fa fa-camera-retro fa-2x"></i> fa-2x
-          </p>
-          <p>
-            <i class="fa fa-camera-retro fa-3x"></i> fa-3x
-          </p>
-          <p>
-            <i class="fa fa-camera-retro fa-4x"></i> fa-4x
-          </p>
-          <p>
-            <i class="fa fa-camera-retro fa-5x"></i> fa-5x
-          </p>
-        </div>
-      </article>
-    </div>
-
-    <div class="tile is-parent is-6">
-      <article class="tile is-child box">
-        <h1 class="title">Material Design Icons</h1>
-        <h3 class="subtitle">
-          <a href="https://materialdesignicons.com">More Examples</a>
-        </h3>
-        <div class="content">
-          <p>
-            <i class="mdi mdi-face"></i>
-          </p>
-          <p>
-            <i class="mdi mdi-face mdi-18px"></i> mdi-18px
-          </p>
-          <p>
-            <i class="mdi mdi-face mdi-24px"></i> mdi-24px
-          </p>
-          <p>
-            <i class="mdi mdi-face mdi-36px"></i> mdi-36px
-          </p>
-          <p>
-            <i class="mdi mdi-face mdi-48px"></i> mdi-48px
-          </p>
-        </div>
-      </article>
-    </div>
+  <div>
+    <vue-good-table
+    title="Utilizadores registados"
+    :columns="columns"
+    :rows="rows"
+    :paginate="true"
+    :lineNumbers="true"
+    :globalSearch="true"
+    styleClass="table table-bordered table-striped condensed"/>
   </div>
 </template>
 
+<script>
+export default {
+
+  data () {
+    return {
+      columns: [
+        {
+          label: 'Nome',
+          field: 'name'
+        },
+        {
+          label: 'Email',
+          field: 'email',
+          type: 'number'
+        },
+        {
+          label: 'Data de inscrição',
+          field: 'joined',
+          type: 'date',
+          inputFormat: 'YYYYMMDD',
+          outputFormat: 'MMM Do YYYY'
+        }
+      ],
+      rows: [
+        {name: 'John', email: 20, joined: '20120201'},
+        {name: 'Jane', email: 24, joined: '20120305'},
+        {name: 'Susan', email: 16, joined: '20140823'},
+        {name: 'Chris', email: 55, joined: '20161109'},
+        {name: 'Dan', email: 40, joined: '20170612'},
+        {name: 'John', email: 20, joined: '20120201'},
+        {name: 'Jane', email: 24, joined: '20120305'},
+        {name: 'Susan', email: 16, joined: '20140823'},
+        {name: 'Chris', email: 55, joined: '20161109'},
+        {name: 'Dan', email: 40, joined: '20170612'},
+        {name: 'John', email: 20, joined: '20120201'},
+        {name: 'Jane', email: 24, joined: '20120305'},
+        {name: 'Susan', email: 16, joined: '20140823'},
+        {name: 'Chris', email: 55, joined: '20161109'},
+        {name: 'Dan', email: 40, joined: '20170612'}
+      ]
+    }
+  }
+}
+</script>
+
 <style lang="scss">
-$mdi-font-path: '~mdi/fonts/';
-@import "~mdi/scss/materialdesignicons.scss";
+.table-responsive {
+  display: block;
+  width: 100%;
+  min-height: .01%;
+  overflow-x: auto;
+}
 </style>

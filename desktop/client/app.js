@@ -9,8 +9,10 @@ import router from './router'
 import store from './store'
 import * as filters from './filters'
 import { TOGGLE_SIDEBAR } from 'vuex-store/mutation-types'
+import VueGoodTable from 'vue-good-table'
 
 Vue.router = router
+Vue.use(VueGoodTable)
 Vue.use(VueAxios, axios)
 Vue.use(VueAuth, {
   auth: {
