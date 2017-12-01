@@ -4,7 +4,8 @@
      <FormValidationMessage></FormValidationMessage>
  *
  */
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { FormValidationMessage } from 'react-native-elements';
 
 // Consts and Libs

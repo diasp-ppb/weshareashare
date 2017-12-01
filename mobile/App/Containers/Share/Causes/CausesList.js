@@ -5,7 +5,7 @@ import { Button, Text } from 'native-base';
 import styles from './CausesStyle'
 import { ApplicationStyles } from '@theme/'
 
-class Causes extends Component {
+class CausesList extends Component {
   onRequest = () => {
     const { navigate } = this.props.navigation;
     console.log(`chose ${this.causesAndDescriptions[this.state.value].cause}!`);
@@ -60,4 +60,4 @@ class Causes extends Component {
   }
 }
 
-export default Causes;
+export default CausesList;

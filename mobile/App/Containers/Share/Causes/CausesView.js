@@ -1,5 +1,6 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
+import I18n from '@i18n/i18n';
 import PropTypes from 'prop-types';
 import { TabViewAnimated, TabBar, SceneMap } from 'react-native-tab-view';
 import CausesList from './CausesList';
@@ -10,7 +11,7 @@ const initialLayout = {
   width: Metrics.DEVICE_WIDTH
 };
 
-export default class TabViewExample extends PureComponent {
+export default class CausesView extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: I18n.t('causes'),
   });
@@ -31,9 +32,9 @@ export default class TabViewExample extends PureComponent {
 
   constructor(props) {
     super(props);
-    this.FirstRoute = () => <CausesList {{causes: this.props.causes, category: 'People', informative: true}}/>;
-    this.SecondRoute = () => <CausesList {{causes: this.props.causes, category: 'Animals & Environment', informative: true}}/>;
-    this.ThirdRoute = () => <CausesList {{causes: this.props.causes, category: 'Arts & Culture', informative: true}}/>;
+    this.FirstRoute = () => <CausesList causes={this.props.causes} category={'People'} informative={true}/>;
+    this.SecondRoute = () => <CausesList causes={this.props.causes} category={'People'} informative={true}/>;
+    this.ThirdRoute = () => <CausesList causes={this.props.causes} category={'People'} informative={true}/>;
   }
 
   state = {
