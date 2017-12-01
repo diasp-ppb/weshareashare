@@ -42,13 +42,12 @@ export default {
     window.addEventListener('DOMContentLoaded', handler)
     window.addEventListener('resize', handler)
 
-    this.axios.post('http://localhost:1337/clients').then((response) => {
+    this.axios.post(this.$store.state.address + 'clients').then((response) => {
       this.updateClientId(response.data.client.id)
     })
   },
 
   created () {
-    console.log(this.$store.getters.clientId)
   },
 
   computed: mapGetters({

@@ -37,7 +37,6 @@ module.exports = {
     let params = req.allParams();
     User.create(params).meta({fetch: true})
       .then((user) => {
-        sails.log(user);
         return user;
       }).then((user) => {
         let email = sails.config.custom.email;
@@ -79,6 +78,8 @@ module.exports = {
   getAll(req, res) {
     User.find()
       .then((users) => {
+        for (var i = 0; i < users.length; i++)
+          delete users[i].password;
         res.ok({ users });
       }).catch((err) => {
         return res.serverError(err);

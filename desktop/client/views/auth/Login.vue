@@ -6,10 +6,10 @@
     <div class="column is-6 is-offset-3">
       <div class="box">
         <div v-show="error" style="color:red; word-wrap:break-word;">{{ error }}</div>
-        <form v-on:submit.prevent="login">
-          <label class="label">Username</label>
+        <form v-on:submit.prevent="ui">
+          <label class="label">Email</label>
           <p class="control">
-            <input v-model="data.body.username" class="input" type="text" placeholder="your username">
+            <input v-model="data.body.email" class="input" type="text" placeholder="your email">
           </p>
           <label class="label">Password</label>
           <p class="control">
@@ -42,7 +42,7 @@ export default {
     return {
       data: {
         body: {
-          username: null,
+          email: null,
           password: null
         },
         rememberMe: false
@@ -51,18 +51,38 @@ export default {
     }
   },
   mounted () {
-    if (this.$auth.redirect()) {
+    /* if (this.$auth.redirect()) {
       console.log('Redirect from: ' + this.$auth.redirect().from.name)
-    }
+    } */
     // Can set query parameter here for auth redirect or just do it silently in login redirect.
   },
+  computed: {
+    clientId () {
+      return this.$store.state.clientId
+    },
+    address () {
+      return this.$store.state.address
+    }
+  },
   methods: {
-    login () {
-      if (this.data.body.username === 'weshareashare' && this.data.body.password === '12345678') {
+    ui () {
+      /*
+      this.axios({
+        method: 'post',
+        url: this.address + 'admins/auth',
+        auth: {
+          username: this.data.body.email,
+          password: this.data.body.password
+        }
+      }).then(function (response) {
+        console.log(response)
+      }) */
+
+      if (this.data.body.email === 'weshareashare' && this.data.body.password === '12345678') {
         this.$router.push({path: '/'})
       } else {
         console.log('error login')
-        this.error = 'Your username and/or password are invalid.'
+        this.error = 'Your email and/or password are invalid.'
       }
 
       /*
@@ -93,7 +113,8 @@ export default {
           }
           console.log(err.config)
         }
-      }) */
+      })
+      */
     }
   }
   // filters: {
