@@ -8,17 +8,19 @@ const bcrypt = require('bcrypt');
 const SALT_ROUNDS = 10;
 const PASSWORD_MIN_LENGTH = 8;
 const PASSWORD_MAX_LENGTH = 72;
-const USERNAME_MAX_LENGTH = 32;
-const USERNAME_MIN_LENGTH = 4;
+const STRING_MAX_LENGTH = 64;
 
 module.exports = {
   attributes: {
-    username: {
+    firstName: {
       type: 'string',
-      minLength: USERNAME_MIN_LENGTH,
-      maxLength: USERNAME_MAX_LENGTH,
+      maxLength: STRING_MAX_LENGTH,
       required: true,
-      unique: true,
+    },
+    lastName: {
+      type: 'string',
+      maxLength: STRING_MAX_LENGTH,
+      required: true,
     },
     password: {
       type: 'string',
@@ -28,22 +30,23 @@ module.exports = {
     },
     email: {
       type: 'string',
-      maxLength: USERNAME_MAX_LENGTH,
+      maxLength: STRING_MAX_LENGTH,
       isEmail: true,
       required: true,
       unique: true,
     },
-
+    awaitsConfirmation: {
+      type: 'boolean',
+      defaultsTo: false
+    },
     isAdmin: {
       type: 'boolean',
       defaultsTo : false
     },
-
     notifications: {
       collection: 'notification',
       via: 'receiver'
     },
-
     documents: {
       collection: 'document',
       via: 'owner'

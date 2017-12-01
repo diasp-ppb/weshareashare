@@ -1,7 +1,7 @@
 <template>
   <div>
     <vue-good-table
-    title="Utilizadores registados"
+    title="Utilizadores pendentes"
     :columns="columns"
     :rows="rows"
     :paginate="true"
@@ -25,33 +25,43 @@ export default {
           label: 'Email',
           field: 'email',
           type: 'number'
-        },
-        {
-          label: 'Data de inscrição',
-          field: 'joined',
-          type: 'date',
-          inputFormat: 'YYYYMMDD',
-          outputFormat: 'MMM Do YYYY'
         }
       ],
-      rows: [
-        {name: 'John', email: 20, joined: '20120201'},
-        {name: 'Jane', email: 24, joined: '20120305'},
-        {name: 'Susan', email: 16, joined: '20140823'},
-        {name: 'Chris', email: 55, joined: '20161109'},
-        {name: 'Dan', email: 40, joined: '20170612'},
-        {name: 'John', email: 20, joined: '20120201'},
-        {name: 'Jane', email: 24, joined: '20120305'},
-        {name: 'Susan', email: 16, joined: '20140823'},
-        {name: 'Chris', email: 55, joined: '20161109'},
-        {name: 'Dan', email: 40, joined: '20170612'},
-        {name: 'John', email: 20, joined: '20120201'},
-        {name: 'Jane', email: 24, joined: '20120305'},
-        {name: 'Susan', email: 16, joined: '20140823'},
-        {name: 'Chris', email: 55, joined: '20161109'},
-        {name: 'Dan', email: 40, joined: '20170612'}
-      ]
+      rows: []
     }
+  },
+  computed: {
+    clientId () {
+      return this.$store.state.clientId
+    },
+    address () {
+      return this.$store.state.address
+    }
+  },
+  created () {
+    var self = this
+
+    this.axios.get(this.address + 'users')
+    .then(function (response) {
+      var users = response.data.users
+      var rows = []
+
+      for (var i = 0; i < users.length; i++) {
+        if (!users[i].awaitsConfirmation) {
+          continue
+        }
+
+        var name = users[i].firstName + ' ' + users[i].lastName
+        var email = users[i].email
+
+        rows.push({name: name, email: email})
+      }
+
+      self.rows = rows
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
   }
 }
 </script>

@@ -17,7 +17,8 @@ Vue.use(VueAxios, axios)
 Vue.use(VueAuth, {
   auth: {
     request: function (req, token) {
-      this.options.http._setHeaders.call(this, req, {Authorization: token})
+      // TODO: comentei esta linha e o axios deixou de incluir o header authorization...
+      // this.options.http._setHeaders.call(this, req, {Authorization: token})
     },
     response: function (res) {
       // Get Token from response body
