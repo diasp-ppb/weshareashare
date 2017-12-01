@@ -56,19 +56,5 @@ export default StyleSheet.create({
     borderRadius: 130 / 2,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  h1: {
-    fontSize: Metrics.FONT_SIZE_TITLE / 2.2,
-    alignSelf: 'center',
-    paddingVertical: Metrics.PADDING,
-    justifyContent: 'center',
-    textAlign: 'center',
-    flexWrap: 'wrap',
-  },
-  h2: {
-    fontSize: Metrics.FONT_SIZE_TITLE / 2.5,
-    alignSelf: 'center',
-    paddingVertical: Metrics.PADDING,
-    backgroundColor: 'rgba(0,0,0,0)',
-  },
+  }
 });

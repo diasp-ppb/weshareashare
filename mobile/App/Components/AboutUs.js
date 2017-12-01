@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
+import { Text as CustomText } from '@ui/';
 import { Text } from 'react-native-elements';
 import styles from './Styles/AboutUsStyle';
+import { ApplicationStyles } from '@theme/';
 
 export default class AboutUs extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -14,9 +16,9 @@ export default class AboutUs extends Component {
         <View style={styles.container}>
 
           <View>
-            <Text style={styles.h1}>WeShareAShare is a not-for-profit project that
+            <CustomText h2 style={[ApplicationStyles.textCenterAligned, ApplicationStyles.paddingTopSml]}>WeShareAShare is a not-for-profit project that
               was born from the desire to join 2 typically disconnected
-              worlds: Finance and Causes.</Text>
+              worlds: Finance and Causes.</CustomText>
           </View>
 
           <View style={{ flex: 1 }}>

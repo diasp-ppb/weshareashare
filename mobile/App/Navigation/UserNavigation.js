@@ -5,7 +5,6 @@ import { StackNavigator, DrawerNavigator } from 'react-navigation';
 // Onboarding Screens
 import InvestorProfileQuiz from '@containers/Onboarding/InvestorProfileQuiz';
 import FormOverview from '@containers/Onboarding/FormOverview';
-import WeShareAShare from '@components/weShareAShareForm';
 // General Screens
 import ContactUs from '@containers/ContactUs/ContactUsContainer';
 import AboutUs from '@components/AboutUs';
@@ -29,7 +28,6 @@ const UserNavigationStack = StackNavigator({
   StoikBenefits: { screen: StoikBenefits },
   ContactUs: { screen: ContactUs },
   AboutUs: { screen: AboutUs },
-    WeShareAShare: { screen: WeShareAShare},
 }, {
   headerMode: 'float',
   navigationOptions,

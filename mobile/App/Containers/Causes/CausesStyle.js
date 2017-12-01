@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Metrics, Colors, Fonts } from '../../Themes/index';
+import { Metrics, Colors, Fonts } from '@theme/';
 
 export default StyleSheet.create({
   topBannerText: {
@@ -11,12 +11,12 @@ export default StyleSheet.create({
   radioButtonsGroup:{
     flex:1,
     paddingTop: 20,
-  //  paddingBottom: Metrics.smallMargin,
+    //  paddingBottom: Metrics.smallMargin,
     paddingLeft: 20,
     paddingRight:  Metrics.smallMargin,
     height: Metrics.DEVICE_HEIGHT - 70, //70 = header height + paddingTop + real padding
   },
- radioButtons: {
+  radioButtons: {
     flex:1,
   },
   causeNameText: {

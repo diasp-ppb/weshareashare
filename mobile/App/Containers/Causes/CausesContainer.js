@@ -67,7 +67,7 @@ export default class weShareAShareForm extends Component {
       <View style={{ flex: 1 }}>
         <View>
           <Text style={CauseStyles.topBannerText}>
-                Choose a cause:
+            Choose a cause:
           </Text>
         </View>
         <View style={CauseStyles.radioButtonsGroup}>
@@ -78,7 +78,7 @@ export default class weShareAShareForm extends Component {
         <View>
           <Button style={styles.orangeNextBtn} onPress={() => { console.log('need to be done')} }>
             <Text style={styles.btnText}>
-                Next
+              Next
             </Text>
           </Button>
         </View>

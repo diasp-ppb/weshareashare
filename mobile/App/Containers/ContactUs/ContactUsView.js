@@ -47,8 +47,8 @@ class ContactUs extends Component {
     if (props.formFields.indexOf('Email') > -1) formFields.Email = Utils.validEmail;
     if (props.formFields.indexOf('FirstName') > -1) formFields.FirstName = FormValidation.String;
     if (props.formFields.indexOf('LastName') > -1) formFields.LastName = FormValidation.String;
-    if (props.formFields.indexOf('Message') > -1) formFields.Message = FormValidation.String;
     if (props.formFields.indexOf('Subject') > -1) formFields.Subject = FormValidation.String;
+    if (props.formFields.indexOf('Message') > -1) formFields.Message = FormValidation.String;
 
     this.state = {
       resultMsg: {
@@ -90,6 +90,8 @@ class ContactUs extends Component {
             template: TcombTextInput,
             error: 'Please enter your message',
             clearButtonMode: 'while-editing',
+            multiline: true,
+            numberOfLines: 4,
           },
         },
       },

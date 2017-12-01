@@ -13,6 +13,7 @@ import Homepage from '@components/Homepage';
 import ContactUs from '@containers/ContactUs/ContactUsContainer';
 import AboutUs from '@components/AboutUs';
 import StoikBenefits from '@components/StoikBenefits';
+import Mainpage from '@components/Mainpage';
 
 import { Colors } from '@theme';
 
@@ -22,7 +23,9 @@ const navigationOptions = {
 };
 
 export default StackNavigator({
-  Homepage: { screen: Homepage },
+    Mainpage: {screen: Mainpage },
+
+    Homepage: { screen: Homepage },
   PasswordReset: { screen: PasswordReset },
   PasswordUpdate: { screen: PasswordUpdate },
   SignIn: { screen: SignIn },
