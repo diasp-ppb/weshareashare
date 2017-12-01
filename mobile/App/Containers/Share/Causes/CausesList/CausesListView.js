@@ -1,11 +1,30 @@
 import React, { Component } from 'react';
 import RadioButton from 'radio-button-react-native';
+import PropTypes from 'prop-types';
 import { View, Image, ScrollView } from 'react-native';
 import { Button, Text } from 'native-base';
-import styles from './CausesStyle'
+import styles from './CausesListStyle'
 import { ApplicationStyles } from '@theme/'
 
 class CausesList extends Component {
+  static propTypes = {
+    submit: PropTypes.func,
+    session: PropTypes.object,
+    causes: PropTypes.array,
+    informative: PropTypes.bool,
+  }
+
+  static defaultProps = {
+    submit: null,
+    session: null,
+    causes: [],
+    informative: true,
+  }
+
+  constructor(props) {
+    super(props);
+  }
+
   onRequest = () => {
     const { navigate } = this.props.navigation;
     console.log(`chose ${this.causesAndDescriptions[this.state.value].cause}!`);

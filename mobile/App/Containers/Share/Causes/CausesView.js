@@ -3,7 +3,6 @@ import { View, StyleSheet } from 'react-native';
 import I18n from '@i18n/i18n';
 import PropTypes from 'prop-types';
 import { TabViewAnimated, TabBar, SceneMap } from 'react-native-tab-view';
-import CausesList from './CausesList';
 import { ApplicationStyles, Metrics } from '@theme/'
 
 const initialLayout = {
@@ -32,28 +31,24 @@ export default class CausesView extends Component {
 
   constructor(props) {
     super(props);
-    this.FirstRoute = () => <CausesList causes={this.props.causes} category={'People'} informative={true}/>;
-    this.SecondRoute = () => <CausesList causes={this.props.causes} category={'People'} informative={true}/>;
-    this.ThirdRoute = () => <CausesList causes={this.props.causes} category={'People'} informative={true}/>;
+    this.state = {
+      index: 0,
+      routes: [
+        { key: 'first', title: 'Social' },
+        { key: 'second', title: 'Ambiental' },
+        { key: 'third', title: 'Cultural'}
+      ],
+    }
   }
-
-  state = {
-    index: 0,
-    routes: [
-      { key: 'first', title: 'People' },
-      { key: 'second', title: 'Animals & Environment' },
-      { key: 'third', title: 'Arts & Culture'}
-    ],
-  };
 
   _handleIndexChange = index => this.setState({ index });
 
-  _renderHeader = props => <TabBar {...props} />;
+  _renderFooter = props => <TabBar {...props} />;
 
   _renderScene = SceneMap({
-    first: this.FirstRoute,
-    second: this.SecondRoute,
-    third: this.ThirdRoute,
+    first: this.props.FirstRoute,
+    second: this.props.SecondRoute,
+    third: this.props.ThirdRoute,
   });
 
   render() {
@@ -62,7 +57,7 @@ export default class CausesView extends Component {
         style={ApplicationStyles.container}
         navigationState={this.state}
         renderScene={this._renderScene}
-        renderHeader={this._renderHeader}
+        renderFooter={this._renderFooter}
         onIndexChange={this._handleIndexChange}
         initialLayout={initialLayout}
       />

@@ -1,8 +1,9 @@
 import { connect } from 'react-redux';
+import React from 'react';
 const _ = require('lodash');
-import { TabViewAnimated, TabBar, SceneMap } from 'react-native-tab-view';
 import FormRender from './CausesView';
 import { Assets } from '@theme/';
+import CausesList from './CausesList/CausesListContainer';
 
 const causes = [
   {
@@ -31,18 +32,14 @@ const causes = [
   },
 ]
 
-const mapStateToProps = (state) => {
-  let category = state.category ? state.category : 'People';
-  let causesFiltered = _.filter(causes, ['category', category]);
-  return {
-    session: state.session,
-    informative: state.informative ? state.informative : true,
-    causes: causesFiltered,
-  };
-}
+const mapStateToProps = (state) => ({
+  session: state.session,
+});
 
-const mapDispatchToProps = () => ({
-  submit: null,
+const mapDispatchToProps = (state) => ({
+  FirstRoute: () => <CausesList causes={causes} category={'Social'} informative={state.informative}/>,
+  SecondRoute: () => <CausesList causes={causes} category={'Ambiental'} informative={state.informative}/>,
+  ThirdRoute: () =>  <CausesList causes={causes} category={'Cultural'} informative={state.informative}/>,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormRender);
