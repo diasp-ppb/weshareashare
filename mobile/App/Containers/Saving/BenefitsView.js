@@ -1,20 +1,17 @@
 import React, { Component } from 'react';
 import { View, Image } from 'react-native';
+import I18n from '@i18n/i18n';
 import { Divider } from 'react-native-elements';
 import { ApplicationStyles, Metrics, Assets } from '@theme/';
 import { Text } from '@ui/';
-import styles from '../../Components/Styles/StoikHeaderStyle'
 
 export default class StoikBenefits extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: 'Stoik Benefits',
+    title: I18n.t('benefits'),
   });
 
   constructor(props) {
     super(props);
-    this.state = {
-      sizeItem: 30,
-    };
   }
 
   render() {
@@ -24,7 +21,7 @@ export default class StoikBenefits extends Component {
 
         <Image
           source={Assets.logo}
-          style={styles.logo}
+          style={ApplicationStyles.logo}
           resizeMode="contain"
         />
 

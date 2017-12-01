@@ -12,6 +12,7 @@ import SignUp from '@containers/Auth/SignUpContainer';
 import Homepage from '@components/Homepage';
 import ContactUs from '@containers/ContactUs/ContactUsContainer';
 import AboutUs from '@components/AboutUs';
+import Causes from '@containers/Share/Causes/CausesContainer';
 
 import { Colors } from '@theme';
 
@@ -21,6 +22,7 @@ const navigationOptions = {
 };
 
 export default StackNavigator({
+  Causes: { screen: Causes },
  Homepage: { screen: Homepage },
  PasswordReset: { screen: PasswordReset },
  PasswordUpdate: { screen: PasswordUpdate },
