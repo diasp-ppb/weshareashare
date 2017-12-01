@@ -3,10 +3,11 @@
  *
  */
 import React from 'react';
-import { View } from 'react-native';
+import { View, Platform } from 'react-native';
 
 // Components
 import { FormInput, FormLabel, FormValidationMessage } from '@ui/';
+import { Colors } from '@theme/';
 
 /* Component ==================================================================== */
 function textbox(locals) {
@@ -51,6 +52,21 @@ function textbox(locals) {
         onChange={locals.onChangeNative}
         placeholder={locals.placeholder}
         value={locals.value}
+        containerStyle={locals.multiline ? {
+          borderWidth: 1,
+          borderColor: Colors.lightBlue,
+          ...Platform.select({
+            ios: {
+              shadowColor: 'rgba(0,0,0, .2)',
+              shadowOffset: {height: 0, width: 0},
+              shadowOpacity: 1,
+              shadowRadius: 1,
+            },
+            android: {
+              elevation: 1,
+            },
+          }),
+        } : {}}
       />
       {!!locals.error && <FormValidationMessage>{locals.error}</FormValidationMessage>}
     </View>
