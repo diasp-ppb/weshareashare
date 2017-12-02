@@ -68,6 +68,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
     textAlign: 'center',
     flexWrap: 'wrap',
+      marginTop: 10,
   },
   h2: {
     fontSize: Metrics.FONT_SIZE_TITLE / 2.5,
