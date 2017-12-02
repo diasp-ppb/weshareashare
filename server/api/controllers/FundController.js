@@ -124,7 +124,7 @@ module.exports = {
         Crescimento_Anual: person.subscription.debitGrowth,
         Periodicidade: periodicity_options[person.subscription.periodicity-1], //'Mensal' 'Trimestral' 'Semestral' 'Anual'
         Mes: (person.subscription.initialDate).getMonth() + 1,
-        Ano: (person.subscription.initialDate).getFullYear(),
+        Ano: (person.subscription.initialDate).getFullYear() - 2000,
       };
 
       formData.Nome_Participante = encoding.convert(formData.Nome_Participante, 'ISO-8859-1', 'UTF-8');
@@ -228,7 +228,7 @@ module.exports = {
       let duration = ['< 1', '1 a 3', '> 3'];
       let percentage = ['< 25', '25 a 50', '> 50'];
       let goal = ['Preservar o capital', 'Crescer moderadamente', 'Crescer substancialmente'];
-      let feeling = ['Insatisfeito', 'Razoavel', 'Muito Satisfeito'];
+      let feeling = ['Insatisfeito', 'Razoavel', 'Muito satisfeito'];
       let risk = ['Nunca', 'Sim', 'Sem duvida'];
       let type = ['DA e CA', 'O e PG', 'Acoes'];
       let profitability = ['2 a 4', '5 a 9', '10 a 15'];
