@@ -106,4 +106,52 @@ module.exports.routes = {
     controller: 'UserController',
     action: 'getAll',
   },
+
+  'post /subscription': {
+    cors: {
+      allowRequestHeaders: 'Content-Type, Client-ID',
+    },
+    controller: 'FundController',
+    action: 'postSubscription',
+  },
+
+  'post /facta': {
+    cors: {
+      allowRequestHeaders: 'Content-Type, Client-ID',
+    },
+    controller: 'FundController',
+    action: 'postFacta',
+  },
+
+  'post /investorprofile': {
+    cors: {
+      allowRequestHeaders: 'Content-Type, Client-ID',
+    },
+    controller: 'FundController',
+    action: 'postInvestorProfile',
+  },
+
+  'get /subscription': {
+    cors: {
+      allowRequestHeaders: 'Content-Type, Client-ID',
+    },
+    controller: 'FundController',
+    action: 'fillSubscriptionPDF',
+  },
+
+  'get /fatca': {
+    cors: {
+      allowRequestHeaders: 'Content-Type, Client-ID',
+    },
+    controller: 'FundController',
+    action: 'fillFatcaPDF',
+  },
+
+  'get /investorprofile': {
+    cors: {
+      allowRequestHeaders: 'Content-Type, Client-ID',
+    },
+    controller: 'FundController',
+    action: 'fillInvestorProfilePDF',
+  },
 };

@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Metrics, Colors, Fonts } from '../../Themes/index';
+import { Metrics, Colors } from '@theme/';
 
 export default StyleSheet.create({
   mainContainer: {
@@ -41,8 +41,14 @@ export default StyleSheet.create({
     backgroundColor: Colors.background,
     borderRadius: 8,
   },
+  orangeNextBtn: {
+    alignSelf: 'flex-end',
+    margin: Metrics.baseMargin,
+    padding: Metrics.baseMargin,
+    backgroundColor: Colors.stoikOrange,
+    borderRadius: 8,
+  },
   btnText: {
     color: Colors.text,
-    fontSize: Fonts.h5,
   },
 });

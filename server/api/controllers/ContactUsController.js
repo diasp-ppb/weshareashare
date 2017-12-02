@@ -9,13 +9,19 @@ module.exports = {
   async create(req, res) {
     let params = req.allParams();
 
-    if(!params.firstName || !params.lastName || !params.email || !params.subject || !params.message) {
+    if(!params.FirstName || !params.LastName || !params.Email || !params.Subject || !params.Message) {
       return res.badRequest({response: 'Invalid parameters'});
     }
 
     let contact;
     try {
-      contact = await ContactUs.create(params).meta({fetch: true});
+      contact = await ContactUs.create({
+        firstName: params.FirstName,
+        lastName: params.LastName,
+        email: params.Email,
+        subject: params.Subject,
+        message: params.Message
+      }).meta({fetch: true});
     } catch (err) {
       return res.serverError(err);
     }

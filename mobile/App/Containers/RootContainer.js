@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import { View, StatusBar } from 'react-native';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Drawer from 'react-native-drawer';
 import ReduxNavigation from '../Navigation/ReduxNavigation';
 import StartupActions from '../Redux/StartupRedux';
 import ReduxPersist from '../Config/ReduxPersist';
 import * as Session from '../Redux/Session';
-import ControlPanel from '../Components/ControlPanel';
-
 
 class RootContainer extends Component {
+  static propTypes = {
+    startup: PropTypes.func,
+    authorizeClient: PropTypes.func,
+  }
+
   componentDidMount() {
     // if redux persist is not active fire startup action
     if (!ReduxPersist.active) {
@@ -18,43 +21,14 @@ class RootContainer extends Component {
     }
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      session: this.props.session.session,
-      drawerOpen: false,
-    };
-    this.state.drawerDisabled = this.state.session.user.id === null;
+  render() {
+    return (
+      <View style={{ flex: 1 }}>
+        <StatusBar backgroundColor="#455a64" barStyle="light-content" />
+        <ReduxNavigation />
+      </View>
+    );
   }
-
-    closeDrawer = () => {
-      this._drawer.close();
-    };
-    openDrawer = () => {
-      this._drawer.open();
-    };
-  
-    render() {
-      return (
-        <Drawer
-          type="static"
-          content={<ControlPanel />}
-          openDrawerOffset={0.2}
-          captureGestures
-          tweenHandler={Drawer.tweenPresets.parallax}
-          panCloseMask={0.2}
-          panOpenMask={0.2}
-          disabled={this.state.drawerDisabled}
-          acceptDoubleTap
-          negotiatePan
-        >
-          <View style={{ flex: 1 }}>
-            <StatusBar barStyle="light-content" />
-            <ReduxNavigation />
-          </View>
-        </Drawer>
-      );
-    }
 }
 
 const mapStateToProps = (state) => {

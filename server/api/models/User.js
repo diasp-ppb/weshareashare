@@ -35,6 +35,10 @@ module.exports = {
       required: true,
       unique: true,
     },
+    person: {
+      model: 'Person',
+      unique: true,
+    },
     awaitsConfirmation: {
       type: 'boolean',
       defaultsTo: false

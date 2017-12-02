@@ -24,8 +24,9 @@ const formatTokenResponse = (accessToken, refreshToken, user) => ({
   },
   user: {
     id: user.id,
-    username: user.username,
     email: user.email,
+    firstName: user.firstName,
+    lastName: user.lastName,
   },
 });
 
@@ -114,14 +115,13 @@ module.exports = {
 
   async resetRequest(req, res) {
     const params = req.allParams();
-    console.log(params);
-    if(!params.email) {
+    if(!params.Email) {
       return res.badRequest({response: 'Invalid parameters'});
     }
 
     let user, token;
     try {
-      user = await User.findOne({email: params.email});
+      user = await User.findOne({email: params.Email});
     } catch(err) {
       res.serverError(err);
     }
@@ -155,21 +155,21 @@ module.exports = {
 
   async resetPassword(req, res) {
     const params = req.allParams();
-    if (!params.password || !params.email) {
+    if (!params.Password || !params.Email) {
       return res.badRequest({response: 'Invalid parameters'});
     }
 
     let token, user;
     try {
-      token = await Token.find({value: params.token.value});
+      token = await Token.find({value: params.Token});
     } catch (err) {
       res.serverError(err);
     }
 
     try {
       user = await User.update(
-        {email: params.email},
-        {password: params.password}
+        {email: params.Email},
+        {password: params.Password}
       ).meta({fetch: true});
     } catch (err) {
       res.serverError(err);

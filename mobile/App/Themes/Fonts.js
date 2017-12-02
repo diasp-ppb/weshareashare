@@ -1,60 +1,28 @@
-const type = {
-  base: 'OpenSans',
-  bold: 'OpenSans-Bold',
-  emphasis: 'OpenSans-Italic',
-};
+import { Platform } from 'react-native';
 
-const size = {
-  h1: 38,
-  h2: 34,
-  h3: 30,
-  h4: 26,
-  h5: 20,
-  h6: 19,
-  input: 18,
-  regular: 17,
-  medium: 14,
-  small: 12,
-  tiny: 8.5,
-};
+function lineHeight(fontSize) {
+  const multiplier = (fontSize > 20) ? 0.1 : 0.33;
+  return parseInt(fontSize + (fontSize * multiplier), 10);
+}
 
-const style = {
-  h1: {
-    // fontFamily: type.base,
-    fontSize: size.h1,
-  },
-  h2: {
-    fontWeight: 'bold',
-    fontSize: size.h2,
-  },
-  h3: {
-    fontFamily: type.emphasis,
-    fontSize: size.h3,
-  },
-  h4: {
-    fontFamily: type.base,
-    fontSize: size.h4,
-  },
-  h5: {
-    fontFamily: type.base,
-    fontSize: size.h5,
-  },
-  h6: {
-    fontFamily: type.emphasis,
-    fontSize: size.h6,
-  },
-  normal: {
-    fontFamily: type.base,
-    fontSize: size.regular,
-  },
-  description: {
-    fontFamily: type.base,
-    fontSize: size.medium,
-  },
+const base = {
+  size: 14,
+  lineHeight: lineHeight(14),
+  ...Platform.select({
+    ios: {
+      family: 'HelveticaNeue',
+    },
+    android: {
+      family: 'Roboto',
+    },
+  }),
 };
 
 export default {
-  type,
-  size,
-  style,
+  base: { ...base },
+  h1: { ...base, size: base.size * 1.75, lineHeight: lineHeight(base.size * 2) },
+  h2: { ...base, size: base.size * 1.5, lineHeight: lineHeight(base.size * 1.75) },
+  h3: { ...base, size: base.size * 1.25, lineHeight: lineHeight(base.size * 1.5) },
+  h4: { ...base, size: base.size * 1.1, lineHeight: lineHeight(base.size * 1.25) },
+  h5: { ...base },
 };

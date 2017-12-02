@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Metrics, Colors, Fonts } from '../../Themes/index';
+import { Metrics, Colors } from '@theme/';
 
 export default StyleSheet.create({
   mainContainer: {
@@ -23,17 +23,11 @@ export default StyleSheet.create({
   title: {
     alignSelf: 'center',
     color: Colors.text,
-    fontFamily: Fonts.type.OpenSans,
   },
   subTitle: {
     alignSelf: 'center',
     color: Colors.stoikOrange,
-    fontFamily: Fonts.type.OpenSans,
     marginVertical: 30,
-  },
-  container: {
-    flex: 1,
-    backgroundColor: Colors.background,
   },
   btnGroup: {
     flex: 1,
@@ -54,13 +48,12 @@ export default StyleSheet.create({
   causesText: {
     color: Colors.stoikOrange,
     textAlign: 'center',
-    fontSize: Fonts.size.h6,
   },
   causesView: {
     backgroundColor: Colors.stoikGrey,
-    width: 130, 
-    height: 130, 
-    borderRadius: 130/2, 
+    width: 130,
+    height: 130,
+    borderRadius: 130 / 2,
     alignItems: 'center',
     justifyContent: 'center',
   },

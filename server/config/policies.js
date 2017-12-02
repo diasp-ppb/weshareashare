@@ -46,6 +46,12 @@ module.exports.policies = {
 
   DocumentController: {
     '*': 'hasOAuthBearer'
-  }
+  },
 
+  FundController: {
+    '*': 'hasClientId',
+    postSubscription: [],
+    postFacta: [],
+    postInvestorProfile: [],
+  },
 };

@@ -1,5 +1,4 @@
 import { Dimensions, Platform } from 'react-native';
-import { ApplicationStyles } from './index';
 
 const x = Dimensions.get('window').width;
 const y = Dimensions.get('window').height;
@@ -14,6 +13,10 @@ const unit = base_unit * ratioX;
 function em(value) {
   return unit * value;
 }
+
+const { width, height } = Dimensions.get('window');
+const screenHeight = width < height ? height : width;
+const screenWidth = width < height ? width : height;
 
 // Used via Metrics.baseMargin
 const Metrics = {
@@ -64,6 +67,24 @@ const Metrics = {
   FONT_SIZE_BIG: em(1.25),
   FONT_SIZE_BIGGER: em(1.5),
   FONT_SIZE_TITLE: em(2.5),
+
+  screen: {
+    height: screenHeight,
+    width: screenWidth,
+
+    widthHalf: screenWidth * 0.5,
+    widthThird: screenWidth * 0.333,
+    widthTwoThirds: screenWidth * 0.666,
+    widthQuarter: screenWidth * 0.25,
+    widthThreeQuarters: screenWidth * 0.75,
+  },
+  statusBarHeight: (Platform.OS === 'ios') ? 16 : 0,
+  tabbarHeight: 51,
+
+  padding: 20,
+  paddingSml: 10,
+
+  borderRadius: 2,
 };
 
 export default Metrics;
