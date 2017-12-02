@@ -28,6 +28,7 @@ export default StyleSheet.create({
     alignSelf: 'center',
     color: Colors.stoikOrange,
     marginVertical: 30,
+    fontSize: 25,
   },
   btnGroup: {
     flex: 1,
@@ -46,19 +47,22 @@ export default StyleSheet.create({
     width: null,
   },
   causesText: {
-    color: Colors.stoikOrange,
     textAlign: 'center',
+    textAlignVertical: 'center',
+    color: Colors.stoikGrey,
   },
-  causesView: {
-    backgroundColor: Colors.stoikGrey,
+  causesButton: {
+    backgroundColor: Colors.stoikOrange,
     width: 130,
     height: 130,
     borderRadius: 130 / 2,
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
+      flexDirection: 'row',
+
   },
   h1: {
-    fontSize: Metrics.FONT_SIZE_TITLE / 2.2,
+    fontSize: Metrics.FONT_SIZE_TITLE / 2,
     alignSelf: 'center',
     paddingVertical: Metrics.PADDING,
     justifyContent: 'center',
@@ -71,4 +75,17 @@ export default StyleSheet.create({
     paddingVertical: Metrics.PADDING,
     backgroundColor: 'rgba(0,0,0,0)',
   },
+  causeFirstLine: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  causeSecondLine: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+    projectDescription: {
+      fontSize: 15,
+    }
 });
