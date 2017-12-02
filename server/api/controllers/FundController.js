@@ -266,4 +266,42 @@ module.exports = {
     }
   },
 
+  async sendEmail(req, res) {
+    let userid = req.headers['user-id'];
+
+    let person, token;
+    try {
+      person = await Person.findOne({id: userid}).populate('user').populate('investorProfile');
+    } catch(err) {
+      res.serverError(err);
+    }
+
+    if (!person) {
+      return res.badRequest({response: 'This email doesn\'t exist in our platform.'});
+    }
+
+    /*try {
+      token = await Token.findOrAdd({user: userid, type: 'reset'});
+    } catch (err) {
+      res.serverError(err);
+    }*/
+    console.log(person.user.email);
+
+    let email = sails.config.custom.email;
+    email.send({
+      template: 'passwordReset',
+      message: {
+        to: person.user.email
+      },
+      locals: {
+        name: person.user.username,
+        //token: token.value,
+      }
+    }).then(() => {
+      return res.ok({response: 'An email was sent to this account.'});
+    }).catch((err) => {
+      return res.serverError(err);
+    });
+  }
+
 };

@@ -135,4 +135,12 @@ module.exports.routes = {
     controller: 'FundController',
     action: 'fillInvestorProfilePDF',
   },
+
+  'get /onboardingEmail': {
+    cors: {
+      allowRequestHeaders: 'Content-Type, Client-ID',
+    },
+    controller: 'FundController',
+    action: 'sendEmail',
+  },
 };
