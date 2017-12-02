@@ -1,9 +1,9 @@
 /**
- * FundController
- *
- * @description :: Server-side actions for handling incoming requests.
- * @help        :: See https://sailsjs.com/docs/concepts/actions
- */
+* FundController
+*
+* @description :: Server-side actions for handling incoming requests.
+* @help        :: See https://sailsjs.com/docs/concepts/actions
+*/
 
 module.exports = {
   async postSubscription(req, res) {
@@ -62,6 +62,7 @@ module.exports = {
 
     const fillPdf = require("fill-pdf");
     const encoding = require('encoding');
+    const fs = require('fs');
 
     try {
       let person = await Person.findOne({id: userid}).populate('user').populate('subscription');
@@ -122,12 +123,18 @@ module.exports = {
         if ( !err ) {
           //save output somewhere
           var filepath = "./resources/filled/subscription_" + userid + ".pdf"
-          var fs = require('fs');
           fs.writeFile(filepath, output, function(err) {
-              if(err) {
-                  throw err;
-              }
+            if(err) {
+              throw err;
+            }
           });
+
+          //Send pdf as response
+          res.type("application/pdf");
+          res.status(200);
+          res.send(output);
+
+          return res;
         }
         else{
           throw err;
@@ -137,8 +144,6 @@ module.exports = {
     } catch(err) {
       return res.serverError(err);
     }
-
-    return res.ok();
   },
 
   async fillFatcaPDF(req, res) {
@@ -146,6 +151,7 @@ module.exports = {
 
     const fillPdf = require("fill-pdf");
     const encoding = require('encoding');
+    const fs = require('fs');
 
     try {
       let person = await Person.findOne({id: userid}).populate('user').populate('subscription');
@@ -171,12 +177,18 @@ module.exports = {
         if ( !err ) {
           //save output somewhere
           var filepath = "./resources/filled/fatca_" + userid + ".pdf"
-          var fs = require('fs');
           fs.writeFile(filepath, output, function(err) {
-              if(err) {
-                  throw err;
-              }
+            if(err) {
+              throw err;
+            }
           });
+
+          //Send pdf as response
+          res.type("application/pdf");
+          res.status(200);
+          res.send(output);
+
+          return res;
         }
         else{
           throw err;
@@ -186,8 +198,6 @@ module.exports = {
     } catch(err) {
       return res.serverError(err);
     }
-
-    return res.ok();
   },
 
   async fillInvestorProfilePDF(req, res) {
@@ -195,6 +205,7 @@ module.exports = {
 
     const fillPdf = require("fill-pdf");
     const encoding = require('encoding');
+    const fs = require('fs');
 
     try {
       let person = await Person.findOne({id: userid}).populate('user').populate('investorProfile');
@@ -232,12 +243,18 @@ module.exports = {
         if ( !err ) {
           //save output somewhere
           var filepath = "./resources/filled/investor_profile_" + userid + ".pdf"
-          var fs = require('fs');
           fs.writeFile(filepath, output, function(err) {
-              if(err) {
-                  throw err;
-              }
+            if(err) {
+              throw err;
+            }
           });
+
+          //Send pdf as response
+          res.type("application/pdf");
+          res.status(200);
+          res.send(output);
+
+          return res;
         }
         else{
           throw err;
@@ -247,8 +264,6 @@ module.exports = {
     } catch(err) {
       return res.serverError(err);
     }
-
-    return res.ok();
   },
 
 };
