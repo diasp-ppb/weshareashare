@@ -9,9 +9,12 @@
   "save": "Poupe",
   "causes": "Causas",
   "benefits": "Benefícios do PPR SGF",
-  "systematicSavings": "Poupança Sistemática a longo prazo",
+  "systematicSavings": "Poupança Sistemática",
   "stoikShares": "PPR SGF Stoik Ações",
   "projectWeshareashare": "Projeto WeShareAShare",
+  "simulation": "Simulação",
+  "performances": "Rendibilidade",
+  "wallet": "Carteira",
 
   "passwordReset": "Pedido de password",
   "sendResetToken": "Enviar token",

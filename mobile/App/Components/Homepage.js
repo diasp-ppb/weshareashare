@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { View, Image } from 'react-native';
+import { View, ImageBackground } from 'react-native';
 import { Button, Text } from 'native-base';
 import I18n from '@i18n/i18n';
 import { Assets } from '@theme/';
@@ -18,7 +18,7 @@ export default class Homepage extends Component {
       <View style={ApplicationStyles.mainContainer}>
         <StoikHeader />
         <View style={ApplicationStyles.container}>
-          <Image source={Assets.background} style={styles.canvas}>
+          <ImageBackground source={Assets.background} style={styles.canvas}>
             <View style={styles.btnGroup}>
               <Button style={styles.btn} onPress={() => { navigate('SignIn'); }}>
                 <Text style={styles.btnText}>
@@ -41,7 +41,7 @@ export default class Homepage extends Component {
                 </Text>
               </Button>
             </View>
-          </Image>
+          </ImageBackground>
         </View>
       </View>
     );

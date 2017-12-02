@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { View, Image } from 'react-native';
+import { View, ImageBackground } from 'react-native';
 import { Button, Text } from 'native-base';
 import { Assets } from '@theme/';
 import styles from '@components/Styles/HomepageStyle';
+import { ApplicationStyles } from '@theme/'
 import { StoikHeader } from '@components//StoikHeader';
 
 export default class FormOverview extends Component {
@@ -13,10 +14,10 @@ export default class FormOverview extends Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <View style={styles.mainContainer}>
+      <View style={ApplicationStyles.mainContainer}>
         <StoikHeader />
-        <View style={styles.container}>
-          <Image source={Assets.background} style={styles.canvas}>
+        <View style={ApplicationStyles.container}>
+          <ImageBackground source={Assets.background} style={styles.canvas}>
             <View style={styles.btnGroup}>
               <Button style={styles.btn} onPress={() => { navigate('InvestorProfileQuiz', { formIndex: 1 }); }}>
                 <Text style={styles.btnText}>
@@ -29,7 +30,7 @@ export default class FormOverview extends Component {
                 </Text>
               </Button>
             </View>
-          </Image>
+          </ImageBackground>
         </View>
       </View>
     );

@@ -12,10 +12,22 @@ export default class Homepage extends Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      currentPosition: 0
+    }
+  }
+
+  onStepPress = (position) => {
+    const { navigate } = this.props.navigation;
+    switch (position) {
+      case 0: navigate('Saving'); break;
+      case 1: navigate('Investment'); break;
+      case 2: navigate('Share'); break;
+      case 3: navigate('Onboarding'); break;
+    }
   }
 
   render() {
-    const { navigate } = this.props.navigation;
     const labels = [
       {name: "A POUPANÇA", description: "Saiba mais sobre a importância de poupar e os benefícios do PPR SGF Stoik Ações."},
       {name: "O INVESTIMENTO", description: "Conheça a carteira de activos e rendibilidades do PPR SGF Stoik Ações." },
@@ -53,8 +65,10 @@ export default class Homepage extends Component {
           <StepIndicator
             customStyles={customStyles}
             labels={labels}
+            currentPosition={this.state.currentPosition}
             stepCount={4}
             direction={'vertical'}
+            onPress={(position) => {this.onStepPress(position)}}
           />
         </View>
       </View>

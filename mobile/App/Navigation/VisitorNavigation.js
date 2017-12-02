@@ -22,7 +22,6 @@ const navigationOptions = {
 };
 
 export default StackNavigator({
-  Causes: { screen: Causes },
  Homepage: { screen: Homepage },
  PasswordReset: { screen: PasswordReset },
  PasswordUpdate: { screen: PasswordUpdate },

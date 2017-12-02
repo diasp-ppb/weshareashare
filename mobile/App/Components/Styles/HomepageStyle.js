@@ -20,7 +20,6 @@ export default StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    resizeMode: 'stretch',
     flex: 1,
     height: null,
     width: null,

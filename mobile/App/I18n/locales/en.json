@@ -9,9 +9,12 @@
   "save": "Save",
   "causes": "Causes",
   "benefits": "PPR SGF Benefits",
-  "systematicSavings": "Long-term Systematic Savings",
+  "systematicSavings": "Systematic Savings",
   "stoikShares": "PPR SGF Stoik Shares",
   "projectWeshareashare": "WeShareAShare Project",
+  "simulation": "Simulation",
+  "performances": "Performance",
+  "wallet": "Wallet",
 
   "passwordReset": "Password request",
   "sendResetToken": "Send reset token",

@@ -6,6 +6,7 @@ import {
   Animated,
   Keyboard,
 } from 'react-native';
+import I18n from '@i18n/i18n';
 import FormValidation from 'tcomb-form-native';
 import Toast from 'react-native-root-toast';
 
@@ -20,8 +21,8 @@ import TcombTextInput from '@components/tcomb/TextInput';
 /* Component ==================================================================== */
 class ContactUs extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: typeof (navigation.state.params) === 'undefined' || typeof (navigation.state.params.title) === 'undefined' ? '' : navigation.state.params.title,
-  });
+    title: I18n.t('contactUsScreen'),
+});
 
   static propTypes = {
     user: PropTypes.shape({
@@ -95,10 +96,6 @@ class ContactUs extends Component {
         },
       },
     };
-  }
-
-  componentWillMount() {
-    this.props.navigation.setParams({ title: this.props.screenName });
   }
 
   /**

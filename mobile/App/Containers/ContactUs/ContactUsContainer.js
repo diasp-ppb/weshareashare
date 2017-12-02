@@ -11,7 +11,6 @@ const mapStateToProps = (state) => ({
   session: state.session,
   user: state.session.user,
   formType: 'ContactUs',
-  screenName: I18n.t('contactUsScreen'),
   formFields: ['Email', 'FirstName', 'LastName', 'Subject', 'Message'],
   buttonTitle: I18n.t('contactUsButton'),
   successMessage: I18n.t('contactUsSuccessMessage'),
