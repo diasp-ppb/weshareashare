@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapMutations, mapActions } from 'vuex'
 
 export default {
 
@@ -67,6 +67,9 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+      'toggleSidebar'
+    ]),
     ...mapMutations([
       'setAdminInfo',
       'setTokens' // map `this.incrementBy(amount)` to `this.$store.commit('incrementBy', amount)`
@@ -88,6 +91,7 @@ export default {
         console.log(response.data)
         self.setAdminInfo(response.data.admin)
         self.setTokens(response.data.tokens)
+        self.toggleSidebar({opened: true, hidden: false})
         self.$router.push({path: '/'})
       })
       .catch(function (error) {

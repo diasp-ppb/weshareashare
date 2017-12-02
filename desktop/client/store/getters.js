@@ -8,6 +8,7 @@ const componententry = state => {
   return state.menu.items.filter(c => c.meta && c.meta.label === 'Components')[0]
 }
 const clientId = state => state.clientId
+const adminEmail = state => state.admin.email
 
 export {
   pkg,
@@ -17,5 +18,6 @@ export {
   effect,
   menuitems,
   componententry,
-  clientId
+  clientId,
+  adminEmail
 }
