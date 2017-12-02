@@ -3,6 +3,7 @@ const Colors = {
   clear: 'rgba(0,0,0,0)',
   stoikOrange: '#feab2b',
   stoikGrey: '#455a64',
+  stoikBlue: '#06ADC2',
   facebook: '#3b5998',
   transparent: 'rgba(0,0,0,0)',
   silver: '#F7F7F7',

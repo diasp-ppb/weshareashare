@@ -24,6 +24,10 @@
   "subscription": "Subscription",
   "startSimulation": "Faça uma simulação",
 
+  "people": "Social",
+  "animals&environment": "Ambiental",
+  "arts&culture": "Cultural",
+
   "passwordReset": "Pedido de password",
   "sendResetToken": "Enviar token",
   "resetSuccessMessage": "As instruções para alterar a password foram enviadas para o seu email",

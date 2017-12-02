@@ -24,6 +24,10 @@
   "subscription": "Subscription",
   "startSimulation": "Start a simulation",
 
+  "people": "People",
+  "animals&environment": "Animals & Environment",
+  "arts&culture": "Arts & Culture",
+
   "passwordReset": "Password request",
   "sendResetToken": "Send reset token",
   "resetSuccessMessage": "We've emailed you the instructions",

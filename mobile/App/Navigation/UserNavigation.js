@@ -39,7 +39,7 @@ const navigationOptions = ({ navigation }) => ({
 });
 
 const UserNavigationStack = StackNavigator({
-  Investment: { screen: Investment },
+  Share: { screen: Share },
   Mainpage: { screen: Mainpage },
   ContactUs: { screen: ContactUs },
   AboutUs: { screen: AboutUs },
@@ -51,11 +51,11 @@ const UserNavigationStack = StackNavigator({
   Benefits: { screen: Benefits },
 
   // Investment Stack
+  Investment: { screen: Investment },
   Wallet: { screen: Wallet },
   Performances: { screen: Performances },
 
   // Share Stack
-  Share: { screen: Share },
   Causes: { screen: Causes },
 
   // OnboardingStack
