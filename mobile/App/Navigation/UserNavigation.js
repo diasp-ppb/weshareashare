@@ -39,7 +39,6 @@ const navigationOptions = ({ navigation }) => ({
 });
 
 const UserNavigationStack = StackNavigator({
-  Share: { screen: Share },
   Mainpage: { screen: Mainpage },
   ContactUs: { screen: ContactUs },
   AboutUs: { screen: AboutUs },
@@ -56,6 +55,7 @@ const UserNavigationStack = StackNavigator({
   Performances: { screen: Performances },
 
   // Share Stack
+  Share: { screen: Share },
   Causes: { screen: Causes },
 
   // OnboardingStack
