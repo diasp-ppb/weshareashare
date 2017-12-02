@@ -22,8 +22,14 @@ module.exports.policies = {
     create: [],
   },
 
+  AdminController: {
+    create: ['hasClientId'],
+    signin: ['hasClientId'],
+  },
+
   UserController: {
     create: ['hasClientId'],
+    getAll: [],
   },
 
   UserAuthController: {

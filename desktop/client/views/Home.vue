@@ -1,5 +1,5 @@
 <template>
-  <div class="content has-text-centered">
+  <div class="content has-text-centered" id="home-content">
     <p>
       <img src="~assets/weshareashare_logo.png" :alt="description">
     </p>
@@ -7,7 +7,7 @@
     <h1 class="is-title is-bold">{{ name.replace('-', ' ') }}</h1>
 
     <p>
-      <strong>{{ description }}</strong>,
+      <strong>{{ description }}</strong>
     </p>
 
   </div>
@@ -26,5 +26,10 @@ export default {
 <style lang="scss" scoped>
 .is-title {
   text-transform: capitalize;
+}
+
+#home-content {
+  margin-top: 100px;
+  margin-bottom: 100px;
 }
 </style>

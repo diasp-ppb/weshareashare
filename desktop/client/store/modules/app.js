@@ -7,7 +7,7 @@ const state = {
   },
   sidebar: {
     opened: false,
-    hidden: false
+    hidden: true
   },
   effect: {
     translate3d: true
