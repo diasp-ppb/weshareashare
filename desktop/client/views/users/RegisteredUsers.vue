@@ -7,6 +7,7 @@
     :paginate="true"
     :lineNumbers="true"
     :globalSearch="true"
+    :onClick="onClickRow"
     styleClass="table table-bordered table-striped condensed"/>
   </div>
 </template>
@@ -27,7 +28,10 @@ export default {
           type: 'number'
         }
       ],
-      rows: []
+      rows: [],
+      onClickRow: function (row, index) {
+        this.$router.push({path: '/utilizador/' + row.id})
+      }
     }
   },
   computed: {
@@ -53,8 +57,9 @@ export default {
 
         var name = users[i].firstName + ' ' + users[i].lastName
         var email = users[i].email
+        var id = users[i].id
 
-        rows.push({name: name, email: email})
+        rows.push({name: name, email: email, id: id})
       }
 
       self.rows = rows

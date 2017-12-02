@@ -30,6 +30,7 @@ module.exports.policies = {
   UserController: {
     create: ['hasClientId'],
     getAll: [],
+    getUser: [],
   },
 
   UserAuthController: {

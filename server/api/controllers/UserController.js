@@ -86,4 +86,17 @@ module.exports = {
         return res.serverError(err);
       });
   },
+
+  getUser(req, res) {
+    let params = req.allParams();
+
+    User.findOne({id: params.userid})
+    .then((user) => {
+      delete user.password;
+      res.ok({user});
+    })
+    .catch((err) => {
+      return res.serverError(err);
+    });
+  }
 };

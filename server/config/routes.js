@@ -107,6 +107,11 @@ module.exports.routes = {
     action: 'getAll',
   },
 
+  'get /user': {
+    controller: 'UserController',
+    action: 'getUser',
+  },
+
   'post /subscription': {
     cors: {
       allowRequestHeaders: 'Content-Type, Client-ID',
