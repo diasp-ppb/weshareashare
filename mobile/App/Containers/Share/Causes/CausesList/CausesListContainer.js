@@ -3,12 +3,12 @@ const _ = require('lodash');
 import FormRender from './CausesListView';
 import { Assets } from '@theme/';
 
-const mapStateToProps = (state) => {
-  let category = state.category;
-  let causesFiltered = _.filter(state.causes, ['category', category]);
+const mapStateToProps = (state, ownProps) => {
+  let category = ownProps.category;
+  let causesFiltered = _.filter(ownProps.causes, ['category', category]);
   return {
     session: state.session,
-    informative: state.informative,
+    informative: ownProps.informative,
     causes: causesFiltered,
   };
 }
