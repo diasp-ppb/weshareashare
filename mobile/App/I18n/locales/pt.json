@@ -3,8 +3,9 @@
   "contactUs": "Contacte-nos",
   "signIn": "Iniciar sessão",
   "signUp": "Registo",
+  "signOut": "Sair",
   "mainPage": "Página principal",
-  "invest": "Invista",
+  "invest": "Investimento",
   "share": "Partilhe",
   "save": "Poupe",
   "causes": "Causas",
@@ -15,6 +16,12 @@
   "simulation": "Simulação",
   "performances": "Rendibilidade",
   "wallet": "Carteira",
+  "onboarding": "Onboarding",
+
+  "notifications": "Notificações",
+  "more": "Outros",
+  "participant": "Something i guess",
+  "subscription": "Subscription",
 
   "passwordReset": "Pedido de password",
   "sendResetToken": "Enviar token",

@@ -3,6 +3,7 @@
   "contactUs": "Contact Us",
   "signIn": "Sign In",
   "signUp": "Sign Up",
+  "signOut": "Sign Out",
   "mainPage": "Main menu",
   "invest": "Invest",
   "share": "Share",
@@ -15,6 +16,12 @@
   "simulation": "Simulation",
   "performances": "Performance",
   "wallet": "Wallet",
+  "onboarding": "Onboarding",
+
+  "notifications": "Notifications",
+  "more": "More",
+  "participant": "Something i guess",
+  "subscription": "Subscription",
 
   "passwordReset": "Password request",
   "sendResetToken": "Send reset token",

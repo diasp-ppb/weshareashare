@@ -24,6 +24,7 @@ import Causes from '@containers/Share/Causes/CausesContainer';
 import ContactUs from '@containers/ContactUs/ContactUsContainer';
 import AboutUs from '@components/AboutUs';
 import Mainpage from '@components/Mainpage';
+import FAQ from '@components/FAQ';
 
 // Drawer and header style
 import ControlPanel from '@containers/ControlPanel/ControlPanelContainer';
@@ -41,6 +42,7 @@ const UserNavigationStack = StackNavigator({
   Mainpage: { screen: Mainpage },
   ContactUs: { screen: ContactUs },
   AboutUs: { screen: AboutUs },
+  FAQ: { screen: FAQ },
 
   // Saving Stack
   Saving: { screen: Saving },

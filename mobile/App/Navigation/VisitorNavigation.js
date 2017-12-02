@@ -12,7 +12,7 @@ import SignUp from '@containers/Auth/SignUpContainer';
 import Homepage from '@components/Homepage';
 import ContactUs from '@containers/ContactUs/ContactUsContainer';
 import AboutUs from '@components/AboutUs';
-import Causes from '@containers/Share/Causes/CausesContainer';
+import FAQ from '@components/FAQ';
 
 import { Colors } from '@theme';
 
@@ -29,6 +29,7 @@ export default StackNavigator({
  SignUp: { screen: SignUp },
  ContactUs: { screen: ContactUs },
  AboutUs: { screen: AboutUs },
+ FAQ: { screen: FAQ },
 }, {
  headerMode: 'float',
  navigationOptions,
