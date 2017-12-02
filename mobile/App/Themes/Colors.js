@@ -26,7 +26,9 @@ const Colors = {
   lightGrey: '#B4B4B4',
   label: '#777777',
   topBarText: '#26c6da',
-  lightBlue: '#ADD8E6'
+  lightBlue: '#ADD8E6',
+  textPrimary: '#222222',
+  textSecondary: '#777777',
 };
 
 const app = {

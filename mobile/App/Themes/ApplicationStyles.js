@@ -282,6 +282,23 @@ const ApplicationStyles = {
     flex: 6,
   },
 
+  nextButton: {
+    width: Metrics.DEVICE_WIDTH / 2,
+    marginTop: 20,
+    alignSelf: 'flex-end',
+    backgroundColor: '#ff9800',
+    borderRadius: 2,
+    borderWidth: 1,
+    borderColor: '#fe8c16',
+  },
+
+  nextButtonText: {
+    color: 'white',
+    textAlign: 'center',
+    padding: 10,
+    fontSize: 18,
+  },
+
   // Navbar
   navbar: {
     backgroundColor: Colors.brand.primary,

@@ -5,6 +5,7 @@ const images = {
   wikipedia: require('@assets/logoWikipedia.png'),
   amnistia: require('@assets/logoAmnistiaInternacional.png'),
   wordpress: require('@assets/logoWorldPressPhoto.png'),
+  piechart: require('@assets/pieChart.png'),
 };
 
 const fonts = {

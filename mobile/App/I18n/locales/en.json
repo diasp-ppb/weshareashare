@@ -22,6 +22,7 @@
   "more": "More",
   "participant": "Something i guess",
   "subscription": "Subscription",
+  "startSimulation": "Start a simulation",
 
   "passwordReset": "Password request",
   "sendResetToken": "Send reset token",
