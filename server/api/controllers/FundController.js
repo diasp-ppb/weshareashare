@@ -8,7 +8,6 @@
 module.exports = {
   async postSubscription(req, res) {
     let parsedAttrs = Fund.parseAttrs(req.allParams());
-    let investorAttrs = Profile.parseAttrs(req.allParams())
     let participantAttrs = parsedAttrs.participant;
     let userid = req.headers['user-id'];
 
@@ -35,13 +34,6 @@ module.exports = {
         Fund.create(parsedAttrs).meta({fetch: true}).then();
       }
 
-      investorAttrs.person = person.id;
-      if(person.investorProfile){
-        Profile.update(person.investorProfile, investorAttrs).meta({fetch: true}).then();
-      } else {
-        Profile.create(investorAttrs).meta({fetch: true}).then();
-      }
-
     } catch(err) {
       return res.serverError(err);
     }
@@ -53,7 +45,27 @@ module.exports = {
     return res.ok();
   },
 
-  postInvestorProfile(req, res) {
+  async postInvestorProfile(req, res) {
+    let investorAttrs = Profile.parseAttrs(req.allParams())
+    let userid = req.headers['user-id'];
+
+    const fillPdf = require("fill-pdf");
+    const encoding = require('encoding');
+
+    try {
+      let person = await Person.findOne({user: userid});
+
+      investorAttrs.person = person.id;
+      if(person.investorProfile){
+        Profile.update(person.investorProfile, investorAttrs).meta({fetch: true}).then();
+      } else {
+        Profile.create(investorAttrs).meta({fetch: true}).then();
+      }
+
+    } catch(err) {
+      return res.serverError(err);
+    }
+
     return res.ok();
   },
 
@@ -280,28 +292,24 @@ module.exports = {
       return res.badRequest({response: 'This email doesn\'t exist in our platform.'});
     }
 
-    /*try {
-      token = await Token.findOrAdd({user: userid, type: 'reset'});
-    } catch (err) {
-      res.serverError(err);
-    }*/
     console.log(person.user.email);
 
     let email = sails.config.custom.email;
     email.send({
-      template: 'passwordReset',
+      template: 'onboarding',
       message: {
         to: person.user.email
       },
       locals: {
         name: person.user.username,
-        //token: token.value,
       }
     }).then(() => {
       return res.ok({response: 'An email was sent to this account.'});
     }).catch((err) => {
       return res.serverError(err);
     });
+
+    return res.ok();
   }
 
 };

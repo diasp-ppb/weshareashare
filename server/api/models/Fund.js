@@ -86,7 +86,8 @@ module.exports = {
       debitAmount: parseInt(attrs.subscription.DEBIT),
       debitGrowth: parseInt(attrs.subscription.GROWTH),
       periodicity: parseInt(attrs.subscription.PERIODICITY),
-      initialDate: attrs.subscription.INITIALDATE
+      initialDate: attrs.subscription.INITIALDATE,
+      facta: attrs.subscription.FATCA
     };
 
     return parsed;
