@@ -24,7 +24,9 @@ module.exports.routes = {
 
   'post /admins/auth': {
     cors: {
-      allowRequestHeaders: 'Content-Type, Client-ID, Authorization',
+      origin: '*',
+      allowRequestHeaders: 'Content-Type, client-id, Authorization',
+      headers: 'client-id, Content-Type, Authorization'
     },
     controller: 'AdminController',
     action: 'signin',
@@ -41,6 +43,7 @@ module.exports.routes = {
   'post /users/auth': {
     cors: {
       allowRequestHeaders: 'Content-Type, Client-ID, Authorization',
+      headers: 'Authorization',
     },
     controller: 'UserAuthController',
     action: 'signin',

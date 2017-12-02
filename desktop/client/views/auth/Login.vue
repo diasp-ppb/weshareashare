@@ -6,7 +6,7 @@
     <div class="column is-6 is-offset-3">
       <div class="box">
         <div v-show="error" style="color:red; word-wrap:break-word;">{{ error }}</div>
-        <form v-on:submit.prevent="ui">
+        <form v-on:submit.prevent="login">
           <label class="label">Email</label>
           <p class="control">
             <input v-model="data.body.email" class="input" type="text" placeholder="your email">
@@ -36,6 +36,8 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+
 export default {
 
   data () {
@@ -65,25 +67,33 @@ export default {
     }
   },
   methods: {
-    ui () {
-      /*
+    ...mapMutations([
+      'setAdminInfo',
+      'setTokens' // map `this.incrementBy(amount)` to `this.$store.commit('incrementBy', amount)`
+    ]),
+    login () {
+      var self = this
       this.axios({
         method: 'post',
         url: this.address + 'admins/auth',
         auth: {
           username: this.data.body.email,
           password: this.data.body.password
+        },
+        headers: {
+          'client-id': this.clientId
         }
-      }).then(function (response) {
-        console.log(response)
-      }) */
-
-      if (this.data.body.email === 'weshareashare' && this.data.body.password === '12345678') {
-        this.$router.push({path: '/'})
-      } else {
-        console.log('error login')
-        this.error = 'Your email and/or password are invalid.'
-      }
+      })
+      .then(function (response) {
+        console.log(response.data)
+        self.setAdminInfo(response.data.admin)
+        self.setTokens(response.data.tokens)
+        self.$router.push({path: '/'})
+      })
+      .catch(function (error) {
+        console.error(error)
+        self.error = 'Email and/or password are wrong.'
+      })
 
       /*
       var redirect = this.$auth.redirect()

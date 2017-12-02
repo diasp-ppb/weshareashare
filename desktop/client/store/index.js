@@ -20,11 +20,32 @@ const store = new Vuex.Store({
   state: {
     pkg,
     clientId: 'test',
-    address: 'http://localhost:1337/'
+    address: 'http://localhost:1337/',
+    admin: {
+      email: null,
+      id: null
+    },
+    tokens: {
+      access: {
+        expiresIn: null,
+        type: null,
+        value: null
+      },
+      refresh: {
+        type: null,
+        value: null
+      }
+    }
   },
   mutations: {
     updateClientId: function (state, clientId) {
       this.state.clientId = clientId
+    },
+    setAdminInfo: function (state, admin) {
+      this.state.admin = admin
+    },
+    setTokens: function (state, tokens) {
+      this.state.tokens = tokens
     }
   }
 })
