@@ -1,22 +1,13 @@
 import { StyleSheet } from 'react-native';
-import { Metrics, Colors, Fonts } from '../../Themes/index';
+import { Metrics, Colors } from '@theme/';
 
 export default StyleSheet.create({
-  mainContainer: {
-    flex: 1,
-    backgroundColor: Colors.background,
-    justifyContent: 'space-between',
-  },
   backgroundImage: {
     position: 'absolute',
     top: 0,
     left: 0,
     bottom: 0,
     right: 0,
-  },
-  container: {
-    flex: 1,
-    backgroundColor: Colors.background,
   },
   btnGroup: {
     flex: 1,
@@ -29,7 +20,6 @@ export default StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    resizeMode: 'stretch',
     flex: 1,
     height: null,
     width: null,
@@ -38,11 +28,19 @@ export default StyleSheet.create({
     alignSelf: 'center',
     marginVertical: Metrics.smallMargin,
     paddingVertical: Metrics.smallMargin,
+    width: Metrics.DEVICE_WIDTH / 3,
     backgroundColor: Colors.background,
     borderRadius: 8,
   },
+  orangeNextBtn: {
+    alignSelf: 'flex-end',
+    margin: Metrics.baseMargin,
+    padding: Metrics.baseMargin,
+    backgroundColor: Colors.stoikOrange,
+    borderRadius: 8,
+  },
   btnText: {
+    textAlign: 'center',
     color: Colors.text,
-    fontSize: Fonts.h5,
   },
 });

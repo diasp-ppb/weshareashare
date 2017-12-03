@@ -16,6 +16,7 @@
 module.exports = function resForbidden(data) {
 
   // Get access to `req` and `res`
+  data = data || {response: 'Forbidden request'};
   var req = this.req;
   var res = this.res;
 

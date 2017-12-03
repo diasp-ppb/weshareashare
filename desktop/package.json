@@ -1,7 +1,7 @@
 {
-  "name": "vue-admin",
+  "name": "weShareAShare-admin",
   "version": "0.1.12",
-  "description": "Vue Admin Panel Framework",
+  "description": "WeShareAShare Admin Panel",
   "repository": "vue-bulma/vue-admin",
   "homepage": "https://admin.vuebulma.com",
   "license": "MIT",

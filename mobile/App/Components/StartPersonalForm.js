@@ -9,7 +9,7 @@ import * as Session from '../Redux/Session';
 
 var React = require('react');
 var { AppRegistry, TouchableHighlight, Component } = React;
-const STATES = require('../Containers/data/states.js');
+const STATES = require('../Containers/Onboarding/data/states.js');
 
 class StartPersonalForm extends Component{
     constructor(props) {

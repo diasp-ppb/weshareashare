@@ -1,0 +1,47 @@
+{
+  "aboutUs": "About Us",
+  "contactUs": "Contact Us",
+  "signIn": "Sign In",
+  "signUp": "Sign Up",
+  "signOut": "Sign Out",
+  "mainPage": "Main menu",
+  "invest": "Invest",
+  "share": "Share",
+  "save": "Save",
+  "causes": "Causes",
+  "benefits": "PPR SGF Benefits",
+  "systematicSavings": "Systematic Savings",
+  "stoikShares": "PPR SGF Stoik Shares",
+  "projectWeshareashare": "WeShareAShare Project",
+  "simulation": "Simulation",
+  "performances": "Performance",
+  "wallet": "Wallet",
+  "onboarding": "Onboarding",
+
+  "notifications": "Notifications",
+  "more": "More",
+  "participant": "Something i guess",
+  "subscription": "Subscription",
+
+  "passwordReset": "Password request",
+  "sendResetToken": "Send reset token",
+  "resetSuccessMessage": "We've emailed you the instructions",
+  "resetIntroText": "Enter your email. We'll send you instructions to safely reset your password",
+
+  "signInScreen": "Sign In",
+  "signInButton": "Sign In",
+  "signInSuccessMessage": "You're now logged in",
+
+  "signUpScreen": "Sign Up",
+  "signUpButton": "Sign Up",
+  "signUpSuccessMessage": "Your account was created with success!",
+
+  "passwordUpdateScreen": "Password Update",
+  "passwordUpdateButton": "Update password",
+  "passwordUpdateSuccessMessage": "Your password has been successfully updated",
+
+  "contactUsScreen": "Contact Us",
+  "contactUsButton": "Submit",
+  "contactUsSuccessMessage": "Your message has been received. Thank you very much!",
+  "contactUsIntroText": "Send us a message and we'll get back to you via email as soon as possible.\nYour feedback is extremely important to us"
+}

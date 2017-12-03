@@ -24,8 +24,9 @@ const formatTokenResponse = (accessToken, refreshToken, user) => ({
   },
   user: {
     id: user.id,
-    username: user.username,
     email: user.email,
+    firstName: user.firstName,
+    lastName: user.lastName,
   },
 });
 
@@ -33,7 +34,7 @@ module.exports = {
   signin(req, res) {
     passport.authenticate(['basic'], { session: false }, (authErr, user) => {
       if (authErr || !user) {
-        return res.unauthorized({"response": "The email address or password you entered is not valid."});
+        return res.unauthorized({'response': 'The email address or password you entered is not valid.'});
       }
 
       Token.findOrAdd({
@@ -92,7 +93,7 @@ module.exports = {
   revoke(req, res) {
     const params = req.allParams();
     if (!params.tokens || !params.tokens.length) {
-      return res.badRequest();
+      return res.badRequest({response: 'Invalid parameters'});
     }
     let counter = 0;
 
@@ -114,14 +115,13 @@ module.exports = {
 
   async resetRequest(req, res) {
     const params = req.allParams();
-    console.log(params);
-    if(!params.email) {
-      return res.badRequest();
+    if(!params.Email) {
+      return res.badRequest({response: 'Invalid parameters'});
     }
 
     let user, token;
     try {
-      user = await User.findOne({email: params.email});
+      user = await User.findOne({email: params.Email});
     } catch(err) {
       res.serverError(err);
     }
@@ -131,7 +131,7 @@ module.exports = {
     }
 
     try {
-      token = await Token.findOrAdd({user: user.id, type: 'reset'})
+      token = await Token.findOrAdd({user: user.id, type: 'reset'});
     } catch (err) {
       res.serverError(err);
     }
@@ -155,22 +155,22 @@ module.exports = {
 
   async resetPassword(req, res) {
     const params = req.allParams();
-    if (!params.newPassword || !params.email) {
-      return res.badRequest();
+    if (!params.Password || !params.Email) {
+      return res.badRequest({response: 'Invalid parameters'});
     }
 
     let token, user;
     try {
-      token = await Token.find({value: params.token.value});
+      token = await Token.find({value: params.Token});
     } catch (err) {
       res.serverError(err);
     }
 
     try {
       user = await User.update(
-        {id: token.user, email: params.email},
-        {password: params.newPassword}
-      ).meta({fetch: true})
+        {email: params.Email},
+        {password: params.Password}
+      ).meta({fetch: true});
     } catch (err) {
       res.serverError(err);
     }
