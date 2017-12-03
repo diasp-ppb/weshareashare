@@ -15,7 +15,7 @@ exports[`Text H1 renders correctly 1`] = `
   style={
     Array [
       Object {
-        "color": "#0E4EF8",
+        "color": "#455a64",
         "fontFamily": "HelveticaNeue",
         "fontSize": 24.5,
         "fontWeight": "800",
@@ -47,7 +47,7 @@ exports[`Text H1 with Link renders correctly 1`] = `
   style={
     Array [
       Object {
-        "color": "#0E4EF8",
+        "color": "#455a64",
         "fontFamily": "HelveticaNeue",
         "fontSize": 24.5,
         "fontWeight": "800",
@@ -58,8 +58,7 @@ exports[`Text H1 with Link renders correctly 1`] = `
         "right": 0,
       },
       Object {
-        "color": "#0E4EF8",
-        "textDecorationLine": "underline",
+        "color": "#feab2b",
       },
     ]
   }
@@ -83,7 +82,7 @@ exports[`Text H2 renders correctly 1`] = `
   style={
     Array [
       Object {
-        "color": "#0E4EF8",
+        "color": "#455a64",
         "fontFamily": "HelveticaNeue",
         "fontSize": 21,
         "fontWeight": "800",
@@ -115,7 +114,7 @@ exports[`Text H3 renders correctly 1`] = `
   style={
     Array [
       Object {
-        "color": "#0E4EF8",
+        "color": "#455a64",
         "fontFamily": "HelveticaNeue",
         "fontSize": 17.5,
         "fontWeight": "500",
@@ -147,7 +146,7 @@ exports[`Text H4 renders correctly 1`] = `
   style={
     Array [
       Object {
-        "color": "#0E4EF8",
+        "color": "#455a64",
         "fontFamily": "HelveticaNeue",
         "fontSize": 15.400000000000002,
         "fontWeight": "800",
@@ -179,7 +178,7 @@ exports[`Text H5 renders correctly 1`] = `
   style={
     Array [
       Object {
-        "color": "#0E4EF8",
+        "color": "#455a64",
         "fontFamily": "HelveticaNeue",
         "fontSize": 14,
         "fontWeight": "800",
@@ -212,7 +211,7 @@ exports[`Text P renders correctly 1`] = `
   style={
     Array [
       Object {
-        "color": "#222222",
+        "color": "#455a64",
         "fontFamily": "HelveticaNeue",
         "fontSize": 14,
         "fontWeight": "300",
@@ -241,7 +240,7 @@ exports[`Text renders correctly 1`] = `
   style={
     Array [
       Object {
-        "color": "#222222",
+        "color": "#455a64",
         "fontFamily": "HelveticaNeue",
         "fontSize": 14,
         "fontWeight": "300",

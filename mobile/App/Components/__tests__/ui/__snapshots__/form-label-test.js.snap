@@ -37,8 +37,10 @@ exports[`FormLabel renders correctly 1`] = `
           },
           Array [
             Object {
-              "color": "#222222",
+              "color": "#B4B4B4",
               "fontFamily": "HelveticaNeue",
+              "fontSize": 17.5,
+              "fontWeight": "300",
               "marginLeft": 0,
               "marginRight": 0,
             },

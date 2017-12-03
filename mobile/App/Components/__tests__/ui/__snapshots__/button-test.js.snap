@@ -22,6 +22,7 @@ exports[`Button renders correctly 1`] = `
         "marginLeft": 0,
         "marginRight": 0,
       },
+      undefined,
     ]
   }
 >
@@ -33,6 +34,7 @@ exports[`Button renders correctly 1`] = `
     hasTVPreferredFocus={undefined}
     hitSlop={undefined}
     isTVSelectable={true}
+    nativeID={undefined}
     onLayout={undefined}
     onResponderGrant={[Function]}
     onResponderMove={[Function]}
@@ -67,11 +69,9 @@ exports[`Button renders correctly 1`] = `
           undefined,
           undefined,
           Object {
-            "backgroundColor": "#0E4EF8",
+            "backgroundColor": "#455a64",
           },
-          Object {
-            "borderRadius": 2,
-          },
+          undefined,
           Object {
             "padding": 12,
           },
@@ -156,6 +156,7 @@ exports[`Button with Icon renders correctly 1`] = `
         "marginLeft": 0,
         "marginRight": 0,
       },
+      undefined,
     ]
   }
 >
@@ -167,6 +168,7 @@ exports[`Button with Icon renders correctly 1`] = `
     hasTVPreferredFocus={undefined}
     hitSlop={undefined}
     isTVSelectable={true}
+    nativeID={undefined}
     onLayout={undefined}
     onResponderGrant={[Function]}
     onResponderMove={[Function]}
@@ -201,11 +203,9 @@ exports[`Button with Icon renders correctly 1`] = `
           undefined,
           undefined,
           Object {
-            "backgroundColor": "#0E4EF8",
+            "backgroundColor": "#455a64",
           },
-          Object {
-            "borderRadius": 2,
-          },
+          undefined,
           Object {
             "padding": 12,
           },
@@ -316,6 +316,7 @@ exports[`Button with Text renders correctly 1`] = `
         "marginLeft": 0,
         "marginRight": 0,
       },
+      undefined,
     ]
   }
 >
@@ -327,6 +328,7 @@ exports[`Button with Text renders correctly 1`] = `
     hasTVPreferredFocus={undefined}
     hitSlop={undefined}
     isTVSelectable={true}
+    nativeID={undefined}
     onLayout={undefined}
     onResponderGrant={[Function]}
     onResponderMove={[Function]}
@@ -361,11 +363,9 @@ exports[`Button with Text renders correctly 1`] = `
           undefined,
           undefined,
           Object {
-            "backgroundColor": "#0E4EF8",
+            "backgroundColor": "#455a64",
           },
-          Object {
-            "borderRadius": 2,
-          },
+          undefined,
           Object {
             "padding": 12,
           },
@@ -450,6 +450,7 @@ exports[`Button with onPress renders correctly 1`] = `
         "marginLeft": 0,
         "marginRight": 0,
       },
+      undefined,
     ]
   }
 >
@@ -461,6 +462,7 @@ exports[`Button with onPress renders correctly 1`] = `
     hasTVPreferredFocus={undefined}
     hitSlop={undefined}
     isTVSelectable={true}
+    nativeID={undefined}
     onLayout={undefined}
     onResponderGrant={[Function]}
     onResponderMove={[Function]}
@@ -495,11 +497,9 @@ exports[`Button with onPress renders correctly 1`] = `
           undefined,
           undefined,
           Object {
-            "backgroundColor": "#0E4EF8",
+            "backgroundColor": "#455a64",
           },
-          Object {
-            "borderRadius": 2,
-          },
+          undefined,
           Object {
             "padding": 12,
           },
@@ -584,6 +584,7 @@ exports[`Large Button renders correctly 1`] = `
         "marginLeft": 0,
         "marginRight": 0,
       },
+      undefined,
     ]
   }
 >
@@ -595,6 +596,7 @@ exports[`Large Button renders correctly 1`] = `
     hasTVPreferredFocus={undefined}
     hitSlop={undefined}
     isTVSelectable={true}
+    nativeID={undefined}
     onLayout={undefined}
     onResponderGrant={[Function]}
     onResponderMove={[Function]}
@@ -629,11 +631,9 @@ exports[`Large Button renders correctly 1`] = `
           undefined,
           undefined,
           Object {
-            "backgroundColor": "#0E4EF8",
+            "backgroundColor": "#455a64",
           },
-          Object {
-            "borderRadius": 2,
-          },
+          undefined,
           Object {
             "padding": 12,
           },
@@ -718,6 +718,7 @@ exports[`Large Button with Icon renders correctly 1`] = `
         "marginLeft": 0,
         "marginRight": 0,
       },
+      undefined,
     ]
   }
 >
@@ -729,6 +730,7 @@ exports[`Large Button with Icon renders correctly 1`] = `
     hasTVPreferredFocus={undefined}
     hitSlop={undefined}
     isTVSelectable={true}
+    nativeID={undefined}
     onLayout={undefined}
     onResponderGrant={[Function]}
     onResponderMove={[Function]}
@@ -763,11 +765,9 @@ exports[`Large Button with Icon renders correctly 1`] = `
           undefined,
           undefined,
           Object {
-            "backgroundColor": "#0E4EF8",
+            "backgroundColor": "#455a64",
           },
-          Object {
-            "borderRadius": 2,
-          },
+          undefined,
           Object {
             "padding": 12,
           },
@@ -870,6 +870,7 @@ exports[`Outlined Button renders correctly 1`] = `
         "marginLeft": 0,
         "marginRight": 0,
       },
+      undefined,
     ]
   }
 >
@@ -881,6 +882,7 @@ exports[`Outlined Button renders correctly 1`] = `
     hasTVPreferredFocus={undefined}
     hitSlop={undefined}
     isTVSelectable={true}
+    nativeID={undefined}
     onLayout={undefined}
     onResponderGrant={[Function]}
     onResponderMove={[Function]}
@@ -917,9 +919,7 @@ exports[`Outlined Button renders correctly 1`] = `
           Object {
             "backgroundColor": "transparent",
           },
-          Object {
-            "borderRadius": 2,
-          },
+          undefined,
           Object {
             "padding": 12,
           },
@@ -927,7 +927,7 @@ exports[`Outlined Button renders correctly 1`] = `
           undefined,
           undefined,
           Object {
-            "borderColor": "#0E4EF8",
+            "borderColor": "#feab2b",
             "borderWidth": 1,
             "padding": 12,
           },
@@ -958,7 +958,7 @@ exports[`Outlined Button renders correctly 1`] = `
                 "fontSize": 20,
               },
               Object {
-                "color": "#0E4EF8",
+                "color": "#feab2b",
               },
               Object {
                 "fontSize": 17.5,
@@ -998,6 +998,7 @@ exports[`Outlined Button with Icon renders correctly 1`] = `
         "marginLeft": 0,
         "marginRight": 0,
       },
+      undefined,
     ]
   }
 >
@@ -1009,6 +1010,7 @@ exports[`Outlined Button with Icon renders correctly 1`] = `
     hasTVPreferredFocus={undefined}
     hitSlop={undefined}
     isTVSelectable={true}
+    nativeID={undefined}
     onLayout={undefined}
     onResponderGrant={[Function]}
     onResponderMove={[Function]}
@@ -1045,9 +1047,7 @@ exports[`Outlined Button with Icon renders correctly 1`] = `
           Object {
             "backgroundColor": "transparent",
           },
-          Object {
-            "borderRadius": 2,
-          },
+          undefined,
           Object {
             "padding": 12,
           },
@@ -1055,7 +1055,7 @@ exports[`Outlined Button with Icon renders correctly 1`] = `
           undefined,
           undefined,
           Object {
-            "borderColor": "#0E4EF8",
+            "borderColor": "#feab2b",
             "borderWidth": 1,
             "padding": 12,
           },
@@ -1112,7 +1112,7 @@ exports[`Outlined Button with Icon renders correctly 1`] = `
                 "fontSize": 20,
               },
               Object {
-                "color": "#0E4EF8",
+                "color": "#feab2b",
               },
               Object {
                 "fontSize": 17.5,
@@ -1160,6 +1160,7 @@ exports[`Small Button renders correctly 1`] = `
         "marginLeft": 0,
         "marginRight": 0,
       },
+      undefined,
     ]
   }
 >
@@ -1171,6 +1172,7 @@ exports[`Small Button renders correctly 1`] = `
     hasTVPreferredFocus={undefined}
     hitSlop={undefined}
     isTVSelectable={true}
+    nativeID={undefined}
     onLayout={undefined}
     onResponderGrant={[Function]}
     onResponderMove={[Function]}
@@ -1205,11 +1207,9 @@ exports[`Small Button renders correctly 1`] = `
           undefined,
           undefined,
           Object {
-            "backgroundColor": "#0E4EF8",
+            "backgroundColor": "#455a64",
           },
-          Object {
-            "borderRadius": 2,
-          },
+          undefined,
           Object {
             "padding": 12,
           },
@@ -1294,6 +1294,7 @@ exports[`Small Button with Icon renders correctly 1`] = `
         "marginLeft": 0,
         "marginRight": 0,
       },
+      undefined,
     ]
   }
 >
@@ -1305,6 +1306,7 @@ exports[`Small Button with Icon renders correctly 1`] = `
     hasTVPreferredFocus={undefined}
     hitSlop={undefined}
     isTVSelectable={true}
+    nativeID={undefined}
     onLayout={undefined}
     onResponderGrant={[Function]}
     onResponderMove={[Function]}
@@ -1339,11 +1341,9 @@ exports[`Small Button with Icon renders correctly 1`] = `
           undefined,
           undefined,
           Object {
-            "backgroundColor": "#0E4EF8",
+            "backgroundColor": "#455a64",
           },
-          Object {
-            "borderRadius": 2,
-          },
+          undefined,
           Object {
             "padding": 12,
           },

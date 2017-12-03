@@ -2,7 +2,11 @@
 
 exports[`ListItem renders correctly 1`] = `
 <View
-  avatar={1}
+  avatar={
+    Object {
+      "process": [Function],
+    }
+  }
   onLongPress={undefined}
   onPress={undefined}
   style={
@@ -18,15 +22,15 @@ exports[`ListItem renders correctly 1`] = `
       Array [
         Object {
           "backgroundColor": "#FFFFFF",
-          "borderBottomColor": "#D0D1D5",
-          "borderTopColor": "#D0D1D5",
+          "borderBottomColor": "#483F53",
+          "borderTopColor": "#483F53",
         },
         Array [],
       ],
     ]
   }
   subTitle="Sub title"
-  underlayColor="#D0D1D5"
+  underlayColor="#483F53"
 >
   <View
     style={
@@ -91,7 +95,11 @@ exports[`ListItem renders correctly 1`] = `
           }
         >
           <Image
-            source={1}
+            source={
+              Object {
+                "process": [Function],
+              }
+            }
             style={
               Array [
                 Object {
@@ -146,7 +154,7 @@ exports[`ListItem renders correctly 1`] = `
                 },
                 Array [
                   Object {
-                    "color": "#222222",
+                    "color": "#455a64",
                     "fontFamily": "HelveticaNeue",
                     "fontSize": 14,
                     "fontWeight": "300",
@@ -173,8 +181,10 @@ exports[`ListItem renders correctly 1`] = `
       accessibilityLabel={undefined}
       accessibilityTraits={undefined}
       accessible={true}
+      collapsable={undefined}
       hitSlop={undefined}
       isTVSelectable={true}
+      nativeID={undefined}
       onLayout={undefined}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}

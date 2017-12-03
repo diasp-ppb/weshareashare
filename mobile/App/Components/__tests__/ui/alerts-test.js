@@ -6,11 +6,11 @@ import 'react-native';
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import Alerts from '@ui/Alerts';
+import CustomFormValidationMessage from '@ui/FormValidationMessage';
 
 it('Alerts (empty) renders correctly', () => {
   const tree = renderer.create(
-    <Alerts />,
+    <CustomFormValidationMessage />,
   ).toJSON();
 
   expect(tree).toMatchSnapshot();
@@ -18,7 +18,7 @@ it('Alerts (empty) renders correctly', () => {
 
 it('Alerts (Sucess) renders correctly', () => {
   const tree = renderer.create(
-    <Alerts success={'Hello Success'} />,
+    <CustomFormValidationMessage success={'Hello Success'} />,
   ).toJSON();
 
   expect(tree).toMatchSnapshot();
@@ -26,7 +26,7 @@ it('Alerts (Sucess) renders correctly', () => {
 
 it('Alerts (Error) renders correctly', () => {
   const tree = renderer.create(
-    <Alerts error={'Error hey'} />,
+    <CustomFormValidationMessage error={'Error hey'} />,
   ).toJSON();
 
   expect(tree).toMatchSnapshot();
@@ -34,7 +34,7 @@ it('Alerts (Error) renders correctly', () => {
 
 it('Alerts (Status) renders correctly', () => {
   const tree = renderer.create(
-    <Alerts status={'Something\'s happening...'} />,
+    <CustomFormValidationMessage status={'Something\'s happening...'} />,
   ).toJSON();
 
   expect(tree).toMatchSnapshot();

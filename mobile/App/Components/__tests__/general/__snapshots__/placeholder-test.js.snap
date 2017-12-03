@@ -5,10 +5,11 @@ exports[`Placeholder renders correctly 1`] = `
   style={
     Array [
       Object {
-        "backgroundColor": "#E9EBEE",
+        "backgroundColor": "white",
         "flex": 1,
         "flexDirection": "column",
-        "position": "relative",
+        "height": 1334,
+        "width": 750,
       },
       Object {
         "alignItems": "center",
@@ -31,7 +32,7 @@ exports[`Placeholder renders correctly 1`] = `
     style={
       Array [
         Object {
-          "color": "#222222",
+          "color": "#455a64",
           "fontFamily": "HelveticaNeue",
           "fontSize": 14,
           "fontWeight": "300",
@@ -50,10 +51,11 @@ exports[`Placeholder w/ Text renders correctly 1`] = `
   style={
     Array [
       Object {
-        "backgroundColor": "#E9EBEE",
+        "backgroundColor": "white",
         "flex": 1,
         "flexDirection": "column",
-        "position": "relative",
+        "height": 1334,
+        "width": 750,
       },
       Object {
         "alignItems": "center",
@@ -76,7 +78,7 @@ exports[`Placeholder w/ Text renders correctly 1`] = `
     style={
       Array [
         Object {
-          "color": "#222222",
+          "color": "#455a64",
           "fontFamily": "HelveticaNeue",
           "fontSize": 14,
           "fontWeight": "300",

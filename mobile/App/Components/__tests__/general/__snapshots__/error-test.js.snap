@@ -5,10 +5,11 @@ exports[`Error renders correctly 1`] = `
   style={
     Array [
       Object {
-        "backgroundColor": "#E9EBEE",
+        "backgroundColor": "white",
         "flex": 1,
         "flexDirection": "column",
-        "position": "relative",
+        "height": 1334,
+        "width": 750,
       },
       Object {
         "alignItems": "center",
@@ -19,25 +20,9 @@ exports[`Error renders correctly 1`] = `
 >
   <Text
     accessible={true}
-    allowFontScaling={false}
+    allowFontScaling={true}
     ellipsizeMode="tail"
-    style={
-      Array [
-        Object {
-          "color": "#CCC",
-          "fontSize": 50,
-        },
-        undefined,
-        Object {
-          "fontFamily": "Ionicons",
-          "fontStyle": "normal",
-          "fontWeight": "normal",
-        },
-      ]
-    }
-  >
-    
-  </Text>
+  />
   <View
     style={
       Object {
@@ -62,7 +47,7 @@ exports[`Error renders correctly 1`] = `
     style={
       Array [
         Object {
-          "color": "#222222",
+          "color": "#455a64",
           "fontFamily": "HelveticaNeue",
           "fontSize": 14,
           "fontWeight": "300",
@@ -94,10 +79,11 @@ exports[`Error w/ Try Again Button renders correctly 1`] = `
   style={
     Array [
       Object {
-        "backgroundColor": "#E9EBEE",
+        "backgroundColor": "white",
         "flex": 1,
         "flexDirection": "column",
-        "position": "relative",
+        "height": 1334,
+        "width": 750,
       },
       Object {
         "alignItems": "center",
@@ -108,25 +94,9 @@ exports[`Error w/ Try Again Button renders correctly 1`] = `
 >
   <Text
     accessible={true}
-    allowFontScaling={false}
+    allowFontScaling={true}
     ellipsizeMode="tail"
-    style={
-      Array [
-        Object {
-          "color": "#CCC",
-          "fontSize": 50,
-        },
-        undefined,
-        Object {
-          "fontFamily": "Ionicons",
-          "fontStyle": "normal",
-          "fontWeight": "normal",
-        },
-      ]
-    }
-  >
-    
-  </Text>
+  />
   <View
     style={
       Object {
@@ -151,7 +121,7 @@ exports[`Error w/ Try Again Button renders correctly 1`] = `
     style={
       Array [
         Object {
-          "color": "#222222",
+          "color": "#455a64",
           "fontFamily": "HelveticaNeue",
           "fontSize": 14,
           "fontWeight": "300",
@@ -188,6 +158,7 @@ exports[`Error w/ Try Again Button renders correctly 1`] = `
           "marginLeft": 0,
           "marginRight": 0,
         },
+        undefined,
       ]
     }
   >
@@ -199,6 +170,7 @@ exports[`Error w/ Try Again Button renders correctly 1`] = `
       hasTVPreferredFocus={undefined}
       hitSlop={undefined}
       isTVSelectable={true}
+      nativeID={undefined}
       onLayout={undefined}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
@@ -235,9 +207,7 @@ exports[`Error w/ Try Again Button renders correctly 1`] = `
             Object {
               "backgroundColor": "transparent",
             },
-            Object {
-              "borderRadius": 2,
-            },
+            undefined,
             Object {
               "padding": 12,
             },
@@ -245,7 +215,7 @@ exports[`Error w/ Try Again Button renders correctly 1`] = `
             undefined,
             undefined,
             Object {
-              "borderColor": "#0E4EF8",
+              "borderColor": "#feab2b",
               "borderWidth": 1,
               "padding": 8,
             },
@@ -276,7 +246,7 @@ exports[`Error w/ Try Again Button renders correctly 1`] = `
                   "fontSize": 20,
                 },
                 Object {
-                  "color": "#0E4EF8",
+                  "color": "#feab2b",
                 },
                 Object {
                   "fontSize": 17.5,

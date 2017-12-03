@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { List } from 'react-native-elements';
 
 // Consts and Libs
-import { AppColors } from '@theme/';
+import { Colors } from '@theme/';
 
 /* Component ==================================================================== */
 class CustomList extends Component {
@@ -30,8 +30,8 @@ class CustomList extends Component {
       ...this.props,
       containerStyle: [{
         margin: 0,
-        backgroundColor: AppColors.background,
-        borderTopColor: AppColors.border,
+        backgroundColor: Colors.background,
+        borderTopColor: Colors.border,
         borderBottomWidth: 0,
       }],
     };

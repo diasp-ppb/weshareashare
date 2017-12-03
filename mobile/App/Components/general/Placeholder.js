@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { View } from 'react-native';
 
 // Consts and Libs
-import { AppStyles } from '@theme/';
+import {  ApplicationStyles as AppStyles } from '@theme/';
 
 // Components
 import { Text } from '@ui/';
