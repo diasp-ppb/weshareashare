@@ -1,10 +1,14 @@
 const images = {
   logo: require('@assets/weshareashare_logo.png'),
   background: require('@assets/background.png'),
-  grupoLobo: require('@assets/logoGrupoLobo.png'),
-  wikipedia: require('@assets/logoWikipedia.png'),
-  amnistia: require('@assets/logoAmnistiaInternacional.png'),
-  wordpress: require('@assets/logoWorldPressPhoto.png'),
+  logoRefood: require('@assets/Causes/logoRefood.jpg'),
+  logoSpeak: require('@assets/Causes/logoSpeak.png'),
+  logoGrupoLobo: require('@assets/Causes/logoGrupoLobo.png'),
+  logoWorldPressPhoto: require('@assets/Causes/logoWorldPressPhoto.png'),
+  logoCantinhoDaMilu: require('@assets/Causes/logoCantinhoDaMilu.png'),
+  logoAjudaDeBerco: require('@assets/Causes/logoAjudaDeBerco.png'),
+  logoCFAInstitute: require('@assets/Causes/logoCFAInstitute.gif'),
+  logoWikipedia: require('@assets/Causes/logoWikipedia.png'),
   piechart: require('@assets/pieChart.png'),
 };
 

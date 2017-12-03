@@ -8,16 +8,6 @@ export default StyleSheet.create({
     fontSize: 26,
     alignSelf: 'center',
   },
-  radioButtonsGroup:{
-    flex:1,
-    paddingTop: 20,
-    paddingLeft: 20,
-    paddingRight:  Metrics.smallMargin,
-    height: Metrics.DEVICE_HEIGHT - 70, //70 = header height + paddingTop + real padding
-  },
-  radioButtons: {
-    flex:1,
-  },
   causeNameText: {
     flex:1,
     paddingLeft: Metrics.smallMargin,
@@ -26,15 +16,23 @@ export default StyleSheet.create({
   logoAndDescription: {
     flex: 1,
     flexDirection: 'row',
+    paddingTop: Metrics.paddingSml,
+  },
+  logoContainer: {
+    flexDirection: 'row',
+    flex: 1,
+    paddingHorizontal: Metrics.smallMargin,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   logo: {
     flexDirection: 'row',
-    flex:1,
+    flex: 1,
     paddingHorizontal: Metrics.smallMargin,
-    alignItems: 'flex-start',
+    alignSelf: 'center',
   },
   description: {
-    flex:2,
+    flex: 2,
     flexWrap: 'wrap',
     paddingRight: Metrics.smallMargin,
   },

@@ -31,15 +31,15 @@ export default class CausesView extends Component {
 
   constructor(props) {
     let navigationParams = props.navigation.state.params;
-    let index = navigationParams.categoryIndex ? navigationParams.categoryIndex : 0;
-    let informative = navigationParams.informative ? navigationParams.informative : true;
+    let index = navigationParams ? navigationParams.categoryIndex : 0;
+    let informative = navigationParams ? navigationParams.informative : true;
     super(props);
     this.state = {
       informative: informative,
       index: index,
       routes: [
         { key: 'first', title: 'Social' },
-        { key: 'second', title: 'Ambiental' },
+        { key: 'second', title: 'Ambient' },
         { key: 'third', title: 'Cultural'}
       ],
     }

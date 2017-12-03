@@ -5,6 +5,7 @@ import { View, Image, ScrollView } from 'react-native';
 import { Button, Text } from 'native-base';
 import styles from './CausesListStyle'
 import { ApplicationStyles } from '@theme/'
+import { Card, Spacer } from '@ui/';
 
 class CausesList extends Component {
   static propTypes = {
@@ -42,28 +43,27 @@ class CausesList extends Component {
     if (this.props.causes && this.props.causes.length > 0) {
       return this.props.causes.map((s, i) => {
         return (
-          <View key={i}>
-            <RadioButton currentValue={this.state.value} value={i}
-                         onPress={this.handleOnPress}
-                         outerCircleColor="#feab2b" innerCircleColor="#feab2b">
-              <View style={styles.radioButtons}>
-                <Text style={styles.causeNameText}>{s.cause}{'\n'}</Text>
-                <View style={styles.logoAndDescription}>
-                  <View style={styles.logo}>
-                    <Image
-                      style={styles.logo}
-                      resizeMode="contain"
-                      source={s.image}
-                    />
-                  </View>
-                  <View style={styles.description}>
-                    <Text>{s.description}</Text>
-                    <Text style={{textDecorationLine: 'underline'}}>{'\n'}Mais
-                      sobre {s.cause}</Text>
-                  </View>
-                </View>
+          <View key={i} style={[ApplicationStyles.paddingBottom]}>
+            {/*<RadioButton currentValue={this.state.value} value={i}*/}
+            {/*onPress={this.handleOnPress}*/}
+            {/*outerCircleColor="#feab2b" innerCircleColor="#feab2b">*/}
+
+            <Text style={[ApplicationStyles.h1]}>{s.name}</Text>
+            <View style={styles.logoAndDescription}>
+              <View style={styles.logoContainer}>
+                <Image
+                  style={styles.logo}
+                  resizeMode="contain"
+                  source={s.image}
+                />
               </View>
-            </RadioButton>
+              <View style={styles.description}>
+                <Text style={[ApplicationStyles.h4]}>{s.shortDescription}</Text>
+                <Spacer size={10} />
+                <Text style={[ApplicationStyles.link, {textAlign: 'right'}]}>Mais sobre {s.name}</Text>
+              </View>
+            </View>
+            {/*</RadioButton>*/}
           </View>
         );
       });
@@ -73,9 +73,11 @@ class CausesList extends Component {
 
   render () {
     return (
-      <View style={styles.radioButtonsGroup}>
+      <View style={[ApplicationStyles.container]}>
         <ScrollView>
-          {this.createCausesButtons()}
+          <Card>
+            {this.createCausesButtons()}
+          </Card>
         </ScrollView>
       </View>
     );
