@@ -40,6 +40,7 @@ class CausesList extends Component {
   }
 
   createCausesButtons = () => {
+    const { navigate } = this.props.navigation;
     if (this.props.causes && this.props.causes.length > 0) {
       return this.props.causes.map((s, i) => {
         return (
@@ -60,7 +61,7 @@ class CausesList extends Component {
               <View style={styles.description}>
                 <Text style={[ApplicationStyles.h4]}>{s.shortDescription}</Text>
                 <Spacer size={10} />
-                <Text style={[ApplicationStyles.link, {textAlign: 'right'}]}>Mais sobre {s.name}</Text>
+                <Text style={[ApplicationStyles.link, {textAlign: 'right'}]} onPress={() => {navigate('Cause', {cause: s})}}>Mais sobre {s.name}</Text>
               </View>
             </View>
             {/*</RadioButton>*/}
