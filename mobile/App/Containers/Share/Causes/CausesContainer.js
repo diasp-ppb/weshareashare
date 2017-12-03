@@ -13,7 +13,20 @@ const causes = [
     shortDescription: 'The Re-food Movement is powered by the good will of the community, it takes the form of shared practical action and is sustained by ongoing resource activation.\n' +
     '\n' +
     'These dynamic and continuous processes work together to generate significant positive social impact for a wide spectrum of diverse community members.',
-    description: '',
+    description: '<p style="text-align: justify;">The Re-food Movement presents new responses to age old challenges, local tools to repair global damage and a proven path to empower citizens to change their world for the better in their own communities</p>' +
+    '<h4 style="padding-top: 0">What is possible?</h4>' +
+    '<p>Re-food began with questioning...</p>' +
+    '<h4 style="padding-top: 0">Our Challenge:</h4>' +
+    '<p style="text-align: justify;">Is it possible that we trash 1/3 of all the food we produce?</p>' +
+    '<p style="text-align: justify;">Is it possible that we &ndash; you and I &ndash; throw away perfectly good food on a daily basis while our neighbors struggle with food insufficiency?</p>' +
+    '<p style="text-align: justify;">Is it possible that we have forgotten that good food is precious because it nourishes people and that people too - all people - are precious?</p>' +
+    '<p style="text-align: justify;">It is possible, it is our current reality.</p>' +
+    '<h4 style="padding-top: 0">Our Response:</h4>' +
+    '<p style="text-align: justify;">Is it possible to end enormous amounts of food waste and rescue tons of good food in our own local neighborhoods?</p>' +
+    '<p style="text-align: justify;">Is it possible to recruit, organize and retain hundreds of volunteers to rescue good food every day - in your community and in mine?</p>' +
+    '<p style="text-align: justify;">Is it possible to provide good rescued food to those who need it in the same communities where the food is rescued &ndash; at no costs to the beneficiaries and at nearly no cost at all?</p>' +
+    '<p style="text-align: justify;">Is it possible to maintain a high yield/low cost neighborhood food rescue operation that involves all sectors of the community (responsible people, businesses and institutions) - and to do so on a strictly goodwill basis?</p>' +
+    '<p style="text-align: justify;"><strong>It is possible &ndash; it is Re-food.</strong></p>',
   },
   {
     id: 2,

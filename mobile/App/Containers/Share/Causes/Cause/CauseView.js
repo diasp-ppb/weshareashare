@@ -37,10 +37,6 @@ class CausesList extends Component {
       <View style={[ApplicationStyles.container]}>
         <ScrollView>
           <Card>
-            <Text style={[ApplicationStyles.h1, ApplicationStyles.textCenterAligned]}>
-              {this.state.cause.name}
-            </Text>
-
             <Image
               style={{
                 height: Metrics.DEVICE_HEIGHT / 4,
