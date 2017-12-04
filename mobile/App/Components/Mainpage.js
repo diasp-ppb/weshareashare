@@ -1,19 +1,19 @@
-import React, { Component, PropTypes } from 'react';
-import { View, Image } from 'react-native';
-import { Button, Text } from 'native-base';
+import React, { Component } from 'react';
+import { View } from 'react-native';
+import { Button } from 'native-base';
 import I18n from '@i18n/i18n';
 import StepIndicator from '@components/StepIndicator';
 import { Assets, ApplicationStyles, Colors, Fonts } from '@theme/';
 
 export default class Homepage extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: I18n.t('mainPage'),
+    title: I18n.t('mainMenu'),
   });
 
   constructor(props) {
     super(props);
     this.state = {
-      currentPosition: 0
+      currentPosition: 2
     }
   }
 
@@ -40,17 +40,17 @@ export default class Homepage extends Component {
       currentStepStrokeWidth: 6,
       stepStrokeCurrentColor: Colors.stoikOrange,
       stepStrokeWidth: 3,
-      stepStrokeFinishedColor: Colors.stoikOrange,
+      stepStrokeFinishedColor: Colors.lightBlue,
       stepStrokeUnFinishedColor: Colors.lightBlue,
-      separatorFinishedColor: Colors.stoikOrange,
-      separatorUnFinishedColor: Colors.lightBlue,
-      stepIndicatorFinishedColor: Colors.stoikOrange,
+      separatorFinishedColor: Colors.lightBlue,
+      separatorUnFinishedColor: Colors.stoikOrange,
+      stepIndicatorFinishedColor: Colors.lightBlue,
       stepIndicatorUnFinishedColor: Colors.lightBlue,
       stepIndicatorCurrentColor: Colors.stoikOrange,
       stepIndicatorLabelFontSize: Fonts.base.size*1.75,
       currentStepIndicatorLabelFontSize: Fonts.base.size*1.75,
       stepIndicatorLabelCurrentColor: Colors.background,
-      stepIndicatorLabelFinishedColor: Colors.lightBlue,
+      stepIndicatorLabelFinishedColor: Colors.background,
       stepIndicatorLabelUnFinishedColor: Colors.background,
       labelColor: Colors.lightBlue,
       labelSize: Fonts.base.size*1.5,

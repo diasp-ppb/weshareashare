@@ -6,7 +6,7 @@ import { Card, Text as CustomText, Spacer } from '@ui/';
 
 export default class Saving extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: I18n.t('systematicSavings'),
+    title: I18n.t('saving'),
   });
 
   render () {

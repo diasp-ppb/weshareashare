@@ -47,7 +47,7 @@ module.exports = {
             to: user.email
           },
           locals: {
-            name: user.username,
+            name: user.firstName + ' ' + user.lastName,
             email: user.email,
           }
         });

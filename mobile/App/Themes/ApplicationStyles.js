@@ -162,10 +162,10 @@ const ApplicationStyles = {
     ...Fonts.h5,
   },
   benefitItem: {
-    width: 25,
-    height: 25,
-    borderRadius: 25 / 2,
-    backgroundColor: Colors.stoikOrange,
+    width: 40,
+    height: 40,
+    borderRadius: 40 / 2,
+    backgroundColor: Colors.stoikGrey,
     marginHorizontal: Metrics.marginHorizontal,
   },
   logo: {

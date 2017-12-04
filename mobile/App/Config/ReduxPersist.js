@@ -6,7 +6,7 @@ const REDUX_PERSIST = {
   reducerVersion: '1.0',
   storeConfig: {
     storage: AsyncStorage,
-    blacklist: [],
+    blacklist: ['navigation'],
     transforms: [immutablePersistenceTransform],
   },
 };
