@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import I18n from '@i18n/i18n';
 import { ApplicationStyles } from '@theme/';
+import AppStep from '@components/AppStep';
 
 export default class Simulation extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -11,7 +12,8 @@ export default class Simulation extends Component {
   render () {
     return (
       <View style={ApplicationStyles.container}>
-
+  
+        <AppStep index={0} { ...this.props }/>
       </View>
     );
   }

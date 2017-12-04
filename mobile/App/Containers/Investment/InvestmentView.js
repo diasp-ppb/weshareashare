@@ -3,6 +3,7 @@ import { ScrollView, TouchableHighlight, Text, Image } from 'react-native';
 import I18n from '@i18n/i18n';
 import { ApplicationStyles, Colors, Assets, Metrics } from '@theme/';
 import { Card, Text as CustomText, Spacer } from '@ui/';
+import AppStep from '@components/AppStep';
 
 export default class Investment extends Component {
 
@@ -34,6 +35,7 @@ export default class Investment extends Component {
             <Text style={[ApplicationStyles.nextButtonText]}> { I18n.t('wallet') } </Text>
           </TouchableHighlight>
         </Card>
+        <AppStep index={1} { ...this.props }/>
       </ScrollView>
     );
   }

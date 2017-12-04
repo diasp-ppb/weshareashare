@@ -5,7 +5,7 @@ import I18n from '@i18n/i18n';
 import StepIndicator from '@components/StepIndicator';
 import { Assets, ApplicationStyles, Colors, Fonts } from '@theme/';
 
-export default class Homepage extends Component {
+export default class Mainpage extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: I18n.t('mainMenu'),
   });

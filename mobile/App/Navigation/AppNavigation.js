@@ -9,7 +9,7 @@ const PrimaryNav = StackNavigator({
   userStack: { screen: UserStack },
 }, {
   headerMode: 'none',
-  initialRouteName: 'visitorStack',
+  initialRouteName: 'userStack',
   cardStyle: {
     paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight,
   },

@@ -4,6 +4,7 @@ import I18n from '@i18n/i18n';
 import { ApplicationStyles, Colors, Assets, Metrics } from '@theme/';
 import { Card, Text as CustomText, Spacer } from '@ui/';
 import styles from './ShareStyle';
+import AppStep from '@components/AppStep';
 
 export default class Share extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -45,6 +46,8 @@ export default class Share extends Component {
             <Text style={[styles.btnText]}>{ I18n.t('arts&culture') }</Text>
           </TouchableHighlight>
         </View>
+  
+        <AppStep index={2} { ...this.props }/>
       </ScrollView>
     );
   }

@@ -3,6 +3,7 @@ import { View, TouchableHighlight, Text } from 'react-native';
 import I18n from '@i18n/i18n';
 import { ApplicationStyles, Colors } from '@theme/';
 import { Card, Text as CustomText, Spacer } from '@ui/';
+import AppStep from '@components/AppStep';
 
 export default class Saving extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -27,6 +28,7 @@ export default class Saving extends Component {
             <Text style={[ApplicationStyles.nextButtonText]}> { I18n.t('startSimulation') } </Text>
           </TouchableHighlight>
         </Card>
+        <AppStep index={0} { ...this.props }/>
       </View>
     );
   }

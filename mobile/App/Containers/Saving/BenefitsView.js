@@ -4,6 +4,7 @@ import I18n from '@i18n/i18n';
 import { Divider } from 'react-native-elements';
 import { ApplicationStyles, Metrics, Assets } from '@theme/';
 import { Text, Card } from '@ui/';
+import AppStep from '@components/AppStep';
 
 export default class StoikBenefits extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -45,6 +46,7 @@ export default class StoikBenefits extends Component {
               you can make a profit and make an impact in the same journey.</Text>
           </View>
         </Card>
+        <AppStep index={0} { ...this.props }/>
       </View>
     );
   }
