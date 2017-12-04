@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import HTMLView from 'react-native-htmlview';
-import { View, Image, ScrollView, WebView } from 'react-native';
-import { Button, Text } from 'native-base';
+import { View, Image, ScrollView } from 'react-native';
+import { Button } from 'native-base';
 import { ApplicationStyles, Metrics } from '@theme/'
 import { Card, Spacer } from '@ui/';
 

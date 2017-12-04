@@ -40,18 +40,20 @@ export default class Homepage extends Component {
               </Button>
               
               <View style={[{flexDirection: 'row', paddingTop: Metrics.padding*2}]}>
-                <View style={[{flex: 1, }, ApplicationStyles.containerCentered]}>
+                <View style={[{flex: 1, alignItems: 'center', justifyContent: 'center'}]}>
                   <TouchableOpacity onPress={() => navigate('ContactUs')}>
-                    <Text p style={[ApplicationStyles.textCenterAligned, ApplicationStyles.link]}>
+                    <Text p style={[ApplicationStyles.link]}>
                       {I18n.t('contactUs')}
                     </Text>
                   </TouchableOpacity>
                 </View>
-                <TouchableOpacity onPress={() => navigate('SignUp')} style={[{flex: 2}, ApplicationStyles.containerCentered]}>
-                  <Text p style={[ ApplicationStyles.link]}>
-                    {I18n.t('aboutUs')}
-                  </Text>
-                </TouchableOpacity>
+                <View style={[{flex: 1, alignItems: 'center', justifyContent: 'center'}]}>
+                  <TouchableOpacity style={{flex: 2}} onPress={() => navigate('AboutUs')}>
+                    <Text p style={[ApplicationStyles.link]}>
+                      {I18n.t('aboutUs')}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
           </ImageBackground>
