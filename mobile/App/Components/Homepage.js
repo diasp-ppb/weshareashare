@@ -35,7 +35,7 @@ export default class Homepage extends Component {
               </Button>
               <Button style={styles.btn} onPress={() => { navigate('SignUp'); }}>
                 <Text style={styles.btnText}>
-                  {I18n.t('signUp')}
+                  { I18n.t('signUp') }
                 </Text>
               </Button>
               
@@ -43,14 +43,14 @@ export default class Homepage extends Component {
                 <View style={[{flex: 1, alignItems: 'center', justifyContent: 'center'}]}>
                   <TouchableOpacity onPress={() => navigate('ContactUs')}>
                     <Text p style={[ApplicationStyles.link]}>
-                      {I18n.t('contactUs')}
+                      { I18n.t('contactUs') }
                     </Text>
                   </TouchableOpacity>
                 </View>
                 <View style={[{flex: 1, alignItems: 'center', justifyContent: 'center'}]}>
                   <TouchableOpacity style={{flex: 2}} onPress={() => navigate('AboutUs')}>
                     <Text p style={[ApplicationStyles.link]}>
-                      {I18n.t('aboutUs')}
+                      { I18n.t('aboutUs') }
                     </Text>
                   </TouchableOpacity>
                 </View>
