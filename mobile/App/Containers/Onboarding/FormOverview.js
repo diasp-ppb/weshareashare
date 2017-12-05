@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import { View, ImageBackground } from 'react-native';
+import { View, ImageBackground, Image } from 'react-native';
 import { Button, Text } from 'native-base';
-import { Assets } from '@theme/';
 import styles from '@components/Styles/HomepageStyle';
-import { ApplicationStyles } from '@theme/'
-import { StoikHeader } from '@components//StoikHeader';
+import { ApplicationStyles, Metrics, Assets } from '@theme/'
 
 export default class FormOverview extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -15,7 +13,14 @@ export default class FormOverview extends Component {
     const { navigate } = this.props.navigation;
     return (
       <View style={ApplicationStyles.mainContainer}>
-        <StoikHeader />
+        <Image
+          source={Assets.logo}
+          style={{
+            height: Metrics.DEVICE_HEIGHT / 4,
+            alignSelf: 'center',
+            resizeMode: 'contain',
+          }}
+        />
         <View style={ApplicationStyles.container}>
           <ImageBackground source={Assets.background} style={styles.canvas}>
             <View style={styles.btnGroup}>

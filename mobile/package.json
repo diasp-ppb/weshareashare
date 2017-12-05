@@ -19,10 +19,19 @@
     "eject": "react-native-scripts eject",
     "android": "react-native-scripts android",
     "ios": "react-native-scripts ios",
-    "test": "node node_modules/jest/bin/jest.js --watch"
+    "test": "node_modules/.bin/jest"
   },
   "jest": {
-    "preset": "jest-expo"
+    "preset": "jest-expo",
+    "collectCoverage": true,
+    "transformIgnorePatterns": [
+      "node_modules/(?!(jest-)?react-native|react-navigation|)"
+    ],
+    "verbose": true,
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/assetsTransformer.js",
+      "\\.(css|less)$": "<rootDir>/assetsTransformer.js"
+    }
   },
   "rnpm": {
     "assets": [
@@ -34,8 +43,6 @@
     "buffer": "^5.0.8",
     "ex-react-native-i18n": "0.0.3",
     "expo": "^23.0.4",
-    "react": "16.0.0",
-    "react-native": "0.50.3",
     "fetchival": "^0.3.2",
     "lodash": "^4.17.4",
     "native-base": "^2.3.3",
@@ -43,6 +50,8 @@
     "prop-types": "^15.6.0",
     "radio-button-react-native": "^1.1.6",
     "ramda": "^0.25.0",
+    "react": "16.0.0",
+    "react-native": "0.50.3",
     "react-native-animatable": "^1.2.4",
     "react-native-button-component": "^0.1.25",
     "react-native-camera-roll-picker": "^1.2.3",
@@ -50,8 +59,10 @@
     "react-native-elements": "^0.17.0",
     "react-native-gesture-handler": "^1.0.0-alpha.35",
     "react-native-gifted-chat": "^0.2.9",
+    "react-native-htmlview": "^0.12.1",
     "react-native-keyboard-aware-scroll-view": "^0.4.1",
     "react-native-nav": "^2.0.2",
+    "react-native-pathjs-charts": "0.0.33",
     "react-native-progress": "^3.4.0",
     "react-native-root-toast": "^2.2.0",
     "react-native-step-indicator": "0.0.7",

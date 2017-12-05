@@ -162,10 +162,10 @@ const ApplicationStyles = {
     ...Fonts.h5,
   },
   benefitItem: {
-    width: 25,
-    height: 25,
-    borderRadius: 25 / 2,
-    backgroundColor: Colors.stoikOrange,
+    width: 40,
+    height: 40,
+    borderRadius: 40 / 2,
+    backgroundColor: Colors.stoikGrey,
     marginHorizontal: Metrics.marginHorizontal,
   },
   logo: {
@@ -280,6 +280,23 @@ const ApplicationStyles = {
   },
   flex6: {
     flex: 6,
+  },
+
+  nextButton: {
+    width: Metrics.DEVICE_WIDTH / 2,
+    marginTop: 20,
+    alignSelf: 'flex-end',
+    backgroundColor: '#ff9800',
+    borderRadius: 2,
+    borderWidth: 1,
+    borderColor: '#fe8c16',
+  },
+
+  nextButtonText: {
+    color: 'white',
+    textAlign: 'center',
+    padding: 10,
+    fontSize: 18,
   },
 
   // Navbar

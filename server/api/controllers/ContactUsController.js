@@ -30,8 +30,8 @@ module.exports = {
     email.send({
       template: 'contactUs',
       message: {
-        subject: params.subject,
-        to: 'weshareashare@gmail.com' // or some shit like that
+        subject: params.Subject,
+        to: 'weshareasharetest@gmail.com'
       },
       locals: {
         contact: contact,

@@ -3,6 +3,7 @@ const Colors = {
   clear: 'rgba(0,0,0,0)',
   stoikOrange: '#feab2b',
   stoikGrey: '#455a64',
+  stoikBlue: '#06ADC2',
   facebook: '#3b5998',
   transparent: 'rgba(0,0,0,0)',
   silver: '#F7F7F7',
@@ -26,7 +27,9 @@ const Colors = {
   lightGrey: '#B4B4B4',
   label: '#777777',
   topBarText: '#26c6da',
-  lightBlue: '#ADD8E6'
+  lightBlue: '#ADD8E6',
+  textPrimary: '#222222',
+  textSecondary: '#777777',
 };
 
 const app = {

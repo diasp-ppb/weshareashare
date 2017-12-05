@@ -218,7 +218,7 @@ class AuthForm extends Component {
 
           {this.props.formType === 'SignIn' &&
           <View>
-            <TouchableOpacity onPress={() => navigate('PasswordReset')}>
+            <TouchableOpacity onPress={() => navigate('PasswordReset', {email: this.form.getComponent('Email').getValue()})}>
               <Text p style={[ApplicationStyles.textCenterAligned, ApplicationStyles.link]}>
                 Forgot your password?
               </Text>
@@ -242,7 +242,7 @@ class AuthForm extends Component {
 
           {this.props.formType === 'PasswordReset' &&
           <View>
-            <TouchableOpacity onPress={() => navigate('PasswordUpdate')}>
+            <TouchableOpacity onPress={() => navigate('PasswordUpdate', {email: this.form.getComponent('Email').getValue()})}>
               <Text p style={[ApplicationStyles.textCenterAligned, ApplicationStyles.link]}>
                 Already have a token?
               </Text>

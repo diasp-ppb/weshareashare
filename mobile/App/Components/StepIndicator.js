@@ -166,10 +166,11 @@ export default class StepIndicator extends PureComponent {
       const { labels, direction, currentPosition } = this.props;
       var labelViews = labels.map((label,index) => {
         const selectedStepLabelStyle = index === currentPosition ? { color: this.customStyles.currentStepLabelColor } : { color: this.customStyles.labelColor }
+        const alignment = direction === 'horizontal' ? { textAlign: 'center' } : { alignSelf: 'flex-start', textAlign: 'left'}
         return (
           <TouchableWithoutFeedback style={styles.stepLabelItem} key={index} onPress={() => this.stepPressed(index)}>
             <View style={styles.stepLabelItem}>
-              <Text style={[styles.stepLabel,selectedStepLabelStyle , { fontSize: this.customStyles.labelSize}]}>
+              <Text style={[styles.stepLabel,selectedStepLabelStyle, alignment, { fontSize: this.customStyles.labelSize}]}>
                 {label.name}
               </Text>
               <Text style={[styles.stepLabel, { fontSize: this.customStyles.descriptionSize, color: this.customStyles.descriptionColor}]}>
@@ -308,9 +309,7 @@ export default class StepIndicator extends PureComponent {
       justifyContent:'center'
     },
     stepLabel: {
-      alignSelf: 'flex-start',
       fontSize:12,
-      textAlign:'left',
       fontWeight:'500',
       width: Metrics.DEVICE_WIDTH / 2,
     },
