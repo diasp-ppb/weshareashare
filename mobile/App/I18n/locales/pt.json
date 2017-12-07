@@ -1,3 +1,52 @@
 {
+  "aboutUs": "Sobre nós",
+  "contactUs": "Contacte-nos",
+  "signIn": "Iniciar sessão",
+  "signUp": "Registo",
+  "signOut": "Sair",
+  "mainMenu": "Página principal",
+  "invest": "Investimento",
+  "share": "Partilhe",
+  "save": "Poupe",
+  "causes": "Causas",
+  "benefits": "Benefícios do PPR SGF",
+  "saving": "A Poupança",
+  "stoikShares": "PPR SGF Stoik Ações",
+  "projectWeshareashare": "Projeto WeShareAShare",
+  "simulation": "Simulação",
+  "performances": "Rendibilidade",
+  "wallet": "Carteira",
+  "onboarding": "Onboarding",
 
+  "notifications": "Notificações",
+  "more": "Outros",
+  "participant": "Participant",
+  "subscription": "Subscription",
+  "startSimulation": "Faça uma simulação",
+
+  "people": "Social",
+  "animals&environment": "Ambiental",
+  "arts&culture": "Cultural",
+
+  "passwordReset": "Pedido de password",
+  "sendResetToken": "Enviar token",
+  "resetSuccessMessage": "As instruções para alterar a password foram enviadas para o seu email",
+  "resetIntroText": "Introduza o seu email. De seguida, as instruções para alterar a sua password serão enviadas para o respetivo email",
+
+  "signInScreen": "Iniciar sessão",
+  "signInButton": "Inicie sessão",
+  "signInSuccessMessage": "Sessão iniciada com sucesso!",
+
+  "signUpScreen": "Registo",
+  "signUpButton": "Registe-se",
+  "signUpSuccessMessage": "A sua conta foi criada com sucesso!",
+
+  "passwordUpdateScreen": "Altere a password",
+  "passwordUpdateButton": "Altere a password",
+  "passwordUpdateSuccessMessage": "A sua password foi atualizada com sucesso!",
+
+  "contactUsScreen": "Contacte-nos",
+  "contactUsButton": "Enviar",
+  "contactUsSuccessMessage": "A sua mensagem foi recebida com sucesso. Desde já, obrigado.",
+  "contactUsIntroText": "Envie-nos uma mensagem e nós responderemos o mais rapidamente possível. O seu feedback é extremamente importante para nós."
 }

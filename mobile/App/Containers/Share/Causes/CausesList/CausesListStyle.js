@@ -1,23 +1,12 @@
 import { StyleSheet } from 'react-native';
-import { Metrics, Colors, Fonts } from '../../Themes/index';
+import { Metrics, Colors, Fonts } from '@theme/';
 
 export default StyleSheet.create({
   topBannerText: {
     marginVertical: Metrics.PADDING,
-    color: '#26c6da', //ele nao quer saber de Colors. ou de Fonts. por alguma razao
+    color: '#26c6da',
     fontSize: 26,
     alignSelf: 'center',
-  },
-  radioButtonsGroup:{
-    flex:1,
-    paddingTop: 20,
-  //  paddingBottom: Metrics.smallMargin,
-    paddingLeft: 20,
-    paddingRight:  Metrics.smallMargin,
-    height: Metrics.DEVICE_HEIGHT - 70, //70 = header height + paddingTop + real padding
-  },
- radioButtons: {
-    flex:1,
   },
   causeNameText: {
     flex:1,
@@ -27,19 +16,38 @@ export default StyleSheet.create({
   logoAndDescription: {
     flex: 1,
     flexDirection: 'row',
+    paddingTop: Metrics.paddingSml,
+  },
+  logoContainer: {
+    flexDirection: 'row',
+    flex: 1,
+    paddingHorizontal: Metrics.smallMargin,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   logo: {
     flexDirection: 'row',
-    flex:1,
+    flex: 1,
     paddingHorizontal: Metrics.smallMargin,
-    alignItems: 'flex-start',
+    alignSelf: 'center',
   },
   description: {
-    flex:2,
+    flex: 2,
     flexWrap: 'wrap',
     paddingRight: Metrics.smallMargin,
   },
   thisbtn: {
     backgroundColor:'white',
-  }
+  },
+  orangeNextBtn: {
+    alignSelf: 'flex-end',
+    margin: Metrics.baseMargin,
+    padding: Metrics.baseMargin,
+    backgroundColor: Colors.stoikOrange,
+    borderRadius: 8,
+  },
+  btnText: {
+    textAlign: 'center',
+    color: Colors.text,
+  },
 });

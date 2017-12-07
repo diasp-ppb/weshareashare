@@ -3,17 +3,23 @@
  *
  */
 import { connect } from 'react-redux';
+import I18n from '@i18n/i18n';
 import { Users } from '@services/API';
 import FormRender from './FormView';
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, ownProps) => ({
   session: state.session,
-  screenName: 'Password Reset',
+  user: {
+   firstName: null,
+   lastName: null,
+   email: ownProps.navigation.state.params.email,
+  },
+  screenName: I18n.t('passwordReset'),
   formType: 'PasswordReset',
   formFields: ['Email'],
-  buttonTitle: 'Send reset token',
-  successMessage: 'We\'ve emailed you the instructions',
-  introText: 'Enter your email. We\'ll send you instructions to safely reset your password',
+  buttonTitle: I18n.t('sendResetToken'),
+  successMessage: I18n.t('resetSuccessMessage'),
+  introText: I18n.t('resetIntroText'),
 });
 
 const mapDispatchToProps = () => ({

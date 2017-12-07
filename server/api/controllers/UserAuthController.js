@@ -143,7 +143,7 @@ module.exports = {
         to: user.email
       },
       locals: {
-        name: user.username,
+        name: user.firstName + ' ' + user.lastName,
         token: token.value,
       }
     }).then(() => {

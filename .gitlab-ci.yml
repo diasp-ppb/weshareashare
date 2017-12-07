@@ -56,6 +56,8 @@ build:
     - npm install
     - export NODE_ENV=production
     - echo "Finishing building the app"
+  only:
+    - development
 
 deploy_staging:
   stage: deploy_staging
@@ -63,7 +65,7 @@ deploy_staging:
     - server
   script:
     - echo "Deploy to staging server"
-    - ssh ws_admin@178.62.11.121 "sudo sh ~/scripts/initServer.sh"
+    - ssh ws_admin@178.62.11.121 "sh ~/scripts/initServer.sh"
     - echo "Deployed to staging server"
   environment:
     name: staging

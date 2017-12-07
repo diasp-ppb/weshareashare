@@ -12,7 +12,7 @@ import SignUp from '@containers/Auth/SignUpContainer';
 import Homepage from '@components/Homepage';
 import ContactUs from '@containers/ContactUs/ContactUsContainer';
 import AboutUs from '@components/AboutUs';
-import StoikBenefits from '@components/StoikBenefits';
+import FAQ from '@components/FAQ';
 
 import { Colors } from '@theme';
 
@@ -22,16 +22,15 @@ const navigationOptions = {
 };
 
 export default StackNavigator({
-  Homepage: { screen: Homepage },
-  PasswordReset: { screen: PasswordReset },
-  PasswordUpdate: { screen: PasswordUpdate },
-  SignIn: { screen: SignIn },
-  SignUp: { screen: SignUp },
-  StoikBenefits: { screen: StoikBenefits },
-  ContactUs: { screen: ContactUs },
-  AboutUs: { screen: AboutUs },
+ Homepage: { screen: Homepage },
+ PasswordReset: { screen: PasswordReset },
+ PasswordUpdate: { screen: PasswordUpdate },
+ SignIn: { screen: SignIn },
+ SignUp: { screen: SignUp },
+ ContactUs: { screen: ContactUs },
+ AboutUs: { screen: AboutUs },
+ FAQ: { screen: FAQ },
 }, {
-  headerMode: 'float',
-  navigationOptions,
-},
-);
+ headerMode: 'float',
+ navigationOptions,
+});

@@ -1,4 +1,6 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import I18n from '@i18n/i18n';
 import {
   View,
   ScrollView,
@@ -43,69 +45,88 @@ class ControlPanel extends Component {
         </View>
         <View>
           <TouchableOpacity style={styles.button}>
-            <Icon style={[styles.icon, styles.notification]} name="comment-text" size={35} color="#fff" />
-            <Text style={[styles.buttonText, styles.notification]}>Notifications</Text>
+            <Icon style={[styles.icon, styles.notification]} name="comment-text" size={35} />
+            <Text style={[styles.buttonText, styles.notification]}>{ I18n.t('notifications') }</Text>
           </TouchableOpacity>
         </View>
 
         <View>
-          <View style={styles.header}>
-            <Text style={styles.controlText}>Save</Text>
+          <TouchableOpacity style={styles.header} onPress={() => navigate('Saving')} >
+            <Text style={styles.controlText}>{ I18n.t('save') }</Text>
             <View style={styles.leftMark} />
-          </View>
-          <TouchableOpacity style={styles.button}>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={() => navigate('Simulation')}>
             <Icon style={styles.icon} name="chart-line" size={35} color="#fff" />
-            <Text style={styles.buttonText}>Simulation</Text>
+            <Text style={styles.buttonText}>{ I18n.t('simulation') }</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={() => navigate('Benefits')}>
+            <Icon style={styles.icon} name="chart-line" size={35} color="#fff" />
+            <Text style={styles.buttonText}>{ I18n.t('benefits') }</Text>
           </TouchableOpacity>
         </View>
 
         <View>
-          <View style={styles.header}>
-            <Text style={styles.controlText}>Invest</Text>
+          <TouchableOpacity style={styles.header} onPress={() => navigate('Investment')}>
+            <Text style={styles.controlText}>{ I18n.t('invest') }</Text>
             <View style={styles.leftMark} />
-          </View>
-          <TouchableOpacity style={styles.button} >
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={() => navigate('Wallet')}>
             <Icon style={styles.icon} name="home" size={35} color="#fff" />
-            <Text style={styles.buttonText}>Portfolio</Text>
+            <Text style={styles.buttonText}>{ I18n.t('wallet') }</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button} >
+          <TouchableOpacity style={styles.button} onPress={() => navigate('Performances')}>
             <Icon style={styles.icon} name="trending-up" size={35} color="#fff" />
-            <Text style={styles.buttonText}>Profitability</Text>
+            <Text style={styles.buttonText}>{ I18n.t('performances') }</Text>
           </TouchableOpacity>
         </View>
 
         <View>
-          <View style={styles.header}>
-            <Text style={styles.controlText}>Share</Text>
+          <TouchableOpacity style={styles.header} onPress={() => navigate('Share')}>
+            <Text style={styles.controlText}>{ I18n.t('share') }</Text>
             <View style={styles.leftMark} />
-          </View>
-          <TouchableOpacity style={styles.button} onPress={() => navigate('WeShareAShare')} >
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={() => navigate('Causes', {categoryIndex: 0, informative: true})}>
             <Icon style={styles.icon} name="book-multiple" size={35} color="#fff" />
-            <Text style={styles.buttonText}>WeShareAShare</Text>
+            <Text style={styles.buttonText}>{ I18n.t('causes') }</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View>
+          <TouchableOpacity style={styles.header} onPress={() => navigate('Onboarding')}>
+            <Text style={styles.controlText}>{ I18n.t('onboarding') }</Text>
+            <View style={styles.leftMark} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={() => navigate('InvestorProfileQuiz', { formIndex: 1 } )} >
+            <Icon style={styles.icon} name="book-multiple" size={35} color="#fff" />
+            <Text style={styles.buttonText}>{ I18n.t('participant') }</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={() => navigate('InvestorProfileQuiz', { formIndex: 2 } )} >
+            <Icon style={styles.icon} name="book-multiple" size={35} color="#fff" />
+            <Text style={styles.buttonText}>{ I18n.t('subscription') }</Text>
           </TouchableOpacity>
         </View>
 
 
         <View>
           <View style={styles.header}>
-            <Text style={styles.controlText}>More</Text>
+            <Text style={styles.controlText}>{ I18n.t('more') }</Text>
             <View style={styles.leftMark} />
           </View>
-          <TouchableOpacity style={styles.button} >
+          <TouchableOpacity style={styles.button} onPress={() => navigate('FAQ')}>
             <Icon style={styles.icon} name="help" size={35} color="#fff" />
             <Text style={styles.buttonText}>FAQ</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => navigate('ContactUs')}>
             <Icon style={styles.icon} name="email" size={35} color="#fff" />
-            <Text style={styles.buttonText}>Contact us</Text>
+            <Text style={styles.buttonText}>{ I18n.t('contactUs') }</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => navigate('AboutUs')}>
             <Icon style={styles.icon} name="information-variant" size={35} color="#fff" />
-            <Text style={styles.buttonText}>About us</Text>
+            <Text style={styles.buttonText}>{ I18n.t('aboutUs') }</Text>
           </TouchableOpacity>
           <TouchableOpacity style={[styles.button, styles.lastInMenu]} onPress={this.logout}>
             <Icon style={styles.icon} name="power" size={35} color="#fff" />
-            <Text style={styles.buttonText}>Logout</Text>
+            <Text style={styles.buttonText}>{ I18n.t('signOut') }</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

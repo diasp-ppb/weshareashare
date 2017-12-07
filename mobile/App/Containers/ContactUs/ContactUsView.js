@@ -6,6 +6,7 @@ import {
   Animated,
   Keyboard,
 } from 'react-native';
+import I18n from '@i18n/i18n';
 import FormValidation from 'tcomb-form-native';
 import Toast from 'react-native-root-toast';
 
@@ -17,12 +18,11 @@ import { Card, Spacer, Text, Button } from '@ui/';
 import * as Utils from '@services/Utils';
 import TcombTextInput from '@components/tcomb/TextInput';
 
-
 /* Component ==================================================================== */
 class ContactUs extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: 'Contact Us',
-  });
+    title: I18n.t('contactUsScreen'),
+});
 
   static propTypes = {
     user: PropTypes.shape({
@@ -47,8 +47,8 @@ class ContactUs extends Component {
     if (props.formFields.indexOf('Email') > -1) formFields.Email = Utils.validEmail;
     if (props.formFields.indexOf('FirstName') > -1) formFields.FirstName = FormValidation.String;
     if (props.formFields.indexOf('LastName') > -1) formFields.LastName = FormValidation.String;
-    if (props.formFields.indexOf('Message') > -1) formFields.Message = FormValidation.String;
     if (props.formFields.indexOf('Subject') > -1) formFields.Subject = FormValidation.String;
+    if (props.formFields.indexOf('Message') > -1) formFields.Message = FormValidation.String;
 
     this.state = {
       resultMsg: {
@@ -90,6 +90,8 @@ class ContactUs extends Component {
             template: TcombTextInput,
             error: 'Please enter your message',
             clearButtonMode: 'while-editing',
+            multiline: true,
+            numberOfLines: 4,
           },
         },
       },

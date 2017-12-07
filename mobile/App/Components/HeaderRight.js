@@ -6,7 +6,6 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import styles from './Styles/HeadBarStyle';
 
-
 export default class RightComponent extends Component {
   NotificationIcon() {
     let symbol = 'bell-off';

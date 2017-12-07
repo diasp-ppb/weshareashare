@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import Expo from 'expo';
+import I18n from 'ex-react-native-i18n'
 import RootContainer from './Containers/RootContainer';
 import { Assets } from '@theme/'
 import createStore from './Redux';
@@ -21,6 +22,8 @@ export default class App extends Component {
       'OpenSans-Italic': Assets.OpenSansItalic,
       Roboto_medium: Assets.RobotoMedium,
     });
+    
+    await I18n.initAsync();
 
     this.setState({ isReady: true });
   }

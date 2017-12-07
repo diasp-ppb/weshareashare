@@ -4,16 +4,17 @@
  */
 import { connect } from 'react-redux';
 import { Users } from '@services/API';
+import I18n from '@i18n/i18n';
 import * as Session from '@redux/Session';
 import FormRender from './FormView';
 
 const mapStateToProps = (state) => ({
   session: state.session,
   formType: 'SignIn',
-  screenName: 'Sign In',
+  screenName: I18n.t('signInScreen'),
   formFields: ['Email', 'Password'],
-  buttonTitle: 'Sign In',
-  successMessage: 'You\'re now logged in',
+  buttonTitle: I18n.t('signInButton'),
+  successMessage: I18n.t('signInSuccessMessage'),
 });
 
 const mapDispatchToProps = (dispatch) => ({
