@@ -71,10 +71,12 @@ class Subscription extends React.Component{
         return (
             <Container style={styles.container}>
                 <Content>
-                    <StartPersonalForm index={index} saveOption={saveOption}/>
+                    <StartPersonalForm index={index} saveOption={saveOption}  onRef={ref => (this.child = ref)} />
                     <View style={{flex:1, flexDirection: 'row-reverse', marginRight: 50, paddingRight: 150, paddingLeft: 50, bottom: 20}}>
                         <TouchableOpacity style={styles.button} onPress={() => {
                             this.props.subscription({key: "name", value:option});
+                            //insert api function here
+                            //this.props.subscription(option);
                             navigate('SubsForms', {index: ++index});
                         }}>
                         <Text style={{justifyContent: 'center'}}>Next</Text>

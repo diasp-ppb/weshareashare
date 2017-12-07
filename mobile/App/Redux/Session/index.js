@@ -1,4 +1,4 @@
-import { Clients, Users } from '@services/API';
+import { Clients, Users, Subscription } from '@services/API';
 import { NavigationActions } from 'react-navigation';
 import * as SessionRedux from './redux';
 import * as FormRedux from './reduxForm';
@@ -70,7 +70,7 @@ export const subscription = (res) => {
     return (dispatch, getState) => {
         dispatch(FormRedux.update({[res.key]: res.value}));
         console.log(getState());
-
+        Subscription.subscribe(res.value);
     }
 }
 

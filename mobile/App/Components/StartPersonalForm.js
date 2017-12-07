@@ -16,6 +16,20 @@ class StartPersonalForm extends Component{
       super(props);
     };
 
+    //assigning function to be used by parent
+    componentDidMount(){
+        this.props.onRef(this);
+    }
+
+    componentWillUnmount(){
+        this.props.onRef(undefined);
+    }
+
+    retrieveValues(){
+        var values = this.child.retrieveValues();
+        return values;
+    }
+
     render(){
         if(this.props.index == undefined || this.props.index == null){
             console.log('undefined index');
@@ -33,7 +47,7 @@ class StartPersonalForm extends Component{
                     </Card>
                     <View style={ApplicationStyles.form}>
                         <View style={ApplicationStyles.container}>
-                            <PersonalDataForm/>
+                            <PersonalDataForm  onRef={ref => (this.child = ref)} />
                         </View>
                     </View>
                 </View>

@@ -2,7 +2,11 @@
   "name": "WeShareAShare",
   "displayName": "WeShareAShare",
   "expo": {
+    "name": "WeShareAShare",
     "sdkVersion": "23.0.0",
-    "orientation": "portrait"
+    "orientation": "portrait",
+    "android": {
+        "package": "william.company",
+    }
   }
 }

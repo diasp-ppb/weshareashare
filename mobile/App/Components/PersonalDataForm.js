@@ -10,15 +10,15 @@ var Gender = t.enums({
 });
 
 var Person = t.struct({
-    name: t.String,
-    gender: Gender,
-    address: t.String,
-    postal: t.String,
-    city: t.String,
-    id: t.Number,
-    nif: t.Number,
-    job: t.String,
-    nationality: t.String
+    name: t.maybe(t.String),
+    gender: t.maybe(Gender),
+    address: t.maybe(t.String),
+    postal: t.maybe(t.String),
+    city: t.maybe(t.String),
+    id: t.maybe(t.Number),
+    nif: t.maybe(t.Number),
+    job: t.maybe(t.String),
+    nationality: t.maybe(t.String)
 });
 
 var options = {
@@ -29,6 +29,20 @@ class PersonalDataForm extends Component {
   constructor(props) {
     super(props);
   };
+
+  //assigning function to be used by parent
+  componentDidMount(){
+      this.props.onRef(this);
+  }
+
+  componentWillUnmount(){
+      this.props.onRef(undefined);
+  }
+
+  retrieveValues(){
+      var values = this.refs.form.getValue();
+      return values;
+  }
 
   render() {
     return (
