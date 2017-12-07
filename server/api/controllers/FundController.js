@@ -292,6 +292,12 @@ module.exports = {
       return res.badRequest({response: 'This email doesn\'t exist in our platform.'});
     }
 
+    try {
+      token = await Token.findOrAdd({user: person.user, type: 'reset'});
+    } catch (err) {
+      res.serverError(err);
+    }
+
     console.log(person.user.email);
 
     let email = sails.config.custom.email;
@@ -302,14 +308,26 @@ module.exports = {
       },
       locals: {
         name: person.user.username,
-      }
+        token: token.value,
+      },
+      attachments: [
+        {   // file on disk as an attachment
+            filename: 'subscription.pdf',
+            path: './resources/filled/subscription_' + person.id + '.pdf'
+        },
+        {   // file on disk as an attachment
+            filename: 'investor_profile.pdf',
+            path: './resources/filled/investor_profile_' + person.id + '.pdf'
+        },
+        {   // file on disk as an attachment
+            filename: 'fatca.pdf',
+            path: './resources/filled/fatca_' + person.id + '.pdf'
+        },
+      ]
     }).then(() => {
       return res.ok({response: 'An email was sent to this account.'});
     }).catch((err) => {
       return res.serverError(err);
     });
-
-    return res.ok();
   }
-
 };
