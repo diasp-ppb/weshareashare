@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createPersistedState from 'vuex-persistedstate'
 import pkg from 'package'
 import * as actions from './actions'
 import * as getters from './getters'
@@ -47,7 +48,8 @@ const store = new Vuex.Store({
     setTokens: function (state, tokens) {
       this.state.tokens = tokens
     }
-  }
+  },
+  plugins: [createPersistedState()]
 })
 
 export default store
