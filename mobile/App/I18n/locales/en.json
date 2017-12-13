@@ -18,6 +18,14 @@
   "wallet": "Wallet",
   "onboarding": "Onboarding",
 
+  "riskWarnings": "Risk warnings",
+
+  "forgotPasswordQuestion": "Forgot your password?",
+  "dontHasAccountQuestion": "Do not have an account?",
+  "hasAccountQuestion": "Already have an account?",
+  "hasToken": "Already have a token?",
+  "or": "or",
+
   "notifications": "Notifications",
   "more": "More",
   "participant": "Participant",

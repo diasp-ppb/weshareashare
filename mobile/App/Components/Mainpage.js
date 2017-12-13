@@ -29,7 +29,7 @@ export default class Mainpage extends Component {
 
   render() {
     const labels = [
-      {name: "A POUPANÇA", description: "Saiba mais sobre a importância de poupar e os benefícios do PPR SGF Stoik Ações."},
+      {name: "A POUPANÇA", description: "Saiba mais sobre a importância de poupar e os benefícios do PPR SGF Stoik Ações. Simule diferentes níveis de poupança."},
       {name: "O INVESTIMENTO", description: "Conheça a carteira de activos e rendibilidades do PPR SGF Stoik Ações." },
       {name: "A PARTILHA", description: "Utilize o PPR SGF Stoik Ações como uma ferramenta de partilha com uma causa." },
       {name: "COMECE A INVESTIR", description: "Subscreva ou reforce a sua participação no PPR SGF Stoik Ações." }];

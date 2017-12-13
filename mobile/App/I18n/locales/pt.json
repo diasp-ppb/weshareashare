@@ -18,6 +18,14 @@
   "wallet": "Carteira",
   "onboarding": "Onboarding",
 
+  "riskWarnings": "Riscos",
+
+  "forgotPasswordQuestion": "Esqueceu-se da password?",
+  "dontHasAccountQuestion": "Não está registado?",
+  "hasAccountQuestion": "Já está registado?",
+  "hasToken": "Já possui um token?",
+  "or": "ou",
+
   "notifications": "Notificações",
   "more": "Outros",
   "participant": "Participant",

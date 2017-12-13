@@ -13,6 +13,7 @@ import Homepage from '@components/Homepage';
 import ContactUs from '@containers/ContactUs/ContactUsContainer';
 import AboutUs from '@components/AboutUs';
 import FAQ from '@components/FAQ';
+import RiskWarnings from '@components/RiskWarnings';
 
 import { Colors } from '@theme';
 
@@ -29,6 +30,7 @@ export default StackNavigator({
  SignUp: { screen: SignUp },
  ContactUs: { screen: ContactUs },
  AboutUs: { screen: AboutUs },
+ RiskWarnings: { screen: RiskWarnings},
  FAQ: { screen: FAQ },
 }, {
  headerMode: 'float',
