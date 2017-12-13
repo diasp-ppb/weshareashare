@@ -109,7 +109,7 @@ module.exports = {
 
   afterCreate(newRecord, cb) {
     User.update(newRecord.user, {person: newRecord.id}).then(function() {
-      return next();
+      return newRecord.user;
     });
   },
 

@@ -297,33 +297,31 @@ module.exports = {
     } catch (err) {
       res.serverError(err);
     }
-
-    console.log(person.user.email);
-
+    
     let email = sails.config.custom.email;
     email.send({
       template: 'onboarding',
       message: {
-        to: person.user.email
-      },
-      locals: {
-        name: person.user.username,
-        token: token.value,
-      },
-      attachments: [
-        {   // file on disk as an attachment
+        to: person.user.email,
+        attachments: [
+          {   // Subscription PDF
             filename: 'subscription.pdf',
             path: './resources/filled/subscription_' + person.id + '.pdf'
-        },
-        {   // file on disk as an attachment
-            filename: 'investor_profile.pdf',
-            path: './resources/filled/investor_profile_' + person.id + '.pdf'
-        },
-        {   // file on disk as an attachment
-            filename: 'fatca.pdf',
-            path: './resources/filled/fatca_' + person.id + '.pdf'
-        },
-      ]
+          },
+          {   // Investor Profile PDF
+              filename: 'investor_profile.pdf',
+              path: './resources/filled/investor_profile_' + person.id + '.pdf'
+          },
+          {   // FATCA PDF
+              filename: 'fatca.pdf',
+              path: './resources/filled/fatca_' + person.id + '.pdf'
+          }
+        ]
+      },
+      locals: {
+        name: person.user.firstName + " " + person.user.lastName,
+        token: token.value,
+      },
     }).then(() => {
       return res.ok({response: 'An email was sent to this account.'});
     }).catch((err) => {
