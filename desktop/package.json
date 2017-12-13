@@ -61,6 +61,7 @@
     "vue-good-table": "^1.16.0",
     "vue-nprogress": "0.1.5",
     "vue-router": "^2.3.0",
+    "vuetify": "^0.17.4",
     "vuex": "^2.2.1",
     "vuex-persistedstate": "^2.4.2",
     "vuex-router-sync": "^4.1.2",

@@ -10,7 +10,7 @@
         <div class="nav-center">
           <a class="nav-item hero-brand" href="/">
               <div class="is-hidden-mobile">
-                <span class="vue">WeShareAShare</span><strong class="admin">Admin</strong>
+                <strong class="vue">WeShareAShare</strong><strong class="admin">Admin</strong>
               </div>
           </a>
         </div>
@@ -86,10 +86,10 @@ export default {
 .hero-brand {
   .vue {
     margin-left: 10px;
-    color: #36AC70;
+    color: #334146;
   }
   .admin {
-    color: #28374B;
+    color: #ffaf00;
   }
 }
 </style>

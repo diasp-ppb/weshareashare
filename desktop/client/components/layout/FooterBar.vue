@@ -1,10 +1,10 @@
 <template>
   <footer class="footer">
     <div class="container">
-      <div v-if="adminEmail === null" class="content has-text-centered" style="margin-left: 0px;">
+      <div v-if="adminEmail === null" class="content has-text-centered disclaimer" style="margin-left: 0px;">
         <p>©2017 Stoik Management Ltd. all rights reserved. | <a :href="'http://stoikcapital.com/disclaimer'">Disclaimer</a></p>
       </div>
-      <div v-if="adminEmail !== null" class="content has-text-centered" style="margin-left: 180px;">
+      <div v-if="adminEmail !== null" class="content has-text-centered disclaimer" style="margin-left: 180px;">
         <p>©2017 Stoik Management Ltd. all rights reserved. | <a :href="'http://stoikcapital.com/disclaimer'">Disclaimer</a></p>
       </div>
     </div>
@@ -42,6 +42,10 @@ export default {
 
   .fa.fa-heart {
     color: red;
+  }
+
+  .disclaimer p a {
+    color: #ffaf00;
   }
 }
 </style>

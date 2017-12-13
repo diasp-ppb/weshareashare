@@ -1,7 +1,7 @@
 import * as types from '../../mutation-types'
 import lazyLoading from './lazyLoading'
-import uifeatures from './uifeatures'
-import components from './components'
+// import uifeatures from './uifeatures'
+// import components from './components'
 import users from './users'
 
 // show: meta.label -> name
@@ -10,15 +10,6 @@ import users from './users'
 
 const state = {
   items: [
-    {
-      name: 'Dashboard',
-      path: '/dashboard',
-      meta: {
-        icon: 'fa-tachometer',
-        link: 'dashboard/index.vue'
-      },
-      component: lazyLoading('dashboard', true)
-    },
     users,
     {
       name: 'Axios',
@@ -40,8 +31,6 @@ const state = {
       },
       component: lazyLoading('charts', true)
     },
-    uifeatures,
-    components,
     {
       name: 'Tables',
       path: '/tables',
@@ -57,9 +46,17 @@ const state = {
 
 const mutations = {
   [types.EXPAND_MENU] (state, menuItem) {
+    let items = []
+    for (var i = 0; i < state.items.length; i++) {
+      if (state.items[i].meta.label === 'Utilizadores') { // enfim...
+        items.push(i)
+      }
+    }
+    let realIndex = items[menuItem.index]
+
     if (menuItem.index > -1) {
-      if (state.items[menuItem.index] && state.items[menuItem.index].meta) {
-        state.items[menuItem.index].meta.expanded = menuItem.expanded
+      if (state.items[realIndex] && state.items[realIndex].meta) {
+        state.items[realIndex].meta.expanded = menuItem.expanded
       }
     } else if (menuItem.item && 'expanded' in menuItem.item.meta) {
       menuItem.item.meta.expanded = menuItem.expanded
