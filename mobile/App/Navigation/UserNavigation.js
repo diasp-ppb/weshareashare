@@ -4,7 +4,7 @@ import { StackNavigator, DrawerNavigator } from 'react-navigation';
 
 // Onboarding Screens
 import InvestorProfileQuiz from '@containers/Onboarding/InvestorProfileQuiz';
-import FormOverview from '@containers/Onboarding/FormOverview';
+import Invest from '@containers/Onboarding/InvestView';
 
 // Saving Screens
 import Saving from '@containers/Saving/SavingView';
@@ -61,7 +61,7 @@ const UserNavigationStack = StackNavigator({
   Cause: { screen: Cause },
 
   // OnboardingStack
-  Onboarding: { screen: FormOverview },
+  Invest: { screen: Invest },
   InvestorProfileQuiz: { screen: InvestorProfileQuiz },
 }, {
   headerMode: 'float',

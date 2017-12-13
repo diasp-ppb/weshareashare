@@ -112,6 +112,10 @@ const ApplicationStyles = {
   strong: {
     fontWeight: '900',
   },
+  nextLink: {
+    fontSize: Fonts.h4.size,
+    color: Colors.stoikBlue,
+  },
   link: {
     color: Colors.stoikOrange,
   },

@@ -23,7 +23,7 @@ export default class Mainpage extends Component {
       case 0: navigate('Saving'); break;
       case 1: navigate('Investment'); break;
       case 2: navigate('Share'); break;
-      case 3: navigate('Onboarding'); break;
+      case 3: navigate('Invest'); break;
     }
   }
 
@@ -40,19 +40,19 @@ export default class Mainpage extends Component {
       currentStepStrokeWidth: 6,
       stepStrokeCurrentColor: Colors.stoikOrange,
       stepStrokeWidth: 3,
-      stepStrokeFinishedColor: Colors.lightBlue,
-      stepStrokeUnFinishedColor: Colors.lightBlue,
-      separatorFinishedColor: Colors.lightBlue,
+      stepStrokeFinishedColor: Colors.stoikBlue,
+      stepStrokeUnFinishedColor: Colors.stoikBlue,
+      separatorFinishedColor: Colors.stoikBlue,
       separatorUnFinishedColor: Colors.stoikOrange,
-      stepIndicatorFinishedColor: Colors.lightBlue,
-      stepIndicatorUnFinishedColor: Colors.lightBlue,
+      stepIndicatorFinishedColor: Colors.stoikBlue,
+      stepIndicatorUnFinishedColor: Colors.stoikBlue,
       stepIndicatorCurrentColor: Colors.stoikOrange,
       stepIndicatorLabelFontSize: Fonts.base.size*1.75,
       currentStepIndicatorLabelFontSize: Fonts.base.size*1.75,
       stepIndicatorLabelCurrentColor: Colors.background,
       stepIndicatorLabelFinishedColor: Colors.background,
       stepIndicatorLabelUnFinishedColor: Colors.background,
-      labelColor: Colors.lightBlue,
+      labelColor: Colors.stoikBlue,
       labelSize: Fonts.base.size*1.5,
       descriptionColor: Colors.label,
       descriptionSize: Fonts.base.size,

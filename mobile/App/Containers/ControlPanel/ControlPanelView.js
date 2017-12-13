@@ -92,7 +92,7 @@ class ControlPanel extends Component {
         </View>
 
         <View>
-          <TouchableOpacity style={styles.header} onPress={() => navigate('Onboarding')}>
+          <TouchableOpacity style={styles.header} onPress={() => navigate('Invest')}>
             <Text style={styles.controlText}>{ I18n.t('onboarding') }</Text>
             <View style={styles.leftMark} />
           </TouchableOpacity>
