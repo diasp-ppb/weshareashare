@@ -36,7 +36,8 @@ const formatTokenResponse = (accessToken, refreshToken, user) => ({
 module.exports = {
   create(req, res) {
     let params = req.allParams();
-    User.create({email: params.Email, firstName: params.FirstName, lastName: params.LastName, password: params.Password}).meta({fetch: true})
+    sails.log(params);
+    User.create({email: params.email, firstName: params.firstName, lastName: params.lastName, password: params.password}).meta({fetch: true})
       .then((user) => {
         return user;
       }).then((user) => {
@@ -87,6 +88,42 @@ module.exports = {
       });
   },
 
+  getPendingUsers(req, res) {
+    User.find()
+      .then((users) => {
+        let pendingUsers = [];
+
+        for (var i = 0; i < users.length; i++) {
+          if (users[i].isAdmin || !users[i].awaitsConfirmation)
+            continue;
+          delete users[i].password;
+          pendingUsers.push(users[i]);
+        }
+        sails.log(pendingUsers);
+        res.ok({'users': pendingUsers});
+      }).catch((err) => {
+        return res.serverError(err);
+      });
+  },
+
+  getSubscriptedUsers(req, res) {
+    User.find()
+      .then((users) => {
+        let subscriptedUsers = [];
+
+        for (var i = 0; i < users.length; i++) {
+          if (users[i].isAdmin || users[i].awaitsConfirmation)
+            continue;
+          delete users[i].password;
+          subscriptedUsers.push(users[i]);
+        }
+
+        res.ok({ 'users': subscriptedUsers });
+      }).catch((err) => {
+        return res.serverError(err);
+      });
+  },
+
   getUser(req, res) {
     let params = req.allParams();
 
@@ -98,5 +135,20 @@ module.exports = {
     .catch((err) => {
       return res.serverError(err);
     });
-  }
+  },
+
+  validateUser(req, res) {
+    let params = req.allParams();
+    sails.log(params);
+    User.update({id:params.userid},{awaitsConfirmation:false}).exec(
+      function afterwards(err, updated) {
+        if (err) {
+          return res.serverError(err);
+        }
+        else {
+          sails.log(updated);
+          res.ok({'message': 'Utilizador validado.'});
+        }
+    });
+  },
 };

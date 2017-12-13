@@ -9,8 +9,17 @@
             <article class="tile is-child box">
               <p class="title">{{data.user.firstName + " " + data.user.lastName}}</p>
               <p class="subtitle">{{data.user.email}}</p>
-              <div class="content">
-                <p>Colocar botões para download dos pdfs?</p>
+              <div v-if="data.user.awaitsConfirmation">
+                <a class="button is-success modal-button" @click="onValidateClick">
+                  <span class="icon">
+                    <i class="fa fa-check"></i>
+                  </span>
+                  <span>Validar</span>
+                </a>
+                <modal :visible="showModal" @close="closeModalBasic"></modal>
+              </div>
+              <div v-else>
+                Utilizador com plano de subscrição ativado.
               </div>
             </article>
           </div>
@@ -24,17 +33,23 @@
 </template>
 
 <script>
-export default {
+import Modal from '../components/modals/Modal'
 
+export default {
+  components: {
+    Modal
+  },
   data () {
     return {
       data: {
         user: {
-          firstName: 'Helder',
-          lastName: 'Antunes',
-          email: 'hant@gmail.com'
+          firstName: '',
+          lastName: '',
+          email: '',
+          awaitsConfirmation: ''
         }
-      }
+      },
+      showModal: false
     }
   },
   mounted () {
@@ -59,10 +74,39 @@ export default {
       self.data.user.firstName = response.data.user.firstName
       self.data.user.lastName = response.data.user.lastName
       self.data.user.email = response.data.user.email
+      self.data.user.awaitsConfirmation = response.data.user.awaitsConfirmation
     })
     .catch(function (error) {
       console.log(error)
     })
+  },
+  methods: {
+    openModalBasic () {
+      this.showModal = true
+    },
+    closeModalBasic () {
+      this.data.user.awaitsConfirmation = false
+      this.showModal = false
+    },
+    onValidateClick: function (event) {
+      let self = this
+      this.axios({
+        method: 'post',
+        url: this.address + 'validateUser',
+        auth: {
+          userid: this.$route.params.id
+        },
+        headers: {
+          'client-id': this.clientId
+        }
+      })
+      .then(function (response) {
+        self.showModal = true
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+    }
   }
 }
 </script>

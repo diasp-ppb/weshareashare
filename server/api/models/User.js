@@ -41,7 +41,7 @@ module.exports = {
     },
     awaitsConfirmation: {
       type: 'boolean',
-      defaultsTo: false
+      defaultsTo: true
     },
     isAdmin: {
       type: 'boolean',

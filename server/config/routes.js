@@ -107,6 +107,21 @@ module.exports.routes = {
     action: 'getAll',
   },
 
+  'get /pendingUsers': {
+    controller: 'UserController',
+    action: 'getPendingUsers',
+  },
+
+  'get /subscriptedUsers': {
+    controller: 'UserController',
+    action: 'getSubscriptedUsers',
+  },
+
+  'post /validateUser': {
+    controller: 'UserController',
+    action: 'validateUser',
+  },
+
   'get /user': {
     controller: 'UserController',
     action: 'getUser',

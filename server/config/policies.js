@@ -31,6 +31,9 @@ module.exports.policies = {
     create: ['hasClientId'],
     getAll: [],
     getUser: [],
+    getPendingUsers: [],
+    getSubscriptedUsers: [],
+    validateUser: ['hasClientId'],
   },
 
   UserAuthController: {

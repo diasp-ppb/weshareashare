@@ -45,16 +45,12 @@ export default {
   created () {
     var self = this
 
-    this.axios.get(this.address + 'users')
+    this.axios.get(this.address + 'subscriptedUsers')
     .then(function (response) {
       var users = response.data.users
       var rows = []
 
       for (var i = 0; i < users.length; i++) {
-        if (users[i].awaitsConfirmation) {
-          continue
-        }
-
         var name = users[i].firstName + ' ' + users[i].lastName
         var email = users[i].email
         var id = users[i].id
