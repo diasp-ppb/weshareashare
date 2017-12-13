@@ -26,6 +26,7 @@ import ContactUs from '@containers/ContactUs/ContactUsContainer';
 import AboutUs from '@components/AboutUs';
 import Mainpage from '@components/Mainpage';
 import FAQ from '@components/FAQ';
+import RiskWarnings from '@components/RiskWarnings';
 
 // Drawer and header style
 import ControlPanel from '@containers/ControlPanel/ControlPanelContainer';
@@ -44,6 +45,7 @@ const UserNavigationStack = StackNavigator({
   ContactUs: { screen: ContactUs },
   AboutUs: { screen: AboutUs },
   FAQ: { screen: FAQ },
+  RiskWarnings: { screen: RiskWarnings},
 
   // Saving Stack
   Saving: { screen: Saving },

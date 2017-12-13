@@ -29,8 +29,9 @@
 
   "notifications": "Notifications",
   "more": "More",
-  "participant": "Participant",
-  "subscription": "Subscription",
+  "participant": "Onboarding",
+  "riskProfile": "Risk profile",
+  "chooseCause": "Choose a cause",
   "startSimulation": "Start a simulation",
 
   "people": "People",

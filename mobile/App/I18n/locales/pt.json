@@ -30,8 +30,9 @@
 
   "notifications": "Notificações",
   "more": "Outros",
-  "participant": "Participant",
-  "subscription": "Subscription",
+  "participant": "Onboarding",
+  "riskProfile": "Perfil de risco",
+  "chooseCause": "Escolha uma causa",
   "startSimulation": "Faça uma simulação",
 
   "people": "Social",

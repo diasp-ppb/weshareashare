@@ -84,7 +84,7 @@ export default class Saving extends Component {
               onPress={(position) => {this.onStepPress(position)}}
             />
           </View>
-          <Spacer size={25}/>
+          <Spacer size={10}/>
         </Card>
         <AppStep index={3} { ...this.props }/>
       </ScrollView>
