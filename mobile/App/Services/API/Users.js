@@ -27,3 +27,6 @@ export const resetPassword = (formData, session) =>
 
 export const updatePassword = (formData, session) =>
   fetchApi(endPoints.updatePassword, formData, 'post', session);
+
+export const selectCause = (causeId, session) =>
+  fetchApi(`/users/${session.user.id}/cause/${causeId}`, {}, 'post', session);

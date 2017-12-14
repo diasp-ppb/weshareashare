@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import RadioButton from 'radio-button-react-native';
 import PropTypes from 'prop-types';
 import { View, TouchableOpacity, Image, ScrollView } from 'react-native';
-import { Button, Text } from 'native-base';
+import { Text } from 'native-base';
+import Toast from 'react-native-root-toast';
 import styles from './CausesListStyle'
 import I18n from '@i18n/i18n';
 import { ApplicationStyles, Colors } from '@theme/'
-import { Card, Spacer, Text as CustomText } from '@ui/';
+import { Card, Spacer, Text as CustomText, Button } from '@ui/';
 
 class CausesList extends Component {
   static propTypes = {
@@ -26,12 +27,19 @@ class CausesList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      causeSelected: 0
+      causeSelected: -1
     }
   }
   
-  onRequest = () => {
-    console.log(`chose ${this.causesAndDescriptions[this.state.value].cause}!`);
+  handleSubmit = () => {
+    let index = this.state.causeSelected;
+    if (index !== -1 && this.props.submit) {
+      this.props.submit(index, this.props.session).then((res) => {
+          Toast.show('Causa ' + this.props.causes[index].name  + ' selecionada com sucesso!', ApplicationStyles.toastSuccess);
+      }).catch((err) => {
+        Toast.show('Ocorreu um erro ao selecionar a causa desejada!', ApplicationStyles.toastError);
+      });
+    }
   }
   
   handleOnPress = (value) => {
@@ -47,7 +55,7 @@ class CausesList extends Component {
   
             <View style={{flexDirection: 'row'}}>
               {(!this.props.informative) &&
-                <RadioButton currentValue={this.state.causeSelected} value={i} onPress={this.handleOnPress} outerCircleColor={Colors.stoikBlue} innerCircleColor={Colors.stoikBlue}>
+                <RadioButton currentValue={this.state.causeSelected} value={s.id} onPress={this.handleOnPress} outerCircleColor={Colors.stoikBlue} innerCircleColor={Colors.stoikBlue}>
                   <Text style={[ApplicationStyles.h1, {paddingHorizontal: 5}]}>{s.name}</Text>
                 </RadioButton>
               }
@@ -95,6 +103,9 @@ class CausesList extends Component {
                 {I18n.t('onboarding')} >
               </CustomText>
             </TouchableOpacity>
+          }
+          {(!this.props.informative) &&
+            <Button title='Suporte a causa' onPress={this.handleSubmit} />
           }
         </Card>
       </ScrollView>

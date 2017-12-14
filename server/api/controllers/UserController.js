@@ -75,7 +75,11 @@ module.exports = {
           });
       });
   },
-
+  
+  selectCause(req, res) {
+    let params = req.allParams();
+  },
+ 
   getAll(req, res) {
     User.find()
       .then((users) => {

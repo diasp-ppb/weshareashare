@@ -35,6 +35,10 @@ module.exports = {
       required: true,
       unique: true,
     },
+  
+    cause: {
+      model: 'cause',
+    },
 
     notifications: {
       collection: 'notification',
