@@ -56,10 +56,16 @@ export default class Simulation extends Component {
   
   render () {
     const inputHeight = Metrics.DEVICE_HEIGHT / 6;
+    const pickerHeight = inputHeight/2;
     const { navigate } = this.props.navigation;
     return (
       <ScrollView style={ApplicationStyles.container}>
         <Card>
+          <View style={[{alignItems: 'center', justifyContent: 'center', paddingVertical: 20}]}>
+              <Text h2 style={[ApplicationStyles.textCenterAligned]}>
+                Em {this.state.yearPeriod} anos terá <Text h2 style={{color: Colors.stoikBlue}}>{this.convertToCurrency()}</Text>
+              </Text>
+          </View>
           <View style={[{flexDirection: 'row'}]}>
             <View style={[{flex: 1, flexDirection: 'column', marginRight: 5}]}>
               <View style={[{alignItems: 'center', justifyContent: 'center', height: inputHeight}]}>
@@ -67,7 +73,7 @@ export default class Simulation extends Component {
                   Se o seu investimento inicial for
                 </Text>
               </View>
-              <Picker
+              <Picker itemStyle={{height: pickerHeight}}
                 selectedValue={this.state.initialInvestment}
                 onValueChange={(itemValue, itemIndex) => {
                   this.setState({initialInvestment: itemValue}, () => this.calculateFutureValue())}}>
@@ -80,7 +86,7 @@ export default class Simulation extends Component {
                 </Text>
               </View>
   
-              <Picker
+              <Picker  itemStyle={{height: pickerHeight}}
                 selectedValue={this.state.yearPeriod}
                 onValueChange={(itemValue, itemIndex) => {
                   this.setState({yearPeriod: itemValue}, () => this.calculateFutureValue())}}>
@@ -93,7 +99,7 @@ export default class Simulation extends Component {
                   e todos os meses contribuir
                 </Text>
               </View>
-              <Picker
+              <Picker  itemStyle={{height: pickerHeight}}
                 selectedValue={this.state.monthlyContribution}
                 onValueChange={(itemValue, itemIndex) => {
                   this.setState({monthlyContribution: itemValue}, () => this.calculateFutureValue())}}>
@@ -106,7 +112,7 @@ export default class Simulation extends Component {
                 </Text>
               </View>
   
-              <Picker
+              <Picker  itemStyle={{height: pickerHeight}}
                 selectedValue={this.state.interestRate}
                 onValueChange={(itemValue, itemIndex) => {
                   this.setState({interestRate: itemValue}, () => this.calculateFutureValue())}}>
@@ -114,14 +120,8 @@ export default class Simulation extends Component {
               </Picker>
             </View>
           </View>
-          
-          <View style={[{alignItems: 'center', justifyContent: 'center', paddingVertical: 20}]}>
-            <Text h2 style={[ApplicationStyles.textCenterAligned]}>
-              Em {this.state.yearPeriod} anos terá <Text h2 style={{color: Colors.stoikBlue}}>{this.convertToCurrency()}</Text>
-            </Text>
-          </View>
-         
-          <TouchableOpacity style={ApplicationStyles.rightAligned} onPress={() => navigate('Benefits')}>
+
+          <TouchableOpacity style={[ApplicationStyles.rightAligned,{marginTop: inputHeight/3 }]} onPress={() => navigate('Benefits')}>
             <Text p style={ApplicationStyles.nextLink}>
               { I18n.t('benefits') } >
             </Text>
