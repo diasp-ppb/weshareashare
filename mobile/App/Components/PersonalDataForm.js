@@ -8,8 +8,8 @@ var t = require('tcomb-form-native');
 var Form = t.form.Form;
 
 var Gender = t.enums({
-    'M': 'Male',
-    'F': 'Female'
+    'M': 'Masculino',
+    'F': 'Feminino'
 }, "Gender");
 
 var Person = t.struct({
