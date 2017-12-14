@@ -28,7 +28,7 @@ export default class AppStep extends Component {
       {name: "A POUPANÇA"},
       {name: "O INVESTIMENTO"},
       {name: "A PARTILHA"},
-      {name: "COMECE A INVESTIR"}];
+      {name: "INVISTA"}];
     const customStyles = {
       stepIndicatorSize: 25,
       currentStepIndicatorSize:30,
