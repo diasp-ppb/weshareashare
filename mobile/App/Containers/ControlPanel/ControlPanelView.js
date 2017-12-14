@@ -128,11 +128,12 @@ class ControlPanel extends Component {
 
         <View>
           <View style={styles.header}>
+            <Icon style={styles.icon} name="help" size={35} color="#fff" />
             <Text style={styles.controlText}>{ I18n.t('more') }</Text>
             <View style={styles.leftMark} />
           </View>
           <TouchableOpacity style={styles.button} onPress={() => navigate('FAQ')}>
-            <Icon style={styles.icon} name="help" size={35} color="#fff" />
+            <Icon style={styles.icon} name="email" size={35} color="#fff" />
             <Text style={styles.buttonText}>FAQ</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => navigate('RiskWarnings')}>
@@ -140,7 +141,7 @@ class ControlPanel extends Component {
             <Text style={styles.buttonText}>{ I18n.t('riskWarnings') }</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => navigate('ContactUs')}>
-            <Icon style={styles.icon} name="email" size={35} color="#fff" />
+            <Icon style={styles.icon} name="information-variant" size={35} color="#fff" />
             <Text style={styles.buttonText}>{ I18n.t('contactUs') }</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => navigate('AboutUs')}>

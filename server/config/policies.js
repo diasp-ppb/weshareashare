@@ -41,6 +41,11 @@ module.exports.policies = {
 
   DocumentController: {
     '*': 'hasOAuthBearer'
-  }
+  },
+
+  CauseController: {
+    create: [],
+    getAll: [],
+  },
 
 };
