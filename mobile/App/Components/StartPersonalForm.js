@@ -3,9 +3,9 @@ import { Container, Content, Card, CardItem, Body, List, ListItem, Text, Radio }
 import { ApplicationStyles } from '../Themes/index';
 import RadioButtonsForm from '../Components/RadioButtonsForm';
 import PersonalDataForm from '../Components/PersonalDataForm';
-
 import { connect } from 'react-redux';
 import * as Session from '../Redux/Session';
+import I18n from '@i18n/i18n';
 import { Colors } from '@theme/';
 
 
@@ -43,8 +43,7 @@ class StartPersonalForm extends Component{
                         <CardItem style={styles.messageCard}>
                             <Body>
                                 <Text>
-                                    Hello, Luis Jordao!
-                                    Let's start by defining your investor profile.
+                                    {I18n.t("insertPersonalData")}
                                 </Text>
                             </Body>
                         </CardItem>

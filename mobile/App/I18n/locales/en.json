@@ -48,5 +48,19 @@
   "contactUsScreen": "Contact Us",
   "contactUsButton": "Submit",
   "contactUsSuccessMessage": "Your message has been received. Thank you very much!",
-  "contactUsIntroText": "Send us a message and we'll get back to you via email as soon as possible.\nYour feedback is extremely important to us"
+  "contactUsIntroText": "Send us a message and we'll get back to you via email as soon as possible.\nYour feedback is extremely important to us",
+
+  "insertPersonalData": "Please fill in your personal data.",
+  "name": "Name",
+  "birthDate": "Birth Date",
+  "address": "Address",
+  "telephone": "Telephone No.",
+  "cellphone": "Cellphone No. ",
+  "postal": "Postal Code",
+  "area": "Area",
+  "id": "ID No.",
+  "nif": "NIF",
+  "job": "Occupation",
+  "employer": "Employer",
+
 }

@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import { Item, Input, Text } from 'native-base';
 import { ApplicationStyles, Colors } from '@theme/';
 import {StyleSheet} from 'react-native';
+import I18n from '@i18n/i18n';
 var t = require('tcomb-form-native');
 
 var Form = t.form.Form;
+
+Form.i18n = I18n;
 
 var Gender = t.enums({
     'M': 'Male',
@@ -12,64 +15,72 @@ var Gender = t.enums({
 }, "Gender");
 
 var Person = t.struct({
-    name: t.maybe(t.String),
-    gender: t.maybe(Gender),
-    birthDate: t.maybe(t.Date),
-    address: t.maybe(t.String),
-    postal: t.maybe(t.String),
-    city: t.maybe(t.String),
-    id: t.maybe(t.Number),
-    nif: t.maybe(t.Number),
-    job: t.maybe(t.String),
-    nationality: t.maybe(t.String)
+    NAME: t.maybe(t.String),
+    GENDER: t.maybe(Gender),
+    BIRTHDAY: t.maybe(t.Date),
+    TELEPHONE: t.maybe(t.String),
+    CELLPHONE: t.maybe(t.String),
+    ADDRESS: t.maybe(t.String),
+    POSTAL: t.maybe(t.String),
+    AREA: t.maybe(t.String),
+    ID: t.maybe(t.Number),
+    NIF: t.maybe(t.Number),
+    JOB: t.maybe(t.String),
+    EMPLOYER: t.maybe(t.String)
 });
 
 var options = {
     auto:'placeholders',
     stylesheet: stylesheet,
     fields:{
-        name:{
-            placeholder: "Name"
+        NAME:{
+            placeholder: I18n.t("name"),
         },
         gender: {
             label: "Gender",
             nullOption: false,
             mode: "dropdown",
         },
-        birthDate: {
-            label: "Birth date",
+        BIRTHDAY: {
+            label: I18n.t("birthDate"),
             config: {
                 format: (date) => date.toDateString(),
             },
             mode: "date",
         },
-        address: {
-            placeholder: "Address",
+        TELEPHONE: {
+            placeholder: I18n.t("telephone"),
         },
-        postal: {
-            placeholder: "Postal",
+        CELLPHONE: {
+            placeholder: I18n.t("cellphone"),
         },
-        city: {
-            placeholder: "City",
+        ADDRESS: {
+            placeholder: I18n.t("address"),
         },
-        id: {
-            placeholder: "Id",
+        POSTAL: {
+            placeholder: I18n.t("postal"),
         },
-        nif: {
-            placeholder: "Nif",
+        AREA: {
+            placeholder: I18n.t("area"),
         },
-        job: {
-            placeholder: "Job",
+        ID: {
+            placeholder: I18n.t("id"),
         },
-        nationality: {
-            placeholder: "Nationality",
+        NIF: {
+            placeholder: I18n.t("nif"),
         },
+        JOB: {
+            placeholder: I18n.t("job"),
+        },
+        EMPLOYER: {
+            placeholder: I18n.t("employer"),
+        }
     }
 }
 
 var initialValues = {
     // gender: 'M',
-    birthDate: new Date("1980-01-01")
+    BIRTHDAY: new Date("1980-01-01")
 }
 
 class PersonalDataForm extends Component {

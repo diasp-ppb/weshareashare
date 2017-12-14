@@ -48,5 +48,19 @@
   "contactUsScreen": "Contacte-nos",
   "contactUsButton": "Enviar",
   "contactUsSuccessMessage": "A sua mensagem foi recebida com sucesso. Desde já, obrigado.",
-  "contactUsIntroText": "Envie-nos uma mensagem e nós responderemos o mais rapidamente possível. O seu feedback é extremamente importante para nós."
+  "contactUsIntroText": "Envie-nos uma mensagem e nós responderemos o mais rapidamente possível. O seu feedback é extremamente importante para nós.",
+
+  "insertPersonalData": "Por favor, insira os seus dados pessoais.",
+  "name": "Nome",
+  "birthDate": "Data de Nascimento",
+  "address": "Morada",
+  "telephone": "Nº de telefone",
+  "cellphone": "Nº de telemóvel",
+  "postal": "Código Postal",
+  "area": "Localidade",
+  "id": "BI/CC nº",
+  "nif": "NIF",
+  "job": "Profissão",
+  "employer": "Entidade Patronal"
+
 }
