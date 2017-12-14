@@ -97,7 +97,7 @@ module.exports = {
         birthday = new Date();
       }
 
-      const payment_options = ['Transferencia', 'Deposito', ' Cheque'];
+      const payment_options = ['Transferencia', 'Deposito', 'Cheque'];
       const periodicity_options = ['Mensal', 'Trimestral', 'Semestral', 'Anual'];
 
       let formData = {
