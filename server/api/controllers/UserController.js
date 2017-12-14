@@ -30,6 +30,7 @@ const formatTokenResponse = (accessToken, refreshToken, user) => ({
     email: user.email,
     firstName: user.firstName,
     lastName: user.lastName,
+    cause: user.cause,
   },
 });
 

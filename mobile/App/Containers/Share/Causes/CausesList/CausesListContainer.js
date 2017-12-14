@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 const _ = require('lodash');
+import * as Session from '@redux/Session';
 import FormRender from './CausesListView';
 import { Users } from '@services/API';
 
@@ -16,7 +17,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (ownProps) => {
   if(ownProps.informative)
     return { submit: null }
-  else return { submit: Users.selectCause }
+  else return { submit: Users.selectCause, onSuccessfulSubmit: (res) => dispatch(Session.updateCause(res))  }
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormRender);
