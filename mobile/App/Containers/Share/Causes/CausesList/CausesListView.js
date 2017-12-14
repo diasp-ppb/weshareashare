@@ -35,6 +35,9 @@ class CausesList extends Component {
     let index = this.state.causeSelected;
     if (index !== -1 && this.props.submit) {
       this.props.submit(index, this.props.session).then((res) => {
+          if (this.props.onSuccessfulSubmit) {
+            this.props.onSuccessfulSubmit(res);
+          }
           Toast.show('Causa ' + this.props.causes[index].name  + ' selecionada com sucesso!', ApplicationStyles.toastSuccess);
       }).catch((err) => {
         Toast.show('Ocorreu um erro ao selecionar a causa desejada!', ApplicationStyles.toastError);
