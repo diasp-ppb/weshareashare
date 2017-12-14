@@ -101,7 +101,7 @@ var styles = StyleSheet.create({
     },
     messageBackground: {
         borderRadius: 20,
-        minHeight: 70,
+        minHeight: 45,
         borderColor: '#80deea',
         borderWidth: 1,
         marginRight: 50,
