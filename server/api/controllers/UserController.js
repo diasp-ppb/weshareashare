@@ -30,6 +30,7 @@ const formatTokenResponse = (accessToken, refreshToken, user) => ({
     email: user.email,
     firstName: user.firstName,
     lastName: user.lastName,
+    cause: user.cause,
   },
 });
 
@@ -84,7 +85,15 @@ module.exports = {
     User.update({id: userId},{cause: causeId}).exec(function afterwards(err, updated) {
       if (err)
         return res.serverError(err);
-      res.ok({message: "Cause selected successfully."});
+      User.findOne({
+          id: userId
+        }).exec(function (err, user){
+          if (err) {
+            return res.serverError(err);
+          }
+          delete user.password;
+          res.ok({ 'message': 'Cause selected successfully.', 'user': user });
+        });
     });
   },
 
