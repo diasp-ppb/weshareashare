@@ -49,7 +49,7 @@ class StartPersonalForm extends Component{
                     </Card>
                     <View style={ApplicationStyles.form}>
                         <View style={ApplicationStyles.container, styles.center}>
-                            <PersonalDataForm  onRef={ref => (this.child = ref)} />
+                            <PersonalDataForm  style={styles.form} onRef={ref => (this.child = ref)} />
                         </View>
                     </View>
                 </View>
@@ -106,6 +106,7 @@ var styles = StyleSheet.create({
         borderWidth: 1,
         marginRight: 50,
         marginLeft: 10,
+        marginBottom: 25,
         backgroundColor: '#80deea',
     },
     button:{

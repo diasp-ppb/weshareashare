@@ -31,7 +31,7 @@ var options = {
             placeholder: "Name"
         },
         gender: {
-            nullOption: {value:"", text:"Gender"}
+            nullOption: false
         },
         address: {
             placeholder: "Address",
