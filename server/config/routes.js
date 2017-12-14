@@ -58,6 +58,14 @@ module.exports.routes = {
     controller: 'UserAuthController',
     action: 'resetPassword',
   },
+  
+  'post /users/:userId/selectCause/:causeId': {
+    cors: {
+      allowRequestHeaders: 'Content-Type, Client-ID',
+    },
+    controller: 'UserController',
+    action: 'selectCause',
+  },
 
   'post /contactUs': {
     cors: {

@@ -24,6 +24,7 @@ module.exports.policies = {
 
   UserController: {
     create: ['hasClientId'],
+    selectCause: ['hasOAuthBearer'],
   },
 
   UserAuthController: {

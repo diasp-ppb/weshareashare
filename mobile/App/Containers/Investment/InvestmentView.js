@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, TouchableHighlight, Text, Image } from 'react-native';
+import { ScrollView, TouchableHighlight, Text, Image, TouchableOpacity } from 'react-native';
 import I18n from '@i18n/i18n';
 import { ApplicationStyles, Colors, Assets, Metrics } from '@theme/';
 import { Card, Text as CustomText, Spacer } from '@ui/';
@@ -31,9 +31,11 @@ export default class Investment extends Component {
             resizeMode="contain"
           />
 
-          <TouchableHighlight style={[ApplicationStyles.nextButton]} onPress={() => navigate('Wallet')}>
-            <Text style={[ApplicationStyles.nextButtonText]}> { I18n.t('wallet') } </Text>
-          </TouchableHighlight>
+          <TouchableOpacity style={ApplicationStyles.rightAligned} onPress={() => navigate('Wallet')}>
+            <CustomText p style={ApplicationStyles.nextLink}>
+              { I18n.t('wallet') } >
+            </CustomText>
+          </TouchableOpacity>
         </Card>
         <AppStep index={1} { ...this.props }/>
       </ScrollView>

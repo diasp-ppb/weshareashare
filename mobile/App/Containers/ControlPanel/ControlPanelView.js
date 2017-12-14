@@ -37,19 +37,13 @@ class ControlPanel extends Component {
     const { navigate } = this.props.navigation;
     return (
       <ScrollView style={styles.container}>
-        <Text style={styles.company}>WeShareAShare</Text>
+        <Text style={styles.company} onPress={() => navigate('Mainpage')}>WeShareAShare</Text>
         <View style={styles.profile}>
           <Icon name="account-circle" size={60} color="#fff" />
           <View>
             <Text style={[styles.buttonText, styles.profileInfo]}> { `${this.props.user.firstName} ${this.props.user.lastName}` } </Text>
             <Text style={[styles.buttonText, styles.profileInfo]}> { this.props.user.email } </Text>
           </View>
-        </View>
-        <View>
-          <TouchableOpacity style={styles.button}>
-          <Icon style={[styles.icon, styles.notification]} name="comment-text" size={35} />
-          <Text style={[styles.buttonText, styles.notification]}>{ I18n.t('notifications') }</Text>
-          </TouchableOpacity>
         </View>
 
         <View>
@@ -110,7 +104,7 @@ class ControlPanel extends Component {
         </View>
 
         <View>
-          <TouchableOpacity style={styles.header} onPress={() => navigate('Onboarding')}>
+          <TouchableOpacity style={styles.header} onPress={() => navigate('Invest')}>
             <View style={styles.headerIconView}>
               <Image source={Assets.iconOnboarding} />
             </View>
@@ -123,7 +117,11 @@ class ControlPanel extends Component {
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => navigate('InvestorProfileQuiz', { formIndex: 2 } )} >
             <Icon style={styles.icon} name="book-multiple" size={35} color="#fff" />
-            <Text style={styles.buttonText}>{ I18n.t('subscription') }</Text>
+            <Text style={styles.buttonText}>{ I18n.t('riskProfile') }</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={() => navigate('Causes', {categoryIndex: 0, informative: false})} >
+            <Icon style={styles.icon} name="book-multiple" size={35} color="#fff" />
+            <Text style={styles.buttonText}>{ I18n.t('chooseCause') }</Text>
           </TouchableOpacity>
         </View>
 
@@ -137,6 +135,10 @@ class ControlPanel extends Component {
           <TouchableOpacity style={styles.button} onPress={() => navigate('FAQ')}>
             <Icon style={styles.icon} name="email" size={35} color="#fff" />
             <Text style={styles.buttonText}>FAQ</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={() => navigate('RiskWarnings')}>
+            <Icon style={styles.icon} name="email" size={35} color="#fff" />
+            <Text style={styles.buttonText}>{ I18n.t('riskWarnings') }</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => navigate('ContactUs')}>
             <Icon style={styles.icon} name="information-variant" size={35} color="#fff" />

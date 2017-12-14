@@ -54,3 +54,5 @@ fabric.properties
 package-lock.json
 
 mobile/\.idea/
+
+\.idea/
