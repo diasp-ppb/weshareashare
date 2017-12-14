@@ -5,7 +5,7 @@ import { View, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { Button, Text } from 'native-base';
 import styles from './CausesListStyle'
 import I18n from '@i18n/i18n';
-import { ApplicationStyles } from '@theme/'
+import { ApplicationStyles, Colors } from '@theme/'
 import { Card, Spacer, Text as CustomText } from '@ui/';
 
 class CausesList extends Component {
@@ -26,18 +26,16 @@ class CausesList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: 0
+      causeSelected: 0
     }
   }
   
   onRequest = () => {
-    const { navigate } = this.props.navigation;
     console.log(`chose ${this.causesAndDescriptions[this.state.value].cause}!`);
-    navigate('OnboardingOverview');
   }
   
   handleOnPress = (value) => {
-    this.setState({ value });
+    this.setState({ causeSelected: value });
   }
   
   createCausesButtons = () => {
@@ -45,12 +43,18 @@ class CausesList extends Component {
     if (this.props.causes && this.props.causes.length > 0) {
       return this.props.causes.map((s, i) => {
         return (
-          <View key={i} style={[ApplicationStyles.paddingBottom]}>
-            {/*<RadioButton currentValue={this.state.value} value={i}*/}
-            {/*onPress={this.handleOnPress}*/}
-            {/*outerCircleColor="#feab2b" innerCircleColor="#feab2b">*/}
-            
-            <Text style={[ApplicationStyles.h1]}>{s.name}</Text>
+          <View key={i} style={[ApplicationStyles.paddingBottom, {flex: 1}]}>
+  
+            <View style={{flexDirection: 'row'}}>
+              {(!this.props.informative) &&
+                <RadioButton currentValue={this.state.causeSelected} value={i} onPress={this.handleOnPress} outerCircleColor={Colors.stoikBlue} innerCircleColor={Colors.stoikBlue}>
+                  <Text style={[ApplicationStyles.h1, {paddingHorizontal: 5}]}>{s.name}</Text>
+                </RadioButton>
+              }
+              {(this.props.informative) &&
+                <Text style={[ApplicationStyles.h1]}>{s.name}</Text>
+              }
+            </View>
             <View style={styles.logoAndDescription}>
               <View style={styles.logoContainer}>
                 <Image
@@ -62,10 +66,12 @@ class CausesList extends Component {
               <View style={styles.description}>
                 <Text style={[ApplicationStyles.h4]}>{s.shortDescription}</Text>
                 <Spacer size={10} />
-                <Text style={[ApplicationStyles.link, {textAlign: 'right'}]} onPress={() => {navigate('Cause', {cause: s})}}>Mais sobre {s.name}</Text>
               </View>
             </View>
-            {/*</RadioButton>*/}
+            <View style={{flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end'}}>
+              <Text style={[ApplicationStyles.nextLink, {textAlign: 'right'}]} onPress={() => {navigate('Cause', {cause: s})}}>Mais sobre {s.name}</Text>
+            </View>
+
           </View>
         );
       });
@@ -81,12 +87,15 @@ class CausesList extends Component {
           {this.createCausesButtons()}
           
           <Spacer size={25}/>
-          
-          <TouchableOpacity style={[ApplicationStyles.rightAligned]} onPress={() => navigate('Invest')}>
-            <CustomText p style={[ApplicationStyles.nextLink]}>
-              { I18n.t('onboarding') } >
-            </CustomText>
-          </TouchableOpacity>
+  
+          {(this.props.informative) &&
+            <TouchableOpacity style={[ApplicationStyles.rightAligned]}
+                              onPress={() => navigate('Invest')}>
+              <CustomText p style={[ApplicationStyles.nextLink]}>
+                {I18n.t('onboarding')} >
+              </CustomText>
+            </TouchableOpacity>
+          }
         </Card>
       </ScrollView>
     );

@@ -28,7 +28,7 @@ export default class Saving extends Component {
         navigate('InvestorProfileQuiz', { formIndex: 2 } )
         break;
       case 2:
-        navigate('Causes', {categoryIndex: 0, informative: true})
+        navigate('Causes', {categoryIndex: 0, informative: false})
         break;
     }
   }
