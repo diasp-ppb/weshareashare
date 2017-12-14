@@ -9,7 +9,7 @@ var Form = t.form.Form;
 var Gender = t.enums({
     'M': 'Male',
     'F': 'Female'
-});
+}, "Gender");
 
 var Person = t.struct({
     name: t.maybe(t.String),
@@ -57,6 +57,10 @@ var options = {
     }
 }
 
+var initialValues = {
+    gender: 'M',
+}
+
 class PersonalDataForm extends Component {
   constructor(props) {
     super(props);
@@ -82,6 +86,7 @@ class PersonalDataForm extends Component {
           ref="form"
           type={Person}
           options={options}
+          value={initialValues}
       />
     );
   };
