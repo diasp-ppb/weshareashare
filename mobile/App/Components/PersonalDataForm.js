@@ -82,7 +82,6 @@ class PersonalDataForm extends Component {
           ref="form"
           type={Person}
           options={options}
-          style={styles.center}
       />
     );
   };
@@ -98,7 +97,7 @@ var styles = StyleSheet.create({
 });
 
 
-const stylesheet = t.form.Form.stylesheet;
+var stylesheet = t.form.Form.stylesheet;
 
 stylesheet.textbox.normal.borderWidth = 0;
 stylesheet.textbox.error.borderWidth = 0;
@@ -110,7 +109,9 @@ stylesheet.textboxView.error.borderWidth = 0;
 stylesheet.textboxView.normal.borderRadius = 0;
 stylesheet.textboxView.error.borderRadius = 0;
 stylesheet.textboxView.normal.borderBottomWidth = 1;
-stylesheet.textboxView.error.borderBottomWidth = 1;
+stylesheet.textboxView.error.borderBottomWidth = 1
+stylesheet.textboxView.normal.borderBottomColor = Colors.lightBlue;
+stylesheet.textboxView.error.borderBottomColor = Colors.lightBlue;
 stylesheet.textbox.normal.marginBottom = 5;
 stylesheet.textbox.error.marginBottom = 5;
 stylesheet.textbox.normal.borderColor = Colors.lightBlue;
