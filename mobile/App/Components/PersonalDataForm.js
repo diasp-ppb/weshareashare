@@ -14,6 +14,7 @@ var Gender = t.enums({
 var Person = t.struct({
     name: t.maybe(t.String),
     gender: t.maybe(Gender),
+    birthDate: t.maybe(t.Date),
     address: t.maybe(t.String),
     postal: t.maybe(t.String),
     city: t.maybe(t.String),
@@ -32,6 +33,13 @@ var options = {
         },
         gender: {
             nullOption: false
+        },
+        birthDate: {
+            label: "Birth date",
+            config: {
+                format: (date) => date.toDateString(),
+            },
+            mode: "date",
         },
         address: {
             placeholder: "Address",
@@ -59,6 +67,7 @@ var options = {
 
 var initialValues = {
     // gender: 'M',
+    birthDate: new Date("1980-01-01")
 }
 
 class PersonalDataForm extends Component {
@@ -123,3 +132,6 @@ stylesheet.textbox.normal.borderColor = Colors.lightBlue;
 stylesheet.textbox.error.borderColor = Colors.lightBlue;
 stylesheet.textbox.normal.borderBottomColor = Colors.lightBlue;
 stylesheet.textbox.error.borderBottomColor = Colors.lightBlue;
+
+stylesheet.datepicker.normal.flexDirection = "row";
+stylesheet.datepicker.normal.flex = 1;
