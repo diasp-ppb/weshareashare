@@ -6,6 +6,7 @@ import { Text } from 'native-base';
 import Toast from 'react-native-root-toast';
 import styles from './CausesListStyle'
 import I18n from '@i18n/i18n';
+const _ = require('lodash');
 import { ApplicationStyles, Colors } from '@theme/'
 import { Card, Spacer, Text as CustomText, Button } from '@ui/';
 
@@ -26,20 +27,24 @@ class CausesList extends Component {
   
   constructor(props) {
     super(props);
+    let cause = this.props.session.user.cause;
+    if(cause === null)
+      cause = -1;
     this.state = {
-      causeSelected: -1
+      causeSelected: cause
     }
   }
   
   handleSubmit = () => {
-    let index = this.state.causeSelected;
-    if (index !== -1 && this.props.submit) {
-      this.props.submit(index, this.props.session).then((res) => {
+    let id = this.state.causeSelected;
+    let cause = _.find(this.props.causes, ['id', id]);
+    if (id !== -1 && this.props.submit) {
+      this.props.submit(id, this.props.session).then((res) => {
           if (this.props.onSuccessfulSubmit) {
             this.props.onSuccessfulSubmit(res);
           }
-          Toast.show('Causa ' + this.props.causes[index].name  + ' selecionada com sucesso!', ApplicationStyles.toastSuccess);
-      }).catch((err) => {
+          Toast.show('Causa ' + cause.name  + ' selecionada com sucesso!', ApplicationStyles.toastSuccess);
+      }).catch(() => {
         Toast.show('Ocorreu um erro ao selecionar a causa desejada!', ApplicationStyles.toastError);
       });
     }
@@ -55,7 +60,6 @@ class CausesList extends Component {
       return this.props.causes.map((s, i) => {
         return (
           <View key={i} style={[ApplicationStyles.paddingBottom, {flex: 1}]}>
-  
             <View style={{flexDirection: 'row'}}>
               {(!this.props.informative) &&
                 <RadioButton currentValue={this.state.causeSelected} value={s.id} onPress={this.handleOnPress} outerCircleColor={Colors.stoikBlue} innerCircleColor={Colors.stoikBlue}>
@@ -82,7 +86,6 @@ class CausesList extends Component {
             <View style={{flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end'}}>
               <Text style={[ApplicationStyles.nextLink, {textAlign: 'right'}]} onPress={() => {navigate('Cause', {cause: s})}}>Mais sobre {s.name}</Text>
             </View>
-
           </View>
         );
       });

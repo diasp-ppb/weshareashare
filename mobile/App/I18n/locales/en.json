@@ -58,5 +58,11 @@
   "contactUsScreen": "Contact Us",
   "contactUsButton": "Submit",
   "contactUsSuccessMessage": "Your message has been received. Thank you very much!",
-  "contactUsIntroText": "Send us a message and we'll get back to you via email as soon as possible.\nYour feedback is extremely important to us"
+  "contactUsIntroText": "Send us a message and we'll get back to you via email as soon as possible.\nYour feedback is extremely important to us",
+
+
+  "benefitsSaving": "Possibility of automatizing savings ",
+  "benefitsWallet": "Diverse and global wallet",
+  "benefitsStructure": "Physically efficient structure",
+  "benefitsCause": "Possibility of supporting a cause"
 }

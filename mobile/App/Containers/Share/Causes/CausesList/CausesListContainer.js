@@ -14,7 +14,7 @@ const mapStateToProps = (state, ownProps) => {
   };
 }
 
-const mapDispatchToProps = (ownProps) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   if(ownProps.informative)
     return { submit: null }
   else return { submit: Users.selectCause, onSuccessfulSubmit: (res) => dispatch(Session.updateCause(res))  }
