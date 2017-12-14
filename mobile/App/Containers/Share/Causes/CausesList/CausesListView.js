@@ -27,8 +27,11 @@ class CausesList extends Component {
   
   constructor(props) {
     super(props);
+    let cause = this.props.session.user.cause;
+    if(cause === null)
+      cause = -1;
     this.state = {
-      causeSelected: -1
+      causeSelected: cause
     }
   }
   
