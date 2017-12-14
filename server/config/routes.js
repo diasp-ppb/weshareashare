@@ -123,6 +123,14 @@ module.exports.routes = {
     action: 'postInvestorProfile',
   },
 
+  'post /fatca': {
+    cors: {
+      allowRequestHeaders: 'Content-Type, Client-ID',
+    },
+    controller: 'FundController',
+    action: 'postFatca',
+  },
+
   'get /subscription': {
     cors: {
       allowRequestHeaders: 'Content-Type, Client-ID',

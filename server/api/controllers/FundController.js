@@ -13,9 +13,6 @@ module.exports = {
 
     participantAttrs['user'] = userid;
 
-    const fillPdf = require("fill-pdf");
-    const encoding = require('encoding');
-
     try {
       let user = await User.findOne({id: userid});
 
@@ -41,12 +38,29 @@ module.exports = {
     return res.ok();
   },
 
+  async postFatca(req, res) {
+    let userid = req.headers['user-id'];
+    let attrs = {fatca: req.allParams().FATCA};
+
+    try {
+      let person = await Person.findOne({user: userid});
+
+      if(person.subscription){
+        Fund.update(person.subscription, attrs).meta({fetch: true}).then();
+      } else {
+        Fund.create(parsedAttrs).meta({fetch: true}).then();
+      }
+
+    } catch(err) {
+      return res.serverError(err);
+    }
+
+    return res.ok();
+  },
+
   async postInvestorProfile(req, res) {
     let investorAttrs = Profile.parseAttrs(req.allParams())
     let userid = req.headers['user-id'];
-
-    const fillPdf = require("fill-pdf");
-    const encoding = require('encoding');
 
     try {
       let person = await Person.findOne({user: userid});
@@ -111,7 +125,7 @@ module.exports = {
         Forma_Pagamento: payment_options[person.subscription.paymentMethod-1], //'Transferencia' 'Deposito' ' Cheque'
         Numero_Cheque: person.subscription.checkNo,
         Banco: person.subscription.checkBank,
-        Transferencia_PPR: 'Yes',
+        //Transferencia_PPR: 'Yes',
         //SDD
         Nome: person.name,
         IBAN: person.subscription.accountNo,

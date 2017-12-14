@@ -15,7 +15,7 @@ module.exports = {
 
     name: {
       type: 'string',
-      required: true,
+      required: false,
     },
 
     genre: {
@@ -25,38 +25,38 @@ module.exports = {
 
     address: {
       type: 'string',
-      required: true
+      required: false
     },
 
     area: {
       type: 'string',
-      required: true
+      required: false
     },
 
     postal: {
       type: 'string',
-      required: true
+      required: false
     },
 
     telephone: {
       type: 'string',
-      required: true
+      required: false
     },
 
     cellphone: {
       type: 'string',
-      required: true
+      required: false
     },
 
     NIF: {
       type: 'string',
-      required: true,
+      required: false,
       unique: true
     },
 
     identificationNumber: {
       type: 'string',
-      required: true,
+      required: false,
       unique: true
     },
 
@@ -69,12 +69,12 @@ module.exports = {
 
     profession: {
       type: 'string',
-      required: true,
+      required: false,
     },
 
     employer: {
       type: 'string',
-      required: true,
+      required: false,
     },
 
     subscription: {
@@ -90,18 +90,18 @@ module.exports = {
 
   parseAttrs(attrs) {
     var parsed = {
-      name: attrs.NAME,
+      name: (attrs.NAME == null)? "" : attrs.NAME,
       genre: attrs.GENDER,
-      address: attrs.ADDRESS,
-      area: attrs.AREA,
-      postal: attrs.POSTAL,
-      telephone: attrs.TELEPHONE,
-      cellphone: attrs.CELLPHONE,
-      NIF: attrs.NIF,
-      identificationNumber: attrs.ID,
+      address: (attrs.ADDRESS == null)? "" : attrs.ADDRESS,
+      area: (attrs.AREA == null)? "" : attrs.AREA,
+      postal: (attrs.POSTAL == null)? "" : attrs.POSTAL,
+      telephone: (attrs.TELEPHONE == null)? "" : attrs.TELEPHONE,
+      cellphone: (attrs.CELLPHONE == null)? "" : attrs.CELLPHONE,
+      NIF: (attrs.NIF == null)? "" : attrs.NIF,
+      identificationNumber: (attrs.ID == null)? "" : attrs.ID,
       birthday: new Date(attrs.BIRTHDAY),
-      profession: attrs.JOB,
-      employer: attrs.EMPLOYER
+      profession: (attrs.JOB == null)? "" : attrs.JOB,
+      employer: (attrs.EMPLOYER == null)? "" : attrs.EMPLOYER,
     };
 
     return parsed;
