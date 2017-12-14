@@ -6,9 +6,11 @@ import {
   ScrollView,
   Text,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { Assets } from '@theme/';
 
 import styles from './ControlPanelStyle';
 
@@ -46,15 +48,23 @@ class ControlPanel extends Component {
 
         <View>
           <TouchableOpacity style={styles.header} onPress={() => navigate('Saving')} >
+            <View style={styles.headerIconView}>
+              <Image source={Assets.iconSavings} />
+            </View>
             <Text style={styles.controlText}>{ I18n.t('save') }</Text>
             <View style={styles.leftMark} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => navigate('Simulation')}>
+            <View style={{flexDirection: 'row',alignItems: 'center',}}>
+              <Image source={Assets.iconSimulation} />
+            </View>
             <Icon style={styles.icon} name="chart-line" size={35} color="#fff" />
             <Text style={styles.buttonText}>{ I18n.t('simulation') }</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => navigate('Benefits')}>
-            <Icon style={styles.icon} name="chart-line" size={35} color="#fff" />
+            <View style={{flexDirection: 'row',alignItems: 'center',}}>
+              <Image source={Assets.iconBenefits} />
+            </View>
             <Text style={styles.buttonText}>{ I18n.t('benefits') }</Text>
           </TouchableOpacity>
         </View>
@@ -65,28 +75,40 @@ class ControlPanel extends Component {
             <View style={styles.leftMark} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => navigate('Wallet')}>
-            <Icon style={styles.icon} name="home" size={35} color="#fff" />
+            <View style={{flexDirection: 'row',alignItems: 'center',}}>
+              <Image source={Assets.iconWallet} />
+            </View>
             <Text style={styles.buttonText}>{ I18n.t('wallet') }</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => navigate('Performances')}>
-            <Icon style={styles.icon} name="trending-up" size={35} color="#fff" />
+            <View style={{flexDirection: 'row',alignItems: 'center',}}>
+              <Image source={Assets.iconPerformances} />
+            </View>
             <Text style={styles.buttonText}>{ I18n.t('performances') }</Text>
           </TouchableOpacity>
         </View>
 
         <View>
           <TouchableOpacity style={styles.header} onPress={() => navigate('Share')}>
+            <View style={styles.headerIconView}>
+              <Image source={Assets.iconShare} />
+            </View>
             <Text style={styles.controlText}>{ I18n.t('share') }</Text>
             <View style={styles.leftMark} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => navigate('Causes', {categoryIndex: 0, informative: true})}>
-            <Icon style={styles.icon} name="book-multiple" size={35} color="#fff" />
+            <View style={{flexDirection: 'row',alignItems: 'center',}}>
+              <Image source={Assets.iconCauses} />
+            </View>
             <Text style={styles.buttonText}>{ I18n.t('causes') }</Text>
           </TouchableOpacity>
         </View>
 
         <View>
           <TouchableOpacity style={styles.header} onPress={() => navigate('Invest')}>
+            <View style={styles.headerIconView}>
+              <Image source={Assets.iconOnboarding} />
+            </View>
             <Text style={styles.controlText}>{ I18n.t('onboarding') }</Text>
             <View style={styles.leftMark} />
           </TouchableOpacity>

@@ -19,4 +19,16 @@ const fonts = {
   RobotoMedium: require('@assets/Fonts/Roboto_Medium.ttf'),
 };
 
+const icons = {
+  iconSavings: require('@assets/DrawerIcons/iconSavings.png'),
+  iconSimulation: require('@assets/DrawerIcons/iconSimulation.png'),
+  iconPPR: require('@assets/DrawerIcons/iconPPR.png'),
+  iconWallet: require('@assets/DrawerIcons/iconWallet.png'),
+  iconPerformances: require('@assets/DrawerIcons/iconPerformances.png'),
+  iconShare: require('@assets/DrawerIcons/iconShare.png'),
+  iconCauses: require('@assets/DrawerIcons/iconCauses.png'),
+  iconBenefits: require('@assets/DrawerIcons/iconBenefits.png'),
+  iconOnboarding: require('@assets/DrawerIcons/iconOnboarding.png'),
+};
+
 export default { ...images, ...fonts };
