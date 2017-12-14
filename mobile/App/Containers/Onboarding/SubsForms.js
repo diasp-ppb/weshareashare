@@ -51,7 +51,6 @@ class Subscription extends React.Component{
 
     render() {
         const { navigate } = this.props.navigation;
-        console.log(this.props.navigation);
         var index = this.props.navigation.state.params.index;
         return (
             <Container style={styles.container}>
@@ -64,9 +63,7 @@ class Subscription extends React.Component{
                                 this.props.subscription({key: "subscription", value:values, send:true});
                                 navigate('FormOverview');
                             } else{
-                                console.log('aquiiii');
-                                console.log(values.key);
-                                this.props.subscription({key: values.key, value: values.value, send:values.send});
+                                this.props.invest({key: values.key, value: values.value, send:values.send});
                                 if(values.send){
                                     navigate('FormOverview');
                                 }else{
@@ -85,6 +82,7 @@ class Subscription extends React.Component{
 
 const mapDispatchToProps = (dispatch) => ({
     subscription: (id, form) => dispatch(Session.subscription(id, form)),
+    invest: (id, form) => dispatch(Session.investor(id, form)),
 });
 
 export default connect(null, mapDispatchToProps)(Subscription);
