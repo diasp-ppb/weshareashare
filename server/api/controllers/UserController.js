@@ -75,11 +75,19 @@ module.exports = {
           });
       });
   },
-  
+
   selectCause(req, res) {
     let params = req.allParams();
+    sails.log(params);
+    let userId = req.param('userId');
+    let causeId = req.param('causeId');
+    User.update({id: userId},{cause: causeId}).exec(function afterwards(err, updated) {
+      if (err)
+        return res.serverError(err);
+      res.ok({message: "Cause selected successfully."});
+    });
   },
- 
+
   getAll(req, res) {
     User.find()
       .then((users) => {
@@ -89,4 +97,3 @@ module.exports = {
       });
   },
 };
-
