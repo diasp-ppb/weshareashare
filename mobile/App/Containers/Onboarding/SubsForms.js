@@ -97,7 +97,6 @@ export default connect(null, mapDispatchToProps)(Subscription);
 var styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
-        marginTop: 50,
         paddingTop: 20,
         backgroundColor: '#ffffff',
     },
