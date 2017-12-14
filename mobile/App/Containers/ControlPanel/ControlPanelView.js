@@ -127,8 +127,8 @@ class ControlPanel extends Component {
 
 
         <View>
-          <View style={styles.header}>
-            <Icon style={styles.icon} name="help" size={35} color="#fff" />
+          <View style={[styles.header,{backgroundColor: '#596a71'}]}>
+            <Icon style={styles.icon} name="help-circle" size={35} color="#fff" />
             <Text style={styles.controlText}>{ I18n.t('more') }</Text>
             <View style={styles.leftMark} />
           </View>
