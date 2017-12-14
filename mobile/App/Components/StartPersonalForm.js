@@ -97,8 +97,7 @@ var styles = StyleSheet.create({
         borderRadius: 20,
         borderColor: '#80deea',
         borderWidth: 1,
-        backgroundColor: '#80deea',
-        elevation: 20,
+        backgroundColor: '#80deea'
     },
     messageBackground: {
         borderRadius: 20,
