@@ -82,10 +82,9 @@ module.exports = {
     let userId = req.param('userId');
     let causeId = req.param('causeId');
     User.update({id: userId},{cause: causeId}).exec(function afterwards(err, updated) {
-      if (error)
-        return res.serverError(error);
-
-      sails.log('Updated user to have name ' + updated[0]);
+      if (err)
+        return res.serverError(err);
+      res.ok({message: "Cause selected successfully."});
     });
   },
 
