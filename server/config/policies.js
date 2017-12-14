@@ -22,8 +22,15 @@ module.exports.policies = {
     create: [],
   },
 
+  AdminController: {
+    create: ['hasClientId'],
+    signin: ['hasClientId'],
+  },
+
   UserController: {
     create: ['hasClientId'],
+    getAll: [],
+    selectCause: ['hasOAuthBearer'],
   },
 
   UserAuthController: {
@@ -40,6 +47,12 @@ module.exports.policies = {
 
   DocumentController: {
     '*': 'hasOAuthBearer'
-  }
+  },
 
+  FundController: {
+    '*': 'hasClientId',
+    fillSubscriptionPDF: [],
+    fillFatcaPDF: [],
+    fillInvestorProfilePDF: [],
+  },
 };

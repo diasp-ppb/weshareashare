@@ -35,12 +35,25 @@ module.exports = {
       required: true,
       unique: true,
     },
-
+    person: {
+      model: 'Person',
+      unique: true,
+    },
+    awaitsConfirmation: {
+      type: 'boolean',
+      defaultsTo: false
+    },
+    isAdmin: {
+      type: 'boolean',
+      defaultsTo : false
+    },
+    cause: {
+      model: 'cause',
+    },
     notifications: {
       collection: 'notification',
       via: 'receiver'
     },
-
     documents: {
       collection: 'document',
       via: 'owner'
@@ -71,4 +84,3 @@ module.exports = {
     }
   },
 };
-

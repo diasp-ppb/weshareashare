@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TouchableHighlight, Text } from 'react-native';
+import { ScrollView, TouchableOpacity, Text } from 'react-native';
 import I18n from '@i18n/i18n';
 import { ApplicationStyles, Colors } from '@theme/';
 import { Card, Text as CustomText, Spacer } from '@ui/';
@@ -13,7 +13,7 @@ export default class Saving extends Component {
   render () {
     const { navigate } = this.props.navigation;
     return (
-      <View style={ApplicationStyles.container}>
+      <ScrollView style={ApplicationStyles.container}>
         <Card>
           <CustomText h1 style={[ApplicationStyles.paddingBottom, ApplicationStyles.textCenterAligned]}>A importância da poupança sistemática a longo prazo</CustomText>
           <CustomText h3 style={[ApplicationStyles.paddingTop, {color: Colors.textSecondary}]}>
@@ -23,13 +23,17 @@ export default class Saving extends Component {
           <CustomText h3 style={{color: Colors.textSecondary, fontWeight: '500'}}>
             Uma das melhores formas de efectuar poupança a longo prazo é torná-la automática. O comprometimento com um débito mensal, mesmo que pequeno, numa estratégia bem construída, oferece as maiores garantias de obtenção dos objetivos financeiros.
           </CustomText>
-
-          <TouchableHighlight style={[ApplicationStyles.nextButton]} onPress={() => navigate('Simulation')}>
-            <Text style={[ApplicationStyles.nextButtonText]}> { I18n.t('startSimulation') } </Text>
-          </TouchableHighlight>
+  
+          <Spacer size={25}/>
+          
+          <TouchableOpacity style={[ApplicationStyles.rightAligned]} onPress={() => navigate('Simulation')}>
+            <Text p style={[ApplicationStyles.nextLink]}>
+              { I18n.t('simulation') } >
+            </Text>
+          </TouchableOpacity>
         </Card>
         <AppStep index={0} { ...this.props }/>
-      </View>
+      </ScrollView>
     );
   }
 };

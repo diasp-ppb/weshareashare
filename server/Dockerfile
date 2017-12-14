@@ -14,5 +14,8 @@ RUN apk --no-cache add --virtual native-deps \
   npm cache clean --force &&\
   apk del native-deps
 
+RUN apk update && apk upgrade \
+      && apk add pdftk
+
 COPY . /usr/src/app
 CMD [ "nodemon", "app" ]

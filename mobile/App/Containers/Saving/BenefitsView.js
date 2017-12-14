@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { ScrollView, View, TouchableOpacity } from 'react-native';
 import I18n from '@i18n/i18n';
 import { Divider } from 'react-native-elements';
 import { ApplicationStyles, Metrics, Assets } from '@theme/';
-import { Text, Card } from '@ui/';
+import { Text, Card, Spacer } from '@ui/';
 import AppStep from '@components/AppStep';
 
 export default class StoikBenefits extends Component {
@@ -18,7 +18,7 @@ export default class StoikBenefits extends Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <View style={[ApplicationStyles.container]}>
+      <ScrollView style={[ApplicationStyles.container]}>
         <Card>
           <View style={[ApplicationStyles.row, ApplicationStyles.paddingVertical]}>
             <View style={ApplicationStyles.benefitItem} />
@@ -37,17 +37,19 @@ export default class StoikBenefits extends Component {
   
           <View style={[ApplicationStyles.row, ApplicationStyles.paddingVertical]}>
             <View style={ApplicationStyles.benefitItem} />
-            <Text h3>Possibilidade de suportar uma causa</Text>
+            <Text h3>Possibilidade de apoiar uma causa</Text>
           </View>
   
-          <View>
-            <Divider style={ApplicationStyles.divider} />
-            <Text h3 style={[ApplicationStyles.subtext, ApplicationStyles.textCenterAligned]}>By joining We Share a Share,
-              you can make a profit and make an impact in the same journey.</Text>
-          </View>
+          <Spacer size={25}/>
+  
+          <TouchableOpacity style={ApplicationStyles.rightAligned} onPress={() => navigate('Investment')}>
+            <Text p style={ApplicationStyles.nextLink}>
+              { I18n.t('stoikShares') } >
+            </Text>
+          </TouchableOpacity>
         </Card>
         <AppStep index={0} { ...this.props }/>
-      </View>
+      </ScrollView>
     );
   }
 }

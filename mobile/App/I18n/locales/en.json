@@ -16,12 +16,22 @@
   "simulation": "Simulation",
   "performances": "Performance",
   "wallet": "Wallet",
-  "onboarding": "Onboarding",
+  "otherInvest": "Start investment",
+  "onboarding": "Invest",
+
+  "riskWarnings": "Risk warnings",
+
+  "forgotPasswordQuestion": "Forgot your password?",
+  "dontHasAccountQuestion": "Do not have an account?",
+  "hasAccountQuestion": "Already have an account?",
+  "hasToken": "Already have a token?",
+  "or": "or",
 
   "notifications": "Notifications",
   "more": "More",
-  "participant": "Participant",
-  "subscription": "Subscription",
+  "participant": "Onboarding",
+  "riskProfile": "Risk profile",
+  "chooseCause": "Choose a cause",
   "startSimulation": "Start a simulation",
 
   "people": "People",

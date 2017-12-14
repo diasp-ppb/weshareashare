@@ -54,6 +54,13 @@ export default class Homepage extends Component {
                     </Text>
                   </TouchableOpacity>
                 </View>
+                <View style={[{flex: 1, alignItems: 'center', justifyContent: 'center'}]}>
+                  <TouchableOpacity style={{flex: 3}} onPress={() => navigate('RiskWarnings')}>
+                    <Text p style={[ApplicationStyles.link]}>
+                      { I18n.t('riskWarnings') }
+                    </Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
           </ImageBackground>

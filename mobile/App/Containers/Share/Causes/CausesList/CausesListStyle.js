@@ -14,7 +14,6 @@ export default StyleSheet.create({
     fontSize: Metrics.FONT_SIZE_BIG,
   },
   logoAndDescription: {
-    flex: 1,
     flexDirection: 'row',
     paddingTop: Metrics.paddingSml,
   },
@@ -32,8 +31,7 @@ export default StyleSheet.create({
     alignSelf: 'center',
   },
   description: {
-    flex: 2,
-    flexWrap: 'wrap',
+    flex: 1,
     paddingRight: Metrics.smallMargin,
   },
   thisbtn: {

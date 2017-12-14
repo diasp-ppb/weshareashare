@@ -15,6 +15,7 @@ import {
   Divider,
   Keyboard,
 } from 'react-native';
+import I18n from '@i18n/i18n';
 import FormValidation from 'tcomb-form-native';
 import Toast from 'react-native-root-toast';
 
@@ -220,21 +221,21 @@ class AuthForm extends Component {
           <View>
             <TouchableOpacity onPress={() => navigate('PasswordReset', {email: this.form.getComponent('Email').getValue()})}>
               <Text p style={[ApplicationStyles.textCenterAligned, ApplicationStyles.link]}>
-                Forgot your password?
+                { I18n.t('forgotPasswordQuestion') }
               </Text>
             </TouchableOpacity>
 
             <Spacer size={10} />
 
             <Text p style={[ApplicationStyles.textCenterAligned]}>
-              - or -
+              - { I18n.t('or') } -
             </Text>
 
             <Spacer size={10} />
 
             <TouchableOpacity onPress={() => navigate('SignUp')}>
               <Text p style={[ApplicationStyles.textCenterAligned, ApplicationStyles.link]}>
-                Do not have an account?
+                { I18n.t('dontHasAccountQuestion') }
               </Text>
             </TouchableOpacity>
           </View>
@@ -244,7 +245,7 @@ class AuthForm extends Component {
           <View>
             <TouchableOpacity onPress={() => navigate('PasswordUpdate', {email: this.form.getComponent('Email').getValue()})}>
               <Text p style={[ApplicationStyles.textCenterAligned, ApplicationStyles.link]}>
-                Already have a token?
+                { I18n.t('hasToken') }
               </Text>
             </TouchableOpacity>
           </View>
@@ -254,7 +255,7 @@ class AuthForm extends Component {
           <View>
             <TouchableOpacity onPress={() => navigate('SignIn')}>
               <Text p style={[ApplicationStyles.textCenterAligned, ApplicationStyles.link]}>
-                Already have an account?
+                { I18n.t('hasAccountQuestion') }
               </Text>
             </TouchableOpacity>
           </View>

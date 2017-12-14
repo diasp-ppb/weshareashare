@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 const _ = require('lodash');
 import FormRender from './CausesListView';
+import { Users } from '@services/API';
 
 const mapStateToProps = (state, ownProps) => {
   let category = ownProps.category;
@@ -12,8 +13,10 @@ const mapStateToProps = (state, ownProps) => {
   };
 }
 
-const mapDispatchToProps = () => ({
-  submit: null,
-});
+const mapDispatchToProps = (ownProps) => {
+  if(ownProps.informative)
+    return { submit: null }
+  else return { submit: Users.selectCause }
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormRender);

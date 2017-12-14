@@ -23,13 +23,13 @@ export default class Mainpage extends Component {
       case 0: navigate('Saving'); break;
       case 1: navigate('Investment'); break;
       case 2: navigate('Share'); break;
-      case 3: navigate('Onboarding'); break;
+      case 3: navigate('Invest'); break;
     }
   }
 
   render() {
     const labels = [
-      {name: "A POUPANÇA", description: "Saiba mais sobre a importância de poupar e os benefícios do PPR SGF Stoik Ações."},
+      {name: "A POUPANÇA", description: "Saiba mais sobre a importância de poupar e os benefícios do PPR SGF Stoik Ações. Simule diferentes níveis de poupança."},
       {name: "O INVESTIMENTO", description: "Conheça a carteira de activos e rendibilidades do PPR SGF Stoik Ações." },
       {name: "A PARTILHA", description: "Utilize o PPR SGF Stoik Ações como uma ferramenta de partilha com uma causa." },
       {name: "COMECE A INVESTIR", description: "Subscreva ou reforce a sua participação no PPR SGF Stoik Ações." }];
@@ -40,19 +40,19 @@ export default class Mainpage extends Component {
       currentStepStrokeWidth: 6,
       stepStrokeCurrentColor: Colors.stoikOrange,
       stepStrokeWidth: 3,
-      stepStrokeFinishedColor: Colors.lightBlue,
-      stepStrokeUnFinishedColor: Colors.lightBlue,
-      separatorFinishedColor: Colors.lightBlue,
+      stepStrokeFinishedColor: Colors.stoikBlue,
+      stepStrokeUnFinishedColor: Colors.stoikBlue,
+      separatorFinishedColor: Colors.stoikBlue,
       separatorUnFinishedColor: Colors.stoikOrange,
-      stepIndicatorFinishedColor: Colors.lightBlue,
-      stepIndicatorUnFinishedColor: Colors.lightBlue,
+      stepIndicatorFinishedColor: Colors.stoikBlue,
+      stepIndicatorUnFinishedColor: Colors.stoikBlue,
       stepIndicatorCurrentColor: Colors.stoikOrange,
       stepIndicatorLabelFontSize: Fonts.base.size*1.75,
       currentStepIndicatorLabelFontSize: Fonts.base.size*1.75,
       stepIndicatorLabelCurrentColor: Colors.background,
       stepIndicatorLabelFinishedColor: Colors.background,
       stepIndicatorLabelUnFinishedColor: Colors.background,
-      labelColor: Colors.lightBlue,
+      labelColor: Colors.stoikBlue,
       labelSize: Fonts.base.size*1.5,
       descriptionColor: Colors.label,
       descriptionSize: Fonts.base.size,
