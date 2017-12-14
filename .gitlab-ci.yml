@@ -34,7 +34,7 @@ test_mobile:
   stage: test_mobile
   script:
     - echo "**Running Mobile tests**"
-#    - npm --prefix ./mobile install
+    - npm --prefix ./mobile test
     - echo "**Terminating Mobile tests**"
 
 test_desktop:
@@ -65,7 +65,7 @@ deploy_staging:
     - server
   script:
     - echo "Deploy to staging server"
-    - ssh ws_admin@178.62.11.121 "sh ~/scripts/initServer.sh"
+    - ssh ws_admin@178.62.11.121 "sh ~/scripts/initStagingServer.sh"
     - echo "Deployed to staging server"
   environment:
     name: staging
@@ -78,7 +78,8 @@ deploy_production:
     - server
   script:
     - echo "Deploy to production server"
-    - echo "ups, they don't have one gg wp#excelmasterrace"
+    - ssh ws_admin@178.62.11.121 "sh ~/scripts/initProductionServer.sh"
+    - echo "Deployed to production server"
   environment:
     name: production
   only:

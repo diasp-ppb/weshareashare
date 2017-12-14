@@ -47,6 +47,9 @@ module.exports = {
       type: 'boolean',
       defaultsTo : false
     },
+    cause: {
+      model: 'cause',
+    },
     notifications: {
       collection: 'notification',
       via: 'receiver'

@@ -16,12 +16,23 @@
   "simulation": "Simulação",
   "performances": "Rendibilidade",
   "wallet": "Carteira",
-  "onboarding": "Onboarding",
+  "onboarding": "Invista",
+  "otherInvest": "Comece a investir",
+
+
+  "riskWarnings": "Riscos",
+
+  "forgotPasswordQuestion": "Esqueceu-se da password?",
+  "dontHasAccountQuestion": "Não está registado?",
+  "hasAccountQuestion": "Já está registado?",
+  "hasToken": "Já possui um token?",
+  "or": "ou",
 
   "notifications": "Notificações",
   "more": "Outros",
-  "participant": "Participant",
-  "subscription": "Subscription",
+  "participant": "Onboarding",
+  "riskProfile": "Perfil de risco",
+  "chooseCause": "Escolha uma causa",
   "startSimulation": "Faça uma simulação",
 
   "people": "Social",

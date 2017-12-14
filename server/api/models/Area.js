@@ -18,12 +18,6 @@ module.exports = {
       required: true,
       unique: true,
     },
-
-    causes: {
-      collection: 'cause',
-      via: 'scope'
-    }
-
   },
 
 };

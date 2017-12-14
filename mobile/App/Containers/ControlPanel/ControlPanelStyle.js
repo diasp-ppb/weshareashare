@@ -62,4 +62,10 @@ export default StyleSheet.create({
   lastInMenu: {
     paddingBottom: 40,
   },
+  headerIconView: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#596a72',
+    paddingLeft: 5,
+  },
 });
