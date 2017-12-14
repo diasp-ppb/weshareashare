@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Item, Input, Text } from 'native-base';
+import { ApplicationStyles, Colors } from '@theme/';
+import {StyleSheet} from 'react-native';
 var t = require('tcomb-form-native');
 
 var Form = t.form.Form;
@@ -23,6 +25,36 @@ var Person = t.struct({
 
 var options = {
     auto:'placeholders',
+    stylesheet: stylesheet,
+    fields:{
+        name:{
+            placeholder: "Name"
+        },
+        gender: {
+            label: "Gender",
+        },
+        address: {
+            placeholder: "Address",
+        },
+        postal: {
+            placeholder: "Postal",
+        },
+        city: {
+            placeholder: "City",
+        },
+        id: {
+            placeholder: "Id",
+        },
+        nif: {
+            placeholder: "Nif",
+        },
+        job: {
+            placeholder: "Job",
+        },
+        nationality: {
+            placeholder: "Nationality",
+        },
+    }
 }
 
 class PersonalDataForm extends Component {
@@ -50,9 +82,38 @@ class PersonalDataForm extends Component {
           ref="form"
           type={Person}
           options={options}
+          style={styles.center}
       />
     );
   };
 };
 
 export default PersonalDataForm;
+
+var styles = StyleSheet.create({
+    center: {
+        borderColor: Colors.lightBlue,
+    }
+
+});
+
+
+const stylesheet = t.form.Form.stylesheet;
+
+stylesheet.textbox.normal.borderWidth = 0;
+stylesheet.textbox.error.borderWidth = 0;
+stylesheet.textbox.normal.marginBottom = 0;
+stylesheet.textbox.error.marginBottom = 0;
+
+stylesheet.textboxView.normal.borderWidth = 0;
+stylesheet.textboxView.error.borderWidth = 0;
+stylesheet.textboxView.normal.borderRadius = 0;
+stylesheet.textboxView.error.borderRadius = 0;
+stylesheet.textboxView.normal.borderBottomWidth = 1;
+stylesheet.textboxView.error.borderBottomWidth = 1;
+stylesheet.textbox.normal.marginBottom = 5;
+stylesheet.textbox.error.marginBottom = 5;
+stylesheet.textbox.normal.borderColor = Colors.lightBlue;
+stylesheet.textbox.error.borderColor = Colors.lightBlue;
+stylesheet.textbox.normal.borderBottomColor = Colors.lightBlue;
+stylesheet.textbox.error.borderBottomColor = Colors.lightBlue;

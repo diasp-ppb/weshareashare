@@ -6,6 +6,8 @@ import PersonalDataForm from '../Components/PersonalDataForm';
 
 import { connect } from 'react-redux';
 import * as Session from '../Redux/Session';
+import { Colors } from '@theme/';
+
 
 var React = require('react');
 var { AppRegistry, TouchableHighlight, Component } = React;
@@ -46,7 +48,7 @@ class StartPersonalForm extends Component{
                         </CardItem>
                     </Card>
                     <View style={ApplicationStyles.form}>
-                        <View style={ApplicationStyles.container}>
+                        <View style={ApplicationStyles.container, styles.center}>
                             <PersonalDataForm  onRef={ref => (this.child = ref)} />
                         </View>
                     </View>
@@ -115,5 +117,12 @@ var styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         flex:1,
+    },
+    center: {
+        marginLeft: 50,
+        marginRight: 50,
+        borderColor: Colors.lightBlue,
+        borderBottomColor: Colors.lightBlue,
+        paddingBottom: 20,
     }
 });
