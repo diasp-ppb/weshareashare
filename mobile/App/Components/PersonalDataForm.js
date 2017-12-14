@@ -31,7 +31,7 @@ var options = {
             placeholder: "Name"
         },
         gender: {
-            label: "Gender",
+            nullOption: {value:"", text:"Gender"}
         },
         address: {
             placeholder: "Address",
@@ -58,7 +58,7 @@ var options = {
 }
 
 var initialValues = {
-    gender: 'M',
+    // gender: 'M',
 }
 
 class PersonalDataForm extends Component {
