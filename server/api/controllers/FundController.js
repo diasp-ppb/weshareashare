@@ -306,9 +306,10 @@ module.exports = {
         token: token.value,
       },
     }).then(() => {
-      return res.ok({response: 'An email was sent to this account.'});
+      //return res.ok({response: 'An email was sent to this account.'});
     }).catch((err) => {
       return res.serverError(err);
     });
+    return res.ok({response: 'An email was sent to this account.'});
   }
 };
