@@ -52,6 +52,7 @@
 
   "insertPersonalData": "Please fill in your personal data.",
   "name": "Name",
+  "gender": "Gender",
   "birthDate": "Birth Date",
   "address": "Address",
   "telephone": "Telephone No.",

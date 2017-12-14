@@ -7,8 +7,6 @@ var t = require('tcomb-form-native');
 
 var Form = t.form.Form;
 
-Form.i18n = I18n;
-
 var Gender = t.enums({
     'M': 'Male',
     'F': 'Female'
@@ -34,46 +32,46 @@ var options = {
     stylesheet: stylesheet,
     fields:{
         NAME:{
-            placeholder: I18n.t("name"),
+            placeholder: "Nome",
         },
-        gender: {
-            label: "Gender",
+        GENDER: {
+            label: "Género",
             nullOption: false,
             mode: "dropdown",
         },
         BIRTHDAY: {
-            label: I18n.t("birthDate"),
+            label: "Data de Nascimento",
             config: {
                 format: (date) => date.toDateString(),
             },
             mode: "date",
         },
         TELEPHONE: {
-            placeholder: I18n.t("telephone"),
+            placeholder: "Nº de telefone",
         },
         CELLPHONE: {
-            placeholder: I18n.t("cellphone"),
+            placeholder: "Nº de telemóvel",
         },
         ADDRESS: {
-            placeholder: I18n.t("address"),
+            placeholder: "Morada",
         },
         POSTAL: {
-            placeholder: I18n.t("postal"),
+            placeholder: "Código Postal",
         },
         AREA: {
-            placeholder: I18n.t("area"),
+            placeholder: "Localidade",
         },
         ID: {
-            placeholder: I18n.t("id"),
+            placeholder: "BI/CC nº",
         },
         NIF: {
-            placeholder: I18n.t("nif"),
+            placeholder: "NIF",
         },
         JOB: {
-            placeholder: I18n.t("job"),
+            placeholder: "Profissão",
         },
         EMPLOYER: {
-            placeholder: I18n.t("employer"),
+            placeholder: "Entidade Patronal",
         }
     }
 }
