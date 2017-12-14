@@ -31,4 +31,4 @@ const icons = {
   iconOnboarding: require('@assets/DrawerIcons/iconOnboarding.png'),
 };
 
-export default { ...images, ...fonts };
+export default { ...images, ...fonts, ...icons };

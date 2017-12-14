@@ -58,7 +58,6 @@ class ControlPanel extends Component {
             <View style={{flexDirection: 'row',alignItems: 'center',}}>
               <Image source={Assets.iconSimulation} />
             </View>
-            <Icon style={styles.icon} name="chart-line" size={35} color="#fff" />
             <Text style={styles.buttonText}>{ I18n.t('simulation') }</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => navigate('Benefits')}>
