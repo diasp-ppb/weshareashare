@@ -10,29 +10,29 @@ export default class Saving extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: I18n.t('otherInvest'),
   });
-  
+
   constructor(props) {
     super(props);
     this.state = {
       currentPosition: 0
     }
   }
-  
+
   onStepPress = (position) => {
     const {navigate} = this.props.navigation;
     switch (position) {
       case 0:
-        navigate('InvestorProfileQuiz', { formIndex: 1 } )
+        navigate('Subscription', { formIndex: 2 });
         break;
       case 1:
-        navigate('InvestorProfileQuiz', { formIndex: 2 } )
+        navigate('Subscription', { index: 0 });
         break;
       case 2:
         navigate('Causes', {categoryIndex: 0, informative: false})
         break;
     }
   }
-  
+
   render () {
     const labels = [
       {name: "Indique os seus dados pessoais"},
