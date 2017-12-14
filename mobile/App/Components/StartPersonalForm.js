@@ -29,8 +29,9 @@ class StartPersonalForm extends Component{
 
     retrieveValues(){
         var values = this.child.retrieveValues();
-        if(this.props.index){
-            return {key: STATES[1].states[this.props.index].key, value: values}
+        var send = STATES[1].states.length -1 === this.props.index ? true: false;
+        if(this.props.index !== null){
+            return {key: STATES[1].states[this.props.index].key, value: values, send: send};
         }else return values;
     }
 
