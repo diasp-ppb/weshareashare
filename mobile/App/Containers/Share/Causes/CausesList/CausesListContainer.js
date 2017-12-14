@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 const _ = require('lodash');
 import FormRender from './CausesListView';
-import { Assets } from '@theme/';
 
 const mapStateToProps = (state, ownProps) => {
   let category = ownProps.category;

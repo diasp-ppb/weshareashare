@@ -20,6 +20,7 @@ import Performances from '@containers/Investment/Performances/PerformancesContai
 // Share Screens
 import Share from '@containers/Share/ShareView';
 import Causes from '@containers/Share/Causes/CausesContainer';
+import Cause from '@containers/Share/Causes/Cause/CauseContainer';
 
 // General Screens
 import ContactUs from '@containers/ContactUs/ContactUsContainer';
@@ -58,6 +59,7 @@ const UserNavigationStack = StackNavigator({
   // Share Stack
   Share: { screen: Share },
   Causes: { screen: Causes },
+  Cause: { screen: Cause },
 
   // OnboardingStack
   Onboarding: { screen: FormOverview },

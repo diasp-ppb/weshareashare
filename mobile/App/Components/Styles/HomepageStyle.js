@@ -26,6 +26,8 @@ export default StyleSheet.create({
   },
   btn: {
     alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
     marginVertical: Metrics.smallMargin,
     paddingVertical: Metrics.smallMargin,
     width: Metrics.DEVICE_WIDTH / 3,

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { View, StatusBar } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import I18n from 'ex-react-native-i18n'
 import ReduxNavigation from '../Navigation/ReduxNavigation';
 import StartupActions from '../Redux/StartupRedux';
 import ReduxPersist from '../Config/ReduxPersist';
@@ -20,10 +19,6 @@ class RootContainer extends Component {
       this.props.authorizeClient();
       this.props.startup();
     }
-  }
-
-  componentWillMount() {
-    I18n.initAsync();
   }
 
   render() {

@@ -85,7 +85,7 @@ class ControlPanel extends Component {
             <Text style={styles.controlText}>{ I18n.t('share') }</Text>
             <View style={styles.leftMark} />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => navigate('Causes')} >
+          <TouchableOpacity style={styles.button} onPress={() => navigate('Causes', {categoryIndex: 0, informative: true})}>
             <Icon style={styles.icon} name="book-multiple" size={35} color="#fff" />
             <Text style={styles.buttonText}>{ I18n.t('causes') }</Text>
           </TouchableOpacity>

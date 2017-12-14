@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
 import I18n from '@i18n/i18n';
 import PropTypes from 'prop-types';
 import { TabViewAnimated, TabBar, SceneMap } from 'react-native-tab-view';
@@ -30,13 +29,17 @@ export default class CausesView extends Component {
   }
 
   constructor(props) {
+    let navigationParams = props.navigation.state.params;
+    let index = navigationParams ? navigationParams.categoryIndex : 0;
+    let informative = navigationParams ? navigationParams.informative : true;
     super(props);
     this.state = {
-      index: 0,
+      informative: informative,
+      index: index,
       routes: [
-        { key: 'first', title: 'Social' },
-        { key: 'second', title: 'Ambiental' },
-        { key: 'third', title: 'Cultural'}
+        { key: 'first', title: I18n.t('people') },
+        { key: 'second', title: I18n.t('animals&environment') },
+        { key: 'third', title: I18n.t('arts&culture')}
       ],
     }
   }
