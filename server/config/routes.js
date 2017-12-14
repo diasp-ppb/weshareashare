@@ -115,14 +115,6 @@ module.exports.routes = {
     action: 'postSubscription',
   },
 
-  'post /facta': {
-    cors: {
-      allowRequestHeaders: 'Content-Type, Client-ID',
-    },
-    controller: 'FundController',
-    action: 'postFacta',
-  },
-
   'post /investorprofile': {
     cors: {
       allowRequestHeaders: 'Content-Type, Client-ID',

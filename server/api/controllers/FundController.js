@@ -7,9 +7,9 @@
 
 module.exports = {
   async postSubscription(req, res) {
+    let userid = req.headers['user-id'];
     let parsedAttrs = Fund.parseAttrs(req.allParams());
     let participantAttrs = parsedAttrs.participant;
-    let userid = req.headers['user-id'];
 
     participantAttrs['user'] = userid;
 
@@ -41,10 +41,6 @@ module.exports = {
     return res.ok();
   },
 
-  postFacta(req, res) {
-    return res.ok();
-  },
-
   async postInvestorProfile(req, res) {
     let investorAttrs = Profile.parseAttrs(req.allParams())
     let userid = req.headers['user-id'];
@@ -70,11 +66,10 @@ module.exports = {
   },
 
   async fillSubscriptionPDF(req, res) {
-    let userid = req.headers['user-id'];
+    let userid = req.allParams()['user-id'];
 
     const fillPdf = require("fill-pdf");
     const encoding = require('encoding');
-    const fs = require('fs');
 
     try {
       let person = await Person.findOne({id: userid}).populate('user').populate('subscription');
@@ -133,14 +128,6 @@ module.exports = {
 
       fillPdf.generatePdf(formData, pdfTemplatePath, ['drop_xfa','need_appearances'], function(err, output) {
         if ( !err ) {
-          //save output somewhere
-          var filepath = "./resources/filled/subscription_" + userid + ".pdf"
-          fs.writeFile(filepath, output, function(err) {
-            if(err) {
-              throw err;
-            }
-          });
-
           //Send pdf as response
           res.type("application/pdf");
           res.status(200);
@@ -159,11 +146,10 @@ module.exports = {
   },
 
   async fillFatcaPDF(req, res) {
-    let userid = req.headers['user-id'];
+    let userid = req.allParams()['user-id'];
 
     const fillPdf = require("fill-pdf");
     const encoding = require('encoding');
-    const fs = require('fs');
 
     try {
       let person = await Person.findOne({id: userid}).populate('user').populate('subscription');
@@ -187,14 +173,6 @@ module.exports = {
 
       fillPdf.generatePdf(formData, pdfTemplatePath, ['drop_xfa','need_appearances'], function(err, output) {
         if ( !err ) {
-          //save output somewhere
-          var filepath = "./resources/filled/fatca_" + userid + ".pdf"
-          fs.writeFile(filepath, output, function(err) {
-            if(err) {
-              throw err;
-            }
-          });
-
           //Send pdf as response
           res.type("application/pdf");
           res.status(200);
@@ -213,11 +191,10 @@ module.exports = {
   },
 
   async fillInvestorProfilePDF(req, res) {
-    let userid = req.headers['user-id'];
+    let userid = req.allParams()['user-id'];
 
     const fillPdf = require("fill-pdf");
     const encoding = require('encoding');
-    const fs = require('fs');
 
     try {
       let person = await Person.findOne({id: userid}).populate('user').populate('investorProfile');
@@ -253,14 +230,6 @@ module.exports = {
 
       fillPdf.generatePdf(formData, pdfTemplatePath, ['drop_xfa','need_appearances'], function(err, output) {
         if ( !err ) {
-          //save output somewhere
-          var filepath = "./resources/filled/investor_profile_" + userid + ".pdf"
-          fs.writeFile(filepath, output, function(err) {
-            if(err) {
-              throw err;
-            }
-          });
-
           //Send pdf as response
           res.type("application/pdf");
           res.status(200);
@@ -297,7 +266,7 @@ module.exports = {
     } catch (err) {
       res.serverError(err);
     }
-    
+
     let email = sails.config.custom.email;
     email.send({
       template: 'onboarding',
@@ -306,15 +275,15 @@ module.exports = {
         attachments: [
           {   // Subscription PDF
             filename: 'subscription.pdf',
-            path: './resources/filled/subscription_' + person.id + '.pdf'
+            path: 'http://localhost:1337/subscription?user-id=' + person.id
           },
           {   // Investor Profile PDF
               filename: 'investor_profile.pdf',
-              path: './resources/filled/investor_profile_' + person.id + '.pdf'
+              path: 'http://localhost:1337/investorprofile?user-id=' + person.id
           },
           {   // FATCA PDF
               filename: 'fatca.pdf',
-              path: './resources/filled/fatca_' + person.id + '.pdf'
+              path: 'http://localhost:1337/fatca?user-id=' + person.id
           }
         ]
       },

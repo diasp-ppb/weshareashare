@@ -50,8 +50,8 @@ module.exports.policies = {
 
   FundController: {
     '*': 'hasClientId',
-    postSubscription: [],
-    postFacta: [],
-    postInvestorProfile: [],
+    fillSubscriptionPDF: [],
+    fillFatcaPDF: [],
+    fillInvestorProfilePDF: [],
   },
 };
