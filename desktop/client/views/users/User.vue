@@ -93,7 +93,7 @@ export default {
       this.axios({
         method: 'post',
         url: this.address + 'validateUser',
-        auth: {
+        data: {
           userid: this.$route.params.id
         },
         headers: {

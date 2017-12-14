@@ -99,7 +99,7 @@ module.exports = {
           delete users[i].password;
           pendingUsers.push(users[i]);
         }
-        sails.log(pendingUsers);
+
         res.ok({'users': pendingUsers});
       }).catch((err) => {
         return res.serverError(err);
@@ -139,14 +139,12 @@ module.exports = {
 
   validateUser(req, res) {
     let params = req.allParams();
-    sails.log(params);
     User.update({id:params.userid},{awaitsConfirmation:false}).exec(
       function afterwards(err, updated) {
         if (err) {
           return res.serverError(err);
         }
         else {
-          sails.log(updated);
           res.ok({'message': 'Utilizador validado.'});
         }
     });
