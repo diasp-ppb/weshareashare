@@ -22,7 +22,8 @@ let initialInvestment = [
 ];
 
 let monthlyContribution = [
-  {value: 100, label: "100"},
+    {value: 0, label: "0"},
+    {value: 100, label: "100"},
   {value: 200, label: "200"},
   {value: 300, label: "300"},
   {value: 400, label: "400"},

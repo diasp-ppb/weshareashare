@@ -50,7 +50,7 @@ export default class Simulation extends Component {
     let n = this.state.yearPeriod;
     let nt = n * 12;
     let rn = r / parseFloat(12);
-    let newValue = this.state.monthlyContribution * ((Math.pow((1 + rn), nt) - 1) / rn);
+    let newValue = this.state.initialInvestment* Math.pow((1 + rn),nt) + this.state.monthlyContribution * ((Math.pow((1 + rn), nt) - 1) / rn);
     this.setState({futureValue: newValue});
   }
   
