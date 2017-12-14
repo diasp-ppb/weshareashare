@@ -70,6 +70,7 @@ export const subscription = (res) => {
     return (dispatch, getState) => {
         dispatch(FormRedux.update({[res.key]: res.value}));
         console.log(getState());
+        if(res.send)
         Subscription.subscribe(res.value);
     }
 }

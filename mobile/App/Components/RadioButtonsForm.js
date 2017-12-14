@@ -9,6 +9,15 @@ class RadioButtonsForm extends Component {
         super(props);
     };
 
+    //assigning function to be used by parent
+    componentDidMount(){
+        this.props.onRef(this);
+    }
+
+    componentWillUnmount(){
+        this.props.onRef(undefined);
+    }
+
   state = {
     selected: null,
   }
@@ -16,6 +25,10 @@ class RadioButtonsForm extends Component {
   onPress = (key) => {
     this.setState({selected: key});
   }
+
+    retrieveValues(){
+        return this.state.selected;
+    }
 
   render() {
     return (

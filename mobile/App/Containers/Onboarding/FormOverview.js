@@ -24,7 +24,7 @@ export default class FormOverview extends Component {
         <View style={ApplicationStyles.container}>
           <ImageBackground source={Assets.background} style={styles.canvas}>
             <View style={styles.btnGroup}>
-              <Button style={styles.btn} onPress={() => { navigate('Subscription', { formIndex: 1 }); }}>
+              <Button style={styles.btn} onPress={() => { navigate('Subscription', { index: 0 }); }}>
                 <Text style={styles.btnText}>
                   Participant
                 </Text>

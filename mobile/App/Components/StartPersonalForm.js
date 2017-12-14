@@ -29,7 +29,9 @@ class StartPersonalForm extends Component{
 
     retrieveValues(){
         var values = this.child.retrieveValues();
-        return values;
+        if(this.props.index){
+            return {key: STATES[1].states[this.props.index].key, value: values}
+        }else return values;
     }
 
     render(){
@@ -57,14 +59,12 @@ class StartPersonalForm extends Component{
         } else{
             console.log('got index');
             var index = this.props.index;
-            if(index == null) index = this.props.navigation.state.params.index;
-            if(index == null) index = 0;
             var question = STATES[1].states[index];
             var answer;
             if(!Array.isArray(question.options) || question.options.length === 0){
                 answer = <TextInput onChangeText={this.props.saveOption}/>;
             }else{
-                answer = <RadioButtonsForm saveOption={this.props.saveOption} answers={question.options}/>;
+                answer = <RadioButtonsForm onRef={ref => (this.child = ref)} answers={question.options}/>;
             }
             return(
                 <View>
@@ -101,7 +101,7 @@ var styles = StyleSheet.create({
     },
     messageBackground: {
         borderRadius: 20,
-        height: 70,
+        minHeight: 70,
         borderColor: '#80deea',
         borderWidth: 1,
         marginRight: 50,
@@ -123,6 +123,5 @@ var styles = StyleSheet.create({
         marginRight: 50,
         borderColor: Colors.lightBlue,
         borderBottomColor: Colors.lightBlue,
-        paddingBottom: 20,
     }
 });

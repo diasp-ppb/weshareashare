@@ -32,7 +32,9 @@ var options = {
             placeholder: "Name"
         },
         gender: {
-            nullOption: false
+            label: "Gender",
+            nullOption: false,
+            mode: "dropdown",
         },
         birthDate: {
             label: "Birth date",

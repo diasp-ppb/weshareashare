@@ -33,22 +33,6 @@ var Person = t.struct({
     nationality: t.String
 });
 
-
-var answers = [
-    {
-        key: 'PRESERVAR',
-        text: 'Preservar o capital'
-    },
-    {
-        key: 'CRESCER',
-        text: 'Fazer crescer o capital'
-    },
-    {
-        key: 'SUBSTANCIALMENTE',
-        text: 'Fazer crescer o capital substancialmente'
-    }
-];
-
 var option = null;
 
 var saveOption = function(key){
@@ -67,17 +51,21 @@ class Subscription extends React.Component{
 
     render() {
         const { navigate } = this.props.navigation;
+        console.log(this.props.navigation);
         var index = this.props.navigation.state.params.index;
         return (
             <Container style={styles.container}>
                 <Content>
                     <StartPersonalForm index={index} saveOption={saveOption}  onRef={ref => (this.child = ref)} />
-                    <View style={{flex:1, flexDirection: 'row-reverse', marginRight: 50, paddingRight: 150, paddingLeft: 50, bottom: 20}}>
+                    <View style={{flex:1, flexDirection: 'row-reverse', marginRight: 50, paddingRight: 150, paddingLeft: 50, marginTop: 50, bottom: 20}}>
                         <TouchableOpacity style={styles.button} onPress={() => {
-                            this.props.subscription({key: "subscription", value:this.child.retrieveValues()});
-                            //insert api function here
-                            //this.props.subscription(option);
-                            navigate('SubsForms', {index: ++index});
+                            var values = this.child.retrieveValues();
+                            if(index == null || index == undefined){
+                                this.props.subscription({key: "subscription", value:values, send:true});
+                            } else{
+                                this.props.subscription({key: values.key, value: values.value, send:false});
+                                navigate('Subscription', {index: ++index});
+                            }
                         }}>
                         <Text style={{justifyContent: 'center'}}>Next</Text>
                     </TouchableOpacity>
