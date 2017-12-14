@@ -59,8 +59,8 @@ export default class Simulation extends Component {
     const pickerHeight = inputHeight/1.5;
     const { navigate } = this.props.navigation;
     return (
-
-        <Card style={[ApplicationStyles.container]}>
+      <View style={[ApplicationStyles.container]}>
+        <Card >
           <View style={[{alignItems: 'center', justifyContent: 'center', paddingVertical: 20}]}>
               <Text h2 style={[ApplicationStyles.textCenterAligned]}>
                 Em {this.state.yearPeriod} anos terá <Text h2 style={{color: Colors.stoikBlue}}>{this.convertToCurrency()}</Text>
@@ -128,6 +128,7 @@ export default class Simulation extends Component {
           </TouchableOpacity>
             <AppStep index={0} { ...this.props }/>
         </Card>
+      </View>
 
     );
   }
