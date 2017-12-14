@@ -74,11 +74,14 @@ const causes = [
   },
 ]
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state, ownProps) => {
+  let navigationParams = ownProps.navigation.state.params;
+  let informative = navigationParams ? navigationParams.informative : true;
+  return {
   session: state.session,
-  FirstRoute: () => <CausesList navigation={ownProps.navigation} causes={causes} category={'Social'} informative={state.informative}/>,
-  SecondRoute: () => <CausesList navigation={ownProps.navigation} causes={causes} category={'Ambient'} informative={state.informative}/>,
-  ThirdRoute: () =>  <CausesList navigation={ownProps.navigation} causes={causes} category={'Cultural'} informative={state.informative}/>,
-});
+  FirstRoute: () => <CausesList navigation={ownProps.navigation} causes={causes} category={'Social'} informative={informative}/>,
+  SecondRoute: () => <CausesList navigation={ownProps.navigation} causes={causes} category={'Ambient'} informative={informative}/>,
+  ThirdRoute: () =>  <CausesList navigation={ownProps.navigation} causes={causes} category={'Cultural'} informative={informative}/>,
+}};
 
 export default connect(mapStateToProps, null)(FormRender);

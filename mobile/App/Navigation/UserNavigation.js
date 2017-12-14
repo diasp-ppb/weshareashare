@@ -4,6 +4,7 @@ import { StackNavigator, DrawerNavigator } from 'react-navigation';
 
 // Onboarding Screens
 import InvestorProfileQuiz from '@containers/Onboarding/InvestorProfileQuiz';
+import Subscription from '@containers/Onboarding/SubsForms';
 import Invest from '@containers/Onboarding/InvestView';
 
 // Saving Screens
@@ -65,6 +66,7 @@ const UserNavigationStack = StackNavigator({
   // OnboardingStack
   Invest: { screen: Invest },
   InvestorProfileQuiz: { screen: InvestorProfileQuiz },
+  Subscription: { screen: Subscription},
 }, {
   headerMode: 'float',
   navigationOptions,

@@ -56,11 +56,11 @@ export default class Simulation extends Component {
   
   render () {
     const inputHeight = Metrics.DEVICE_HEIGHT / 6;
-    const pickerHeight = inputHeight/2;
+    const pickerHeight = inputHeight/1.5;
     const { navigate } = this.props.navigation;
     return (
-      <ScrollView style={ApplicationStyles.container}>
-        <Card>
+      <View style={[ApplicationStyles.container]}>
+        <Card >
           <View style={[{alignItems: 'center', justifyContent: 'center', paddingVertical: 20}]}>
               <Text h2 style={[ApplicationStyles.textCenterAligned]}>
                 Em {this.state.yearPeriod} anos terá <Text h2 style={{color: Colors.stoikBlue}}>{this.convertToCurrency()}</Text>
@@ -126,9 +126,10 @@ export default class Simulation extends Component {
               { I18n.t('benefits') } >
             </Text>
           </TouchableOpacity>
+            <AppStep index={0} { ...this.props }/>
         </Card>
-        <AppStep index={0} { ...this.props }/>
-      </ScrollView>
+      </View>
+
     );
   }
 };

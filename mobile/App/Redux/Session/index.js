@@ -1,6 +1,9 @@
-import { Clients, Users } from '@services/API';
+import { Clients, Users, Subscription, Investor } from '@services/API';
 import { NavigationActions } from 'react-navigation';
 import * as SessionRedux from './redux';
+import * as FormRedux from './reduxForm';
+import * as FormInvestor from './reduxInvestor';
+
 
 const SESSION_TIMEOUT_THRESHOLD = 300; // Will refresh the access token 5 minutes before it expires
 let sessionTimeout = null;
@@ -62,8 +65,27 @@ export const authenticate = (res) => {
     dispatch(resetAction);
     dispatch(SessionRedux.update({ tokens: res.tokens, user: res.user }));
     setSessionTimeout(res.tokens.access.expiresIn);
-  };
-};
+  }
+}
+
+export const subscription = (res) => {
+    return (dispatch, getState) => {
+        dispatch(FormRedux.update({[res.key]: res.value}));
+        console.log(getState());
+        if(res.send)
+        Subscription.subscribe(res.value);
+    }
+}
+
+export const investor = (res) => {
+    return (dispatch, getState) => {
+        dispatch(FormInvestor.update({[res.key]: res.value}));
+        var state = getState();
+        console.log(state);
+        if(res.send)
+        Investor.investor(state.investor);
+    }
+}
 
 export const refreshToken = () => {
   return (dispatch, getState) => {

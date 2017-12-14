@@ -17,11 +17,6 @@ module.exports = {
       type: 'string',
       required: true,
     },
-
-    scope: {
-      model: 'area'
-    }
-
   },
 
 };

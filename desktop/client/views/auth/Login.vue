@@ -9,7 +9,7 @@
         <form v-on:submit.prevent="login">
           <label class="label">Email</label>
           <p class="control">
-            <input v-model="data.body.username" class="input" type="text" placeholder="email@example.org">
+            <input v-model="data.body.email" class="input" type="text" placeholder="your email">
           </p>
           <label class="label">Password</label>
           <p class="control">
@@ -36,13 +36,15 @@
 </template>
 
 <script>
+import { mapMutations, mapActions } from 'vuex'
+
 export default {
 
   data () {
     return {
       data: {
         body: {
-          username: null,
+          email: null,
           password: null
         },
         rememberMe: false
@@ -51,13 +53,53 @@ export default {
     }
   },
   mounted () {
-    if (this.$auth.redirect()) {
+    /* if (this.$auth.redirect()) {
       console.log('Redirect from: ' + this.$auth.redirect().from.name)
-    }
+    } */
     // Can set query parameter here for auth redirect or just do it silently in login redirect.
   },
+  computed: {
+    clientId () {
+      return this.$store.state.clientId
+    },
+    address () {
+      return this.$store.state.address
+    }
+  },
   methods: {
+    ...mapActions([
+      'toggleSidebar'
+    ]),
+    ...mapMutations([
+      'setAdminInfo',
+      'setTokens' // map `this.incrementBy(amount)` to `this.$store.commit('incrementBy', amount)`
+    ]),
     login () {
+      var self = this
+      this.axios({
+        method: 'post',
+        url: this.address + 'admins/auth',
+        auth: {
+          username: this.data.body.email,
+          password: this.data.body.password
+        },
+        headers: {
+          'client-id': this.clientId
+        }
+      })
+      .then(function (response) {
+        console.log(response.data)
+        self.setAdminInfo(response.data.admin)
+        self.setTokens(response.data.tokens)
+        self.toggleSidebar({opened: true, hidden: false})
+        self.$router.push({path: '/'})
+      })
+      .catch(function (error) {
+        console.error(error)
+        self.error = 'Email and/or password are wrong.'
+      })
+
+      /*
       var redirect = this.$auth.redirect()
       this.$auth.login({
         headers: {
@@ -86,6 +128,7 @@ export default {
           console.log(err.config)
         }
       })
+      */
     }
   }
   // filters: {

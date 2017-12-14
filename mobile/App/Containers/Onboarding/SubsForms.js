@@ -1,141 +1,123 @@
-import { StyleSheet, View, TextInput, Text, StatusBar } from 'react-native';
+import { StyleSheet, View, TextInput, StatusBar, TouchableOpacity } from 'react-native';
+import { NavigationActions } from 'react-navigation';
+import { Container, Content, Card, CardItem, Body, List, ListItem, Text, Radio } from 'native-base';
+import { ApplicationStyles } from '../../Themes/index';
+import RadioButtonsForm from '../../Components/RadioButtonsForm';
+import PersonalDataForm from '../../Components/PersonalDataForm';
+import StartPersonalForm from '../../Components/StartPersonalForm';
 
-const React = require('react');
-const t = require('tcomb-form-native');
+import { connect } from 'react-redux';
+import * as Session from '../../Redux/Session';
 
-const { AppRegistry, TouchableHighlight } = React;
+var React = require('react');
+var { AppRegistry, TouchableHighlight } = React;
+var t = require('tcomb-form-native');
 
-const Form = t.form.Form;
+var Form = t.form.Form;
 
-const Method = t.enums({
-  T: 'Transfer',
-  D: 'Deposit',
-  C: 'Check',
+var Gender = t.enums({
+    'M': 'Male',
+    'F': 'Female'
 });
 
-// here we are: define your domain model
-const Person = t.struct({
-  money: t.Number, // a required number
-  method: Method, // a boolean
+var Person = t.struct({
+    name: t.String,
+    gender: Gender,
+    birthDate: t.Date,
+    address: t.String,
+    postal: t.String,
+    city: t.String,
+    id: t.Number,
+    nif: t.Number,
+    job: t.String,
+    nationality: t.String
 });
 
-const Subscription = React.createClass({
+var option = null;
 
-  getInitialState() {
-    const value = {
-      method: 'T',
-      iban: 'PT 23492y4 23147 21347',
-      gcd: '23423456435',
-    };
-    const help = {
-      iban: 'Transfer to this account',
-    };
-    const editable = {
-      iban: { $set: !value.disable },
-    };
-    return { value, type: this.changeType(value) };
-  },
+var saveOption = function(key){
+    console.log(key);
+    option = key;
+}
 
-  changeType(value) {
-    switch (value.method) {
-      case 'T':
-        return t.struct({
-          money: t.Number, // a required number
-          method: Method, // a boolean
-          iban: t.String,
-        });
-        break;
-      case 'D':
-        return t.struct({
-          money: t.Number, // a required number
-          method: Method, // a boolean
-          gcd: t.String,
-        });
-        break;
-      case 'C':
-        return t.struct({
-          money: t.Number, // a required number
-          method: Method, // a boolean
-          'Check No': t.Number,
-          bank: t.String,
-          ppr: t.Boolean,
-        });
-        break;
-      default:
-        return t.struct({
-          money: t.Number, // a required number
-          method: Method, // a boolean
-        });
+class Subscription extends React.Component{
+    constructor(props) {
+        super(props);
+    };
+
+    static navigationOptions = ({ navigation }) => ({
+      title: 'SubsForms',
+    });
+
+    render() {
+        const { navigate } = this.props.navigation;
+        var index = this.props.navigation.state.params.index;
+        return (
+            <Container style={styles.container}>
+                <Content>
+                    <StartPersonalForm index={index} saveOption={saveOption}  onRef={ref => (this.child = ref)} />
+                    <View style={{flex:1, flexDirection: 'row-reverse', marginRight: 50, paddingRight: 150, paddingLeft: 50, marginTop: 50, bottom: 20}}>
+                        <TouchableOpacity style={styles.button} onPress={() => {
+                            var values = this.child.retrieveValues();
+                            if(index == null || index == undefined){
+                                this.props.subscription({key: "subscription", value:values, send:true});
+                                navigate('FormOverview');
+                            } else{
+                                this.props.invest({key: values.key, value: values.value, send:values.send});
+                                if(values.send){
+                                    navigate('FormOverview');
+                                }else{
+                                    navigate('Subscription', {index: ++index});
+                                }
+                            }
+                        }}>
+                        <Text style={{justifyContent: 'center'}}>Next</Text>
+                    </TouchableOpacity>
+                    </View>
+                </Content>
+            </Container>
+        );
     }
-  },
+};
 
-  onChange(value) {
-    const type = value.method !== this.state.value.method ?
-      this.changeType(value) :
-      this.state.type;
-    this.setState({ value, type });
-  },
-
-  render() {
-    return (
-      <View style={styles.container}>
-        {/* display */}
-        <TextInput
-          style={styles.message}
-          editable={false}
-          multiline
-          value="   Hello, Luis Jordao!
-         Choose your method of payment. "
-        />
-        <Form
-          ref="form"
-          type={this.state.type}
-          value={this.state.value}
-          onChange={this.onChange}
-        />
-
-      </View>
-    );
-  },
+const mapDispatchToProps = (dispatch) => ({
+    subscription: (id, form) => dispatch(Session.subscription(id, form)),
+    invest: (id, form) => dispatch(Session.investor(id, form)),
 });
 
-let styles = StyleSheet.create({
-  container: {
-    justifyContent: 'center',
-    marginTop: 50,
-    padding: 20,
-    backgroundColor: '#ffffff',
-  },
-  title: {
-    fontSize: 30,
-    alignSelf: 'center',
-    marginBottom: 30,
-  },
-  buttonText: {
-    fontSize: 18,
-    color: 'white',
-    alignSelf: 'center',
-  },
-  button: {
-    height: 36,
-    backgroundColor: '#48BBEC',
-    borderColor: '#48BBEC',
-    borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 10,
-    alignSelf: 'stretch',
-    justifyContent: 'center',
-  },
-  message: {
-    borderRadius: 10,
-    height: 70,
-    borderColor: '#80deea',
-    borderWidth: 1,
-    backgroundColor: '#80deea',
-    color: '#455a64',
-    elevation: 20,
+export default connect(null, mapDispatchToProps)(Subscription);
 
-  },
+var styles = StyleSheet.create({
+    container: {
+        justifyContent: 'center',
+        paddingTop: 20,
+        backgroundColor: '#ffffff',
+    },
+    messageCard: {
+        borderRadius: 20,
+        borderColor: '#80deea',
+        borderWidth: 1,
+        backgroundColor: '#80deea',
+        elevation: 20,
+    },
+    messageBackground: {
+        borderRadius: 20,
+        height: 70,
+        borderColor: '#80deea',
+        borderWidth: 1,
+        marginRight: 50,
+        marginLeft: 10,
+        backgroundColor: '#80deea',
+    },
+    button:{
+        borderRadius: 10,
+        borderWidth: 0,
+        padding: 10,
+        backgroundColor: '#80deea',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flex:1,
+    }
 });
 
-export default Subscription;
+//export default Subscription;

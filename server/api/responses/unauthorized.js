@@ -22,7 +22,7 @@ module.exports = function resUnauthorized(data) {
 
   // Define the status code to send in the response.
   var statusCodeToSet = 401;
-
+  console.log(data);
   // Log a message, if desired.
   sails.log('Ran custom response: res.unauthorized()');
 

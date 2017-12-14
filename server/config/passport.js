@@ -30,6 +30,7 @@ passport.deserializeUser((id, next) =>
 passport.use(
   new BasicStrategy(
     (email, password, next) => {
+
       User.findOne({
         email: email,
       }).then((user) => {
@@ -68,6 +69,7 @@ passport.use(
 passport.use(
   new BearerStrategy(
     (tokenValue, next) => {
+      
       Token.findOne({
         value: tokenValue, type: 'access'
       }).then((userToken) => {

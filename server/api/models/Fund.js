@@ -6,45 +6,97 @@
  */
 
 module.exports = {
-
   attributes: {
-    name: {
-      type: 'string',
+    participant: {
+      model: 'person',
       required: true,
-      unique: true,
-    },
-    description: {
-      type: 'string',
-      required: true,
-    },
-    NIF: {
-      type: 'number',
-      required: true,
-    },
-    IBAN: {
-      type: 'number',
-      required: true,
-    },
-    email: {
-      type: 'string',
-      required: true,
-      unique: true,
-    },
-    address: {
-      type: 'string',
-      allowNull: true
+      unique: true
     },
 
-    benefits: {
-      collection: 'benefit',
-      via: 'provider'
+    contributor: {
+      model: 'contributor',
+      required: false
     },
 
-    assets: {
-      collection: 'asset',
-      via: 'entity'
+    beneficiaries: {
+      collection: 'beneficiary'
+    },
+
+    subscriptionValue: {
+      type: 'number',
+      required: true
+    },
+
+    paymentMethod: {
+      type: 'number',
+      required: true
+    },
+
+    checkNo: {
+      type: 'string',
+      required: false
+    },
+
+    checkBank: {
+      type: 'string',
+      required: false
+    },
+
+    accountNo: {
+      type: 'string',
+      required: true
+    },
+
+    debitAmount: {
+      type: 'number',
+      required: true
+    },
+
+    debitGrowth: {
+      type: 'number',
+      required: true
+    },
+
+    periodicity: {
+      type: 'number',
+      required: true
+    },
+
+    initialDate: {
+      type: 'string',
+      columnType: 'date',
+      required: true
+    },
+
+    facta: {
+      type: 'boolean',
+      required: false
     }
   },
 
-};
+  parseAttrs(attrs) {
+    var parsed = {
+      participant: Person.parseAttrs(attrs.participant),
+      contributor: Contributor.parseAttrs(attrs.contributor),
+      checkNo: attrs.subscription.CHECKNO,
+      checkBank: attrs.subscription.CHECKBANK,
+      subscriptionValue: parseInt(attrs.subscription.VALUE),
+      paymentMethod: parseInt(attrs.subscription.METHOD),
+      accountNo: attrs.subscription.IBAN,
+      debitAmount: parseInt(attrs.subscription.DEBIT),
+      debitGrowth: parseInt(attrs.subscription.GROWTH),
+      periodicity: parseInt(attrs.subscription.PERIODICITY),
+      initialDate: attrs.subscription.INITIALDATE,
+      facta: attrs.subscription.FATCA
+    };
 
+    return parsed;
+  },
+
+  afterCreate(newRecord, cb) {
+    Person.update(newRecord.participant, {subscription: newRecord.id}).then(function() {
+      return newRecord.id;
+    });
+  },
+
+};

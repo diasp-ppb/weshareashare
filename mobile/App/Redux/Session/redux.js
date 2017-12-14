@@ -31,7 +31,7 @@ export const initialState = {
   },
   client: {
     id: null,
-  },
+  }
 };
 
 export const reducer = (state = initialState, action) => {

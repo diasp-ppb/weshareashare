@@ -9,22 +9,27 @@ import router from './router'
 import store from './store'
 import * as filters from './filters'
 import { TOGGLE_SIDEBAR } from 'vuex-store/mutation-types'
+import VueGoodTable from 'vue-good-table'
 
 Vue.router = router
+Vue.use(VueGoodTable)
 Vue.use(VueAxios, axios)
 Vue.use(VueAuth, {
   auth: {
     request: function (req, token) {
-      this.options.http._setHeaders.call(this, req, {Authorization: 'Bearer ' + token})
+      // TODO: comentei esta linha e o axios deixou de incluir o header authorization...
+      // this.options.http._setHeaders.call(this, req, {Authorization: token})
     },
     response: function (res) {
       // Get Token from response body
+      // var headers = this.options.http._getHeaders.call(this, res),
+      //      token = headers.Authorization || headers.authorization
       return res.data
     }
   },
   http: require('@websanova/vue-auth/drivers/http/axios.1.x.js'),
   router: require('@websanova/vue-auth/drivers/router/vue-router.2.x.js'),
-  loginData: { url: 'http://localhost:6789/login', fetchUser: false },
+  loginData: { url: 'http://localhost:1137/admin/auth', fetchUser: false },
   refreshData: { enabled: false }
 })
 

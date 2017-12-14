@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import RadioButton from 'radio-button-react-native';
 import PropTypes from 'prop-types';
 import { View, TouchableOpacity, Image, ScrollView } from 'react-native';
-import { Button, Text } from 'native-base';
+import { Text } from 'native-base';
+import Toast from 'react-native-root-toast';
 import styles from './CausesListStyle'
 import I18n from '@i18n/i18n';
-import { ApplicationStyles } from '@theme/'
-import { Card, Spacer, Text as CustomText } from '@ui/';
+import { ApplicationStyles, Colors } from '@theme/'
+import { Card, Spacer, Text as CustomText, Button } from '@ui/';
 
 class CausesList extends Component {
   static propTypes = {
@@ -26,18 +27,23 @@ class CausesList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: 0
+      causeSelected: -1
     }
   }
   
-  onRequest = () => {
-    const { navigate } = this.props.navigation;
-    console.log(`chose ${this.causesAndDescriptions[this.state.value].cause}!`);
-    navigate('OnboardingOverview');
+  handleSubmit = () => {
+    let index = this.state.causeSelected;
+    if (index !== -1 && this.props.submit) {
+      this.props.submit(index, this.props.session).then((res) => {
+          Toast.show('Causa ' + this.props.causes[index].name  + ' selecionada com sucesso!', ApplicationStyles.toastSuccess);
+      }).catch((err) => {
+        Toast.show('Ocorreu um erro ao selecionar a causa desejada!', ApplicationStyles.toastError);
+      });
+    }
   }
   
   handleOnPress = (value) => {
-    this.setState({ value });
+    this.setState({ causeSelected: value });
   }
   
   createCausesButtons = () => {
@@ -45,12 +51,18 @@ class CausesList extends Component {
     if (this.props.causes && this.props.causes.length > 0) {
       return this.props.causes.map((s, i) => {
         return (
-          <View key={i} style={[ApplicationStyles.paddingBottom]}>
-            {/*<RadioButton currentValue={this.state.value} value={i}*/}
-            {/*onPress={this.handleOnPress}*/}
-            {/*outerCircleColor="#feab2b" innerCircleColor="#feab2b">*/}
-            
-            <Text style={[ApplicationStyles.h1]}>{s.name}</Text>
+          <View key={i} style={[ApplicationStyles.paddingBottom, {flex: 1}]}>
+  
+            <View style={{flexDirection: 'row'}}>
+              {(!this.props.informative) &&
+                <RadioButton currentValue={this.state.causeSelected} value={s.id} onPress={this.handleOnPress} outerCircleColor={Colors.stoikBlue} innerCircleColor={Colors.stoikBlue}>
+                  <Text style={[ApplicationStyles.h1, {paddingHorizontal: 5}]}>{s.name}</Text>
+                </RadioButton>
+              }
+              {(this.props.informative) &&
+                <Text style={[ApplicationStyles.h1]}>{s.name}</Text>
+              }
+            </View>
             <View style={styles.logoAndDescription}>
               <View style={styles.logoContainer}>
                 <Image
@@ -62,10 +74,12 @@ class CausesList extends Component {
               <View style={styles.description}>
                 <Text style={[ApplicationStyles.h4]}>{s.shortDescription}</Text>
                 <Spacer size={10} />
-                <Text style={[ApplicationStyles.link, {textAlign: 'right'}]} onPress={() => {navigate('Cause', {cause: s})}}>Mais sobre {s.name}</Text>
               </View>
             </View>
-            {/*</RadioButton>*/}
+            <View style={{flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end'}}>
+              <Text style={[ApplicationStyles.nextLink, {textAlign: 'right'}]} onPress={() => {navigate('Cause', {cause: s})}}>Mais sobre {s.name}</Text>
+            </View>
+
           </View>
         );
       });
@@ -81,12 +95,18 @@ class CausesList extends Component {
           {this.createCausesButtons()}
           
           <Spacer size={25}/>
-          
-          <TouchableOpacity style={[ApplicationStyles.rightAligned]} onPress={() => navigate('Invest')}>
-            <CustomText p style={[ApplicationStyles.nextLink]}>
-              { I18n.t('onboarding') } >
-            </CustomText>
-          </TouchableOpacity>
+  
+          {(this.props.informative) &&
+            <TouchableOpacity style={[ApplicationStyles.rightAligned]}
+                              onPress={() => navigate('Invest')}>
+              <CustomText p style={[ApplicationStyles.nextLink]}>
+                {I18n.t('onboarding')} >
+              </CustomText>
+            </TouchableOpacity>
+          }
+          {(!this.props.informative) &&
+            <Button title='Suporte a causa' onPress={this.handleSubmit} />
+          }
         </Card>
       </ScrollView>
     );

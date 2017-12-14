@@ -20,3 +20,7 @@ export const switchEffect = ({ commit }, effectItem) => {
     commit(types.SWITCH_EFFECT, effectItem)
   }
 }
+
+export const updateClientId = ({ commit }, clientId) => {
+  commit('updateClientId', clientId)
+}

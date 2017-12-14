@@ -75,14 +75,19 @@ module.exports = {
           });
       });
   },
-
+  
+  selectCause(req, res) {
+    let params = req.allParams();
+  },
+ 
   getAll(req, res) {
     User.find()
       .then((users) => {
+        for (var i = 0; i < users.length; i++)
+          delete users[i].password;
         res.ok({ users });
       }).catch((err) => {
         return res.serverError(err);
       });
   },
 };
-
