@@ -46,48 +46,6 @@ module.exports = [
         key: 'PROFITABILITY',
       },
     ],
-  },
-  {
-    id: 'death',
-    states: [
-      {
-        text: "What is your employer's name?",
-        options: [],
-        key: 'BOSS',
-      },
-      {
-        text: 'Tell me your email please?',
-        options: [],
-        key: 'EMAIL',
-      },
-      {
-        text: 'Do you want updates?',
-        options: [],
-        key: 'UPDATES',
-      },
-      // ask for another
-    ],
-  },
-  {
-    id: 'subscription',
-    states: [
-      'VALUE',
-      'SUBS',
-      'RETURN',
-      'METHOD',
-      'CHECK',
-      'BANK',
-      'PPR',
-    ],
-  },
-  {
-    id: 'sdd',
-    states: [
-      'IBAN',
-      'ANUAL',
-      'PERIOD',
-      'START',
-    ],
-  },
+  }
 
 ];

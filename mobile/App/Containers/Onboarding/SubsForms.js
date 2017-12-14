@@ -62,9 +62,16 @@ class Subscription extends React.Component{
                             var values = this.child.retrieveValues();
                             if(index == null || index == undefined){
                                 this.props.subscription({key: "subscription", value:values, send:true});
+                                navigate('FormOverview');
                             } else{
-                                this.props.subscription({key: values.key, value: values.value, send:false});
-                                navigate('Subscription', {index: ++index});
+                                console.log('aquiiii');
+                                console.log(values.key);
+                                this.props.subscription({key: values.key, value: values.value, send:values.send});
+                                if(values.send){
+                                    navigate('FormOverview');
+                                }else{
+                                    navigate('Subscription', {index: ++index});
+                                }
                             }
                         }}>
                         <Text style={{justifyContent: 'center'}}>Next</Text>

@@ -7,9 +7,8 @@ export const update = (session) => ({
 
 export const formState = {
   subscription: {
-    name: null,
-    address: null,
-  }
+  },
+  investor:{},
 };
 
 export const reducer = (state = formState, action) => {
