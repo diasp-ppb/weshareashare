@@ -48,7 +48,7 @@ class ControlPanel extends Component {
 
         <View>
           <TouchableOpacity style={styles.header} onPress={() => navigate('Saving')} >
-          <View style={styles.headerIconView}>
+            <View style={styles.headerIconView}>
               <Image source={Assets.iconSavings} />
             </View>
             <Text style={styles.controlText}>{ I18n.t('save') }</Text>
@@ -62,7 +62,7 @@ class ControlPanel extends Component {
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => navigate('Benefits')}>
             <View style={{flexDirection: 'row',alignItems: 'center',}}>
-              <Image source={Assets.iconPPR} />
+              <Image source={Assets.iconBenefits} />
             </View>
             <Text style={styles.buttonText}>{ I18n.t('benefits') }</Text>
           </TouchableOpacity>

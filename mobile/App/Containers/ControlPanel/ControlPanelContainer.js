@@ -10,7 +10,7 @@ import FormRender from './ControlPanelView';
 const resetAction = NavigationActions.reset({
   index: 0,
   actions: [
-    NavigationActions.navigate({ routeName: 'visitorStack' }),
+    NavigationActions.navigate({ routeName: 'userStack' }),
   ],
   key: null,
 });
