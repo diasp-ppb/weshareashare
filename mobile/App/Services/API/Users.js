@@ -30,3 +30,6 @@ export const updatePassword = (formData, session) =>
 
 export const selectCause = (causeId, session) =>
   fetchApi(`/users/${session.user.id}/cause/${causeId}`, {}, 'post', session);
+
+export const getCauses = (session) =>
+  fetchApi('/causes', {}, 'get', session);
