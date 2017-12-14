@@ -32,6 +32,11 @@ module.exports.routes = {
     action: 'getAll',
   },
 
+  'get /users/:userId/cause': {
+    controller: 'UserController',
+    action: 'getCause',
+  },
+
   'post /users/auth': {
     cors: {
       allowRequestHeaders: 'Content-Type, Client-ID, Authorization',

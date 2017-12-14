@@ -26,6 +26,7 @@ module.exports.policies = {
     create: ['hasClientId'],
     selectCause: [],
     getAll: [],
+    getCause: [],
   },
 
   UserAuthController: {
