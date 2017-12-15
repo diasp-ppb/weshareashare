@@ -105,7 +105,7 @@ class PersonalDataForm extends Component {
       var values = this.refs.form.getValue();
       var inputArea2 = this.refs.forms2.getValue();
 
-      values.push(this.state.date.toDateString());
+      values.push({BIRTHDAY: this.state.date.toDateString()});
       for(var i = 0; i < inputArea2.length; i++) {
           values.push(inputArea2[i]);
       }
