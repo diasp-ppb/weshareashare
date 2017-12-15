@@ -28,7 +28,6 @@ class RootContainer extends Component {
       this.props.startup();
     }
   
-    console.log(this.props);
     let session = this.props.session.session;
     if(session.client.id === null)
       this.props.authorizeClient();

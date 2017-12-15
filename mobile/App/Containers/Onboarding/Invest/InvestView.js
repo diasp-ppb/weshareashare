@@ -6,7 +6,6 @@ import { Card, Text as CustomText, Spacer } from '@ui/';
 import { Users } from '@services/API'
 import StepIndicator from '@components/StepIndicator';
 import AppStep from '@components/AppStep';
-import App from '../../../index'
 
 export default class Saving extends Component {
   static navigationOptions = ({ navigation }) => ({
