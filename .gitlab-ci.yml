@@ -35,9 +35,8 @@ test_mobile:
   script:
     - echo "**Running Mobile tests**"
     - cd mobile
-    - apt-get install git-all
-    - npm install
-    - npm test
+#    - npm install
+#    - npm test
     - echo "**Terminating Mobile tests**"
 
 test_desktop:
