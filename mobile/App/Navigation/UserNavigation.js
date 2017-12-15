@@ -8,6 +8,7 @@ import Subscription from '@containers/Onboarding/SubsForms';
 import FatcaForm from '@containers/Onboarding/FatcaForm';
 import FatcaInfo from '@containers/Onboarding/FatcaInfo';
 import Invest from '@containers/Onboarding/InvestView';
+import SubscriptionForms from '@containers/Onboarding/SubscriptionForms';
 
 // Saving Screens
 import Saving from '@containers/Saving/SavingView';
@@ -67,7 +68,7 @@ const UserNavigationStack = StackNavigator({
 
   // OnboardingStack
   Invest: { screen: Invest },
-  InvestorProfileQuiz: { screen: FatcaForm },
+  InvestorProfileQuiz: { screen: SubscriptionForms },
   FatcaInfo: {screen: FatcaInfo},
   Subscription: { screen: Subscription},
 }, {
