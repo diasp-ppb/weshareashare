@@ -61,10 +61,10 @@ export default FatcaForm;
 var styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
+        paddingTop: 20,
         backgroundColor: '#ffffff',
     },
     messageCard: {
-        marginTop: 5,
         marginRight: 20,
         borderRadius: 20,
         borderColor: '#80deea',
@@ -76,7 +76,6 @@ var styles = StyleSheet.create({
         minHeight: 10,
         borderColor: '#80deea',
         borderWidth: 1,
-        marginTop: 50,
         marginRight: 50,
         marginLeft: 10,
         marginBottom: 25,
