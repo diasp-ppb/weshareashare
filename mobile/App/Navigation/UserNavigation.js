@@ -7,8 +7,8 @@ import InvestorProfileQuiz from '@containers/Onboarding/InvestorProfileQuiz';
 import Subscription from '@containers/Onboarding/SubsForms';
 import FatcaForm from '@containers/Onboarding/FatcaForm';
 import FatcaInfo from '@containers/Onboarding/FatcaInfo';
-import Invest from '@containers/Onboarding/InvestView';
 import SubscriptionForms from '@containers/Onboarding/SubscriptionForms';
+import Invest from '@containers/Onboarding/Invest/InvestContainer';
 
 // Saving Screens
 import Saving from '@containers/Saving/SavingView';

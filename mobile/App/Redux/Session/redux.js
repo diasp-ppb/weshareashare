@@ -28,6 +28,7 @@ export const initialState = {
     email: null,
     firstName: null,
     lastName: null,
+    cause: null,
   },
   client: {
     id: null,

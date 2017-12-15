@@ -102,6 +102,12 @@ export const sendForms = (res) => {
     }
 }
 
+export const updateCause = (res) => {
+  return (dispatch) => {
+    dispatch(SessionRedux.update({ user: res.user }));
+  };
+}
+
 export const refreshToken = () => {
   return (dispatch, getState) => {
     const session = getState().session;

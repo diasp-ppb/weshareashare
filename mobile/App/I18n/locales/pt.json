@@ -73,6 +73,10 @@
   "id": "BI/CC nº",
   "nif": "NIF",
   "job": "Profissão",
-  "employer": "Entidade Patronal"
+  "employer": "Entidade Patronal",
 
+  "benefitsSaving": "Possibilidade de automatização da poupança",
+  "benefitsWallet": "Carteira diversificada e global",
+  "benefitsStructure": "Estrutura fisicamente eficiente",
+  "benefitsCause": "Possibilidade de apoiar uma causa"
 }

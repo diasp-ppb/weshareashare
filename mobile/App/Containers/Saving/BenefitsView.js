@@ -22,26 +22,26 @@ export default class StoikBenefits extends Component {
         <Card>
           <View style={[ApplicationStyles.row, ApplicationStyles.paddingVertical]}>
             <View style={ApplicationStyles.benefitItem} />
-            <Text h3>Possibilidade de automatização da poupança</Text>
+            <Text h3 style={ApplicationStyles.benefitTest}>{ I18n.t('benefitsSaving') }</Text>
           </View>
-  
+
           <View style={[ApplicationStyles.row, ApplicationStyles.paddingVertical]}>
             <View style={ApplicationStyles.benefitItem} />
-            <Text h3>Carteira diversificada e global</Text>
+            <Text h3 style={ApplicationStyles.benefitTest}>{ I18n.t('benefitsWallet') }</Text>
           </View>
-  
+
           <View style={[ApplicationStyles.row, ApplicationStyles.paddingVertical]}>
             <View style={ApplicationStyles.benefitItem} />
-            <Text h3>Estrutura fisicamente eficiente</Text>
+            <Text h3 style={ApplicationStyles.benefitTest}>{ I18n.t('benefitsStructure') }</Text>
           </View>
-  
+
           <View style={[ApplicationStyles.row, ApplicationStyles.paddingVertical]}>
-            <View style={ApplicationStyles.benefitItem} />
-            <Text h3>Possibilidade de apoiar uma causa</Text>
+              <View style={ApplicationStyles.benefitItem} />
+              <Text h3 style={ApplicationStyles.benefitTest}>{ I18n.t('benefitsCause') }</Text>
           </View>
-  
+
           <Spacer size={25}/>
-  
+
           <TouchableOpacity style={ApplicationStyles.rightAligned} onPress={() => navigate('Investment')}>
             <Text p style={ApplicationStyles.nextLink}>
               { I18n.t('stoikShares') } >

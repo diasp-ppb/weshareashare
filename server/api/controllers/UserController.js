@@ -30,6 +30,7 @@ const formatTokenResponse = (accessToken, refreshToken, user) => ({
     email: user.email,
     firstName: user.firstName,
     lastName: user.lastName,
+    cause: user.cause,
   },
 });
 
@@ -75,11 +76,50 @@ module.exports = {
           });
       });
   },
-  
+
   selectCause(req, res) {
     let params = req.allParams();
+    sails.log(params);
+    let userId = req.param('userId');
+    let causeId = req.param('causeId');
+    User.update({id: userId},{cause: causeId}).exec(function afterwards(err, updated) {
+      if (err)
+        return res.serverError(err);
+      User.findOne({
+          id: userId
+        }).exec(function (err, user){
+          if (err) {
+            return res.serverError(err);
+          }
+          delete user.password;
+          res.ok({ 'message': 'Cause selected successfully.', 'user': user });
+        });
+    });
   },
- 
+
+  getCause(req, res) {
+    let userId = req.param('userId');
+    User.findOne({
+        id: userId
+      }).exec(function (err, user){
+        if (err)
+          return res.serverError(err);
+
+        let causeId = user.cause;
+        Cause.findOne({
+          id: causeId
+        }).exec(function (err, cause) {
+          if (err)
+            return res.serverError(err);
+
+          if (cause === null)
+            res.ok({'message': 'User has not cause.'});
+          else
+            res.ok(cause);
+        });
+      });
+  },
+
   getAll(req, res) {
     User.find()
       .then((users) => {

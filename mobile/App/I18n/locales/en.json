@@ -74,4 +74,8 @@
   "job": "Occupation",
   "employer": "Employer",
 
+  "benefitsSaving": "Possibility of automatizing savings ",
+  "benefitsWallet": "Diverse and global wallet",
+  "benefitsStructure": "Physically efficient structure",
+  "benefitsCause": "Possibility of supporting a cause"
 }

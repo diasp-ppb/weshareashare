@@ -10,7 +10,6 @@ export default class AppStep extends Component {
     this.state = {
       currentPosition: this.props.index
     }
-    console.log(props)
   }
   
   onStepPress = (position) => {
