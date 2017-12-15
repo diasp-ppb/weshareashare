@@ -14,92 +14,113 @@ var Form = t.form.Form;
 
 var { AppRegistry, TouchableHighlight } = React;
 
-var Gender = t.enums({
-    'M': 'Masculino',
-    'F': 'Feminino'
-}, "Gender");
+var Method = t.enums({
+    0: 'Transferência Bancária',
+    1: 'Depósito junto da CGD',
+    2: 'Cheque',
+    3: 'Transferência PPR',
+}, "Method");
 
-var Person = t.struct({
-    NAME: t.maybe(t.String),
-    GENDER: t.maybe(Gender),
-    BIRTHDAY: t.maybe(t.Date),
-    TELEPHONE: t.maybe(t.String),
-    CELLPHONE: t.maybe(t.String),
-    ADDRESS: t.maybe(t.String),
-    POSTAL: t.maybe(t.String),
-    AREA: t.maybe(t.String),
-    ID: t.maybe(t.Number),
-    NIF: t.maybe(t.Number),
-    JOB: t.maybe(t.String),
-    EMPLOYER: t.maybe(t.String)
+var Periodicity = t.enums({
+    0: 'Mensal',
+    1: 'Trimestral',
+    2: 'Semestral',
+    3: 'Anual',
+}, "Method");
+
+var subscriptionFields = t.struct({
+    VALUE: t.maybe(t.Number),
+    METHOD: t.maybe(Method),
+    IBAN: t.maybe(t.String),
+    DEBIT: t.maybe(t.Number),
+    GROWTH: t.maybe(t.Number),
+    PERIODICITY: t.maybe(Periodicity),
+    INITIALDATE: t.maybe(t.Date),
+});
+
+var subscriptionCheckFields = t.struct({
+    VALUE: t.maybe(t.Number),
+    METHOD: t.maybe(Method),
+    CHECKNO: t.maybe(t.Number),
+    CHECKBANK: t.maybe(t.String),
+    IBAN: t.maybe(t.String),
+    DEBIT: t.maybe(t.Number),
+    GROWTH: t.maybe(t.Number),
+    PERIODICITY: t.maybe(Periodicity),
+    INITIALDATE: t.maybe(t.Date),
 });
 
 var options = {
     auto:'placeholders',
     stylesheet: stylesheet,
     fields:{
-        NAME:{
-            placeholder: "Nome",
+        VALUE: {
+            placeholder: "Entrega Inicial (€)",
         },
-        GENDER: {
-            label: "Género",
+        METHOD: {
+            label: "Método para a entrega inicial",
             nullOption: false,
             mode: "dropdown",
         },
-        BIRTHDAY: {
-            label: "Data de Nascimento",
+        CHECKNO: {
+            placeholder: "Nº do cheque (caso escolha cheque)"
+        },
+        CHECKBANK: {
+            placeholder: "Banco do cheque (caso escolha cheque)"
+        },
+        IBAN: {
+            placeholder: "IBAN para débito direto",
+        },
+        DEBIT: {
+            placeholder: "Valor para débito direto (€)",
+        },
+        GROWTH: {
+            placeholder: "Crescimento anual do valor (%)",
+        },
+        PERIODICITY: {
+            label: "Periodicidade de transferência",
+            nullOption: false,
+            mode: "dropdown",
+        },
+        INITIALDATE: {
+            label: "Data inicial para débito direto",
             config: {
                 format: (date) => date.toDateString(),
             },
             mode: "date",
         },
-        TELEPHONE: {
-            placeholder: "Nº de telefone",
-        },
-        CELLPHONE: {
-            placeholder: "Nº de telemóvel",
-        },
-        ADDRESS: {
-            placeholder: "Morada",
-        },
-        POSTAL: {
-            placeholder: "Código Postal",
-        },
-        AREA: {
-            placeholder: "Localidade",
-        },
-        ID: {
-            placeholder: "BI/CC nº",
-        },
-        NIF: {
-            placeholder: "NIF",
-        },
-        JOB: {
-            placeholder: "Profissão",
-        },
-        EMPLOYER: {
-            placeholder: "Entidade Patronal",
-        }
     }
 }
 
 var initialValues = {
-    // gender: 'M',
-    BIRTHDAY: new Date("1980-01-01")
+    INITIALDATE: new Date()
 }
 
-class FatcaForm extends Component{
+var state = {
+  type: subscriptionFields,
+  value: {}
+}
+
+function getType(value) {
+    if (value.METHOD === 2) {
+      return subscriptionCheckFields;
+    } else {
+      return subscriptionFields;
+    }
+}
+
+class SubscriptionForms extends Component{
     static navigationOptions = ({ navigation }) => ({
-        title: "FATCA"//I18n.t('simulation'),
+        title: "Subscrição"
     });
 
     constructor(props) {
         super(props);
         this.state = {
-            options: [{key: "1", text: 'I am a US citizen'}, {key: "2", text: 'I am not a US citizen'}],
-            question: "Are you a US citizen",
+            question: "Introduza os dados relativamente à subscrição do PPR."
         }
-    };
+    }
+
 
     render(){
         const { navigate } = this.props.navigation;
@@ -117,15 +138,13 @@ class FatcaForm extends Component{
                 </Card>
                 <Form
                     ref="form"
-                    type={Person}
+                    type={subscriptionCheckFields}
                     options={options}
-                    value={initialValues}
                 />
                 <View style={styles.buttonSet}>
                     <TouchableOpacity style={styles.button} onPress={() => {
                         var choice = this.child.retrieveValues();
                         this.props.fatca(choice);
-
                     }}>
                         <Text style={{justifyContent: 'center'}}>Enviar</Text>
                     </TouchableOpacity>
@@ -133,10 +152,10 @@ class FatcaForm extends Component{
                 </Content>
             </Container>
         );
-    };
+    }
 };
 
-export default FatcaForm;
+export default SubscriptionForms;
 
 const mapDispatchToProps = (dispatch) => ({
     fatca: (id, form) => dispatch(Session.fatca(id, form)),
