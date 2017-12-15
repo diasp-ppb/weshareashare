@@ -4,7 +4,7 @@ import { StackNavigator, DrawerNavigator } from 'react-navigation';
 
 // Onboarding Screens
 import InvestorProfileQuiz from '@containers/Onboarding/InvestorProfileQuiz';
-import Invest from '@containers/Onboarding/InvestView';
+import Invest from '@containers/Onboarding/Invest/InvestContainer';
 
 // Saving Screens
 import Saving from '@containers/Saving/SavingView';

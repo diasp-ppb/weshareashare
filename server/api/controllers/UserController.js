@@ -30,6 +30,7 @@ const formatTokenResponse = (accessToken, refreshToken, user) => ({
     email: user.email,
     firstName: user.firstName,
     lastName: user.lastName,
+    cause: user.cause,
   },
 });
 
@@ -101,7 +102,7 @@ module.exports = {
     User.findOne({
         id: userId
       }).exec(function (err, user){
-        if (err) 
+        if (err)
           return res.serverError(err);
 
         let causeId = user.cause;
@@ -111,10 +112,10 @@ module.exports = {
           if (err)
             return res.serverError(err);
 
-          if (cause == null)
+          if (cause === null)
             res.ok({'message': 'User has not cause.'});
           else
-            res.ok({ 'cause': cause });
+            res.ok(cause);
         });
       });
   },

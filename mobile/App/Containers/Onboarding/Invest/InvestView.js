@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { View, ScrollView, TouchableOpacity, Text } from 'react-native';
+import { View, ScrollView, TouchableOpacity, Text, Image } from 'react-native';
 import I18n from '@i18n/i18n';
-import { ApplicationStyles, Colors, Fonts } from '@theme/';
+import { ApplicationStyles, Colors, Fonts, Assets } from '@theme/';
 import { Card, Text as CustomText, Spacer } from '@ui/';
+import { Users } from '@services/API'
 import StepIndicator from '@components/StepIndicator';
 import AppStep from '@components/AppStep';
+import App from '../../../index'
 
 export default class Saving extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -14,8 +16,21 @@ export default class Saving extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentPosition: 0
+      currentPosition: 0,
+      cause: null,
     }
+  }
+  
+  componentWillMount() {
+    Users.getUserCause(this.props.session).then((res) => {
+      if(res.message !== null) {
+        let cause = res;
+        cause.image = Assets[res.image];
+        this.setState({cause: cause});
+      }
+    }).catch((err) => {
+      console.log(err);
+    })
   }
   
   onStepPress = (position) => {
@@ -31,6 +46,24 @@ export default class Saving extends Component {
         navigate('Causes', {categoryIndex: 0, informative: false})
         break;
     }
+  }
+  
+  currentCause = () => {
+    return (
+      <View>
+        <CustomText h3 style={[ApplicationStyles.paddingTop, {color: Colors.textSecondary}]}>
+          Está a suportar a seguinte causa:
+        </CustomText>
+        <Spacer size={10}/>
+        <CustomText h2 style={[ApplicationStyles.textCenterAligned]}>{this.state.cause.name}</CustomText>
+        <Image
+          style={ApplicationStyles.logo}
+          resizeMode="contain"
+          source={this.state.cause.image}
+        />
+        <CustomText h3>{this.state.cause.shortDescription}</CustomText>
+      </View>
+    )
   }
   
   render () {
@@ -85,6 +118,10 @@ export default class Saving extends Component {
             />
           </View>
           <Spacer size={10}/>
+          
+          { (this.state.cause !== null) ?
+            this.currentCause() : console.log('hello')
+          }
         </Card>
         <AppStep index={3} { ...this.props }/>
       </ScrollView>

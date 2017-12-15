@@ -33,3 +33,6 @@ export const selectCause = (causeId, session) =>
 
 export const getCauses = (session) =>
   fetchApi('/causes', {}, 'get', session);
+
+export const getUserCause = (session) =>
+  fetchApi(`/users/${session.user.id}/cause`, {}, 'get', session);
