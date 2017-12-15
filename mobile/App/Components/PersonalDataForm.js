@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Item, Input, Text } from 'native-base';
 import { ApplicationStyles, Colors } from '@theme/';
-import {StyleSheet} from 'react-native';
+import {StyleSheet,View, DatePickerAndroid, DatePickerIOS, Platform,TouchableNativeFeedback} from 'react-native';
 import I18n from '@i18n/i18n';
 var t = require('tcomb-form-native');
 
@@ -15,7 +15,10 @@ var Gender = t.enums({
 var Person = t.struct({
     NAME: t.maybe(t.String),
     GENDER: t.maybe(Gender),
-    BIRTHDAY: t.maybe(t.Date),
+});
+
+
+var Person2 = t.struct({
     TELEPHONE: t.maybe(t.String),
     CELLPHONE: t.maybe(t.String),
     ADDRESS: t.maybe(t.String),
@@ -36,16 +39,14 @@ var options = {
         },
         GENDER: {
             label: "Género",
-            nullOption: false,
-            mode: "dropdown",
-        },
-        BIRTHDAY: {
-            label: "Data de Nascimento",
-            config: {
-                format: (date) => date.toDateString(),
-            },
-            mode: "date",
-        },
+        }
+    }
+}
+
+var options2 =  {
+    auto:'placeholders',
+    stylesheet: stylesheet,
+    fields:{
         TELEPHONE: {
             placeholder: "Nº de telefone",
         },
@@ -76,15 +77,20 @@ var options = {
     }
 }
 
-var initialValues = {
-    // gender: 'M',
-    BIRTHDAY: new Date("1980-01-01")
+var initialValue = {
+    GENDER : 'M'
 }
 
 class PersonalDataForm extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+        date: new Date("1980-01-01")
+    }
   };
+
+
 
   //assigning function to be used by parent
   componentDidMount(){
@@ -97,17 +103,86 @@ class PersonalDataForm extends Component {
 
   retrieveValues(){
       var values = this.refs.form.getValue();
+      var inputArea2 = this.refs.forms2.getValue();
+
+      values.push({BIRTHDAY: this.state.date.toDateString()});
+      for(var i = 0; i < inputArea2.length; i++) {
+          values.push(inputArea2[i]);
+      }
+
       return values;
   }
 
+  onDateChange(date) {
+    this.setState({date: date})
+      console.log(this.state.date.toDateString());
+  }
+
+  datePicker() {
+      if(Platform.OS === 'ios'){
+         return (
+             <View>
+                 <Text> Data de Nascimento </Text>
+                <DatePickerIOS
+                  date = {this.state.date}
+                  onDateChange={value => this.onDateChange(value)}
+                  mode="date"
+                />
+             </View>
+         );
+      } else if( Platform.OS === 'android') {
+          let config = {
+              date: this.state.date,
+              mode: "date"
+          }
+          return (
+              <TouchableNativeFeedback
+                  accessible={true}
+                  ref="input"
+                  onPress={function() {
+                      let config = {
+                          date:  this.state.date,
+                          mode: "data"
+                      };
+
+                      DatePickerAndroid.open(config).then(function(date) {
+                          if (date.action !== DatePickerAndroid.dismissedAction) {
+                              var newDate = new Date(locals.value);
+                              newDate.setFullYear(date.year, date.month, date.day);
+                              this.onDateChange(newDate);
+                          }
+                      });
+                      if (typeof locals.onPress === "function") {
+                          locals.onPress();
+                      }
+                  }}
+              >
+                <View>
+                    <Text> Data de Nascimento </Text>
+                    <Text> {this.state.date.toDateString()} </Text>
+                </View>
+              </TouchableNativeFeedback>
+                  );
+      }
+  }
+
+
   render() {
     return (
-      <Form
-          ref="form"
-          type={Person}
-          options={options}
-          value={initialValues}
-      />
+        <View>
+            <Form
+                ref="form"
+                type={Person}
+                options={options}
+                value={initialValue}
+            />
+            {this.datePicker()}
+            <Form
+                ref="form2"
+                type={Person2}
+                options={options2}
+             />
+        </View>
     );
   };
 };
