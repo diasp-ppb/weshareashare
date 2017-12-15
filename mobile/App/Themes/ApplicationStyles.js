@@ -170,7 +170,13 @@ const ApplicationStyles = {
     height: 40,
     borderRadius: 40 / 2,
     backgroundColor: Colors.stoikGrey,
-    marginHorizontal: Metrics.marginHorizontal,
+    padding: Metrics.marginHorizontal*2,
+  },
+  benefitTest: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: "wrap",
+    marginLeft: 5,
   },
   logo: {
     height: Metrics.DEVICE_HEIGHT / 7,

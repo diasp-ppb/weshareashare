@@ -22,6 +22,21 @@ module.exports.routes = {
     action: 'create',
   },
 
+  'post /causes': {
+    controller: 'CauseController',
+    action: 'create',
+  },
+
+  'get /causes': {
+    controller: 'CauseController',
+    action: 'getAll',
+  },
+
+  'get /users/:userId/cause': {
+    controller: 'UserController',
+    action: 'getCause',
+  },
+
   'post /users/auth': {
     cors: {
       allowRequestHeaders: 'Content-Type, Client-ID, Authorization',
@@ -58,7 +73,7 @@ module.exports.routes = {
     controller: 'UserAuthController',
     action: 'resetPassword',
   },
-  
+
   'post /users/:userId/selectCause/:causeId': {
     cors: {
       allowRequestHeaders: 'Content-Type, Client-ID',
