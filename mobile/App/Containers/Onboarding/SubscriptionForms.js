@@ -5,6 +5,7 @@ import { Container, Content, Card, CardItem, Body, List, ListItem, Text, Radio }
 import { ApplicationStyles, Metrics, Colors,Fonts } from '@theme/';
 import RadioButtonsForm from '@components/RadioButtonsForm';
 import { NavigationActions } from 'react-navigation';
+import SubscriptionFields from './subscriptionFields';
 
 import { connect } from 'react-redux';
 import * as Session from '../../Redux/Session';
@@ -45,7 +46,7 @@ var subscriptionCheckFields = t.struct({
     DEBIT: t.maybe(t.Number),
     GROWTH: t.maybe(t.Number),
     PERIODICITY: t.maybe(Periodicity),
-    INITIALDATE: t.maybe(t.Date),
+    //INITIALDATE: t.maybe(t.Date),
 });
 
 var options = {
@@ -57,8 +58,6 @@ var options = {
         },
         METHOD: {
             label: "Método para a entrega inicial",
-            nullOption: false,
-            mode: "dropdown",
         },
         IBAN: {
             placeholder: "IBAN para débito direto",
@@ -71,21 +70,14 @@ var options = {
         },
         PERIODICITY: {
             label: "Periodicidade de transferência",
-            nullOption: false,
-            mode: "dropdown",
-        },
-        INITIALDATE: {
-            label: "Data inicial para débito direto",
-            config: {
-                format: (date) => date.toDateString(),
-            },
-            mode: "date",
-        },
+        }
     }
 }
 
 var initialValues = {
-    INITIALDATE: new Date()
+    INITIALDATE: new Date(),
+    METHOD: 0,
+    PERIODICITY: 0
 }
 
 var state = {
@@ -114,7 +106,7 @@ class SubscriptionForms extends Component{
     }
 
     retrieveValues(){
-        var values = this.refs.form.getValue();
+        var values = this.child.retrieveValues();
         return values;
     }
 
@@ -134,18 +126,15 @@ class SubscriptionForms extends Component{
                 </Card>
                 <View style={ApplicationStyles.form}>
                     <View style={ApplicationStyles.container, styles.center}>
-                      <Form
-                          ref="form"
-                          type={subscriptionCheckFields}
-                          options={options}
+                      <SubscriptionFields onRef={ref => (this.child = ref)} options={options}
                       />
                   </View>
               </View>
                 <View style={{flex:1, flexDirection: 'row-reverse', marginRight: 50, paddingRight: 150, paddingLeft: 50, marginTop: 50, bottom: 20}}>
                     <TouchableOpacity style={styles.button} onPress={() => {
                         var choice = this.retrieveValues();
-                        console.log(choice);
-                        //this.props.subscription(choice);
+                        //console.log(this.refs);
+                        this.props.subscription(choice);
                         navigate('FatcaForm');
                       }}>
                     <Text style={{justifyContent: 'center'}}>Próximo</Text>
@@ -157,11 +146,11 @@ class SubscriptionForms extends Component{
     }
 };
 
-export default SubscriptionForms;
-
 const mapDispatchToProps = (dispatch) => ({
-    fatca: (id, form) => dispatch(Session.fatca(id, form)),
+    subscription: (id, form) => dispatch(Session.subscription(id, form)),
 });
+
+export default connect(null, mapDispatchToProps)(SubscriptionForms);
 
 var styles = StyleSheet.create({
     container: {

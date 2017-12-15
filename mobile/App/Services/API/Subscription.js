@@ -1,4 +1,4 @@
 import { fetchApi } from '@services/Fetch';
 
-export const subscribe = (form) =>
-  fetchApi('/subscription', {}, 'post', form);
+export const subscribe = (form, session) =>
+  fetchApi('/subscription', form, 'post', session);

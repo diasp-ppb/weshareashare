@@ -8,6 +8,7 @@ export const reducers = combineReducers({
   participant: require('./Session/reduxForm').reducer,
   investor: require('./Session/reduxInvestor').reducer,
   fatca: require('./Session/reduxFatca').reducer,
+  subscription: require('./Session/reduxSubscription').reducer,
 });
 
 export default () => {

@@ -4,6 +4,7 @@ import * as SessionRedux from './redux';
 import * as FormRedux from './reduxForm';
 import * as FormInvestor from './reduxInvestor';
 import * as FormFatca from './reduxInvestor';
+import * as FormSubscription from './reduxSubscription';
 
 const SESSION_TIMEOUT_THRESHOLD = 300; // Will refresh the access token 5 minutes before it expires
 let sessionTimeout = null;
@@ -75,6 +76,13 @@ export const participant = (res) => {
     }
 }
 
+export const subscription = (res) => {
+    return (dispatch, getState) => {
+        dispatch(FormSubscription.update({[res.key]: res.value}));
+        console.log(getState());
+    }
+}
+
 export const investor = (res) => {
     return (dispatch, getState) => {
         dispatch(FormInvestor.update({[res.key]: res.value}));
@@ -96,9 +104,10 @@ export const sendForms = (res) => {
         var state = getState();
         var forms = {};
         forms.participant = state.participant.participant;
-        forms.subscription = state,subscription.subscription;
-        forms.subscrition["FATCA"] = state.FATCA;
-
+        forms.subscription = state.subscription.subscription;
+        //forms.fatca = state.fatca.fatca;
+        console.log(forms);
+        Subscription.subscribe(forms, state.session);
     }
 }
 
