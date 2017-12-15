@@ -13,15 +13,6 @@ module.exports = {
       unique: true
     },
 
-    contributor: {
-      model: 'contributor',
-      required: false
-    },
-
-    beneficiaries: {
-      collection: 'beneficiary'
-    },
-
     subscriptionValue: {
       type: 'number',
       required: true
@@ -77,7 +68,6 @@ module.exports = {
   parseAttrs(attrs) {
     var parsed = {
       participant: Person.parseAttrs(attrs.participant),
-      contributor: Contributor.parseAttrs(attrs.contributor),
       checkNo: attrs.subscription.CHECKNO,
       checkBank: attrs.subscription.CHECKBANK,
       subscriptionValue: parseInt(attrs.subscription.VALUE),

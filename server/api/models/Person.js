@@ -20,7 +20,7 @@ module.exports = {
 
     genre: {
       type: 'string',
-      required: true
+      required: false
     },
 
     address: {
