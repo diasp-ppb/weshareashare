@@ -77,6 +77,71 @@ var options2 =  {
     }
 }
 
+var PersonAndroid = t.struct({
+    NAME: t.maybe(t.String),
+    GENDER: t.maybe(Gender),
+    BIRTHDAY: t.maybe(t.Date),
+    TELEPHONE: t.maybe(t.String),
+    CELLPHONE: t.maybe(t.String),
+    ADDRESS: t.maybe(t.String),
+    POSTAL: t.maybe(t.String),
+    AREA: t.maybe(t.String),
+    ID: t.maybe(t.Number),
+    NIF: t.maybe(t.Number),
+    JOB: t.maybe(t.String),
+    EMPLOYER: t.maybe(t.String)
+});
+
+var optionsAndroid = {
+    auto:'placeholders',
+    stylesheet: stylesheet,
+    fields:{
+        NAME:{
+            placeholder: "Nome",
+        },
+        GENDER: {
+            label: "Género",
+            nullOption: false,
+            mode: "dropdown",
+        },
+        BIRTHDAY: {
+            label: "Data de Nascimento",
+            config: {
+                format: (date) => date.toDateString(),
+            },
+            mode: "date",
+        },
+        TELEPHONE: {
+            placeholder: "Nº de telefone",
+        },
+        CELLPHONE: {
+            placeholder: "Nº de telemóvel",
+        },
+        ADDRESS: {
+            placeholder: "Morada",
+        },
+        POSTAL: {
+            placeholder: "Código Postal",
+        },
+        AREA: {
+            placeholder: "Localidade",
+        },
+        ID: {
+            placeholder: "BI/CC nº",
+        },
+        NIF: {
+            placeholder: "NIF",
+        },
+        JOB: {
+            placeholder: "Profissão",
+        },
+        EMPLOYER: {
+            placeholder: "Entidade Patronal",
+        }
+    }
+}
+
+
 var initialValue = {
     GENDER : 'M'
 }
@@ -90,8 +155,6 @@ class PersonalDataForm extends Component {
     }
   };
 
-
-
   //assigning function to be used by parent
   componentDidMount(){
       this.props.onRef(this);
@@ -102,6 +165,7 @@ class PersonalDataForm extends Component {
   }
 
   retrieveValues(){
+    if(Platform.OS === 'ios') {
       var values = this.refs.form.getValue();
       var inputArea2 = this.refs.forms2.getValue();
 
@@ -111,6 +175,10 @@ class PersonalDataForm extends Component {
       }
 
       return values;
+    } else if( Platform.OS === 'android') {
+      var values = this.refs.formAndroid.getValue();
+      return values;
+    }
   }
 
   onDateChange(date) {
@@ -118,72 +186,43 @@ class PersonalDataForm extends Component {
       console.log(this.state.date.toDateString());
   }
 
-  datePicker() {
-      if(Platform.OS === 'ios'){
-         return (
-             <View>
-                 <Text> Data de Nascimento </Text>
-                <DatePickerIOS
-                  date = {this.state.date}
-                  onDateChange={value => this.onDateChange(value)}
-                  mode="date"
-                />
-             </View>
-         );
-      } else if( Platform.OS === 'android') {
-          let config = {
-              date: this.state.date,
-              mode: "date"
-          }
-          return (
-              <TouchableNativeFeedback
-                  accessible={true}
-                  ref="input"
-                  onPress={function() {
-                      let config = {
-                          date:  this.state.date,
-                          mode: "data"
-                      };
-
-                      DatePickerAndroid.open(config).then(function(date) {
-                          if (date.action !== DatePickerAndroid.dismissedAction) {
-                              var newDate = new Date(locals.value);
-                              newDate.setFullYear(date.year, date.month, date.day);
-                              this.onDateChange(newDate);
-                          }
-                      });
-                      if (typeof locals.onPress === "function") {
-                          locals.onPress();
-                      }
-                  }}
-              >
-                <View>
-                    <Text> Data de Nascimento </Text>
-                    <Text> {this.state.date.toDateString()} </Text>
-                </View>
-              </TouchableNativeFeedback>
-                  );
-      }
-  }
-
-
   render() {
-    return (
+    if(Platform.OS === 'ios') {
+      return (
         <View>
-            <Form
-                ref="form"
-                type={Person}
-                options={options}
-                value={initialValue}
+          <Form
+            ref="form"
+            type={Person}
+            options={options}
+            value={initialValue}
+          />
+          <View>
+            <Text> Data de Nascimento </Text>
+            <DatePickerIOS
+              date = {this.state.date}
+              onDateChange={value => this.onDateChange(value)}
+              mode="date"
             />
-            {this.datePicker()}
-            <Form
-                ref="form2"
-                type={Person2}
-                options={options2}
-             />
+          </View>
+          <Form
+            ref="form2"
+            type={Person2}
+            options={options2}
+          />
         </View>
-    );
+      );
+    } else if( Platform.OS === 'android') {
+      return (
+        <View>
+          <Form
+            ref="formAndroid"
+            type={PersonAndroid}
+            options={optionsAndroid}
+            value={initialValue}
+          />
+        </View>
+      );
+    }
   };
 };
 
