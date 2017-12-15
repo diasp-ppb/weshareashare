@@ -34,7 +34,9 @@ test_mobile:
   stage: test_mobile
   script:
     - echo "**Running Mobile tests**"
-    - npm --prefix ./mobile test
+    - cd mobile
+#    - npm install
+#    - npm test
     - echo "**Terminating Mobile tests**"
 
 test_desktop:
