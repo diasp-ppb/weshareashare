@@ -62,12 +62,6 @@ var options = {
             nullOption: false,
             mode: "dropdown",
         },
-        CHECKNO: {
-            placeholder: "Nº do cheque (caso escolha cheque)"
-        },
-        CHECKBANK: {
-            placeholder: "Banco do cheque (caso escolha cheque)"
-        },
         IBAN: {
             placeholder: "IBAN para débito direto",
         },
@@ -136,11 +130,15 @@ class SubscriptionForms extends Component{
                         </Body>
                     </CardItem>
                 </Card>
-                <Form
-                    ref="form"
-                    type={subscriptionCheckFields}
-                    options={options}
-                />
+                <View style={ApplicationStyles.form}>
+                    <View style={ApplicationStyles.container, styles.center}>
+                      <Form
+                          ref="form"
+                          type={subscriptionCheckFields}
+                          options={options}
+                      />
+                  </View>
+              </View>
                 <View style={styles.buttonSet}>
                     <TouchableOpacity style={styles.button} onPress={() => {
                         var choice = this.child.retrieveValues();
