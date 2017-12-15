@@ -60,8 +60,8 @@ class Subscription extends React.Component{
                         <TouchableOpacity style={styles.button} onPress={() => {
                             var values = this.child.retrieveValues();
                             if(index == null || index == undefined){
-                                this.props.subscription({key: "subscription", value:values, send:true});
-                                navigate('FormOverview');
+                                //this.props.subscription({key: "participant", value:values, send:true});
+                                navigate('InvestorProfileQuiz', { formIndex: 1 } );
                             } else{
                                 this.props.invest({key: values.key, value: values.value, send:values.send});
                                 if(values.send){
@@ -71,7 +71,7 @@ class Subscription extends React.Component{
                                 }
                             }
                         }}>
-                        <Text style={{justifyContent: 'center'}}>Next</Text>
+                        <Text style={{justifyContent: 'center'}}>Próximo</Text>
                     </TouchableOpacity>
                     </View>
                 </Content>

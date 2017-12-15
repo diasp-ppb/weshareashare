@@ -70,6 +70,7 @@ const UserNavigationStack = StackNavigator({
   Invest: { screen: Invest },
   InvestorProfileQuiz: { screen: SubscriptionForms },
   FatcaInfo: {screen: FatcaInfo},
+  FatcaForm: {screen: FatcaForm},
   Subscription: { screen: Subscription},
 }, {
   headerMode: 'float',

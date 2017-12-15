@@ -19,8 +19,8 @@ var Person = t.struct({
 
 
 var Person2 = t.struct({
-    TELEPHONE: t.maybe(t.String),
-    CELLPHONE: t.maybe(t.String),
+    TELEPHONE: t.maybe(t.Number),
+    CELLPHONE: t.maybe(t.Number),
     ADDRESS: t.maybe(t.String),
     POSTAL: t.maybe(t.String),
     AREA: t.maybe(t.String),

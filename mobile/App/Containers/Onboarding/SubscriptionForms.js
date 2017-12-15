@@ -41,8 +41,6 @@ var subscriptionFields = t.struct({
 var subscriptionCheckFields = t.struct({
     VALUE: t.maybe(t.Number),
     METHOD: t.maybe(Method),
-    CHECKNO: t.maybe(t.Number),
-    CHECKBANK: t.maybe(t.String),
     IBAN: t.maybe(t.String),
     DEBIT: t.maybe(t.Number),
     GROWTH: t.maybe(t.Number),
@@ -115,6 +113,10 @@ class SubscriptionForms extends Component{
         }
     }
 
+    retrieveValues(){
+        var values = this.refs.form.getValue();
+        return values;
+    }
 
     render(){
         const { navigate } = this.props.navigation;
@@ -139,12 +141,14 @@ class SubscriptionForms extends Component{
                       />
                   </View>
               </View>
-                <View style={styles.buttonSet}>
+                <View style={{flex:1, flexDirection: 'row-reverse', marginRight: 50, paddingRight: 150, paddingLeft: 50, marginTop: 50, bottom: 20}}>
                     <TouchableOpacity style={styles.button} onPress={() => {
-                        var choice = this.child.retrieveValues();
-                        this.props.fatca(choice);
-                    }}>
-                        <Text style={{justifyContent: 'center'}}>Enviar</Text>
+                        var choice = this.retrieveValues();
+                        console.log(choice);
+                        //this.props.subscription(choice);
+                        navigate('FatcaForm');
+                      }}>
+                    <Text style={{justifyContent: 'center'}}>Próximo</Text>
                     </TouchableOpacity>
                 </View>
                 </Content>
