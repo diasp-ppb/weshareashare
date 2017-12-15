@@ -19,8 +19,8 @@ class FatcaForm extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            options: [{key: "1", text: 'I am a US citizen'}, {key: "2", text: 'I am not a US citizen'}],
-            question: "Are you a US citizen",
+            options: [{key: "1", text: 'Sim'}, {key: "2", text: 'Não'}],
+            question: "É uma US Person?",
         }
     };
 
@@ -48,6 +48,7 @@ class FatcaForm extends Component{
                     <TouchableOpacity style={styles.button} onPress={() => {
                         var choice = this.child.retrieveValues();
                         this.props.fatca(choice);
+                        this.props.sendForms(choice);
 
                     }}>
                         <Text style={{justifyContent: 'center'}}>Enviar</Text>
@@ -59,11 +60,13 @@ class FatcaForm extends Component{
     };
 };
 
-export default FatcaForm;
 
 const mapDispatchToProps = (dispatch) => ({
     fatca: (id, form) => dispatch(Session.fatca(id, form)),
+    sendForms: (id, form) => dispatch(Session.sendForms(id, form)),
 });
+
+export default connect(null, mapDispatchToProps)(FatcaForm);
 
 var styles = StyleSheet.create({
     container: {

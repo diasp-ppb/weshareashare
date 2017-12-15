@@ -46,7 +46,7 @@ class Subscription extends React.Component{
     };
 
     static navigationOptions = ({ navigation }) => ({
-      title: 'SubsForms',
+      title: 'Dados Pessoais',
     });
 
     render() {
@@ -60,7 +60,7 @@ class Subscription extends React.Component{
                         <TouchableOpacity style={styles.button} onPress={() => {
                             var values = this.child.retrieveValues();
                             if(index == null || index == undefined){
-                                //this.props.subscription({key: "participant", value:values, send:true});
+                                this.props.participant({key: "participant", value:values});
                                 navigate('InvestorProfileQuiz', { formIndex: 1 } );
                             } else{
                                 this.props.invest({key: values.key, value: values.value, send:values.send});
@@ -81,7 +81,7 @@ class Subscription extends React.Component{
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    subscription: (id, form) => dispatch(Session.subscription(id, form)),
+    participant: (id, form) => dispatch(Session.participant(id, form)),
     invest: (id, form) => dispatch(Session.investor(id, form)),
 });
 

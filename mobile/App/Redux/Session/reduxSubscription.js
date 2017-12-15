@@ -6,7 +6,7 @@ export const update = (session) => ({
 });
 
 export const formState = {
-    forms: {}
+    forms: {},
 };
 
 export const reducer = (state = formState, action) => {
@@ -14,8 +14,8 @@ export const reducer = (state = formState, action) => {
     case UPDATE:
       return {
         ...state,
-            ...state.participant,
-            ...action.session
+            ...state.subscription,
+            ...action.session,
       };
     default:
       return state;
