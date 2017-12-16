@@ -27,12 +27,12 @@ const data = [
   { x: 'Ago/17', y: 5.37660 },
   { x: 'Set/17', y: 5.41566 },
   { x: 'Out/17', y: 5.54561 },
-  { x: 'Nov/17', y: 5.45118 }
-]
+  { x: 'Nov/17', y: 5.45118 },
+];
 
 const mapStateToProps = (state) => ({
   session: state.session,
-  data: data,
+  data,
 });
 
 const mapDispatchToProps = () => ({});

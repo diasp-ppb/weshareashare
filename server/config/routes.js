@@ -24,9 +24,8 @@ module.exports.routes = {
 
   'post /admins/auth': {
     cors: {
-      origin: '*',
+      allowOrigins: '*',
       allowRequestHeaders: 'Content-Type, client-id, Authorization',
-      headers: 'client-id, Content-Type, Authorization'
     },
     controller: 'AdminController',
     action: 'signin',
@@ -45,11 +44,6 @@ module.exports.routes = {
     action: 'create',
   },
 
-  'get /causes': {
-    controller: 'CauseController',
-    action: 'getAll',
-  },
-
   'get /users/:userId/cause': {
     controller: 'UserController',
     action: 'getCause',
@@ -58,7 +52,6 @@ module.exports.routes = {
   'post /users/auth': {
     cors: {
       allowRequestHeaders: 'Content-Type, Client-ID, Authorization',
-      headers: 'Authorization',
     },
     controller: 'UserAuthController',
     action: 'signin',
@@ -123,11 +116,6 @@ module.exports.routes = {
     },
     controller: 'DocumentController',
     action: 'delete',
-  },
-
-  'get /users': {
-    controller: 'UserController',
-    action: 'getAll',
   },
 
   'post /subscription': {

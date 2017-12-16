@@ -39,27 +39,35 @@ module.exports = {
   },
 
   async postFatca(req, res) {
-    let userid = req.headers['user-id'];
+
+    let userId = req.query.accessUser.id;
     let attrs = {fatca: req.allParams().FATCA};
 
     try {
-      let person = await Person.findOne({user: userid});
+      let person = await Person.findOne({user: userId});
 
-      if(person.subscription){
+      if(person){
+        let personAttrs = Person.parseAttrs({});
+        Person.create(personAttrs).meta({fetch: true}).then(() => {
+
+        });
         Fund.update(person.subscription, attrs).meta({fetch: true}).then();
       } else {
-        Fund.create(parsedAttrs).meta({fetch: true}).then();
+        let data = Fund.getDefaultData();
+        data.facta = req.allParams().FATCA;
+        Fund.create(parsedAttrs)
+          .meta({fetch: true}).then(() => {
+            return res.ok();
+          });
       }
 
     } catch(err) {
       return res.serverError(err);
     }
-
-    return res.ok();
   },
 
   async postInvestorProfile(req, res) {
-    let investorAttrs = Profile.parseAttrs(req.allParams())
+    let investorAttrs = Profile.parseAttrs(req.allParams());
     let userid = req.headers['user-id'];
 
     try {
@@ -82,16 +90,16 @@ module.exports = {
   async fillSubscriptionPDF(req, res) {
     let userid = req.allParams()['user-id'];
 
-    const fillPdf = require("fill-pdf");
+    const fillPdf = require('fill-pdf');
     const encoding = require('encoding');
 
     try {
       let person = await Person.findOne({id: userid}).populate('user').populate('subscription');
 
-      let pdfTemplatePath = "../../resources/subscription_template.pdf";
+      let pdfTemplatePath = '../../resources/subscription_template.pdf';
       let birthday;
 
-      if(person.birthday != null){
+      if(person.birthday !== null){
         birthday = person.birthday;
       }else{
         birthday = new Date();
@@ -143,7 +151,7 @@ module.exports = {
       fillPdf.generatePdf(formData, pdfTemplatePath, ['drop_xfa','need_appearances'], function(err, output) {
         if ( !err ) {
           //Send pdf as response
-          res.type("application/pdf");
+          res.type('application/pdf');
           res.status(200);
           res.send(output);
 
@@ -162,13 +170,13 @@ module.exports = {
   async fillFatcaPDF(req, res) {
     let userid = req.allParams()['user-id'];
 
-    const fillPdf = require("fill-pdf");
+    const fillPdf = require('fill-pdf');
     const encoding = require('encoding');
 
     try {
       let person = await Person.findOne({id: userid}).populate('user').populate('subscription');
 
-      let pdfTemplatePath = "../../resources/fatca_template.pdf";
+      let pdfTemplatePath = '../../resources/fatca_template.pdf';
       let date = new Date();
       let isUSPerson;
       (person.subscription.fatca) ? isUSPerson='yes' : isUSPerson='no';
@@ -188,7 +196,7 @@ module.exports = {
       fillPdf.generatePdf(formData, pdfTemplatePath, ['drop_xfa','need_appearances'], function(err, output) {
         if ( !err ) {
           //Send pdf as response
-          res.type("application/pdf");
+          res.type('application/pdf');
           res.status(200);
           res.send(output);
 
@@ -207,13 +215,13 @@ module.exports = {
   async fillInvestorProfilePDF(req, res) {
     let userid = req.allParams()['user-id'];
 
-    const fillPdf = require("fill-pdf");
+    const fillPdf = require('fill-pdf');
     const encoding = require('encoding');
 
     try {
       let person = await Person.findOne({id: userid}).populate('user').populate('investorProfile');
 
-      let pdfTemplatePath = "../../resources/investor_profile_template.pdf";
+      let pdfTemplatePath = '../../resources/investor_profile_template.pdf';
       let date = new Date();
       let age = Math.floor((date-person.birthday)/31557600000);
       let duration = ['< 1', '1 a 3', '> 3'];
@@ -245,7 +253,7 @@ module.exports = {
       fillPdf.generatePdf(formData, pdfTemplatePath, ['drop_xfa','need_appearances'], function(err, output) {
         if ( !err ) {
           //Send pdf as response
-          res.type("application/pdf");
+          res.type('application/pdf');
           res.status(200);
           res.send(output);
 
@@ -292,17 +300,17 @@ module.exports = {
             path: 'http://localhost:1337/subscription?user-id=' + person.id
           },
           {   // Investor Profile PDF
-              filename: 'investor_profile.pdf',
-              path: 'http://localhost:1337/investorprofile?user-id=' + person.id
+            filename: 'investor_profile.pdf',
+            path: 'http://localhost:1337/investorprofile?user-id=' + person.id
           },
           {   // FATCA PDF
-              filename: 'fatca.pdf',
-              path: 'http://localhost:1337/fatca?user-id=' + person.id
+            filename: 'fatca.pdf',
+            path: 'http://localhost:1337/fatca?user-id=' + person.id
           }
         ]
       },
       locals: {
-        name: person.user.firstName + " " + person.user.lastName,
+        name: person.user.firstName + ' ' + person.user.lastName,
         token: token.value,
       },
     }).then(() => {

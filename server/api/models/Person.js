@@ -89,22 +89,20 @@ module.exports = {
   },
 
   parseAttrs(attrs) {
-    var parsed = {
-      name: (attrs.NAME == null)? "" : attrs.NAME,
+    return {
+      name: (attrs.NAME == null)? '' : attrs.NAME,
       genre: attrs.GENDER,
-      address: (attrs.ADDRESS == null)? "" : attrs.ADDRESS,
-      area: (attrs.AREA == null)? "" : attrs.AREA,
-      postal: (attrs.POSTAL == null)? "" : attrs.POSTAL,
-      telephone: (attrs.TELEPHONE == null)? "" : attrs.TELEPHONE,
-      cellphone: (attrs.CELLPHONE == null)? "" : attrs.CELLPHONE,
-      NIF: (attrs.NIF == null)? "" : attrs.NIF,
-      identificationNumber: (attrs.ID == null)? "" : attrs.ID,
+      address: (attrs.ADDRESS == null)? '' : attrs.ADDRESS,
+      area: (attrs.AREA == null)? '' : attrs.AREA,
+      postal: (attrs.POSTAL == null)? '' : attrs.POSTAL,
+      telephone: (attrs.TELEPHONE == null)? '' : attrs.TELEPHONE,
+      cellphone: (attrs.CELLPHONE == null)? '' : attrs.CELLPHONE,
+      NIF: (attrs.NIF == null)? '' : attrs.NIF,
+      identificationNumber: (attrs.ID == null)? '' : attrs.ID,
       birthday: new Date(attrs.BIRTHDAY),
-      profession: (attrs.JOB == null)? "" : attrs.JOB,
-      employer: (attrs.EMPLOYER == null)? "" : attrs.EMPLOYER,
+      profession: (attrs.JOB == null)? '' : attrs.JOB,
+      employer: (attrs.EMPLOYER == null)? '' : attrs.EMPLOYER,
     };
-
-    return parsed;
   },
 
   afterCreate(newRecord, cb) {

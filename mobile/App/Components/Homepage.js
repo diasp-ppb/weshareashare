@@ -1,16 +1,15 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { View, ImageBackground, Image, TouchableOpacity } from 'react-native';
 import { Button, Text } from 'native-base';
 import I18n from '@i18n/i18n';
 import styles from './Styles/HomepageStyle';
-import { ApplicationStyles, Assets, Metrics } from '@theme/'
-import { Spacer } from '@ui/';
+import { ApplicationStyles, Assets, Metrics } from '@theme/';
 
 export default class Homepage extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: 'Stoik PPR',
   });
-  
+
   render() {
     const { navigate } = this.props.navigation;
     return (
@@ -24,7 +23,7 @@ export default class Homepage extends Component {
             resizeMode: 'contain',
           }}
         />
-        
+
         <View style={ApplicationStyles.container}>
           <ImageBackground source={Assets.background} style={styles.canvas}>
             <View style={styles.btnGroup}>
@@ -38,24 +37,24 @@ export default class Homepage extends Component {
                   { I18n.t('signUp') }
                 </Text>
               </Button>
-              
-              <View style={[{flexDirection: 'row', paddingTop: Metrics.padding*2}]}>
-                <View style={[{flex: 1, alignItems: 'center', justifyContent: 'center'}]}>
+
+              <View style={[{ flexDirection: 'row', paddingTop: Metrics.padding * 2 }]}>
+                <View style={[{ flex: 1, alignItems: 'center', justifyContent: 'center' }]}>
                   <TouchableOpacity onPress={() => navigate('ContactUs')}>
                     <Text p style={[ApplicationStyles.link]}>
                       { I18n.t('contactUs') }
                     </Text>
                   </TouchableOpacity>
                 </View>
-                <View style={[{flex: 1, alignItems: 'center', justifyContent: 'center'}]}>
-                  <TouchableOpacity style={{flex: 2}} onPress={() => navigate('AboutUs')}>
+                <View style={[{ flex: 1, alignItems: 'center', justifyContent: 'center' }]}>
+                  <TouchableOpacity style={{ flex: 2 }} onPress={() => navigate('AboutUs')}>
                     <Text p style={[ApplicationStyles.link]}>
                       { I18n.t('aboutUs') }
                     </Text>
                   </TouchableOpacity>
                 </View>
-                <View style={[{flex: 1, alignItems: 'center', justifyContent: 'center'}]}>
-                  <TouchableOpacity style={{flex: 3}} onPress={() => navigate('RiskWarnings')}>
+                <View style={[{ flex: 1, alignItems: 'center', justifyContent: 'center' }]}>
+                  <TouchableOpacity style={{ flex: 3 }} onPress={() => navigate('RiskWarnings')}>
                     <Text p style={[ApplicationStyles.link]}>
                       { I18n.t('riskWarnings') }
                     </Text>

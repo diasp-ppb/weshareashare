@@ -69,7 +69,6 @@ passport.use(
 passport.use(
   new BearerStrategy(
     (tokenValue, next) => {
-      
       Token.findOne({
         value: tokenValue, type: 'access'
       }).then((userToken) => {

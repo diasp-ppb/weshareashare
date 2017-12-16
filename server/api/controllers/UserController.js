@@ -82,52 +82,41 @@ module.exports = {
     sails.log(params);
     let userId = req.param('userId');
     let causeId = req.param('causeId');
-    User.update({id: userId},{cause: causeId}).exec(function afterwards(err, updated) {
+    User.update({id: userId},{cause: causeId}).exec(function afterwards(err) {
       if (err)
-        return res.serverError(err);
+      {return res.serverError(err);}
       User.findOne({
-          id: userId
-        }).exec(function (err, user){
-          if (err) {
-            return res.serverError(err);
-          }
-          delete user.password;
-          res.ok({ 'message': 'Cause selected successfully.', 'user': user });
-        });
+        id: userId
+      }).exec(function (err, user){
+        if (err) {
+          return res.serverError(err);
+        }
+        delete user.password;
+        res.ok({ 'message': 'Cause selected successfully.', 'user': user });
+      });
     });
   },
 
   getCause(req, res) {
     let userId = req.param('userId');
     User.findOne({
-        id: userId
-      }).exec(function (err, user){
+      id: userId
+    }).exec(function (err, user){
+      if (err)
+      {return res.serverError(err);}
+
+      let causeId = user.cause;
+      Cause.findOne({
+        id: causeId
+      }).exec(function (err, cause) {
         if (err)
-          return res.serverError(err);
+        {return res.serverError(err);}
 
-        let causeId = user.cause;
-        Cause.findOne({
-          id: causeId
-        }).exec(function (err, cause) {
-          if (err)
-            return res.serverError(err);
-
-          if (cause === null)
-            res.ok({'message': 'User has not cause.'});
-          else
-            res.ok(cause);
-        });
+        if (cause === null)
+        {res.ok({'message': 'User has not cause.'});}
+        else
+        {res.ok(cause);}
       });
-  },
-
-  getAll(req, res) {
-    User.find()
-      .then((users) => {
-        for (var i = 0; i < users.length; i++)
-          delete users[i].password;
-        res.ok({ users });
-      }).catch((err) => {
-        return res.serverError(err);
-      });
+    });
   },
 };

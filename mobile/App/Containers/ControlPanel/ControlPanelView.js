@@ -66,10 +66,6 @@ class ControlPanel extends Component {
             <Text style={styles.controlText}>{ I18n.t('invest') }</Text>
             <View style={styles.leftMark} />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => navigate('Wallet')}>
-            <Icon style={styles.icon} name="home" size={35} color="#fff" />
-            <Text style={styles.buttonText}>{ I18n.t('wallet') }</Text>
-          </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => navigate('Performances')}>
             <Icon style={styles.icon} name="trending-up" size={35} color="#fff" />
             <Text style={styles.buttonText}>{ I18n.t('performances') }</Text>
@@ -81,7 +77,7 @@ class ControlPanel extends Component {
             <Text style={styles.controlText}>{ I18n.t('share') }</Text>
             <View style={styles.leftMark} />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => navigate('Causes', {categoryIndex: 0, informative: true})}>
+          <TouchableOpacity style={styles.button} onPress={() => navigate('Causes', { categoryIndex: 0, informative: true })}>
             <Icon style={styles.icon} name="book-multiple" size={35} color="#fff" />
             <Text style={styles.buttonText}>{ I18n.t('causes') }</Text>
           </TouchableOpacity>
@@ -92,15 +88,15 @@ class ControlPanel extends Component {
             <Text style={styles.controlText}>{ I18n.t('onboarding') }</Text>
             <View style={styles.leftMark} />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => navigate('InvestorProfileQuiz', { formIndex: 1 } )} >
+          <TouchableOpacity style={styles.button} onPress={() => navigate('InvestorProfileQuiz', { formIndex: 1 })} >
             <Icon style={styles.icon} name="book-multiple" size={35} color="#fff" />
             <Text style={styles.buttonText}>{ I18n.t('participant') }</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => navigate('InvestorProfileQuiz', { formIndex: 2 } )} >
+          <TouchableOpacity style={styles.button} onPress={() => navigate('InvestorProfileQuiz', { formIndex: 2 })} >
             <Icon style={styles.icon} name="book-multiple" size={35} color="#fff" />
             <Text style={styles.buttonText}>{ I18n.t('riskProfile') }</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => navigate('Causes', {categoryIndex: 0, informative: false})} >
+          <TouchableOpacity style={styles.button} onPress={() => navigate('Causes', { categoryIndex: 0, informative: false })} >
             <Icon style={styles.icon} name="book-multiple" size={35} color="#fff" />
             <Text style={styles.buttonText}>{ I18n.t('chooseCause') }</Text>
           </TouchableOpacity>
@@ -112,10 +108,6 @@ class ControlPanel extends Component {
             <Text style={styles.controlText}>{ I18n.t('more') }</Text>
             <View style={styles.leftMark} />
           </View>
-          <TouchableOpacity style={styles.button} onPress={() => navigate('FAQ')}>
-            <Icon style={styles.icon} name="help" size={35} color="#fff" />
-            <Text style={styles.buttonText}>FAQ</Text>
-          </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => navigate('RiskWarnings')}>
             <Icon style={styles.icon} name="email" size={35} color="#fff" />
             <Text style={styles.buttonText}>{ I18n.t('riskWarnings') }</Text>

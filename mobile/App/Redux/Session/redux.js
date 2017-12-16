@@ -32,7 +32,7 @@ export const initialState = {
   },
   client: {
     id: null,
-  }
+  },
 };
 
 export const reducer = (state = initialState, action) => {
@@ -44,7 +44,7 @@ export const reducer = (state = initialState, action) => {
     case RESET:
       return {
         ...initialState, ...action.client,
-      }
+      };
     default:
       return state;
   }

@@ -5,10 +5,7 @@ import configureStore from './CreateStore';
 export const reducers = combineReducers({
   nav: require('./NavigationRedux').reducer,
   session: require('./Session/redux').reducer,
-  participant: require('./Session/reduxForm').reducer,
-  investor: require('./Session/reduxInvestor').reducer,
-  fatca: require('./Session/reduxFatca').reducer,
-  subscription: require('./Session/reduxSubscription').reducer,
+  onboarding: require('./Onboarding/redux').reducer,
 });
 
 export default () => {

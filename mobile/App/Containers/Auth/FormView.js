@@ -6,14 +6,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
   View,
-  ScrollView,
   TouchableOpacity,
-  StyleSheet,
-  Image,
-  Animated,
   KeyboardAvoidingView,
   Divider,
-  Keyboard,
 } from 'react-native';
 import I18n from '@i18n/i18n';
 import FormValidation from 'tcomb-form-native';
@@ -177,7 +172,7 @@ class AuthForm extends Component {
 
     return error;
   }
-  
+
   render = () => {
     const Form = FormValidation.form.Form;
     const { navigate } = this.props.navigation;
@@ -219,7 +214,7 @@ class AuthForm extends Component {
 
           {this.props.formType === 'SignIn' &&
           <View>
-            <TouchableOpacity onPress={() => navigate('PasswordReset', {email: this.form.getComponent('Email').getValue()})}>
+            <TouchableOpacity onPress={() => navigate('PasswordReset', { email: this.form.getComponent('Email').getValue() })}>
               <Text p style={[ApplicationStyles.textCenterAligned, ApplicationStyles.link]}>
                 { I18n.t('forgotPasswordQuestion') }
               </Text>
@@ -243,7 +238,7 @@ class AuthForm extends Component {
 
           {this.props.formType === 'PasswordReset' &&
           <View>
-            <TouchableOpacity onPress={() => navigate('PasswordUpdate', {email: this.form.getComponent('Email').getValue()})}>
+            <TouchableOpacity onPress={() => navigate('PasswordUpdate', { email: this.form.getComponent('Email').getValue() })}>
               <Text p style={[ApplicationStyles.textCenterAligned, ApplicationStyles.link]}>
                 { I18n.t('hasToken') }
               </Text>

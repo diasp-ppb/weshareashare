@@ -83,6 +83,22 @@ module.exports = {
     return parsed;
   },
 
+  getDefaultData() {
+    return {
+      participant: 0,
+      checkNo: '',
+      checkBank: '',
+      subscriptionValue: 0,
+      paymentMethod: 0,
+      accountNo: '',
+      debitAmount: 0,
+      debitGrowth: 0,
+      periodicity: 0,
+      initialDate: '',
+      facta: false,
+    };
+  },
+
   afterCreate(newRecord, cb) {
     Person.update(newRecord.participant, {subscription: newRecord.id}).then(function() {
       return newRecord.id;

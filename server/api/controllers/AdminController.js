@@ -33,12 +33,12 @@
    },
  });
 
-module.exports = {
+ module.exports = {
 
-  create(req, res) {
-    let params = req.allParams();
-    params['isAdmin'] = true;
-    User.create(params).meta({fetch: true})
+   create(req, res) {
+     let params = req.allParams();
+     params['isAdmin'] = true;
+     User.create(params).meta({fetch: true})
       .then((user) => {
         return user;
       }).then((user) => {
@@ -76,41 +76,41 @@ module.exports = {
             return res.serverError(error);
           });
       });
-  },
+   },
 
-  signin(req, res) {
-    passport.authenticate(['basic'], { session: false }, (authErr, user) => {
-      if (authErr || !user) {
-        return res.unauthorized({'response': 'The email address or password you entered is not valid.'});
-      }
+   signin(req, res) {
+     passport.authenticate(['basic'], { session: false }, (authErr, user) => {
+       if (authErr || !user) {
+         return res.unauthorized({'response': 'The email address or password you entered is not valid.'});
+       }
 
-      User.findOne({
-        email: user.email,
-      }).then((user) => {
-        if (user.isAdmin == false)
-          return res.unauthorized({'response': 'You are not an admin.'});
+       User.findOne({
+         email: user.email,
+       }).then((user) => {
+         if (user.isAdmin === false)
+           return res.unauthorized({'response': 'You are not an admin.'});
 
-        Token.findOrAdd({
-          user: user.id,
-          type: 'access',
-        }).then((accessToken) => {
-          Token.findOrAdd({
-            user: user.id,
-            type: 'refresh',
-          }).then((refreshToken) => {
-            return res.ok(formatTokenResponse(accessToken, refreshToken, user));
-          }).catch((err) => {
-            return res.serverError(err);
-          });
+         Token.findOrAdd({
+           user: user.id,
+           type: 'access',
+         }).then((accessToken) => {
+           Token.findOrAdd({
+             user: user.id,
+             type: 'refresh',
+           }).then((refreshToken) => {
+             return res.ok(formatTokenResponse(accessToken, refreshToken, user));
+           }).catch((err) => {
+             return res.serverError(err);
+           });
 
-        }).catch((err) => {
-          return res.serverError(err);
-        });
-      });
-
-
-    })(req, res);
-  },
+         }).catch((err) => {
+           return res.serverError(err);
+         });
+       });
 
 
-};
+     })(req, res);
+   },
+
+
+ };

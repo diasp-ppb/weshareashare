@@ -50,10 +50,6 @@ module.exports = {
     cause: {
       model: 'cause',
     },
-    notifications: {
-      collection: 'notification',
-      via: 'receiver'
-    },
     documents: {
       collection: 'document',
       via: 'owner'

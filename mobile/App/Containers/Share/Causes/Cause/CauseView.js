@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import HTMLView from 'react-native-htmlview';
 import { View, Image, ScrollView } from 'react-native';
-import { Button } from 'native-base';
-import { ApplicationStyles, Metrics } from '@theme/'
-import { Card, Spacer } from '@ui/';
+import { ApplicationStyles, Metrics } from '@theme/';
+import { Card } from '@ui/';
 
 class CausesList extends Component {
   static propTypes = {
@@ -25,14 +24,14 @@ class CausesList extends Component {
     super(props);
     this.state = {
       cause: props.navigation.state.params.cause,
-    }
+    };
   }
 
   componentWillMount() {
     this.props.navigation.setParams({ title: this.state.cause.name });
   }
 
-  render () {
+  render() {
     return (
       <View style={[ApplicationStyles.container]}>
         <ScrollView>
@@ -41,7 +40,7 @@ class CausesList extends Component {
               style={{
                 height: Metrics.DEVICE_HEIGHT / 4,
                 alignSelf: 'center',
-                resizeMode: 'contain'}}
+                resizeMode: 'contain' }}
               source={this.state.cause.image}
             />
 

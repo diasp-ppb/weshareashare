@@ -12,7 +12,6 @@ import SignUp from '@containers/Auth/SignUpContainer';
 import Homepage from '@components/Homepage';
 import ContactUs from '@containers/ContactUs/ContactUsContainer';
 import AboutUs from '@components/AboutUs';
-import FAQ from '@components/FAQ';
 import RiskWarnings from '@components/RiskWarnings';
 
 import { Colors } from '@theme';
@@ -23,16 +22,15 @@ const navigationOptions = {
 };
 
 export default StackNavigator({
- Homepage: { screen: Homepage },
- PasswordReset: { screen: PasswordReset },
- PasswordUpdate: { screen: PasswordUpdate },
- SignIn: { screen: SignIn },
- SignUp: { screen: SignUp },
- ContactUs: { screen: ContactUs },
- AboutUs: { screen: AboutUs },
- RiskWarnings: { screen: RiskWarnings},
- FAQ: { screen: FAQ },
+  Homepage: { screen: Homepage },
+  PasswordReset: { screen: PasswordReset },
+  PasswordUpdate: { screen: PasswordUpdate },
+  SignIn: { screen: SignIn },
+  SignUp: { screen: SignUp },
+  ContactUs: { screen: ContactUs },
+  AboutUs: { screen: AboutUs },
+  RiskWarnings: { screen: RiskWarnings },
 }, {
- headerMode: 'float',
- navigationOptions,
+  headerMode: 'float',
+  navigationOptions,
 });

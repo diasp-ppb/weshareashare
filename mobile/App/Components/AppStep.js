@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import { Footer } from 'native-base';
 import StepIndicator from '@components/StepIndicator';
-import { Assets, ApplicationStyles, Colors, Fonts, Metrics } from '@theme/';
+import { ApplicationStyles, Colors } from '@theme/';
 
 export default class AppStep extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentPosition: this.props.index
-    }
+      currentPosition: this.props.index,
+    };
   }
-  
+
   onStepPress = (position) => {
     const { navigate } = this.props.navigation;
     switch (position) {
@@ -21,16 +20,16 @@ export default class AppStep extends Component {
       case 3: navigate('Onboarding'); break;
     }
   }
-  
+
   render() {
     const labels = [
-      {name: "A POUPANÇA"},
-      {name: "O INVESTIMENTO"},
-      {name: "A PARTILHA"},
-      {name: "INVISTA"}];
+      { name: 'A POUPANÇA' },
+      { name: 'O INVESTIMENTO' },
+      { name: 'A PARTILHA' },
+      { name: 'INVISTA' }];
     const customStyles = {
       stepIndicatorSize: 25,
-      currentStepIndicatorSize:30,
+      currentStepIndicatorSize: 30,
       separatorStrokeWidth: 2,
       currentStepStrokeWidth: 3,
       stepStrokeCurrentColor: Colors.stoikBlue,
@@ -49,9 +48,9 @@ export default class AppStep extends Component {
       stepIndicatorLabelUnFinishedColor: '#aaaaaa',
       labelColor: '#999999',
       labelSize: 10,
-      currentStepLabelColor: Colors.stoikBlue
-    }
-    
+      currentStepLabelColor: Colors.stoikBlue,
+    };
+
     return (
       <View style={[ApplicationStyles.paddingVertical]}>
         <StepIndicator
@@ -60,7 +59,7 @@ export default class AppStep extends Component {
           currentPosition={this.state.currentPosition}
           stepCount={4}
           direction={'horizontal'}
-          onPress={(position) => {this.onStepPress(position)}}
+          onPress={(position) => { this.onStepPress(position); }}
         />
       </View>
     );

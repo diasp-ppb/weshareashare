@@ -10,9 +10,9 @@ import FormRender from './FormView';
 const mapStateToProps = (state, ownProps) => ({
   session: state.session,
   user: {
-   firstName: null,
-   lastName: null,
-   email: ownProps.navigation.state.params.email,
+    firstName: null,
+    lastName: null,
+    email: ownProps.navigation.state.params.email,
   },
   screenName: I18n.t('passwordReset'),
   formType: 'PasswordReset',

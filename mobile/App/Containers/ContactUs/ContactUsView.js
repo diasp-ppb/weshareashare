@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import {
   View,
   KeyboardAvoidingView,
-  Animated,
-  Keyboard,
 } from 'react-native';
 import I18n from '@i18n/i18n';
 import FormValidation from 'tcomb-form-native';
@@ -22,7 +20,7 @@ import TcombTextInput from '@components/tcomb/TextInput';
 class ContactUs extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: I18n.t('contactUsScreen'),
-});
+  });
 
   static propTypes = {
     user: PropTypes.shape({

@@ -29,9 +29,8 @@ module.exports.policies = {
 
   UserController: {
     create: ['hasClientId'],
-    selectCause: [],
-    getAll: [],
-    getCause: [],
+    selectCause: 'hasOAuthBearer',
+    getCause: 'hasOAuthBearer',
   },
 
   UserAuthController: {
@@ -51,14 +50,10 @@ module.exports.policies = {
   },
 
   CauseController: {
-    create: [],
-    getAll: [],
+    '*': 'hasOAuthBearer',
   },
 
   FundController: {
-    '*': 'hasClientId',
-    fillSubscriptionPDF: [],
-    fillFatcaPDF: [],
-    fillInvestorProfilePDF: [],
+    '*': 'hasOAuthBearer',
   },
 };

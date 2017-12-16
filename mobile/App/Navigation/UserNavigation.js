@@ -3,11 +3,10 @@ import React from 'react';
 import { StackNavigator, DrawerNavigator } from 'react-navigation';
 
 // Onboarding Screens
-import InvestorProfileQuiz from '@containers/Onboarding/InvestorProfileQuiz';
-import Subscription from '@containers/Onboarding/SubsForms';
-import FatcaForm from '@containers/Onboarding/FatcaForm';
-import FatcaInfo from '@containers/Onboarding/FatcaInfo';
-import SubscriptionForms from '@containers/Onboarding/SubscriptionForms';
+import SubscriptionForms from '@containers/Onboarding/SubsForms';
+import FatcaForm from '@containers/Onboarding/Fatca/FatcaContainer';
+import FatcaInfo from '@components/FatcaInfo';
+import Subscription from '@containers/Onboarding/Subscription/SubscriptionContainer';
 import Invest from '@containers/Onboarding/Invest/InvestContainer';
 
 // Saving Screens
@@ -17,7 +16,6 @@ import Simulation from '@containers/Saving/Simulation/SimulationContainer';
 
 // Investment Screens
 import Investment from '@containers/Investment/InvestmentView';
-import Wallet from '@containers/Investment/Wallet/WalletContainer';
 import Performances from '@containers/Investment/Performances/PerformancesContainer';
 
 // Share Screens
@@ -29,14 +27,13 @@ import Cause from '@containers/Share/Causes/Cause/CauseContainer';
 import ContactUs from '@containers/ContactUs/ContactUsContainer';
 import AboutUs from '@components/AboutUs';
 import Mainpage from '@components/Mainpage';
-import FAQ from '@components/FAQ';
 import RiskWarnings from '@components/RiskWarnings';
 
 // Drawer and header style
 import ControlPanel from '@containers/ControlPanel/ControlPanelContainer';
 import HeaderRight from '@components/HeaderRight';
 
-import { Metrics, Colors } from '@theme/';
+import { Colors } from '@theme/';
 
 const navigationOptions = ({ navigation }) => ({
   headerStyle: { backgroundColor: Colors.stoikGrey },
@@ -48,8 +45,7 @@ const UserNavigationStack = StackNavigator({
   Mainpage: { screen: Mainpage },
   ContactUs: { screen: ContactUs },
   AboutUs: { screen: AboutUs },
-  FAQ: { screen: FAQ },
-  RiskWarnings: { screen: RiskWarnings},
+  RiskWarnings: { screen: RiskWarnings },
 
   // Saving Stack
   Saving: { screen: Saving },
@@ -58,7 +54,6 @@ const UserNavigationStack = StackNavigator({
 
   // Investment Stack
   Investment: { screen: Investment },
-  Wallet: { screen: Wallet },
   Performances: { screen: Performances },
 
   // Share Stack
@@ -69,9 +64,9 @@ const UserNavigationStack = StackNavigator({
   // OnboardingStack
   Invest: { screen: Invest },
   InvestorProfileQuiz: { screen: SubscriptionForms },
-  FatcaInfo: {screen: FatcaInfo},
-  FatcaForm: {screen: FatcaForm},
-  Subscription: { screen: Subscription},
+  Subscription: { screen: Subscription },
+  FatcaForm: { screen: FatcaForm },
+  FatcaInfo: { screen: FatcaInfo },
 }, {
   headerMode: 'float',
   navigationOptions,
