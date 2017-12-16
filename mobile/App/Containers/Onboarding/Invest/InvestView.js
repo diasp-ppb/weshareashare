@@ -35,10 +35,10 @@ export default class Saving extends Component {
     const { navigate } = this.props.navigation;
     switch (position) {
       case 0:
-        navigate('Subscription', { formIndex: 2 });
+        navigate('Participant', { formIndex: 2 });
         break;
       case 1:
-        navigate('Subscription', { index: 0 });
+        navigate('Investor', { index: 0 });
         break;
       case 2:
         navigate('Causes', { categoryIndex: 0, informative: false });

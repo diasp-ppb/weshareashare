@@ -24,6 +24,7 @@ class InvestorView extends Component {
       this.props.saveAnswer(qa);
       let investor = { ...this.props.investor, ...qa };
       this.props.saveQuiz(investor);
+      navigate('Causes', { categoryIndex: 0, informative: false }); //TODO è preciso ver o score do utilizador e informalo xD
     } else {
       this.props.saveAnswer(qa);
       let newIndex = this.props.index + 1;
@@ -46,7 +47,7 @@ class InvestorView extends Component {
                 </Body>
               </CardItem>
             </Card>
-            <RadioButtonsForm onRef={(ref) => (this.child = ref)} answers={question.options} />;
+            <RadioButtonsForm onRef={(ref) => (this.child = ref)} answers={question.options} />
           </View>
           <View style={{
             flex: 1,

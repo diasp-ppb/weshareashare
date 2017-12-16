@@ -12,7 +12,10 @@ class FatcaView extends Component {
   });
 
   handleSubmit = () => {
+    const { navigate } = this.props.navigation;
+
     const choice = this.child.retrieveValues();
+
     if(choice === null)
       return;
 
@@ -27,6 +30,7 @@ class FatcaView extends Component {
           return true;
         }).catch(() => {
           Toast.show('Não foi possível aceitar o FATCA', ApplicationStyles.toastError);
+          navigate('Investor', { index: 0 }); //TODO mudar depois de requests a funcionar
         });
     }
   }
