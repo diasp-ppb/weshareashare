@@ -8,7 +8,7 @@ import { ApplicationStyles } from '@theme/';
 
 class FatcaView extends Component {
   static navigationOptions = () => ({
-    title: 'FATCA',
+    title: 'Invista',
   });
 
   handleSubmit = () => {

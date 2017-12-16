@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, ScrollView, Image } from 'react-native';
-import I18n from '@i18n/i18n';
 import { ApplicationStyles, Colors, Fonts, Assets } from '@theme/';
 import { Card, Text as CustomText, Spacer } from '@ui/';
 import { Users } from '@services/API';
@@ -9,13 +8,13 @@ import AppStep from '@components/AppStep';
 
 export default class Saving extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: I18n.t('otherInvest'),
+    title: 'Invista',
   });
 
   constructor(props) {
     super(props);
     this.state = {
-      currentPosition: 0,
+      currentPosition: 2,
       cause: null,
     };
   }
@@ -67,9 +66,9 @@ export default class Saving extends Component {
 
   render() {
     const labels = [
-      { name: 'Indique os seus dados pessoais' },
-      { name: 'Defina o seu perfil de risco' },
-      { name: 'Escolha a causa a apoiar' }];
+      { name: '1. Indique os seus dados pessoais' },
+      { name: '2. Defina o seu perfil de risco' },
+      { name: '3. Escolha a causa a apoiar' }];
     const customStyles = {
       stepIndicatorSize: 40,
       currentStepIndicatorSize: 40,
@@ -84,8 +83,8 @@ export default class Saving extends Component {
       stepIndicatorFinishedColor: Colors.stoikBlue,
       stepIndicatorUnFinishedColor: Colors.stoikBlue,
       stepIndicatorCurrentColor: Colors.stoikOrange,
-      stepIndicatorLabelFontSize: Fonts.base.size * 1.75,
-      currentStepIndicatorLabelFontSize: Fonts.base.size * 1.75,
+      stepIndicatorLabelFontSize: 0,
+      currentStepIndicatorLabelFontSize: 0,
       stepIndicatorLabelCurrentColor: Colors.background,
       stepIndicatorLabelFinishedColor: Colors.background,
       stepIndicatorLabelUnFinishedColor: Colors.background,

@@ -7,7 +7,7 @@ import AppStep from '@components/AppStep';
 
 export default class Simulation extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: I18n.t('simulation'),
+    title: 'A Poupança',
   });
 
   constructor(props) {

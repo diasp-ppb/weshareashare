@@ -1,19 +1,14 @@
 import React, { Component } from 'react';
-import { ScrollView, View, TouchableOpacity } from 'react-native';
+import { ScrollView, TouchableOpacity } from 'react-native';
 import { VictoryChart, VictoryTheme, VictoryLine } from 'victory-native';
-import I18n from '@i18n/i18n';
 import { ApplicationStyles, Colors } from '@theme/';
 import { Card, Text as CustomText, Spacer } from '@ui/';
 import AppStep from '@components/AppStep';
 
 export default class Performances extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: I18n.t('performances'),
+    title: 'O Investimento',
   });
-
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     const { navigate } = this.props.navigation;

@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { ScrollView, Image, TouchableOpacity } from 'react-native';
-import I18n from '@i18n/i18n';
 import { ApplicationStyles, Colors, Assets, Metrics } from '@theme/';
 import { Card, Text as CustomText, Spacer } from '@ui/';
 import AppStep from '@components/AppStep';
 
 export default class Investment extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: I18n.t('stoikShares'),
+    title: 'O Investimento',
   });
 
   render() {

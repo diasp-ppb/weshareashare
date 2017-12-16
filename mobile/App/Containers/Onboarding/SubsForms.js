@@ -46,7 +46,7 @@ class Subscription extends React.Component{
     };
 
     static navigationOptions = ({ navigation }) => ({
-      title: 'Dados Pessoais',
+      title: 'Invista',
     });
 
     render() {

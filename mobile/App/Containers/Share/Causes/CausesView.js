@@ -16,7 +16,7 @@ const initialLayout = {
 
 export default class CausesView extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: I18n.t('causes'),
+    title: 'A Partilha',
   });
 
   static propTypes = {

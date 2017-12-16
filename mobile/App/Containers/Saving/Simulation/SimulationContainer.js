@@ -36,17 +36,17 @@ const monthlyContribution = [
 ];
 
 const yearPeriod = [
-  { value: 5, label: '5' },
-  { value: 6, label: '6' },
-  { value: 7, label: '7' },
-  { value: 8, label: '8' },
-  { value: 9, label: '9' },
-  { value: 10, label: '10' },
-  { value: 11, label: '11' },
-  { value: 12, label: '12' },
-  { value: 13, label: '13' },
-  { value: 14, label: '14' },
-  { value: 15, label: '15' },
+  { value: 5, label: '5 anos' },
+  { value: 6, label: '6 anos' },
+  { value: 7, label: '7 anos' },
+  { value: 8, label: '8 anos' },
+  { value: 9, label: '9 anos' },
+  { value: 10, label: '10 anos' },
+  { value: 11, label: '11 anos' },
+  { value: 12, label: '12 anos' },
+  { value: 13, label: '13 anos' },
+  { value: 14, label: '14 anos' },
+  { value: 15, label: '15 anos' },
 ];
 
 const interestRate = [

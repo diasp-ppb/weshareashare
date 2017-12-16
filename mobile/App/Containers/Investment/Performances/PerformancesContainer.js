@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import FormRender from './PerformancesView';
 
 const data = [
+  { x: 'Jan/16', y: 5.00000 },
   { x: 'Fev/16', y: 5.13149 },
   { x: 'Mar/16', y: 5.14509 },
   { x: 'Abr/16', y: 5.12552 },
