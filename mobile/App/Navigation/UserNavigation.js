@@ -43,7 +43,6 @@ const navigationOptions = ({ navigation }) => ({
 });
 
 const UserNavigationStack = StackNavigator({
-  Investor: { screen: Investor },
   Mainpage: { screen: Mainpage },
   ContactUs: { screen: ContactUs },
   AboutUs: { screen: AboutUs },
@@ -65,6 +64,7 @@ const UserNavigationStack = StackNavigator({
 
   // OnboardingStack
   Invest: { screen: Invest },
+  Investor: { screen: Investor },
   Participant: { screen: Participant },
   Subscription: { screen: Subscription },
   FatcaForm: { screen: FatcaForm },

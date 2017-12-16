@@ -22,7 +22,8 @@ class InvestorView extends Component {
     qa[this.props.question.key] = this.props.question.options[key].text;
     if(this.props.lastQuestion) {
       this.props.saveAnswer(qa);
-      // TODO call here save quiz, after state updated
+      let investor = { ...this.props.investor, ...qa };
+      this.props.saveQuiz(investor);
     } else {
       this.props.saveAnswer(qa);
       let newIndex = this.props.index + 1;
@@ -31,13 +32,7 @@ class InvestorView extends Component {
   }
 
   render() {
-    let answer;
     let question = this.props.question;
-    if (!Array.isArray(question.options) || question.options.length === 0) {
-      answer = <TextInput />;
-    } else {
-      answer = <RadioButtonsForm onRef={(ref) => (this.child = ref)} answers={question.options} />;
-    }
     return (
       <Container style={styles.container}>
         <Content>
@@ -51,7 +46,7 @@ class InvestorView extends Component {
                 </Body>
               </CardItem>
             </Card>
-            {answer}
+            <RadioButtonsForm onRef={(ref) => (this.child = ref)} answers={question.options} />;
           </View>
           <View style={{
             flex: 1,

@@ -27,6 +27,7 @@ export const formState = {
   fatca: {},
   investor: {},
   subscription: {},
+  participant: {},
 };
 
 export const reducer = (state = formState, action) => {

@@ -11,7 +11,6 @@ export const investor = (res) => {
   return (dispatch, getState) => {
     const state = getState();
     dispatch(OnboardingRedux.updateInvestor({investor: {...state.onboarding.investor, ...res}}));
-    console.log(state);
   };
 };
 

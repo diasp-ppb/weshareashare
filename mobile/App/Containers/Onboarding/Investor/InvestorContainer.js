@@ -47,6 +47,7 @@ const mapStateToProps = (state, ownProps) =>  {
   return {
     lastQuestion: (index === questions.length - 1),
     index: index,
+    investor: state.onboarding.investor,
     session: state.session,
     user: state.session.user,
     question: questions[index],
