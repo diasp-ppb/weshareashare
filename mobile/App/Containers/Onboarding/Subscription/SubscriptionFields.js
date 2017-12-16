@@ -90,8 +90,7 @@ class SubscriptionFields extends Component {
   }
 
   retrieveValues() {
-    const values = this.refs.form.getValue();
-    return { key: 'subscription', value: values };
+    return this.refs.form.getValue();
   }
 
   render() {

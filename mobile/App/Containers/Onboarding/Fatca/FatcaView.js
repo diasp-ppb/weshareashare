@@ -13,9 +13,11 @@ class FatcaView extends Component {
 
   handleSubmit = () => {
     const choice = this.child.retrieveValues();
+    if(choice === null)
+      return;
 
     if (this.props.submit) {
-      this.props.submit({ FATCA: choice }, this.props.session)
+      this.props.submit({ FATCA: this.props.options[choice - 1].text }, this.props.session)
         .then(() => {
           if (this.props.onSuccessfulSubmit) {
             this.props.onSuccessfulSubmit(choice);

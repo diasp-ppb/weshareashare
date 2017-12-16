@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { ScrollView, TouchableHighlight, Text, View } from 'react-native';
+import I18n from '@i18n/i18n';
 import { ApplicationStyles, Colors, Assets, Metrics } from '@theme/';
 import { Card, Text as CustomText, Spacer } from '@ui/';
 import styles from './ShareStyle';

@@ -1,12 +1,32 @@
 import React, { Component } from 'react';
 import { Item, Input, Text } from 'native-base';
 import { ApplicationStyles, Colors } from '@theme/';
-import { StyleSheet, View, DatePickerAndroid, DatePickerIOS, Platform, TouchableNativeFeedback } from 'react-native';
-import I18n from '@i18n/i18n';
+import { View, DatePickerIOS, Platform } from 'react-native';
 
 const t = require('tcomb-form-native');
 
 const Form = t.form.Form;
+let stylesheet = t.form.Form.stylesheet;
+stylesheet.textbox.normal.borderWidth = 0;
+stylesheet.textbox.error.borderWidth = 0;
+stylesheet.textbox.normal.marginBottom = 0;
+stylesheet.textbox.error.marginBottom = 0;
+stylesheet.textboxView.normal.borderWidth = 0;
+stylesheet.textboxView.error.borderWidth = 0;
+stylesheet.textboxView.normal.borderRadius = 0;
+stylesheet.textboxView.error.borderRadius = 0;
+stylesheet.textboxView.normal.borderBottomWidth = 1;
+stylesheet.textboxView.error.borderBottomWidth = 1;
+stylesheet.textboxView.normal.borderBottomColor = Colors.lightBlue;
+stylesheet.textboxView.error.borderBottomColor = Colors.lightBlue;
+stylesheet.textbox.normal.marginBottom = 5;
+stylesheet.textbox.error.marginBottom = 5;
+stylesheet.textbox.normal.borderColor = Colors.lightBlue;
+stylesheet.textbox.error.borderColor = Colors.lightBlue;
+stylesheet.textbox.normal.borderBottomColor = Colors.lightBlue;
+stylesheet.textbox.error.borderBottomColor = Colors.lightBlue;
+stylesheet.datepicker.normal.flexDirection = 'row';
+stylesheet.datepicker.normal.flex = 1;
 
 const Gender = t.enums({
   M: 'Masculino',
@@ -17,7 +37,6 @@ const Person = t.struct({
   NAME: t.maybe(t.String),
   GENDER: t.maybe(Gender),
 });
-
 
 const Person2 = t.struct({
   TELEPHONE: t.maybe(t.Number),
@@ -142,12 +161,11 @@ const optionsAndroid = {
   },
 };
 
-
 const initialValue = {
   GENDER: 'M',
 };
 
-class PersonalDataForm extends Component {
+class ParticipantFields extends Component {
   constructor(props) {
     super(props);
 
@@ -156,7 +174,6 @@ class PersonalDataForm extends Component {
     };
   }
 
-  // assigning function to be used by parent
   componentDidMount() {
     this.props.onRef(this);
   }
@@ -177,8 +194,7 @@ class PersonalDataForm extends Component {
 
       return values;
     } else if (Platform.OS === 'android') {
-      var values = this.refs.formAndroid.getValue();
-      return values;
+      return this.refs.formAndroid.getValue();
     }
   }
 
@@ -227,37 +243,4 @@ class PersonalDataForm extends Component {
   }
 }
 
-export default PersonalDataForm;
-
-const styles = StyleSheet.create({
-  center: {
-    borderColor: Colors.lightBlue,
-  },
-
-});
-
-
-var stylesheet = t.form.Form.stylesheet;
-
-stylesheet.textbox.normal.borderWidth = 0;
-stylesheet.textbox.error.borderWidth = 0;
-stylesheet.textbox.normal.marginBottom = 0;
-stylesheet.textbox.error.marginBottom = 0;
-
-stylesheet.textboxView.normal.borderWidth = 0;
-stylesheet.textboxView.error.borderWidth = 0;
-stylesheet.textboxView.normal.borderRadius = 0;
-stylesheet.textboxView.error.borderRadius = 0;
-stylesheet.textboxView.normal.borderBottomWidth = 1;
-stylesheet.textboxView.error.borderBottomWidth = 1;
-stylesheet.textboxView.normal.borderBottomColor = Colors.lightBlue;
-stylesheet.textboxView.error.borderBottomColor = Colors.lightBlue;
-stylesheet.textbox.normal.marginBottom = 5;
-stylesheet.textbox.error.marginBottom = 5;
-stylesheet.textbox.normal.borderColor = Colors.lightBlue;
-stylesheet.textbox.error.borderColor = Colors.lightBlue;
-stylesheet.textbox.normal.borderBottomColor = Colors.lightBlue;
-stylesheet.textbox.error.borderBottomColor = Colors.lightBlue;
-
-stylesheet.datepicker.normal.flexDirection = 'row';
-stylesheet.datepicker.normal.flex = 1;
+export default ParticipantFields;

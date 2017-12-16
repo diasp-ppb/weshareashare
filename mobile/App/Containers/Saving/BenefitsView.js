@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { ScrollView, View, TouchableOpacity } from 'react-native';
+import I18n from '@i18n/i18n';
 import { ApplicationStyles, Metrics, Assets } from '@theme/';
 import { Text, Card, Spacer } from '@ui/';
 import AppStep from '@components/AppStep';

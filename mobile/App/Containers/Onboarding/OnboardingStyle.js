@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { Colors } from '@theme/';
+import Metrics from '../../Themes/Metrics'
 
 export default StyleSheet.create({
   container: {
@@ -49,4 +50,13 @@ export default StyleSheet.create({
     bottom: 20,
     justifyContent: 'space-between',
   },
+  formContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    backgroundColor: 'white',
+    marginLeft: 50,
+    marginRight: 50,
+    borderColor: Colors.lightBlue,
+    borderBottomColor: Colors.lightBlue,
+  }
 });

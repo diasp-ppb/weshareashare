@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import styles from '../OnboardingStyle';
-import SubscriptionFields from './SubscriptionFields';
+import ParticipantFields from './ParticipantFields';
 import { Container, Content, Card, CardItem, Body, Text } from 'native-base';
 import Toast from 'react-native-root-toast';
 import { ApplicationStyles } from '@theme/';
 
-class SubscriptionView extends Component {
+class ParticipantView extends Component {
   static navigationOptions = ({ }) => ({
     title: 'Invista',
   });
@@ -16,20 +16,20 @@ class SubscriptionView extends Component {
     const choices = this.child.retrieveValues();
 
     if (this.props.submit) {
-      this.props.submit({ subscription: choices }, this.props.session)
-        .then(() => {
-          if (this.props.onSuccessfulSubmit) {
-            this.props.onSuccessfulSubmit(choices);
-          } else {
-            Toast.show('Subscrição enviada com sucesso.',
-              ApplicationStyles.toastSuccess);
-          }
-          return true;
-        })
-        .catch(() => {
-          Toast.show('Não foi possível enviar a subscrição',
-            ApplicationStyles.toastError);
-        });
+      this.props.submit({ participant: choices }, this.props.session)
+      .then(() => {
+        if (this.props.onSuccessfulSubmit) {
+          this.props.onSuccessfulSubmit(choices);
+        } else {
+          Toast.show('Dados pessoais submetidos com sucesso',
+            ApplicationStyles.toastSuccess);
+        }
+        return true;
+      })
+      .catch(() => {
+        Toast.show('Não foi possível enviar os dados pessoais',
+          ApplicationStyles.toastError);
+      });
     }
   }
 
@@ -40,14 +40,14 @@ class SubscriptionView extends Component {
           <Card style={styles.messageBackground}>
             <CardItem style={styles.messageCard}>
               <Body>
-                <Text>
-                  {this.props.question}
-                </Text>
+              <Text>
+                {this.props.question}
+              </Text>
               </Body>
             </CardItem>
           </Card>
           <View style={styles.formContainer}>
-            <SubscriptionFields onRef={(ref) => (this.child = ref)} />
+            <ParticipantFields onRef={(ref) => (this.child = ref)} />
           </View>
           <View style={{
             flex: 1,
@@ -69,4 +69,4 @@ class SubscriptionView extends Component {
 }
 
 /* Export Component ==================================================================== */
-export default SubscriptionView;
+export default ParticipantView;

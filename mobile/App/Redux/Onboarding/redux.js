@@ -1,6 +1,7 @@
 const FATCA = 'onboarding/FATCA';
 const SUBSCRIPTION = 'onboarding/SUBSCRIPTION';
 const INVESTOR = 'onboarding/INVESTOR';
+const PARTICIPANT = 'onboarding/PARTICIPANT';
 
 export const updateFatca = (fatca) => ({
   type: FATCA,
@@ -10,6 +11,11 @@ export const updateFatca = (fatca) => ({
 export const updateSubscription = (subscription) => ({
   type: SUBSCRIPTION,
   subscription,
+});
+
+export const updateParticipant = (participant) => ({
+  type: PARTICIPANT,
+  participant,
 });
 
 export const updateInvestor = (investor) => ({
@@ -34,6 +40,11 @@ export const reducer = (state = formState, action) => {
       return {
         ...state,
         ...action.subscription,
+      };
+    case PARTICIPANT:
+      return {
+        ...state,
+        ...action.participant,
       };
     case INVESTOR:
       return {

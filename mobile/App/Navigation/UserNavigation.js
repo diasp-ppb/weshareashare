@@ -3,9 +3,10 @@ import React from 'react';
 import { StackNavigator, DrawerNavigator } from 'react-navigation';
 
 // Onboarding Screens
-import SubscriptionForms from '@containers/Onboarding/SubsForms';
 import FatcaForm from '@containers/Onboarding/Fatca/FatcaContainer';
-import FatcaInfo from '@components/FatcaInfo';
+import FatcaInfo from '@containers/Onboarding/Fatca/FatcaInfo';
+import Participant from '@containers/Onboarding/Participant/ParticipantContainer';
+import Investor from '@containers/Onboarding/Investor/InvestorContainer';
 import Subscription from '@containers/Onboarding/Subscription/SubscriptionContainer';
 import Invest from '@containers/Onboarding/Invest/InvestContainer';
 
@@ -42,6 +43,7 @@ const navigationOptions = ({ navigation }) => ({
 });
 
 const UserNavigationStack = StackNavigator({
+  Investor: { screen: Investor },
   Mainpage: { screen: Mainpage },
   ContactUs: { screen: ContactUs },
   AboutUs: { screen: AboutUs },
@@ -63,7 +65,7 @@ const UserNavigationStack = StackNavigator({
 
   // OnboardingStack
   Invest: { screen: Invest },
-  InvestorProfileQuiz: { screen: SubscriptionForms },
+  Participant: { screen: Participant },
   Subscription: { screen: Subscription },
   FatcaForm: { screen: FatcaForm },
   FatcaInfo: { screen: FatcaInfo },
