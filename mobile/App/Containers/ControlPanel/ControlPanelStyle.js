@@ -6,22 +6,11 @@ export default StyleSheet.create({
     backgroundColor: '#455A63',
     paddingTop: 20,
   },
-  controlText: {
-    backgroundColor: '#596a71',
-    color: '#32BACC',
-    textAlignVertical: 'center',
-    textAlign: 'left',
-    paddingTop: 12,
-    paddingBottom: 12,
-    paddingLeft: 10,
-    fontSize: 19,
-    flex: 1,
-  },
   buttonText: {
     color: 'white',
     textAlign: 'center',
     paddingTop: 10,
-    fontSize: 17,
+    fontSize: 12,
     marginLeft: 10,
   },
   button: {
@@ -32,6 +21,7 @@ export default StyleSheet.create({
   },
   icon: {
     marginLeft: 10,
+      alignSelf: 'center'
   },
   company: {
     color: '#FFFFFF',
@@ -47,18 +37,6 @@ export default StyleSheet.create({
   profileInfo: {
     textAlign: 'left',
   },
-  header: {
-    flex: 1,
-    flexDirection: 'row',
-  },
-  leftMark: {
-    backgroundColor: '#30C4D7',
-    width: 5,
-
-  },
-  notification: {
-    color: '#32BACC',
-  },
   lastInMenu: {
     paddingBottom: 40,
   },
@@ -68,4 +46,8 @@ export default StyleSheet.create({
     backgroundColor: '#596a72',
     paddingLeft: 5,
   },
+    bar:{
+     height: 3,
+        backgroundColor: '#596a71'
+    }
 });
