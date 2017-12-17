@@ -17,7 +17,7 @@ export default class AppStep extends Component {
       case 0: navigate('Saving'); break;
       case 1: navigate('Investment'); break;
       case 2: navigate('Share'); break;
-      case 3: navigate('Onboarding'); break;
+      case 3: navigate('Invest'); break;
     }
   }
 
@@ -32,7 +32,7 @@ export default class AppStep extends Component {
       currentStepIndicatorSize: 30,
       separatorStrokeWidth: 2,
       currentStepStrokeWidth: 3,
-      stepStrokeCurrentColor: Colors.stoikBlue,
+      stepStrokeCurrentColor: (this.props.index === 2) ? Colors.stoikOrange : Colors.stoikBlue,
       stepStrokeWidth: 3,
       stepStrokeFinishedColor: '#aaaaaa',
       stepStrokeUnFinishedColor: '#aaaaaa',
@@ -40,7 +40,7 @@ export default class AppStep extends Component {
       separatorUnFinishedColor: '#aaaaaa',
       stepIndicatorFinishedColor: '#aaaaaa',
       stepIndicatorUnFinishedColor: '#aaaaaa',
-      stepIndicatorCurrentColor: Colors.stoikBlue,
+      stepIndicatorCurrentColor: (this.props.index === 2) ? Colors.stoikOrange : Colors.stoikBlue,
       stepIndicatorLabelFontSize: 13,
       currentStepIndicatorLabelFontSize: 13,
       stepIndicatorLabelCurrentColor: '#ffffff',
@@ -48,7 +48,7 @@ export default class AppStep extends Component {
       stepIndicatorLabelUnFinishedColor: '#ffffff',
       labelColor: '#999999',
       labelSize: 10,
-      currentStepLabelColor: Colors.stoikBlue,
+      currentStepLabelColor: (this.props.index === 2) ? Colors.stoikOrange : Colors.stoikBlue,
     };
 
     return (

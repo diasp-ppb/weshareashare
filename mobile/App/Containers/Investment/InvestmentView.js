@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { ScrollView, Image, TouchableOpacity } from 'react-native';
-import I18n from '@i18n/i18n';
 import { ApplicationStyles, Colors, Assets, Metrics } from '@theme/';
 import { Card, Text as CustomText, Spacer } from '@ui/';
 import AppStep from '@components/AppStep';
+import BulletText from '@components/BulletText'
 
 export default class Investment extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -16,13 +16,9 @@ export default class Investment extends Component {
       <ScrollView style={ApplicationStyles.container}>
         <Card>
           <CustomText h1 style={[ApplicationStyles.paddingBottom]}>PPR SGF Stoik Ações</CustomText>
-          <CustomText h3 style={{ color: Colors.textSecondary }}>
-            O PPR SGF Stoik Ações é constítuido por uma carteira de activos balanceada e diversificada, que integra obrigações, acções, matérias primas, imobiliário e liquidez.
-          </CustomText>
-          <Spacer size={10} />
-          <CustomText h3 style={{ color: Colors.textSecondary }}>
-            O PPR SGF Stoik Ações destina-se, assim, a investidores com horizontes temporais de poupança alargados e/ou tolerância ao risco de mercado.
-          </CustomText>
+
+          <BulletText text={'O PPR SGF Stoik Ações é constítuido por uma carteira de activos balanceada e diversificada, que integra obrigações, acções, matérias primas, imobiliário e liquidez.'}/>
+          <BulletText text={'O PPR SGF Stoik Ações destina-se, assim, a investidores com horizontes temporais de poupança alargados e/ou tolerância ao risco de mercado.'}/>
 
           <Image
             source={Assets.piechart}

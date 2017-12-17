@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { ScrollView, TouchableOpacity } from 'react-native';
-import I18n from '@i18n/i18n';
 import { VictoryChart, VictoryTheme, VictoryLine } from 'victory-native';
 import { ApplicationStyles, Colors } from '@theme/';
 import { Card, Text as CustomText, Spacer } from '@ui/';
 import AppStep from '@components/AppStep';
+import BulletText from '@components/BulletText'
 
 export default class Performances extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -32,15 +32,7 @@ export default class Performances extends Component {
         </VictoryChart>
         <Card>
 
-          <CustomText h3 style={{ color: Colors.textSecondary, fontWeight: '500' }}>
-            O gráfico mostra a evolução da unidade de
-            participação do PPR SGF Stoik Ações desde o
-            início, em 15.02.2016. Lembre-se que a
-            performance passada não é uma garantia da
-            performance futura.
-          </CustomText>
-
-          <Spacer size={25} />
+          <BulletText text={'O gráfico mostra a evolução da unidade de participação do PPR SGF Stoik Ações desde o início, em 15.02.2016. Lembre-se que a performance passada não é uma garantia da performance futura.'}/>
 
           <TouchableOpacity style={[ApplicationStyles.rightAligned]} onPress={() => navigate('Share')}>
             <CustomText p style={[ApplicationStyles.nextLink]}>

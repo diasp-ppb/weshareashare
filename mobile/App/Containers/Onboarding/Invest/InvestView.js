@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { View, ScrollView, Image } from 'react-native';
+import { View, ScrollView, Image, TouchableOpacity } from 'react-native';
 import { ApplicationStyles, Colors, Fonts, Assets } from '@theme/';
 import { Card, Text as CustomText, Spacer } from '@ui/';
 import { Users } from '@services/API';
-import StepIndicator from '@components/StepIndicator';
 import AppStep from '@components/AppStep';
+import BulletText from '@components/BulletText'
 
 export default class Saving extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -14,7 +14,6 @@ export default class Saving extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentPosition: 2,
       cause: null,
     };
   }
@@ -54,46 +53,20 @@ export default class Saving extends Component {
         </CustomText>
         <Spacer size={10} />
         <CustomText h2 style={[ApplicationStyles.textCenterAligned]}>{this.state.cause.name}</CustomText>
+        <Spacer size={10} />
         <Image
           style={ApplicationStyles.logo}
           resizeMode="contain"
           source={this.state.cause.image}
         />
+        <Spacer size={10} />
         <CustomText h3>{this.state.cause.shortDescription}</CustomText>
       </View>
     );
   }
 
   render() {
-    const labels = [
-      { name: '1. Indique os seus dados pessoais' },
-      { name: '2. Defina o seu perfil de risco' },
-      { name: '3. Escolha a causa a apoiar' }];
-    const customStyles = {
-      stepIndicatorSize: 40,
-      currentStepIndicatorSize: 40,
-      separatorStrokeWidth: 0,
-      currentStepStrokeWidth: 6,
-      stepStrokeCurrentColor: Colors.stoikOrange,
-      stepStrokeWidth: 3,
-      stepStrokeFinishedColor: Colors.stoikBlue,
-      stepStrokeUnFinishedColor: Colors.stoikBlue,
-      separatorFinishedColor: Colors.stoikBlue,
-      separatorUnFinishedColor: Colors.stoikOrange,
-      stepIndicatorFinishedColor: Colors.stoikBlue,
-      stepIndicatorUnFinishedColor: Colors.stoikBlue,
-      stepIndicatorCurrentColor: Colors.stoikOrange,
-      stepIndicatorLabelFontSize: 0,
-      currentStepIndicatorLabelFontSize: 0,
-      stepIndicatorLabelCurrentColor: Colors.background,
-      stepIndicatorLabelFinishedColor: Colors.background,
-      stepIndicatorLabelUnFinishedColor: Colors.background,
-      labelColor: Colors.stoikBlue,
-      labelSize: Fonts.base.size * 1.5,
-      descriptionColor: Colors.label,
-      descriptionSize: Fonts.base.size,
-      currentStepLabelColor: Colors.stoikOrange,
-    };
+    const { navigate } = this.props.navigation;
     return (
       <ScrollView style={ApplicationStyles.container}>
         <Card>
@@ -104,19 +77,16 @@ export default class Saving extends Component {
           <CustomText h3 style={{ color: Colors.textSecondary, fontWeight: '500' }}>
             Passos para começar a investir:
           </CustomText>
-          <Spacer size={25} />
-          <View style={ApplicationStyles.containerCentered}>
-            <StepIndicator
-              customStyles={customStyles}
-              labels={labels}
-              currentPosition={this.state.currentPosition}
-              stepCount={3}
-              direction={'vertical'}
-              onPress={(position) => { this.onStepPress(position); }}
-            />
-          </View>
-          <Spacer size={10} />
 
+          <TouchableOpacity onPress={() => navigate('Participant', { formIndex: 2 })}>
+            <BulletText text={'1. Indique os seus Dados Pessoais'}/>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigate('Investor', { index: 0 })}>
+            <BulletText text={'2. Defina o seu Perfil de Risco'}/>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigate('Causes', { categoryIndex: 0, informative: false })}>
+            <BulletText bulletColor={Colors.stoikOrange} text={'3. Escolha a Causa a Apoiar'}/>
+          </TouchableOpacity>
           { (this.state.cause !== null) ?
             this.currentCause() : console.log('hello')
           }
