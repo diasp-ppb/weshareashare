@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { ScrollView, View, TouchableOpacity } from 'react-native';
+import { ScrollView, TouchableOpacity } from 'react-native';
 import I18n from '@i18n/i18n';
-import { ApplicationStyles, Metrics, Assets } from '@theme/';
+import { ApplicationStyles, Colors} from '@theme/';
 import { Text, Card, Spacer } from '@ui/';
 import AppStep from '@components/AppStep';
+import BulletText from '@components/BulletText'
 
 export default class StoikBenefits extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -15,25 +16,12 @@ export default class StoikBenefits extends Component {
     return (
       <ScrollView style={[ApplicationStyles.container]}>
         <Card>
-          <View style={[ApplicationStyles.row, ApplicationStyles.paddingVertical]}>
-            <View style={ApplicationStyles.benefitItem} />
-            <Text h3 style={ApplicationStyles.benefitTest}>{ I18n.t('benefitsSaving') }</Text>
-          </View>
+          <Text h1 style={[ApplicationStyles.paddingBottom]}>Benefícios do PPR SGF Stoik Ações</Text>
 
-          <View style={[ApplicationStyles.row, ApplicationStyles.paddingVertical]}>
-            <View style={ApplicationStyles.benefitItem} />
-            <Text h3 style={ApplicationStyles.benefitTest}>{ I18n.t('benefitsWallet') }</Text>
-          </View>
-
-          <View style={[ApplicationStyles.row, ApplicationStyles.paddingVertical]}>
-            <View style={ApplicationStyles.benefitItem} />
-            <Text h3 style={ApplicationStyles.benefitTest}>{ I18n.t('benefitsStructure') }</Text>
-          </View>
-
-          <View style={[ApplicationStyles.row, ApplicationStyles.paddingVertical]}>
-            <View style={ApplicationStyles.benefitItem} />
-            <Text h3 style={ApplicationStyles.benefitTest}>{ I18n.t('benefitsCause') }</Text>
-          </View>
+          <BulletText text={I18n.t('benefitsSaving')}/>
+          <BulletText text={I18n.t('benefitsWallet')}/>
+          <BulletText text={I18n.t('benefitsStructure')}/>
+          <BulletText text={I18n.t('benefitsCause')} bulletColor={Colors.stoikOrange}/>
 
           <Spacer size={25} />
 

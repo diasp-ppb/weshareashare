@@ -1,9 +1,9 @@
 const Colors = {
   background: '#FFFFFF',
   clear: 'rgba(0,0,0,0)',
-  stoikOrange: '#feab2b',
+  stoikOrange: '#fbb700',
   stoikGrey: '#455a64',
-  stoikBlue: '#4099E0',
+  stoikBlue: '#31859C',
   facebook: '#3b5998',
   transparent: 'rgba(0,0,0,0)',
   silver: '#F7F7F7',

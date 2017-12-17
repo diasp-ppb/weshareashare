@@ -83,7 +83,7 @@ class ControlPanel extends Component {
 
           <TouchableOpacity style={styles.button} onPress={() => navigate('Invest')}>
             <Icon style={styles.icon} name="currency-eur" size={35} color="#fff" />
-            <Text style={styles.buttonText}>{ I18n.t('otherInvest') }</Text>
+            <Text style={styles.buttonText}>{ I18n.t('onboarding') }</Text>
           </TouchableOpacity>
 
           <View style={styles.bar}></View>

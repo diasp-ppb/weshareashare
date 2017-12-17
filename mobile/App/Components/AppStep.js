@@ -17,7 +17,7 @@ export default class AppStep extends Component {
       case 0: navigate('Saving'); break;
       case 1: navigate('Investment'); break;
       case 2: navigate('Share'); break;
-      case 3: navigate('Onboarding'); break;
+      case 3: navigate('Invest'); break;
     }
   }
 
@@ -26,29 +26,29 @@ export default class AppStep extends Component {
       { name: 'A POUPANÇA' },
       { name: 'O INVESTIMENTO' },
       { name: 'A PARTILHA' },
-      { name: 'INVISTA' }];
+      { name: 'COMECE A INVESTIR' }];
     const customStyles = {
       stepIndicatorSize: 25,
       currentStepIndicatorSize: 30,
       separatorStrokeWidth: 2,
       currentStepStrokeWidth: 3,
-      stepStrokeCurrentColor: Colors.stoikBlue,
+      stepStrokeCurrentColor: (this.props.index === 2) ? Colors.stoikOrange : Colors.stoikBlue,
       stepStrokeWidth: 3,
-      stepStrokeFinishedColor: Colors.stoikBlue,
+      stepStrokeFinishedColor: '#aaaaaa',
       stepStrokeUnFinishedColor: '#aaaaaa',
-      separatorFinishedColor: Colors.stoikBlue,
+      separatorFinishedColor: '#aaaaaa',
       separatorUnFinishedColor: '#aaaaaa',
-      stepIndicatorFinishedColor: Colors.stoikBlue,
-      stepIndicatorUnFinishedColor: '#ffffff',
-      stepIndicatorCurrentColor: '#ffffff',
+      stepIndicatorFinishedColor: '#aaaaaa',
+      stepIndicatorUnFinishedColor: '#aaaaaa',
+      stepIndicatorCurrentColor: (this.props.index === 2) ? Colors.stoikOrange : Colors.stoikBlue,
       stepIndicatorLabelFontSize: 13,
       currentStepIndicatorLabelFontSize: 13,
-      stepIndicatorLabelCurrentColor: Colors.stoikBlue,
+      stepIndicatorLabelCurrentColor: '#ffffff',
       stepIndicatorLabelFinishedColor: '#ffffff',
-      stepIndicatorLabelUnFinishedColor: '#aaaaaa',
+      stepIndicatorLabelUnFinishedColor: '#ffffff',
       labelColor: '#999999',
       labelSize: 10,
-      currentStepLabelColor: Colors.stoikBlue,
+      currentStepLabelColor: (this.props.index === 2) ? Colors.stoikOrange : Colors.stoikBlue,
     };
 
     return (

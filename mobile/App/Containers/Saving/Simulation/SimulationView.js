@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Picker, View, TouchableOpacity } from 'react-native';
-import I18n from '@i18n/i18n';
+import { ScrollView, Picker, View, TouchableOpacity } from 'react-native';
 import { ApplicationStyles, Metrics, Colors } from '@theme/';
-import { Card, Text, Spacer } from '@ui/';
+import { Card, Text, Spacer, Text as CustomText } from '@ui/';
 import AppStep from '@components/AppStep';
 
 export default class Simulation extends Component {
@@ -59,11 +58,12 @@ export default class Simulation extends Component {
     const pickerHeight = inputHeight / 1.5;
     const { navigate } = this.props.navigation;
     return (
-      <View style={[ApplicationStyles.container]}>
+      <ScrollView style={[ApplicationStyles.container]}>
         <Card >
+          <CustomText h1>Simulador</CustomText>
           <View style={[{ alignItems: 'center', justifyContent: 'center', paddingVertical: 20 }]}>
             <Text h2 style={[ApplicationStyles.textCenterAligned]}>
-                Em {this.state.yearPeriod} anos terá <Text h2 style={{ color: Colors.stoikBlue }}>{this.convertToCurrency()}</Text>
+                Em {this.state.yearPeriod} ano{(this.state.yearPeriod !== 1) ? 's' : ''} terá <Text h2 style={{ color: Colors.stoikBlue }}>{this.convertToCurrency()}</Text>
             </Text>
           </View>
           <View style={[{ flexDirection: 'row' }]}>
@@ -135,13 +135,12 @@ export default class Simulation extends Component {
 
           <TouchableOpacity style={[ApplicationStyles.rightAligned, { marginTop: inputHeight / 3 }]} onPress={() => navigate('Benefits')}>
             <Text p style={ApplicationStyles.nextLink}>
-              { I18n.t('benefits') } >
+              Benefícios >
             </Text>
           </TouchableOpacity>
           <AppStep index={0} {...this.props} />
         </Card>
-      </View>
-
+      </ScrollView>
     );
   }
 }

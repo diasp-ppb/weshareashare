@@ -169,10 +169,10 @@ const ApplicationStyles = {
     width: 40,
     height: 40,
     borderRadius: 40 / 2,
-    backgroundColor: Colors.stoikGrey,
     padding: Metrics.marginHorizontal*2,
   },
   benefitTest: {
+    paddingLeft: Metrics.paddingSml,
     flex: 1,
     flexDirection: 'row',
     flexWrap: "wrap",

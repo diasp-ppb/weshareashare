@@ -5,7 +5,7 @@ import { Card, Text } from '@ui/';
 
 export default class FatcaInfo extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: 'FATCA',
+    title: 'Comece a Investir',
   });
 
   render() {
