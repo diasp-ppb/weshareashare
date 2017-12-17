@@ -4,6 +4,7 @@ import styles from '../OnboardingStyle';
 import { Container, Content, Card, CardItem, Body, Text } from 'native-base';
 import { ApplicationStyles } from '@theme/';
 import RadioButtonsForm from '@components/RadioButtonsForm';
+import Toast from 'react-native-root-toast'
 
 class InvestorView extends Component {
   static navigationOptions = ({ }) => ({
@@ -23,8 +24,12 @@ class InvestorView extends Component {
     if(this.props.lastQuestion) {
       this.props.saveAnswer(qa);
       let investor = { ...this.props.investor, ...qa };
-      this.props.saveQuiz(investor);
-      navigate('Causes', { categoryIndex: 0, informative: false }); //TODO è preciso ver o score do utilizador e informalo xD
+      this.props.saveQuiz({investor: investor}).then(() => {
+        navigate('Subscription'); //TODO è preciso ver o score do utilizador e informalo xD
+      }).catch(() => {
+        Toast.show('Não foi possível enviar o seu perfil de risco',
+          ApplicationStyles.toastError);
+      });
     } else {
       this.props.saveAnswer(qa);
       let newIndex = this.props.index + 1;

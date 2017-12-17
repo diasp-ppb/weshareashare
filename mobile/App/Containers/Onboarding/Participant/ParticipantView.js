@@ -18,19 +18,12 @@ class ParticipantView extends Component {
     if (this.props.submit) {
       this.props.submit({ participant: choices }, this.props.session)
       .then(() => {
-        if (this.props.onSuccessfulSubmit) {
-          this.props.onSuccessfulSubmit(choices);
-        } else {
-          Toast.show('Dados pessoais submetidos com sucesso',
-            ApplicationStyles.toastSuccess);
-        }
-        return true;
+        this.props.onSuccessfulSubmit(choices);
+        navigate('FatcaForm');
       })
       .catch(() => {
         Toast.show('Não foi possível enviar os dados pessoais',
           ApplicationStyles.toastError);
-
-         navigate('FatcaForm');// TODO passar para a linha 26 quando o requests tiver ok
       });
     }
   }

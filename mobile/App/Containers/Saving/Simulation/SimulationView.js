@@ -138,8 +138,8 @@ export default class Simulation extends Component {
               Benefícios >
             </Text>
           </TouchableOpacity>
-          <AppStep index={0} {...this.props} />
         </Card>
+        <AppStep index={0} {...this.props} />
       </ScrollView>
     );
   }

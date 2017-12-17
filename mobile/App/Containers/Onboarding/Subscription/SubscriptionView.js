@@ -17,21 +17,13 @@ class SubscriptionView extends Component {
 
     if (this.props.submit) {
       this.props.submit({ subscription: choices }, this.props.session)
-        .then(() => {
-          if (this.props.onSuccessfulSubmit) {
-            this.props.onSuccessfulSubmit(choices);
-          } else {
-            Toast.show('Subscrição enviada com sucesso.',
-              ApplicationStyles.toastSuccess);
-
-          }
-          return true;
-        })
-        .catch(() => {
-          Toast.show('Não foi possível enviar a subscrição',
-            ApplicationStyles.toastError);
-          navigate("Participant"); // TODO MUDAR PARA  LINHA 26 quando request tiver a funcionar
-        });
+      .then(() => {
+        this.props.onSuccessfulSubmit(choices);
+        navigate('Causes', { categoryIndex: 0, informative: false })
+      }).catch(() => {
+        Toast.show('Não foi possível enviar a subscrição',
+          ApplicationStyles.toastError);
+      });
     }
   }
 
@@ -42,9 +34,9 @@ class SubscriptionView extends Component {
           <Card style={styles.messageBackground}>
             <CardItem style={styles.messageCard}>
               <Body>
-                <Text>
-                  {this.props.question}
-                </Text>
+              <Text>
+                {this.props.question}
+              </Text>
               </Body>
             </CardItem>
           </Card>

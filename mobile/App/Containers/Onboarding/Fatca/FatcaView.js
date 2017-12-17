@@ -21,17 +21,12 @@ class FatcaView extends Component {
 
     if (this.props.submit) {
       this.props.submit({ FATCA: this.props.options[choice - 1].text }, this.props.session)
-        .then(() => {
-          if (this.props.onSuccessfulSubmit) {
-            this.props.onSuccessfulSubmit(choice);
-          } else {
-            Toast.show('FATCA aceite com sucesso.', ApplicationStyles.toastSuccess);
-          }
-          return true;
-        }).catch(() => {
-          Toast.show('Não foi possível aceitar o FATCA', ApplicationStyles.toastError);
-          navigate('Investor', { index: 0 }); //TODO mudar depois de requests a funcionar
-        });
+      .then(() => {
+        this.props.onSuccessfulSubmit(this.props.options[choice - 1].text);
+        navigate('Investor', { index: 0 });
+      }).catch(() => {
+        Toast.show('Não foi possível aceitar o FATCA', ApplicationStyles.toastError);
+      });
     }
   }
 
@@ -43,9 +38,9 @@ class FatcaView extends Component {
           <Card style={styles.messageBackground}>
             <CardItem style={styles.messageCard}>
               <Body>
-                <Text>
-                  {this.props.question}
-                </Text>
+              <Text>
+                {this.props.question}
+              </Text>
               </Body>
             </CardItem>
           </Card>
