@@ -15,6 +15,7 @@ export default class Performances extends Component {
     const { navigate } = this.props.navigation;
     return (
       <ScrollView style={ApplicationStyles.container}>
+        <CustomText h1 style={[ApplicationStyles.padding, { paddingBottom: 0}]}>Evolução do Valor da Up</CustomText>
         <VictoryChart
           theme={VictoryTheme.material}
         >
@@ -43,7 +44,7 @@ export default class Performances extends Component {
 
           <TouchableOpacity style={[ApplicationStyles.rightAligned]} onPress={() => navigate('Share')}>
             <CustomText p style={[ApplicationStyles.nextLink]}>
-              { I18n.t('share') } >
+              We Share A Share >
             </CustomText>
           </TouchableOpacity>
         </Card>

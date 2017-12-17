@@ -15,6 +15,7 @@ export default class StoikBenefits extends Component {
     return (
       <ScrollView style={[ApplicationStyles.container]}>
         <Card>
+          <Text h1 style={[ApplicationStyles.paddingBottom]}>Benefícios do PPR SGF Stoik Ações</Text>
           <View style={[ApplicationStyles.row, ApplicationStyles.paddingVertical]}>
             <View style={ApplicationStyles.benefitItem} />
             <Text h3 style={ApplicationStyles.benefitTest}>{ I18n.t('benefitsSaving') }</Text>

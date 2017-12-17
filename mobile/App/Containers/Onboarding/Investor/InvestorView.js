@@ -7,7 +7,7 @@ import RadioButtonsForm from '@components/RadioButtonsForm';
 
 class InvestorView extends Component {
   static navigationOptions = ({ }) => ({
-    title: 'Invista',
+    title: 'Comece a Investir',
   });
 
   handleSubmit = () => {

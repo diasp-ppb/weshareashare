@@ -16,7 +16,7 @@ const initialLayout = {
 
 export default class CausesView extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: 'A Partilha',
+    title: typeof (navigation.state.params) === 'undefined' || typeof (navigation.state.params.title) === 'undefined' ? '' : navigation.state.params.title,
   });
 
   static propTypes = {
@@ -49,6 +49,8 @@ export default class CausesView extends Component {
   }
 
   componentWillMount() {
+    this.props.navigation.setParams({ title: this.props.title });
+
     Users.getCauses(this.props.session).then((res) => {
       _.forEach(res, (value) => {
         const image = value.image;

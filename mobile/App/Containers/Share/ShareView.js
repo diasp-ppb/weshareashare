@@ -16,6 +16,7 @@ export default class Share extends Component {
     return (
       <ScrollView style={ApplicationStyles.container}>
         <Card>
+          <CustomText h1 style={[ApplicationStyles.paddingBottom]}>Projeto WeShareAShare</CustomText>
           <CustomText h3 style={{ color: Colors.textSecondary }}>
             O WeShareAShare é um projeto sem fins lucrativos que nasceu do desejo de juntar dois mundos tipicamente desligados: Finanças e Causas.
           </CustomText>

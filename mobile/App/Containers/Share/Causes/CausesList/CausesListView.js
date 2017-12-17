@@ -109,7 +109,7 @@ class CausesList extends Component {
               onPress={() => navigate('Invest')}
             >
               <CustomText p style={[ApplicationStyles.nextLink]}>
-                {I18n.t('onboarding')} >
+               Comece a Investir >
               </CustomText>
             </TouchableOpacity>
           }

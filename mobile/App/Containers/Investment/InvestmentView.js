@@ -15,6 +15,7 @@ export default class Investment extends Component {
     return (
       <ScrollView style={ApplicationStyles.container}>
         <Card>
+          <CustomText h1 style={[ApplicationStyles.paddingBottom]}>PPR SGF Stoik Ações</CustomText>
           <CustomText h3 style={{ color: Colors.textSecondary }}>
             O PPR SGF Stoik Ações é constítuido por uma carteira de activos balanceada e diversificada, que integra obrigações, acções, matérias primas, imobiliário e liquidez.
           </CustomText>
@@ -30,9 +31,9 @@ export default class Investment extends Component {
             resizeMode="contain"
           />
 
-          <TouchableOpacity style={ApplicationStyles.rightAligned} onPress={() => navigate('Wallet')}>
+          <TouchableOpacity style={ApplicationStyles.rightAligned} onPress={() => navigate('Performances')}>
             <CustomText p style={ApplicationStyles.nextLink}>
-              { I18n.t('wallet') } >
+             Evolução do Valor da Up >
             </CustomText>
           </TouchableOpacity>
         </Card>

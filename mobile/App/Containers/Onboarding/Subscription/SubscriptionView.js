@@ -8,7 +8,7 @@ import { ApplicationStyles } from '@theme/';
 
 class SubscriptionView extends Component {
   static navigationOptions = ({ }) => ({
-    title: 'Invista',
+    title: 'Comece a Investir',
   });
 
   handleSubmit = () => {

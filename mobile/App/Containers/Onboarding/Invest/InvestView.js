@@ -8,7 +8,7 @@ import AppStep from '@components/AppStep';
 
 export default class Saving extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: 'Invista',
+    title: 'Comece a Investir',
   });
 
   constructor(props) {

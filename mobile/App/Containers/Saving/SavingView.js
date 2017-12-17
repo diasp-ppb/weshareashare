@@ -15,7 +15,7 @@ export default class Saving extends Component {
     return (
       <ScrollView style={ApplicationStyles.container}>
         <Card>
-          <CustomText h1 style={[ApplicationStyles.paddingBottom, ApplicationStyles.textCenterAligned]}>A importância da poupança sistemática a longo prazo</CustomText>
+          <CustomText h1 style={[ApplicationStyles.paddingBottom]}>Poupança sistemática a longo prazo</CustomText>
           <CustomText h3 style={[ApplicationStyles.paddingTop, { color: Colors.textSecondary }]}>
             O PPR pode ser usado para a reforma, mas também para outros tipos de poupança e sempre com benefícios fiscais direcionados à poupança de longo prazo.
           </CustomText>
@@ -28,7 +28,7 @@ export default class Saving extends Component {
 
           <TouchableOpacity style={[ApplicationStyles.rightAligned]} onPress={() => navigate('Simulation')}>
             <Text p style={[ApplicationStyles.nextLink]}>
-              { I18n.t('simulation') } >
+              Simulação >
             </Text>
           </TouchableOpacity>
         </Card>
