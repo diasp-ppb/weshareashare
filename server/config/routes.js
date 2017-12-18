@@ -118,6 +118,14 @@ module.exports.routes = {
     action: 'delete',
   },
 
+  'post /participant': {
+    cors: {
+      allowRequestHeaders: 'Content-Type, Client-ID',
+    },
+    controller: 'PersonController',
+    action: 'postParticipant',
+  },
+
   'post /subscription': {
     cors: {
       allowRequestHeaders: 'Content-Type, Client-ID',

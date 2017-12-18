@@ -24,6 +24,7 @@ class ParticipantView extends Component {
       .catch(() => {
         Toast.show('Não foi possível enviar os dados pessoais',
           ApplicationStyles.toastError);
+         navigate('Subscription');// TODO passar para a linha 26 quando o requests tiver ok
       });
     }
   }

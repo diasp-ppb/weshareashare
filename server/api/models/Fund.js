@@ -67,7 +67,6 @@ module.exports = {
 
   parseAttrs(attrs) {
     var parsed = {
-      participant: Person.parseAttrs(attrs.participant),
       checkNo: attrs.subscription.CHECKNO,
       checkBank: attrs.subscription.CHECKBANK,
       subscriptionValue: parseInt(attrs.subscription.VALUE),

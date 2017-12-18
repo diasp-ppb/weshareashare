@@ -56,4 +56,8 @@ module.exports.policies = {
   FundController: {
     '*': 'hasOAuthBearer',
   },
+
+  PersonController: {
+    '*': 'hasOAuthBearer',
+  },
 };
