@@ -16,7 +16,7 @@ module.exports = {
       parsedAttrs.participant = person.id;
 
       if (person.subscription) {
-        Fund.update(person.subscription, parsedAttrs).meta({fetch: true}).then(() => {
+        Fund.update({id: person.subscription}, parsedAttrs).meta({fetch: true}).then(() => {
           return res.ok();
         });
       } else {
@@ -31,33 +31,31 @@ module.exports = {
     },
 
   async postFatca(req, res) {
-
     let userId = req.query.accessUser.id;
     let attrs = {fatca: req.allParams().FATCA};
 
     try {
       let person = await Person.findOne({user: userId});
 
-      if(person){
-        let personAttrs = Person.parseAttrs({});
-        Person.create(personAttrs).meta({fetch: true}).then(() => {
+      if (person) {
+        let subscription = await Fund.findOne({participant: person.id});
 
-        });
-        Fund.update(person.subscription, attrs).meta({fetch: true}).then();
-      } else {
-        let data = Fund.getDefaultData();
-        data.facta = req.allParams().FATCA;
-        Fund.create(parsedAttrs)
-          .meta({fetch: true}).then(() => {
-            return res.ok();
-          });
-      }
-
+        if (subscription) {
+          if (attrs.fatca === 'Sim') {
+              Fund.update({id: subscription.id}, {facta: true}).meta({fetch: true}).then(() => {
+                return res.ok();
+              });
+          } else {
+              Fund.update({id: subscription.id}, {facta: false}).meta({fetch: true}).then(() => {
+                return res.ok();
+              });
+          }
+        }
     } catch(err) {
       return res.serverError(err);
     }
   },
-  
+
 
   async postInvestorProfile(req, res) {
     let investorAttrs = Profile.parseAttrs(req.allParams());
