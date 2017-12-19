@@ -9,19 +9,19 @@ module.exports = {
   async postParticipant(req, res) {
     let attrs = req.allParams();
     let parsedAttrs = Person.parseAttrs(attrs);
-    let participantAttrs = parsedAttrs.participant;
 
     let userId = req.query.accessUser.id;
-    participantAttrs['user'] = userId;
+    parsedAttrs['user'] = userId;
 
     try {
       let user = await User.findOne({id: userId});
 
       if (user.person) {
-        Person.update(user.person, participantAttrs).meta({fetch: true}).then();
+        Person.update(user.person, parsedAttrs).meta({fetch: true}).then();
       } else {
-        Person.create(participantAttrs).meta({fetch: true}).then();
+        Person.create(parsedAttrs).meta({fetch: true}).then();
       }
+      return res.ok();
     } catch(err) {
       return res.serverError(err);
     }

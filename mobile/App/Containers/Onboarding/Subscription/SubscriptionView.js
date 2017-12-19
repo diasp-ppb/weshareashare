@@ -19,10 +19,9 @@ class SubscriptionView extends Component {
       this.props.submit({ subscription: choices }, this.props.session)
       .then(() => {
         this.props.onSuccessfulSubmit(choices);
-        navigate('Causes', { categoryIndex: 0, informative: false })
+        navigate('Investor', {index: 0})
       }).catch(() => {
-        Toast.show('Não foi possível enviar a subscrição',
-          ApplicationStyles.toastError);
+        Toast.show('Não foi possível enviar a subscrição.', ApplicationStyles.toastError);
       });
     }
   }
