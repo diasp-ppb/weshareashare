@@ -51,6 +51,7 @@ module.exports = {
               });
           }
         }
+      }
     } catch(err) {
       return res.serverError(err);
     }
