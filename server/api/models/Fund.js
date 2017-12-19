@@ -15,12 +15,12 @@ module.exports = {
 
     subscriptionValue: {
       type: 'number',
-      required: true
+      required: false
     },
 
     paymentMethod: {
       type: 'number',
-      required: true
+      required: false
     },
 
     checkNo: {
@@ -35,28 +35,28 @@ module.exports = {
 
     accountNo: {
       type: 'string',
-      required: true
+      required: false
     },
 
     debitAmount: {
       type: 'number',
-      required: true
+      required: false
     },
 
     debitGrowth: {
       type: 'number',
-      required: true
+      required: false
     },
 
     periodicity: {
       type: 'number',
-      required: true
+      required: false
     },
 
     initialDate: {
       type: 'string',
       columnType: 'date',
-      required: true
+      required: false
     },
 
     facta: {
@@ -75,7 +75,7 @@ module.exports = {
       debitAmount: (attrs.DEBIT == null)? 0 : parseInt(attrs.DEBIT),
       debitGrowth: (attrs.GROWTH == null)? 0 : parseInt(attrs.GROWTH),
       periodicity: (attrs.PERIODICITY == null)? 0 : parseInt(attrs.PERIODICITY),
-      initialDate: (attrs.INITIALDATE == null)? '' : attrs.INITIALDATE
+      initialDate: (attrs.INITIALDATE == null)? (new Date(Date.now())).toDateString() : new Date(attrs.INITIALDATE)
     };
 
     return parsed;

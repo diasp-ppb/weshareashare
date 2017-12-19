@@ -10,13 +10,10 @@ module.exports = {
   async postSubscription(req, res) {
     let attrs = req.allParams();
     let parsedAttrs = Fund.parseAttrs(attrs.subscription);
-
     let userId = req.query.accessUser.id;
-
-    parsedAttrs.participant = person.id;
-
     try {
       let person = await Person.findOne({user: userId});
+      parsedAttrs.participant = person.id;
 
       if (person.subscription) {
         Fund.update(person.subscription, parsedAttrs).meta({fetch: true}).then(() => {
@@ -31,8 +28,7 @@ module.exports = {
       return res.serverError(err);
     }
 
-    return res.ok();
-  },
+    },
 
   async postFatca(req, res) {
 
@@ -61,6 +57,7 @@ module.exports = {
       return res.serverError(err);
     }
   },
+  
 
   async postInvestorProfile(req, res) {
     let investorAttrs = Profile.parseAttrs(req.allParams());
@@ -79,7 +76,6 @@ module.exports = {
     } catch(err) {
       return res.serverError(err);
     }
-
     return res.ok();
   },
 
