@@ -67,15 +67,15 @@ module.exports = {
 
   parseAttrs(attrs) {
     var parsed = {
-      checkNo: (attrs.subscription.CHECKNO == null)? '' : attrs.subscription.CHECKNO,
-      checkBank: (attrs.subscription.CHECKBANK == null)? '' : attrs.subscription.CHECKBANK,
-      subscriptionValue: (attrs.subscription.VALUE == null)? 0 : parseInt(attrs.subscription.VALUE),
-      paymentMethod: (attrs.subscription.METHOD == null)? 0 : parseInt(attrs.subscription.METHOD),
-      accountNo: (attrs.subscription.IBAN == null)? '' : attrs.subscription.IBAN,
-      debitAmount: (attrs.subscription.DEBIT == null)? 0 : parseInt(attrs.subscription.DEBIT),
-      debitGrowth: (attrs.subscription.GROWTH == null)? 0 : parseInt(attrs.subscription.GROWTH),
-      periodicity: (attrs.subscription.PERIODICITY == null)? 0 : parseInt(attrs.subscription.PERIODICITY),
-      initialDate: (attrs.subscription.INITIALDATE == null)? '' : attrs.subscription.INITIALDATE
+      checkNo: (attrs.CHECKNO == null)? '' : attrs.CHECKNO,
+      checkBank: (attrs.CHECKBANK == null)? '' : attrs.CHECKBANK,
+      subscriptionValue: (attrs.VALUE == null)? 0 : parseInt(attrs.VALUE),
+      paymentMethod: (attrs.METHOD == null)? 0 : parseInt(attrs.METHOD),
+      accountNo: (attrs.IBAN == null)? '' : attrs.IBAN,
+      debitAmount: (attrs.DEBIT == null)? 0 : parseInt(attrs.DEBIT),
+      debitGrowth: (attrs.GROWTH == null)? 0 : parseInt(attrs.GROWTH),
+      periodicity: (attrs.PERIODICITY == null)? 0 : parseInt(attrs.PERIODICITY),
+      initialDate: (attrs.INITIALDATE == null)? '' : attrs.INITIALDATE
     };
 
     return parsed;
