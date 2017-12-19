@@ -16,12 +16,11 @@ class SubscriptionView extends Component {
     const choices = this.child.retrieveValues();
 
     if (this.props.submit) {
-      this.props.submit({ subscription: choices }, this.props.session)
-      .then(() => {
+      this.props.submit({ subscription: choices }, this.props.session).then(() => {
         this.props.onSuccessfulSubmit(choices);
         navigate('Investor', {index: 0})
       }).catch(() => {
-        Toast.show('Não foi possível enviar a subscrição.', ApplicationStyles.toastError);
+        Toast.show('Não foi possível enviar os dados de subscrição.', ApplicationStyles.toastError);
       });
     }
   }

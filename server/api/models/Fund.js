@@ -67,16 +67,15 @@ module.exports = {
 
   parseAttrs(attrs) {
     var parsed = {
-      checkNo: attrs.subscription.CHECKNO,
-      checkBank: attrs.subscription.CHECKBANK,
-      subscriptionValue: parseInt(attrs.subscription.VALUE),
-      paymentMethod: parseInt(attrs.subscription.METHOD),
-      accountNo: attrs.subscription.IBAN,
-      debitAmount: parseInt(attrs.subscription.DEBIT),
-      debitGrowth: parseInt(attrs.subscription.GROWTH),
-      periodicity: parseInt(attrs.subscription.PERIODICITY),
-      initialDate: attrs.subscription.INITIALDATE,
-      facta: attrs.subscription.FATCA
+      checkNo: (attrs.subscription.CHECKNO == null)? '' : attrs.subscription.CHECKNO,
+      checkBank: (attrs.subscription.CHECKBANK == null)? '' : attrs.subscription.CHECKBANK,
+      subscriptionValue: (attrs.subscription.VALUE == null)? 0 : parseInt(attrs.subscription.VALUE),
+      paymentMethod: (attrs.subscription.METHOD == null)? 0 : parseInt(attrs.subscription.METHOD),
+      accountNo: (attrs.subscription.IBAN == null)? '' : attrs.subscription.IBAN,
+      debitAmount: (attrs.subscription.DEBIT == null)? 0 : parseInt(attrs.subscription.DEBIT),
+      debitGrowth: (attrs.subscription.GROWTH == null)? 0 : parseInt(attrs.subscription.GROWTH),
+      periodicity: (attrs.subscription.PERIODICITY == null)? 0 : parseInt(attrs.subscription.PERIODICITY),
+      initialDate: (attrs.subscription.INITIALDATE == null)? '' : attrs.subscription.INITIALDATE
     };
 
     return parsed;
