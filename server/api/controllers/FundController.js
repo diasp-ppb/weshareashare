@@ -6,7 +6,6 @@
 */
 
 module.exports = {
-
   async postSubscription(req, res) {
     let attrs = req.allParams();
     let parsedAttrs = Fund.parseAttrs(attrs.subscription);
@@ -27,8 +26,7 @@ module.exports = {
     } catch(err) {
       return res.serverError(err);
     }
-
-    },
+  },
 
   async postFatca(req, res) {
     let userId = req.query.accessUser.id;

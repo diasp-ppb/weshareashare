@@ -84,7 +84,8 @@ module.exports = {
     },
 
     investorProfile: {
-      model: 'profile'
+      model: 'profile',
+      unique: true
     }
   },
 

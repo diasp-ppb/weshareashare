@@ -7,7 +7,7 @@ import RadioButtonsForm from '@components/RadioButtonsForm';
 import Toast from 'react-native-root-toast'
 
 class InvestorView extends Component {
-  static navigationOptions = ({ }) => ({
+  static navigationOptions = () => ({
     title: 'Comece a Investir',
   });
 
@@ -24,8 +24,9 @@ class InvestorView extends Component {
     if(this.props.lastQuestion) {
       this.props.saveAnswer(qa);
       let investor = { ...this.props.investor, ...qa };
-      this.props.saveQuiz({investor: investor},this.props.session).then(() => {
+      this.props.saveQuiz({investor: investor},this.props.session).then((res) => {
         navigate('Causes', { categoryIndex: 0, informative: false }) //TODO è preciso ver o score do utilizador e informalo xD
+        console.log(res);
       }).catch((err) => {
         console.log(err);
         Toast.show('Não foi possível enviar o seu perfil de risco.', ApplicationStyles.toastError);

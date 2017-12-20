@@ -134,11 +134,11 @@ module.exports.routes = {
     action: 'postSubscription',
   },
 
-  'post /investorprofile': {
+  'post /investor': {
     cors: {
       allowRequestHeaders: 'Content-Type, Client-ID',
     },
-    controller: 'FundController',
+    controller: 'ProfileController',
     action: 'postInvestorProfile',
   },
 
