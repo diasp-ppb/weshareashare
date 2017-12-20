@@ -20,16 +20,19 @@ class InvestorView extends Component {
 
     let qa = {};
     let key = choices - 1;
-    qa[this.props.question.key] = this.props.question.options[key].text;
+    qa[this.props.question.key] = this.props.question.options[key].key;
     if(this.props.lastQuestion) {
       this.props.saveAnswer(qa);
       let investor = { ...this.props.investor, ...qa };
       this.props.saveQuiz({investor: investor},this.props.session).then((res) => {
+        Toast.show(res.response, ApplicationStyles.toastSuccess);        
         navigate('Causes', { categoryIndex: 0, informative: false }) //TODO è preciso ver o score do utilizador e informalo xD
-        console.log(res);
       }).catch((err) => {
-        console.log(err);
-        Toast.show('Não foi possível enviar o seu perfil de risco.', ApplicationStyles.toastError);
+        if (err.response) {
+          Toast.show(err.response, ApplicationStyles.toastError);
+        } else {
+          Toast.show('Não foi possível enviar o seu perfil de risco.', ApplicationStyles.toastError);
+        }
       });
     } else {
       this.props.saveAnswer(qa);

@@ -56,14 +56,13 @@ module.exports = {
 
   parseAttrs(attrs) {
     return {
-      duration: parseInt(attrs.investorProfile.DURATION),
-      percentage: parseInt(attrs.investorProfile.PERCENTAGE),
-      goal: parseInt(attrs.investorProfile.GOAL),
-      feeling: parseInt(attrs.investorProfile.FEELING),
-      risk: parseInt(attrs.investorProfile.RISK),
-      type: parseInt(attrs.investorProfile.TYPE),
-      profitability: parseInt(attrs.investorProfile.PROFITABILITY),
-      score: parseInt(attrs.investorProfile.SCORE),
+      duration: parseInt(attrs.DURATION),
+      percentage: parseInt(attrs.PERCENTAGE),
+      goal: parseInt(attrs.GOAL),
+      feeling: parseInt(attrs.FEELING),
+      risk: parseInt(attrs.RISK),
+      type: parseInt(attrs.TYPE),
+      profitability: parseInt(attrs.PROFITABILITY)
     };
   },
 
