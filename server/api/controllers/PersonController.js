@@ -18,11 +18,11 @@ module.exports = {
 
       if (user.person) {
         Person.update({id: user.person}, parsedAttrs).meta({fetch: true}).then(() => {
-          return res.ok();
+          return res.ok({response: 'Dados pessoais atualizados.'});
         });
       } else {
         Person.create(parsedAttrs).meta({fetch: true}).then(() => {
-          return res.ok();
+          return res.ok({response: 'Dados pessoais atualizados.'});
         });
       }
     } catch(err) {

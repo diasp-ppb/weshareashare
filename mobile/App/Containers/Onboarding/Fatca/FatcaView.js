@@ -20,8 +20,7 @@ class FatcaView extends Component {
       return;
 
     if (this.props.submit) {
-      this.props.submit({ FATCA: this.props.options[choice - 1].text }, this.props.session)
-      .then(() => {
+      this.props.submit({ FATCA: this.props.options[choice - 1].text }, this.props.session).then(() => {
         this.props.onSuccessfulSubmit(this.props.options[choice - 1].text);
         navigate('Investor', { index: 0 });
       }).catch(() => {

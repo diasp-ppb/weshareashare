@@ -75,8 +75,14 @@ const UserNavigationStack = StackNavigator({
 });
 
 export default DrawerNavigator({
-  UserNavigationStack: { screen: UserNavigationStack },
+ UserNavigationStack: { screen: UserNavigationStack },
 }, {
-  gesturesEnabled: false,
-  contentComponent: ControlPanel,
+ gesturesEnabled: false,
+ contentComponent: ControlPanel,
+ drawerOpenRoute: 'DrawerOpen',
+ drawerCloseRoute: 'DrawerClose',
+ drawerToggleRoute: 'DrawerToggle',
+ headerMode: 'none',
+ drawerWidth: 300,
+ drawerPosition: 'left',
 });

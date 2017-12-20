@@ -17,11 +17,11 @@ module.exports = {
 
       if (person.subscription) {
         Fund.update({id: person.subscription}, parsedAttrs).meta({fetch: true}).then(() => {
-          return res.ok();
+          return res.ok({response: 'Dados atualizados.'});
         });
       } else {
         Fund.create(parsedAttrs).meta({fetch: true}).then(() => {
-          return res.ok();
+          return res.ok({response: 'Dados atualizados.'});
         });
       }
     } catch(err) {
@@ -43,11 +43,11 @@ module.exports = {
         if (subscription) {
           if (attrs.fatca === 'Sim') {
               Fund.update({id: subscription.id}, {facta: true}).meta({fetch: true}).then(() => {
-                return res.ok();
+                return res.ok({response: 'FATCA atualizad.'});
               });
           } else {
               Fund.update({id: subscription.id}, {facta: false}).meta({fetch: true}).then(() => {
-                return res.ok();
+                return res.ok({response: 'FATCA atualizado.'});
               });
           }
         }
