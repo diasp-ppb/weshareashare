@@ -22,9 +22,10 @@ class FatcaView extends Component {
     if (this.props.submit) {
       this.props.submit({ FATCA: this.props.options[choice - 1].text }, this.props.session).then(() => {
         this.props.onSuccessfulSubmit(this.props.options[choice - 1].text);
+        Toast.show("FATCA submetido com sucesso.", ApplicationStyles.toastSuccess);
         navigate('Investor', { index: 0 });
       }).catch(() => {
-        Toast.show('Não foi possível aceitar o FATCA', ApplicationStyles.toastError);
+        Toast.show('Não foi possível submeter o FATCA', ApplicationStyles.toastError);
       });
     }
   }

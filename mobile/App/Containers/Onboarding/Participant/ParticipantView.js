@@ -7,7 +7,7 @@ import Toast from 'react-native-root-toast';
 import { ApplicationStyles } from '@theme/';
 
 class ParticipantView extends Component {
-  static navigationOptions = ({ }) => ({
+  static navigationOptions = () => ({
     title: 'Comece a Investir',
   });
 
@@ -18,6 +18,7 @@ class ParticipantView extends Component {
     if (this.props.submit) {
       this.props.submit({ participant: choices }, this.props.session).then(() => {
         this.props.onSuccessfulSubmit(choices);
+        Toast.show("Dados pessoais submetidos com sucesso.", ApplicationStyles.toastSuccess);
         navigate('Subscription');
       }).catch(() => {
         Toast.show('Não foi possível enviar os dados pessoais.', ApplicationStyles.toastError);

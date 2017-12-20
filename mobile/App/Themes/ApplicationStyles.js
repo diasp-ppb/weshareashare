@@ -146,8 +146,8 @@ const ApplicationStyles = {
     delay: 0,
   },
   toastSuccess: {
-    duration: Toast.durations.LONG,
-    position: Toast.positions.CENTER,
+    duration: Toast.durations.SHORT,
+    position: Toast.positions.BOTTOM,
     backgroundColor: '#66BB6A',
     shadow: true,
     animation: true,

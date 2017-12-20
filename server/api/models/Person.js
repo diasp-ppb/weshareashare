@@ -99,7 +99,7 @@ module.exports = {
       cellphone: (attrs.CELLPHONE == null)? '' : attrs.CELLPHONE,
       NIF: (attrs.NIF == null)? '' : attrs.NIF,
       identificationNumber: (attrs.ID == null)? '' : attrs.ID,
-      birthday: new Date(attrs.BIRTHDAY),
+      birthday: new Date(attrs.BIRTHDAY).toDateString(),
       profession: (attrs.JOB == null)? '' : attrs.JOB,
       employer: (attrs.EMPLOYER == null)? '' : attrs.EMPLOYER,
     };

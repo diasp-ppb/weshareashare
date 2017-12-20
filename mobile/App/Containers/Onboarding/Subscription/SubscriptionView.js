@@ -7,7 +7,7 @@ import Toast from 'react-native-root-toast';
 import { ApplicationStyles } from '@theme/';
 
 class SubscriptionView extends Component {
-  static navigationOptions = ({ }) => ({
+  static navigationOptions = () => ({
     title: 'Comece a Investir',
   });
 
@@ -18,7 +18,8 @@ class SubscriptionView extends Component {
     if (this.props.submit) {
       this.props.submit({ subscription: choices }, this.props.session).then(() => {
         this.props.onSuccessfulSubmit(choices);
-        navigate('Investor', {index: 0})
+        Toast.show("Dados de subscrição submetidos com sucesso.", ApplicationStyles.toastSuccess);
+        navigate('FatcaForm')
       }).catch(() => {
         Toast.show('Não foi possível enviar os dados de subscrição.', ApplicationStyles.toastError);
       });
