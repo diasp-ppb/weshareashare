@@ -55,7 +55,8 @@ const mapStateToProps = (state, ownProps) =>  {
 
 const mapDispatchToProps = (dispatch) => ({
   saveAnswer: (res) => dispatch(OnboardingRedux.investor(res)),
-  saveQuiz: Onboarding.investor
+  saveQuiz: Onboarding.investor,
+  sendEmail: Onboarding.email,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormRender);

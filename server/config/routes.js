@@ -174,7 +174,7 @@ module.exports.routes = {
     action: 'fillInvestorProfilePDF',
   },
 
-  'get /onboardingEmail': {
+  'post /onboardingEmail': {
     cors: {
       allowRequestHeaders: 'Content-Type, Client-ID',
     },

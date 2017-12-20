@@ -55,27 +55,6 @@ module.exports = {
     }
   },
 
-
-  async postInvestorProfile(req, res) {
-    let investorAttrs = Profile.parseAttrs(req.allParams());
-    let userid = req.headers['user-id'];
-
-    try {
-      let person = await Person.findOne({user: userid});
-
-      investorAttrs.person = person.id;
-      if(person.investorProfile){
-        Profile.update(person.investorProfile, investorAttrs).meta({fetch: true}).then();
-      } else {
-        Profile.create(investorAttrs).meta({fetch: true}).then();
-      }
-
-    } catch(err) {
-      return res.serverError(err);
-    }
-    return res.ok();
-  },
-
   async fillSubscriptionPDF(req, res) {
     let userid = req.allParams()['user-id'];
 
@@ -259,13 +238,13 @@ module.exports = {
   },
 
   async sendEmail(req, res) {
-    let userid = req.headers['user-id'];
+    let userid = req.query.accessUser.id;
 
     let person, token;
     try {
       person = await Person.findOne({id: userid}).populate('user').populate('investorProfile');
     } catch(err) {
-      res.serverError(err);
+      return res.serverError(err);
     }
 
     if (!person) {
@@ -275,10 +254,11 @@ module.exports = {
     try {
       token = await Token.findOrAdd({user: person.user, type: 'reset'});
     } catch (err) {
-      res.serverError(err);
+      return res.serverError(err);
     }
 
     let email = sails.config.custom.email;
+
     email.send({
       template: 'onboarding',
       message: {
@@ -303,10 +283,10 @@ module.exports = {
         token: token.value,
       },
     }).then(() => {
-      //return res.ok({response: 'An email was sent to this account.'});
+      return res.ok({response: 'An email was sent to this account.'});
     }).catch((err) => {
+      sails.log(err);
       return res.serverError(err);
     });
-    return res.ok({response: 'An email was sent to this account.'});
   }
 };

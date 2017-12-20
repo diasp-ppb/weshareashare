@@ -9,5 +9,8 @@ export const participant = (participant, session) =>
 export const investor = (profile, session) =>
   fetchApi('/investor', profile, 'post', session);
 
-export const fatca = (agreement, session) =>
+export const fatca = (session) =>
   fetchApi('/fatca', agreement, 'post', session);
+
+export const email = (session) =>
+  fetchApi('/onboardingEmail', null, 'post', session);

@@ -54,7 +54,10 @@ module.exports.policies = {
   },
 
   FundController: {
-    '*': 'hasOAuthBearer',
+    '*': [],
+    'postSubscription': 'hasOAuthBearer',
+    'postFatca': 'hasOAuthBearer',
+    'sendEmail': 'hasOAuthBearer',
   },
 
   PersonController: {
