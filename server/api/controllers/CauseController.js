@@ -22,4 +22,13 @@ module.exports = {
         return res.serverError(err);
       });
   },
+  
+  getAll(req, res) {
+    Cause.find()
+    .then((causes) => {
+      res.ok(causes);
+    }).catch((err) => {
+      return res.serverError(err);
+    });
+  },
 };
