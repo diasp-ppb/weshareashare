@@ -43,6 +43,11 @@ module.exports.routes = {
     controller: 'CauseController',
     action: 'create',
   },
+  
+  'get /causes': {
+    controller: 'CauseController',
+    action: 'getAll',
+  },
 
   'get /users/:userId/cause': {
     controller: 'UserController',

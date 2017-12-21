@@ -66,7 +66,7 @@ module.exports = {
       transport: {
         host: 'smtp.gmail.com',
         port: 587,
-        secure: true,
+        secure: false,
         auth: {
           user: 'weshareasharetest@gmail.com',
           pass: 'ws_admin'
