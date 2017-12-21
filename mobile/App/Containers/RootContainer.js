@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ReduxNavigation from '../Navigation/ReduxNavigation';
 import StartupActions from '../Redux/StartupRedux';
-import ReduxPersist from '../Config/ReduxPersist';
+import ReduxPersist from '../Redux/ReduxPersist';
 import * as Session from '../Redux/Session';
 import { NavigationActions } from 'react-navigation';
 
@@ -27,11 +27,11 @@ class RootContainer extends Component {
     if (!ReduxPersist.active) {
       this.props.startup();
     }
-  
-    let session = this.props.session.session;
-    if(session.client.id === null)
+
+    const session = this.props.session.session;
+    if (session.client.id === null) {
       this.props.authorizeClient();
-    else if (session.user.id !== null) {
+    } else if (session.user.id !== null) {
       this.props.navigateToUserStack();
     }
   }

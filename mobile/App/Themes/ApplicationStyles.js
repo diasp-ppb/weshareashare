@@ -146,8 +146,8 @@ const ApplicationStyles = {
     delay: 0,
   },
   toastSuccess: {
-    duration: Toast.durations.LONG,
-    position: Toast.positions.CENTER,
+    duration: Toast.durations.SHORT,
+    position: Toast.positions.BOTTOM,
     backgroundColor: '#66BB6A',
     shadow: true,
     animation: true,
@@ -169,10 +169,10 @@ const ApplicationStyles = {
     width: 40,
     height: 40,
     borderRadius: 40 / 2,
-    backgroundColor: Colors.stoikGrey,
     padding: Metrics.marginHorizontal*2,
   },
   benefitTest: {
+    paddingLeft: Metrics.paddingSml,
     flex: 1,
     flexDirection: 'row',
     flexWrap: "wrap",

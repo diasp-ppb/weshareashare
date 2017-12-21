@@ -14,6 +14,23 @@ module.exports.routes = {
     action: 'create',
   },
 
+  'post /admins': {
+    cors: {
+      allowRequestHeaders: 'Content-Type, Client-ID',
+    },
+    controller: 'AdminController',
+    action: 'create',
+  },
+
+  'post /admins/auth': {
+    cors: {
+      allowOrigins: '*',
+      allowRequestHeaders: 'Content-Type, client-id, Authorization',
+    },
+    controller: 'AdminController',
+    action: 'signin',
+  },
+
   'post /users': {
     cors: {
       allowRequestHeaders: 'Content-Type, Client-ID',
@@ -25,11 +42,6 @@ module.exports.routes = {
   'post /causes': {
     controller: 'CauseController',
     action: 'create',
-  },
-
-  'get /causes': {
-    controller: 'CauseController',
-    action: 'getAll',
   },
 
   'get /users/:userId/cause': {
@@ -106,8 +118,67 @@ module.exports.routes = {
     action: 'delete',
   },
 
-  'get /users': {
-    controller: 'UserController',
-    action: 'getAll',
+  'post /participant': {
+    cors: {
+      allowRequestHeaders: 'Content-Type, Client-ID',
+    },
+    controller: 'PersonController',
+    action: 'postParticipant',
+  },
+
+  'post /subscription': {
+    cors: {
+      allowRequestHeaders: 'Content-Type, Client-ID',
+    },
+    controller: 'FundController',
+    action: 'postSubscription',
+  },
+
+  'post /investor': {
+    cors: {
+      allowRequestHeaders: 'Content-Type, Client-ID',
+    },
+    controller: 'ProfileController',
+    action: 'postInvestorProfile',
+  },
+
+  'post /fatca': {
+    cors: {
+      allowRequestHeaders: 'Content-Type, Client-ID',
+    },
+    controller: 'FundController',
+    action: 'postFatca',
+  },
+
+  'get /subscription': {
+    cors: {
+      allowRequestHeaders: 'Content-Type, Client-ID',
+    },
+    controller: 'FundController',
+    action: 'fillSubscriptionPDF',
+  },
+
+  'get /fatca': {
+    cors: {
+      allowRequestHeaders: 'Content-Type, Client-ID',
+    },
+    controller: 'FundController',
+    action: 'fillFatcaPDF',
+  },
+
+  'get /investorprofile': {
+    cors: {
+      allowRequestHeaders: 'Content-Type, Client-ID',
+    },
+    controller: 'FundController',
+    action: 'fillInvestorProfilePDF',
+  },
+
+  'post /onboardingEmail': {
+    cors: {
+      allowRequestHeaders: 'Content-Type, Client-ID',
+    },
+    controller: 'FundController',
+    action: 'sendEmail',
   },
 };

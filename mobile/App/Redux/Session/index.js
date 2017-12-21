@@ -69,14 +69,14 @@ export const updateCause = (res) => {
   return (dispatch) => {
     dispatch(SessionRedux.update({ user: res.user }));
   };
-}
+};
 
 export const refreshToken = () => {
   return (dispatch, getState) => {
     const session = getState().session;
 
     if (!session.tokens.refresh.value || !session.user.id) {
-      return Promise.reject();
+      return;
     }
     Users.refresh(session.tokens.refresh, session.user, session.tokens.access)
       .then((res) => {

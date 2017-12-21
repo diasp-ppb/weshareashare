@@ -1,57 +1,56 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import { Footer } from 'native-base';
 import StepIndicator from '@components/StepIndicator';
-import { Assets, ApplicationStyles, Colors, Fonts, Metrics } from '@theme/';
+import { ApplicationStyles, Colors } from '@theme/';
 
 export default class AppStep extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentPosition: this.props.index
-    }
+      currentPosition: this.props.index,
+    };
   }
-  
+
   onStepPress = (position) => {
     const { navigate } = this.props.navigation;
     switch (position) {
       case 0: navigate('Saving'); break;
       case 1: navigate('Investment'); break;
       case 2: navigate('Share'); break;
-      case 3: navigate('Onboarding'); break;
+      case 3: navigate('Invest'); break;
     }
   }
-  
+
   render() {
     const labels = [
-      {name: "A POUPANÇA"},
-      {name: "O INVESTIMENTO"},
-      {name: "A PARTILHA"},
-      {name: "INVISTA"}];
+      { name: 'A POUPANÇA' },
+      { name: 'O INVESTIMENTO' },
+      { name: 'A PARTILHA' },
+      { name: 'COMECE A INVESTIR' }];
     const customStyles = {
       stepIndicatorSize: 25,
-      currentStepIndicatorSize:30,
+      currentStepIndicatorSize: 30,
       separatorStrokeWidth: 2,
       currentStepStrokeWidth: 3,
-      stepStrokeCurrentColor: Colors.stoikBlue,
+      stepStrokeCurrentColor: (this.props.index === 2) ? Colors.stoikOrange : Colors.stoikBlue,
       stepStrokeWidth: 3,
-      stepStrokeFinishedColor: Colors.stoikBlue,
+      stepStrokeFinishedColor: '#aaaaaa',
       stepStrokeUnFinishedColor: '#aaaaaa',
-      separatorFinishedColor: Colors.stoikBlue,
+      separatorFinishedColor: '#aaaaaa',
       separatorUnFinishedColor: '#aaaaaa',
-      stepIndicatorFinishedColor: Colors.stoikBlue,
-      stepIndicatorUnFinishedColor: '#ffffff',
-      stepIndicatorCurrentColor: '#ffffff',
+      stepIndicatorFinishedColor: '#aaaaaa',
+      stepIndicatorUnFinishedColor: '#aaaaaa',
+      stepIndicatorCurrentColor: (this.props.index === 2) ? Colors.stoikOrange : Colors.stoikBlue,
       stepIndicatorLabelFontSize: 13,
       currentStepIndicatorLabelFontSize: 13,
-      stepIndicatorLabelCurrentColor: Colors.stoikBlue,
+      stepIndicatorLabelCurrentColor: '#ffffff',
       stepIndicatorLabelFinishedColor: '#ffffff',
-      stepIndicatorLabelUnFinishedColor: '#aaaaaa',
+      stepIndicatorLabelUnFinishedColor: '#ffffff',
       labelColor: '#999999',
       labelSize: 10,
-      currentStepLabelColor: Colors.stoikBlue
-    }
-    
+      currentStepLabelColor: (this.props.index === 2) ? Colors.stoikOrange : Colors.stoikBlue,
+    };
+
     return (
       <View style={[ApplicationStyles.paddingVertical]}>
         <StepIndicator
@@ -60,7 +59,7 @@ export default class AppStep extends Component {
           currentPosition={this.state.currentPosition}
           stepCount={4}
           direction={'horizontal'}
-          onPress={(position) => {this.onStepPress(position)}}
+          onPress={(position) => { this.onStepPress(position); }}
         />
       </View>
     );

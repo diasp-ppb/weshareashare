@@ -30,6 +30,7 @@ passport.deserializeUser((id, next) =>
 passport.use(
   new BasicStrategy(
     (email, password, next) => {
+
       User.findOne({
         email: email,
       }).then((user) => {

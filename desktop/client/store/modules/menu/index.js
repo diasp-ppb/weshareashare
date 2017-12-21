@@ -2,6 +2,7 @@ import * as types from '../../mutation-types'
 import lazyLoading from './lazyLoading'
 import uifeatures from './uifeatures'
 import components from './components'
+import users from './users'
 
 // show: meta.label -> name
 // name: component name
@@ -18,6 +19,7 @@ const state = {
       },
       component: lazyLoading('dashboard', true)
     },
+    users,
     {
       name: 'Axios',
       path: '/axiosDemo',

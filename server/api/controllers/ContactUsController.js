@@ -36,7 +36,7 @@ module.exports = {
       locals: {
         contact: contact,
       }
-    })
+    });
     return res.ok({response: 'Thank you for you contact. We\'ll answer as soon as possible'});
   },
 };

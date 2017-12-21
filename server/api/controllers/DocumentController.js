@@ -15,13 +15,11 @@ module.exports = {
       return res.badRequest({response: 'Invalid parameters'});
     }
 
-    let document;
     try {
-      document = Document.create({name: params.name, owner: params.accessUser.id, mimeType: mimeType}).meta({fetch: true});
+      Document.create({name: params.name, owner: params.accessUser.id, mimeType: mimeType}).meta({fetch: true});
     } catch (err) {
       return res.serverError(err);
     }
-
   },
 
   async delete(req, res) {

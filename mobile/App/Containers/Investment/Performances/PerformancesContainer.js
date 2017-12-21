@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import FormRender from './PerformancesView';
 
 const data = [
+  { x: 'Jan/16', y: 5.00000 },
   { x: 'Fev/16', y: 5.13149 },
   { x: 'Mar/16', y: 5.14509 },
   { x: 'Abr/16', y: 5.12552 },
@@ -27,12 +28,12 @@ const data = [
   { x: 'Ago/17', y: 5.37660 },
   { x: 'Set/17', y: 5.41566 },
   { x: 'Out/17', y: 5.54561 },
-  { x: 'Nov/17', y: 5.45118 }
-]
+  { x: 'Nov/17', y: 5.45118 },
+];
 
 const mapStateToProps = (state) => ({
   session: state.session,
-  data: data,
+  data,
 });
 
 const mapDispatchToProps = () => ({});

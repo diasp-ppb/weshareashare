@@ -1,16 +1,24 @@
 <template>
   <footer class="footer">
     <div class="container">
-      <div class="content has-text-centered">
-        <p><span class="icon"><i class="fa fa-code"></i></span> with <span class="icon"><i class="fa fa-heart"></i></span> by <a href="https://github.com/fundon">fundon</a>.</p>
-        <p>Code licensed under <a :href="'https://github.com/' + repository + '/blob/master/LICENSE'">{{ license }}</a>.</p>
+      <div v-if="adminEmail === null" class="content has-text-centered" style="margin-left: 0px;">
+        <p>©2017 Stoik Management Ltd. all rights reserved. | <a :href="'http://stoikcapital.com/disclaimer'">Disclaimer</a></p>
+      </div>
+      <div v-if="adminEmail !== null" class="content has-text-centered" style="margin-left: 180px;">
+        <p>©2017 Stoik Management Ltd. all rights reserved. | <a :href="'http://stoikcapital.com/disclaimer'">Disclaimer</a></p>
       </div>
     </div>
   </footer>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
+
+  computed: mapGetters({
+    adminEmail: 'adminEmail'
+  }),
 
   data () {
     return this.$store.state.pkg
@@ -23,7 +31,6 @@ export default {
 @import '~bulma/sass/utilities/mixins';
 
 .footer {
-  margin-left: 180px;
 
   @include mobile() {
     margin-left: 0;

@@ -9,7 +9,7 @@ export default StyleSheet.create({
     alignSelf: 'center',
   },
   causeNameText: {
-    flex:1,
+    flex: 1,
     paddingLeft: Metrics.smallMargin,
     fontSize: Metrics.FONT_SIZE_BIG,
   },
@@ -22,7 +22,7 @@ export default StyleSheet.create({
     flex: 1,
     paddingHorizontal: Metrics.smallMargin,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   logo: {
     flexDirection: 'row',
@@ -35,7 +35,7 @@ export default StyleSheet.create({
     paddingRight: Metrics.smallMargin,
   },
   thisbtn: {
-    backgroundColor:'white',
+    backgroundColor: 'white',
   },
   orangeNextBtn: {
     alignSelf: 'flex-end',

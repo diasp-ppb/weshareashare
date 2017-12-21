@@ -15,8 +15,8 @@
           </a>
         </div>
         <div class="nav-right is-flex">
-          <router-link v-if="!$auth.check()" to="/login" class="nav-item">Login</router-link>
-          <a v-if="$auth.check()" @click="logout" class="nav-item">Logout</a>
+          <router-link v-if="adminEmail === null" to="/login" class="nav-item">Login</router-link>
+          <a v-if="adminEmail !== null" @click="logout" class="nav-item">Logout</a>
         </div>
       </nav>
     </div>
@@ -25,7 +25,7 @@
 
 <script>
 import Tooltip from 'vue-bulma-tooltip'
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 
 export default {
 
@@ -39,22 +39,21 @@ export default {
 
   computed: mapGetters({
     pkginfo: 'pkg',
-    sidebar: 'sidebar'
+    sidebar: 'sidebar',
+    adminEmail: 'adminEmail'
   }),
 
   methods: {
     ...mapActions([
       'toggleSidebar'
     ]),
+    ...mapMutations([
+      'setAdminInfo'
+    ]),
     logout () {
-      this.$auth.logout({
-        redirect: 'Home',
-        makeRequest: false
-        // params: {},
-        // success: function () {},
-        // error: function () {},
-        // etc...
-      })
+      this.setAdminInfo({email: null, id: null})
+      this.toggleSidebar({opened: false, hidden: true})
+      this.$router.push({path: '/'})
     }
   }
 }
