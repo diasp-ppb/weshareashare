@@ -70,7 +70,7 @@ const options = {
     },
     CHECKBANK: {
       placeholder: 'Banco do cheque (caso escolha cheque)',
-    }
+    },
     IBAN: {
       label: 'Preencha os próximos campos apenas se desejar débito direto.',
       placeholder: 'IBAN para débito direto',

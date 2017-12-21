@@ -15,9 +15,10 @@ class FatcaView extends Component {
     const { navigate } = this.props.navigation;
 
     const choice = this.child.retrieveValues();
-    console.log(choice);
-    if (choice === null)
+
+    if (choice === null) {
       return;
+    }
 
     if (this.props.submit) {
       this.props.submit({ FATCA: this.props.options[choice - 1].text }, this.props.session).then(() => {

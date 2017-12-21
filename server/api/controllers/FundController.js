@@ -96,8 +96,8 @@ module.exports = {
         Receber_Email: 'yes',
         //Subscrição
         Valor_Entrega: person.subscription.subscriptionValue,
-        Comissao_Subscricao: 20,
-        Comissao_Reembolso: 5,
+        //Comissao_Subscricao: 20,
+        //Comissao_Reembolso: 5,
         Forma_Pagamento: payment_options[person.subscription.paymentMethod], //'Transferencia' 'Deposito' ' Cheque'
         Numero_Cheque: person.subscription.checkNo,
         Banco: person.subscription.checkBank,
