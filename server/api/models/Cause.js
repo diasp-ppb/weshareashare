@@ -13,16 +13,22 @@ module.exports = {
       required: true,
       unique: true,
     },
+    category: {
+      type: 'string',
+      required: true,
+    },
+    image: {
+      type: 'string',
+      required: true,
+    },
+    shortDescription: {
+      type: 'string',
+      required: true,
+    },
     description: {
       type: 'string',
       required: true,
     },
-
-    scope: {
-      model: 'area'
-    }
-
   },
 
 };
-

@@ -19,7 +19,7 @@ module.exports = {
 
 
   fn: function (inputs, exits) {
-    let customErrors = [];
+    let customError = {};
     let data = _.pick(inputs.err, ['code', 'details', 'attrNames']);
     let model = inputs.model;
     let identity = model.identity;
@@ -48,14 +48,15 @@ module.exports = {
       }
 
       _.forEach(valFields, (value, field) => {
+        if(!_.isEmpty(customError)) {
+          return;
+        }
         if((data.code === 'E_UNIQUE' && field === 'unique') ||
           (data.code === 'E_INVALID_NEW_RECORD' && field === 'required' && _.includes(data.details, 'required')) ||
           (data.code === 'E_INVALID_NEW_RECORD' && field === 'maxLength' && _.includes(data.details, 'maximum length')) ||
           (data.code === 'E_INVALID_NEW_RECORD' && field === 'minLength' && _.includes(data.details, 'minimum length')) ||
           (data.code === 'E_INVALID_NEW_RECORD' && field === 'isEmail' && _.includes(data.details, 'valid email address'))
-        ) {
-          console.log(field);
-        } else {
+        ) {} else {
           return;
         }
 
@@ -71,23 +72,24 @@ module.exports = {
         }
 
         if (!(customMessage !== phrase && typeof customMessage ===
-            'string')) {} else {
-          const newError = {
+            'string')) {}
+        else {
+          customError = {
             'attribute': attr,
-            'message': customMessage,
+            'response': customMessage,
             'rule': {},
           };
-          newError['rule'][field] = value;
-          customErrors.push(newError);
+          customError['rule'][field] = value;
+          console.log(customError)
         }
       });
     });
 
-    if(_.isEmpty(customErrors)) {
+    if(_.isEmpty(customError)) {
       return exits.success(inputs.err);
     }
     else {
-      return exits.success(customErrors);
+      return exits.success(customError);
     }
   }
 };

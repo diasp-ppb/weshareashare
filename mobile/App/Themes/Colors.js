@@ -1,8 +1,9 @@
 const Colors = {
   background: '#FFFFFF',
   clear: 'rgba(0,0,0,0)',
-  stoikOrange: '#feab2b',
+  stoikOrange: '#fbb700',
   stoikGrey: '#455a64',
+  stoikBlue: '#31859C',
   facebook: '#3b5998',
   transparent: 'rgba(0,0,0,0)',
   silver: '#F7F7F7',
@@ -24,6 +25,50 @@ const Colors = {
   banner: '#5F3E63',
   text: '#455a64',
   lightGrey: '#B4B4B4',
+  label: '#777777',
+  topBarText: '#26c6da',
+  lightBlue: '#ADD8E6',
+  textPrimary: '#222222',
+  textSecondary: '#777777',
 };
 
-export default Colors;
+const app = {
+  background: '#E9EBEE',
+  cardBackground: '#FFFFFF',
+  listItemBackground: '#FFFFFF',
+};
+
+const brand = {
+  brand: {
+    primary: '#0E4EF8',
+    secondary: '#17233D',
+  },
+};
+
+const text = {
+  textPrimary: '#222222',
+  textSecondary: '#777777',
+  headingPrimary: brand.brand.primary,
+  headingSecondary: brand.brand.primary,
+};
+
+const borders = {
+  border: '#D0D1D5',
+};
+
+const tabbar = {
+  tabbar: {
+    background: '#ffffff',
+    iconDefault: '#BABDC2',
+    iconSelected: brand.brand.primary,
+  },
+};
+
+export default {
+  ...app,
+  ...brand,
+  ...text,
+  ...borders,
+  ...tabbar,
+  ...Colors,
+};

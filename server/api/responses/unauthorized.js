@@ -16,12 +16,13 @@
 module.exports = function resUnauthorized(data) {
 
   // Get access to `req` and `res`
+  data = data || {response: 'Unauthorized request'};
   var req = this.req;
   var res = this.res;
 
   // Define the status code to send in the response.
   var statusCodeToSet = 401;
-
+  console.log(data);
   // Log a message, if desired.
   sails.log('Ran custom response: res.unauthorized()');
 

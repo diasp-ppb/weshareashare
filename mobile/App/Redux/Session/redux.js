@@ -1,8 +1,14 @@
 const UPDATE = 'session/UPDATE';
+const RESET = 'session/RESET';
 
 export const update = (session) => ({
   type: UPDATE,
   session,
+});
+
+export const reset = (client) => ({
+  type: RESET,
+  client,
 });
 
 export const initialState = {
@@ -19,7 +25,10 @@ export const initialState = {
   },
   user: {
     id: null,
-    username: null,
+    email: null,
+    firstName: null,
+    lastName: null,
+    cause: null,
   },
   client: {
     id: null,
@@ -31,6 +40,10 @@ export const reducer = (state = initialState, action) => {
     case UPDATE:
       return {
         ...state, ...action.session,
+      };
+    case RESET:
+      return {
+        ...initialState, ...action.client,
       };
     default:
       return state;

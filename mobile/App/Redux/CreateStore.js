@@ -1,8 +1,8 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { autoRehydrate } from 'redux-persist';
-import RehydrationServices from '../Services/RehydrationServices';
-import ReduxPersist from '../Config/ReduxPersist';
 import thunk from 'redux-thunk';
+import RehydrationServices from '../Services/RehydrationServices';
+import ReduxPersist from './ReduxPersist';
 import ScreenTracking from './ScreenTrackingMiddleware';
 
 // creates the store

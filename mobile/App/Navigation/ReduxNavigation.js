@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import * as ReactNavigation from 'react-navigation';
+import { NavigationActions, addNavigationHelpers } from 'react-navigation';
 import { BackHandler } from 'react-native';
-import AppNavigation from './AppNavigation';
 import { connect } from 'react-redux';
+import AppNavigation from './AppNavigation';
 
 class ReduxNavigation extends Component {
   componentDidMount() {
@@ -16,13 +16,13 @@ class ReduxNavigation extends Component {
     if (nav.index === 0) {
       return false;
     }
-    dispatch(ReactNavigation.NavigationActions.back());
+    dispatch(NavigationActions.back());
     return true;
   };
 
   render() {
     const { dispatch, nav } = this.props;
-    const navigation = ReactNavigation.addNavigationHelpers({
+    const navigation = addNavigationHelpers({
       dispatch,
       state: nav,
     });

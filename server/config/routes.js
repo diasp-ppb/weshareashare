@@ -14,6 +14,23 @@ module.exports.routes = {
     action: 'create',
   },
 
+  'post /admins': {
+    cors: {
+      allowRequestHeaders: 'Content-Type, Client-ID',
+    },
+    controller: 'AdminController',
+    action: 'create',
+  },
+
+  'post /admins/auth': {
+    cors: {
+      allowOrigins: '*',
+      allowRequestHeaders: 'Content-Type, client-id, Authorization',
+    },
+    controller: 'AdminController',
+    action: 'signin',
+  },
+
   'post /users': {
     cors: {
       allowRequestHeaders: 'Content-Type, Client-ID',
@@ -22,20 +39,22 @@ module.exports.routes = {
     action: 'create',
   },
 
+  'post /causes': {
+    controller: 'CauseController',
+    action: 'create',
+  },
+
+  'get /users/:userId/cause': {
+    controller: 'UserController',
+    action: 'getCause',
+  },
+
   'post /users/auth': {
     cors: {
       allowRequestHeaders: 'Content-Type, Client-ID, Authorization',
     },
     controller: 'UserAuthController',
     action: 'signin',
-  },
-
-  'post /users/auth/signout': {
-    cors: {
-      allowRequestHeaders: 'Content-Type, Client-ID, Authorization',
-    },
-    controller: 'UserAuthController',
-    action: 'signout',
   },
 
   'post /users/auth/refresh': {
@@ -67,8 +86,99 @@ module.exports.routes = {
     action: 'resetPassword',
   },
 
-  'get /users': {
+  'post /users/:userId/selectCause/:causeId': {
+    cors: {
+      allowRequestHeaders: 'Content-Type, Client-ID',
+    },
     controller: 'UserController',
-    action: 'getAll',
+    action: 'selectCause',
+  },
+
+  'post /contactUs': {
+    cors: {
+      allowRequestHeaders: 'Content-Type, Client-ID',
+    },
+    controller: 'ContactUsController',
+    action: 'create',
+  },
+
+  'post /documents': {
+    cors: {
+      allowRequestHeaders: 'Content-Type, Client-ID',
+    },
+    controller: 'DocumentController',
+    action: 'upload',
+  },
+
+  'delete /documents/:id': {
+    cors: {
+      allowRequestHeaders: 'Content-Type, Client-ID',
+    },
+    controller: 'DocumentController',
+    action: 'delete',
+  },
+
+  'post /participant': {
+    cors: {
+      allowRequestHeaders: 'Content-Type, Client-ID',
+    },
+    controller: 'PersonController',
+    action: 'postParticipant',
+  },
+
+  'post /subscription': {
+    cors: {
+      allowRequestHeaders: 'Content-Type, Client-ID',
+    },
+    controller: 'FundController',
+    action: 'postSubscription',
+  },
+
+  'post /investor': {
+    cors: {
+      allowRequestHeaders: 'Content-Type, Client-ID',
+    },
+    controller: 'ProfileController',
+    action: 'postInvestorProfile',
+  },
+
+  'post /fatca': {
+    cors: {
+      allowRequestHeaders: 'Content-Type, Client-ID',
+    },
+    controller: 'FundController',
+    action: 'postFatca',
+  },
+
+  'get /subscription': {
+    cors: {
+      allowRequestHeaders: 'Content-Type, Client-ID',
+    },
+    controller: 'FundController',
+    action: 'fillSubscriptionPDF',
+  },
+
+  'get /fatca': {
+    cors: {
+      allowRequestHeaders: 'Content-Type, Client-ID',
+    },
+    controller: 'FundController',
+    action: 'fillFatcaPDF',
+  },
+
+  'get /investorprofile': {
+    cors: {
+      allowRequestHeaders: 'Content-Type, Client-ID',
+    },
+    controller: 'FundController',
+    action: 'fillInvestorProfilePDF',
+  },
+
+  'post /onboardingEmail': {
+    cors: {
+      allowRequestHeaders: 'Content-Type, Client-ID',
+    },
+    controller: 'FundController',
+    action: 'sendEmail',
   },
 };

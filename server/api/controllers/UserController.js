@@ -19,6 +19,7 @@ const formatTokenResponse = (accessToken, refreshToken, user) => ({
       value: accessToken.value,
       expiresIn: expiresIn(accessToken.expiresAt),
     },
+
     refresh: {
       type: 'refresh',
       value: refreshToken.value,
@@ -26,15 +27,17 @@ const formatTokenResponse = (accessToken, refreshToken, user) => ({
   },
   user: {
     id: user.id,
-    username: user.username,
     email: user.email,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    cause: user.cause,
   },
 });
 
 module.exports = {
   create(req, res) {
     let params = req.allParams();
-    User.create(params).meta({fetch: true})
+    User.create({email: params.Email, firstName: params.FirstName, lastName: params.LastName, password: params.Password}).meta({fetch: true})
       .then((user) => {
         return user;
       }).then((user) => {
@@ -45,10 +48,10 @@ module.exports = {
             to: user.email
           },
           locals: {
-            name: user.username,
+            name: user.firstName + ' ' + user.lastName,
             email: user.email,
           }
-        })
+        });
         return user;
       }).then((user) => {
         Token.findOrAdd({
@@ -59,7 +62,6 @@ module.exports = {
             user: user.id,
             type: 'refresh',
           }).then((refreshToken) => {
-            console.log(formatTokenResponse(accessToken, refreshToken, user))
             return res.ok(formatTokenResponse(accessToken, refreshToken, user));
           }).catch((err) => {
             return res.serverError(err);
@@ -67,21 +69,54 @@ module.exports = {
         });
       }).catch((err) => {
         sails.helpers.customValidation({model: User, err: err})
-        .then((customErrors) => {
-          return res.serverError(customErrors);
-        }).catch((error) => {
-          return res.serverError(error);
+          .then((customErrors) => {
+            return res.serverError(customErrors);
+          }).catch((error) => {
+            return res.serverError(error);
+          });
       });
-    })
   },
 
-  getAll(req, res) {
-    User.find()
-      .then((users) => {
-        res.ok({ users });
-      }).catch((err) => {
-        return res.serverError(err);
+  selectCause(req, res) {
+    let params = req.allParams();
+    sails.log(params);
+    let userId = req.param('userId');
+    let causeId = req.param('causeId');
+    User.update({id: userId},{cause: causeId}).exec(function afterwards(err) {
+      if (err)
+      {return res.serverError(err);}
+      User.findOne({
+        id: userId
+      }).exec(function (err, user){
+        if (err) {
+          return res.serverError(err);
+        }
+        delete user.password;
+        res.ok({ 'message': 'Cause selected successfully.', 'user': user });
       });
+    });
+  },
+
+  getCause(req, res) {
+    let userId = req.param('userId');
+    User.findOne({
+      id: userId
+    }).exec(function (err, user){
+      if (err)
+      {return res.serverError(err);}
+
+      let causeId = user.cause;
+      Cause.findOne({
+        id: causeId
+      }).exec(function (err, cause) {
+        if (err)
+        {return res.serverError(err);}
+
+        if (cause === null)
+        {res.ok({'message': 'User has not cause.'});}
+        else
+        {res.ok(cause);}
+      });
+    });
   },
 };
-

@@ -22,8 +22,15 @@ module.exports.policies = {
     create: [],
   },
 
+  AdminController: {
+    create: ['hasClientId'],
+    signin: ['hasClientId'],
+  },
+
   UserController: {
     create: ['hasClientId'],
+    selectCause: 'hasOAuthBearer',
+    getCause: 'hasOAuthBearer',
   },
 
   UserAuthController: {
@@ -32,7 +39,28 @@ module.exports.policies = {
     revoke: ['hasOAuthBearer'],
     resetRequest: ['hasClientId'],
     resetPassword: ['hasClientId', 'hasResetToken'],
-    signout: ['hasClientId', 'hasOAuthBearer'],
   },
 
+  ContactUsController: {
+    create: ['hasClientId'],
+  },
+
+  DocumentController: {
+    '*': 'hasOAuthBearer'
+  },
+
+  CauseController: {
+    '*': 'hasOAuthBearer',
+  },
+
+  FundController: {
+    '*': [],
+    'postSubscription': 'hasOAuthBearer',
+    'postFatca': 'hasOAuthBearer',
+    'sendEmail': 'hasOAuthBearer',
+  },
+
+  PersonController: {
+    '*': 'hasOAuthBearer',
+  },
 };

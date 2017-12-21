@@ -20,13 +20,14 @@ module.exports = {
   datastores: {
     default: {
       adapter: 'sails-postgresql',
-      url: 'postgresql://weshareashare:ws_admin@postgresql:5432/weshareashare',
+      url: 'postgresql-staging://weshareashare:ws_admin@127.0.0.1:5433/weshareashare',
     },
   },
   models: {
     migrate: 'safe',
   },
   blueprints: {
+    rest: false,
     shortcuts: false,
   },
   security: {
@@ -49,16 +50,11 @@ module.exports = {
   },
   http: {
     cache: 365.25 * 24 * 60 * 60 * 1000, // One year
-    trustProxy: false,
+    trustProxy: true,
   },
-  port: 1337,
-  // ssl: {
-  //   ca: require('fs').readFileSync(require('path').resolve(__dirname,'../ssl/my-gd-bundle.crt')),
-  //   key: require('fs').readFileSync(require('path').resolve(__dirname,'../ssl/my-ssl.key')),
-  //   cert: require('fs').readFileSync(require('path').resolve(__dirname,'../ssl/my-ssl.crt'))
-  // },
+  port: 1338,
   custom: {
-    safeEmailEnvironment: true,
+    safeEmailEnvironment: false,
     email: new Email({
       message: {
         from: 'WeShareAShare  <noreply@stoik.com>',
@@ -66,11 +62,15 @@ module.exports = {
       views: {
         root: path.resolve('views/emails'),
       },
-      send: this.safeEmailEnvironment,
+      send: true,
       transport: {
         host: 'smtp.gmail.com',
         port: 587,
         secure: true,
+        auth: {
+          user: 'weshareasharetest@gmail.com',
+          pass: 'ws_admin'
+        },
         tls: {
           rejectUnauthorized: false
         },
