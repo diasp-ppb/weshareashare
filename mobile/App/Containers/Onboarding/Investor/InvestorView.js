@@ -25,9 +25,11 @@ class InvestorView extends Component {
       this.props.saveAnswer(qa);
       let investor = { ...this.props.investor, ...qa };
       this.props.saveQuiz({investor: investor},this.props.session).then((res) => {
-        this.props.sendEmail(this.props.session).then(() => {
           Toast.show(res.response, ApplicationStyles.toastSuccess);
           navigate('Causes', { categoryIndex: 0, informative: false })
+      }).then(() => {
+        this.props.sendEmail(this.props.session).then(() => {
+          Toast.show("Email enviado com formulários preenchidos.", ApplicationStyles.toastSuccess);
         });
       }).catch((err) => {
         if (err.response) {

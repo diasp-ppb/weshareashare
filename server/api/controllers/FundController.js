@@ -67,13 +67,13 @@ module.exports = {
       let pdfTemplatePath = '../../resources/subscription_template.pdf';
       let birthday;
 
-      if(person.birthday !== null){
-        birthday = person.birthday;
-      }else{
+      if (person.birthday !== null) {
+        birthday = new Date(person.birthday);
+      } else {
         birthday = new Date();
       }
 
-      const payment_options = ['Transferencia', 'Deposito', 'Cheque'];
+      const payment_options = ['Transferencia', 'Deposito', 'Cheque', 'PPR'];
       const periodicity_options = ['Mensal', 'Trimestral', 'Semestral', 'Anual'];
 
       let formData = {
@@ -96,9 +96,9 @@ module.exports = {
         Receber_Email: 'yes',
         //Subscrição
         Valor_Entrega: person.subscription.subscriptionValue,
-        //Comissao_Subscricao: 20,
-        //Comissao_Reembolso: 5,
-        Forma_Pagamento: payment_options[person.subscription.paymentMethod-1], //'Transferencia' 'Deposito' ' Cheque'
+        Comissao_Subscricao: 20,
+        Comissao_Reembolso: 5,
+        Forma_Pagamento: payment_options[person.subscription.paymentMethod], //'Transferencia' 'Deposito' ' Cheque'
         Numero_Cheque: person.subscription.checkNo,
         Banco: person.subscription.checkBank,
         //Transferencia_PPR: 'Yes',
@@ -107,13 +107,19 @@ module.exports = {
         IBAN: person.subscription.accountNo,
         Valor_Mensal: person.subscription.debitAmount,
         Crescimento_Anual: person.subscription.debitGrowth,
-        Periodicidade: periodicity_options[person.subscription.periodicity-1], //'Mensal' 'Trimestral' 'Semestral' 'Anual'
-        Mes: (person.subscription.initialDate).getMonth() + 1,
-        Ano: (person.subscription.initialDate).getFullYear() - 2000,
+        Periodicidade: periodicity_options[person.subscription.periodicity], //'Mensal' 'Trimestral' 'Semestral' 'Anual'
+        Mes: (new Date(person.subscription.initialDate)).getMonth() + 1,
+        Ano: (new Date(person.subscription.initialDate)).getFullYear() - 2000,
       };
+
+      formData.Transferencia_PPR = person.subscription.paymentMethod == 4 ? 'Yes' : 'No';
 
       formData.Nome_Participante = encoding.convert(formData.Nome_Participante, 'ISO-8859-1', 'UTF-8');
       formData.Morada_Participante = encoding.convert(formData.Morada_Participante, 'ISO-8859-1', 'UTF-8');
+      formData.Localidade_Participante = encoding.convert(formData.Localidade_Participante, 'ISO-8859-1', 'UTF-8');
+      formData.Profissao_Participante = encoding.convert(formData.Profissao_Participante, 'ISO-8859-1', 'UTF-8');
+      formData.Entidade_Patronal_Participante = encoding.convert(formData.Entidade_Patronal_Participante, 'ISO-8859-1', 'UTF-8');
+      formData.Banco = encoding.convert(formData.Banco, 'ISO-8859-1', 'UTF-8');
       formData.Nome = encoding.convert(formData.Nome, 'ISO-8859-1', 'UTF-8');
 
       fillPdf.generatePdf(formData, pdfTemplatePath, ['drop_xfa','need_appearances'], function(err, output) {
@@ -191,7 +197,7 @@ module.exports = {
 
       let pdfTemplatePath = '../../resources/investor_profile_template.pdf';
       let date = new Date();
-      let age = Math.floor((date-person.birthday)/31557600000);
+      let age = Math.floor((date-(new Date(person.birthday)))/31557600000);
       let duration = ['< 1', '1 a 3', '> 3'];
       let percentage = ['< 25', '25 a 50', '> 50'];
       let goal = ['Preservar o capital', 'Crescer moderadamente', 'Crescer substancialmente'];
@@ -258,7 +264,6 @@ module.exports = {
     }
 
     let email = sails.config.custom.email;
-
     email.send({
       template: 'onboarding',
       message: {
@@ -285,7 +290,6 @@ module.exports = {
     }).then(() => {
       return res.ok({response: 'An email was sent to this account.'});
     }).catch((err) => {
-      sails.log(err);
       return res.serverError(err);
     });
   }

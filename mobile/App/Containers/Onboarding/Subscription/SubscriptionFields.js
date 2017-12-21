@@ -65,7 +65,14 @@ const options = {
     METHOD: {
       label: 'Método para a entrega inicial',
     },
+    CHECKNO: {
+      placeholder: 'Número do cheque (caso escolha cheque)',
+    },
+    CHECKBANK: {
+      placeholder: 'Banco do cheque (caso escolha cheque)',
+    }
     IBAN: {
+      label: 'Preencha os próximos campos apenas se desejar débito direto.',
       placeholder: 'IBAN para débito direto',
     },
     DEBIT: {

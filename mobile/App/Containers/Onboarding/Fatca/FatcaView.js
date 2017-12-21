@@ -15,8 +15,8 @@ class FatcaView extends Component {
     const { navigate } = this.props.navigation;
 
     const choice = this.child.retrieveValues();
-
-    if(choice === null)
+    console.log(choice);
+    if (choice === null)
       return;
 
     if (this.props.submit) {
