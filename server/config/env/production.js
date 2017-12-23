@@ -20,7 +20,7 @@ module.exports = {
   datastores: {
     default: {
       adapter: 'sails-postgresql',
-      url: 'postgresql-staging://weshareashare:ws_admin@127.0.0.1:5433/weshareashare',
+      url: 'postgresql-production://weshareashare:ws_admin@127.0.0.1:5432/weshareashare',
     },
   },
   models: {
@@ -52,7 +52,7 @@ module.exports = {
     cache: 365.25 * 24 * 60 * 60 * 1000, // One year
     trustProxy: true,
   },
-  port: 1338,
+  port: 1337,
   custom: {
     safeEmailEnvironment: false,
     email: new Email({
@@ -65,8 +65,8 @@ module.exports = {
       send: true,
       transport: {
         host: 'smtp.gmail.com',
-        port: 587,
-        secure: false,
+        port: 465,
+        secure: true,
         auth: {
           user: 'weshareasharetest@gmail.com',
           pass: 'ws_admin'
