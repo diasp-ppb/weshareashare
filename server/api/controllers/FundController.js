@@ -248,7 +248,7 @@ module.exports = {
 
     let person, token;
     try {
-      person = await Person.findOne({id: userid}).populate('user').populate('investorProfile');
+      person = await Person.findOne({user: userid}).populate('user').populate('investorProfile');
     } catch(err) {
       return res.serverError(err);
     }
