@@ -51,13 +51,11 @@ module.exports = {
     NIF: {
       type: 'string',
       required: false,
-      unique: true
     },
 
     identificationNumber: {
       type: 'string',
       required: false,
-      unique: true
     },
 
     birthday: {
