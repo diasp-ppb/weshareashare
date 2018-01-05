@@ -68,35 +68,35 @@ class AuthForm extends Component {
         fields: {
           Email: {
             template: TcombTextInput,
-            error: 'Please enter a valid email',
+            error: 'Introduza um email válido',
             autoCapitalize: 'none',
             clearButtonMode: 'while-editing',
           },
           Token: {
             template: TcombTextInput,
             autoCapitalize: 'none',
-            error: 'Please enter your token',
+            error: 'Introduza o seu token',
             clearButtonMode: 'while-editing',
           },
           FirstName: {
             template: TcombTextInput,
-            error: 'Please enter your first name',
+            error: 'Introduza o seu primeiro nome',
             clearButtonMode: 'while-editing',
           },
           LastName: {
             template: TcombTextInput,
-            error: 'Please enter your first name',
+            error: 'Introduza o seu último nome',
             clearButtonMode: 'while-editing',
           },
           Password: {
             template: TcombTextInput,
-            error: 'Passwords must be more than 8 characters and contain letters and numbers',
+            error: 'Password incorreta: Use um mínimo de 8 caracteres com letras e números',
             clearButtonMode: 'while-editing',
             secureTextEntry: true,
           },
           ConfirmPassword: {
             template: TcombTextInput,
-            error: 'Your passwords must match',
+            error: 'As passwords introduzidas não são iguais',
             clearButtonMode: 'while-editing',
             secureTextEntry: true,
           },

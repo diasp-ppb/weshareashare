@@ -75,6 +75,6 @@
     "reduxsauce": "^0.7.0",
     "seamless-immutable": "^7.1.2",
     "tcomb-form-native": "^0.6.10",
-    "victory-native": "^0.16.0"
+    "victory-native": "^0.16.6"
   }
 }
