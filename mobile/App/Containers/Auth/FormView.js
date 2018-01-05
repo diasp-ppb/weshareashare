@@ -7,9 +7,9 @@ import PropTypes from 'prop-types';
 import {
   View,
   TouchableOpacity,
-  KeyboardAvoidingView,
   Divider,
 } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import I18n from '@i18n/i18n';
 import FormValidation from 'tcomb-form-native';
 import Toast from 'react-native-root-toast';
@@ -179,10 +179,11 @@ class AuthForm extends Component {
 
     return (
 
-      <KeyboardAvoidingView
+      <KeyboardAwareScrollView
         style={ApplicationStyles.container}
-        behavior="padding"
-      >
+        extraScrollHeight={100}
+        enableOnAndroid={true}
+        keyboardShouldPersistTaps='handled'>
         <Card>
 
           {(!!this.props.introTitle || !!this.props.introText) &&
@@ -258,7 +259,7 @@ class AuthForm extends Component {
 
           <Spacer size={10} />
         </Card>
-      </KeyboardAvoidingView>
+      </KeyboardAwareScrollView>
     );
   }
 }

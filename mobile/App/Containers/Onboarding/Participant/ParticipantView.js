@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import styles from '../OnboardingStyle';
 import ParticipantFields from './ParticipantFields';
 import { Container, Content, Card, CardItem, Body, Text } from 'native-base';
@@ -28,7 +29,11 @@ class ParticipantView extends Component {
 
   render() {
     return (
-      <Container style={styles.container}>
+      <KeyboardAwareScrollView
+        style={styles.container}
+        extraScrollHeight={100}
+        enableOnAndroid={true}
+        keyboardShouldPersistTaps='handled'>
         <Content>
           <Card style={styles.messageBackground}>
             <CardItem style={styles.messageCard}>
@@ -57,7 +62,7 @@ class ParticipantView extends Component {
             </TouchableOpacity>
           </View>
         </Content>
-      </Container>);
+      </KeyboardAwareScrollView>);
   }
 }
 
