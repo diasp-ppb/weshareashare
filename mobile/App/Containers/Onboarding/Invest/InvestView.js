@@ -88,7 +88,7 @@ export default class Saving extends Component {
             <BulletText bulletColor={Colors.stoikOrange} text={'3. Escolha a Causa a Apoiar'}/>
           </TouchableOpacity>
           { (this.state.cause !== null) ?
-            this.currentCause() : console.log('hello')
+            this.currentCause() : console.log('')
           }
         </Card>
         <AppStep index={3} {...this.props} />

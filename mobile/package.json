@@ -46,6 +46,7 @@
     "expo": "^23.0.4",
     "fetchival": "^0.3.2",
     "lodash": "^4.17.4",
+    "moment": "^2.20.1",
     "native-base": "^2.3.3",
     "node-fetch": "^1.7.3",
     "prop-types": "^15.6.0",
