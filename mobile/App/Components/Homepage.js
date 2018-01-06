@@ -7,7 +7,7 @@ import { ApplicationStyles, Assets, Metrics, Colors } from '@theme/';
 
 export default class Homepage extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: 'Stoik PPR',
+    title: 'PPR SGF Stoik Acções',
   });
 
   render() {
