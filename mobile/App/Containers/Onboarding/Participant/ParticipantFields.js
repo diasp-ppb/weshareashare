@@ -55,7 +55,7 @@ const options = {
   stylesheet,
   fields: {
     NAME: {
-      placeholder: 'Nome',
+      placeholder: 'Nome Completo',
     },
     GENDER: {
       label: 'Género',
@@ -117,7 +117,7 @@ const optionsAndroid = {
   stylesheet,
   fields: {
     NAME: {
-      placeholder: 'Nome',
+      placeholder: 'Nome Completo',
     },
     GENDER: {
       label: 'Género',
