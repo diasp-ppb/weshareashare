@@ -18,7 +18,7 @@ export default class Investment extends Component {
           <CustomText h1 style={[ApplicationStyles.paddingBottom]}>PPR SGF Stoik Ações</CustomText>
 
           <BulletText text={'O PPR SGF Stoik Ações é constítuido por uma carteira de activos balanceada e diversificada, que integra obrigações, acções, matérias primas, imobiliário e liquidez.'}/>
-          <BulletText text={'O PPR SGF Stoik Ações destina-se, assim, a investidores com horizontes temporais de poupança alargados e/ou tolerância ao risco de mercado.'}/>
+          <BulletText text={'O PPR SGF Stoik Ações destina-se, assim, a investidores com horizonte temporais de poupança alargados e tolerância ao risco de mercado.'}/>
 
           <Image
             source={Assets.piechart}

@@ -7,9 +7,9 @@ import PropTypes from 'prop-types';
 import {
   View,
   TouchableOpacity,
-  KeyboardAvoidingView,
   Divider,
 } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import I18n from '@i18n/i18n';
 import FormValidation from 'tcomb-form-native';
 import Toast from 'react-native-root-toast';
@@ -68,35 +68,35 @@ class AuthForm extends Component {
         fields: {
           Email: {
             template: TcombTextInput,
-            error: 'Please enter a valid email',
+            error: 'Introduza um email válido',
             autoCapitalize: 'none',
             clearButtonMode: 'while-editing',
           },
           Token: {
             template: TcombTextInput,
             autoCapitalize: 'none',
-            error: 'Please enter your token',
+            error: 'Introduza o seu token',
             clearButtonMode: 'while-editing',
           },
           FirstName: {
             template: TcombTextInput,
-            error: 'Please enter your first name',
+            error: 'Introduza o seu primeiro nome',
             clearButtonMode: 'while-editing',
           },
           LastName: {
             template: TcombTextInput,
-            error: 'Please enter your first name',
+            error: 'Introduza o seu último nome',
             clearButtonMode: 'while-editing',
           },
           Password: {
             template: TcombTextInput,
-            error: 'Passwords must be more than 8 characters and contain letters and numbers',
+            error: 'Password incorreta: Use um mínimo de 8 caracteres com letras e números',
             clearButtonMode: 'while-editing',
             secureTextEntry: true,
           },
           ConfirmPassword: {
             template: TcombTextInput,
-            error: 'Your passwords must match',
+            error: 'As passwords introduzidas não são iguais',
             clearButtonMode: 'while-editing',
             secureTextEntry: true,
           },
@@ -179,10 +179,11 @@ class AuthForm extends Component {
 
     return (
 
-      <KeyboardAvoidingView
+      <KeyboardAwareScrollView
         style={ApplicationStyles.container}
-        behavior="padding"
-      >
+        extraScrollHeight={100}
+        enableOnAndroid={true}
+        keyboardShouldPersistTaps='handled'>
         <Card>
 
           {(!!this.props.introTitle || !!this.props.introText) &&
@@ -258,7 +259,7 @@ class AuthForm extends Component {
 
           <Spacer size={10} />
         </Card>
-      </KeyboardAvoidingView>
+      </KeyboardAwareScrollView>
     );
   }
 }

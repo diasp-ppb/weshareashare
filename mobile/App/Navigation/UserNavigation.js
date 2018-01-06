@@ -39,6 +39,7 @@ import { Colors } from '@theme/';
 const navigationOptions = ({ navigation }) => ({
   headerStyle: { backgroundColor: Colors.stoikGrey },
   headerTintColor: 'white',
+  headerBackTitle: null,
   headerRight: <HeaderRight navigation={navigation} currentState />,
 });
 

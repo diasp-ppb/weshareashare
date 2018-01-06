@@ -19,6 +19,7 @@ import { Colors } from '@theme';
 const navigationOptions = {
   headerStyle: { backgroundColor: Colors.stoikGrey },
   headerTintColor: 'white',
+  headerBackTitle: null
 };
 
 export default StackNavigator({

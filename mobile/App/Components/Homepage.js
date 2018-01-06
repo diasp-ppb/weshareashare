@@ -40,7 +40,7 @@ export default class Homepage extends Component {
 
               <View style={[{ flexDirection: 'row', paddingTop: Metrics.padding * 2 }]}>
                 <View style={[{ flex: 1, alignItems: 'center', justifyContent: 'center' }]}>
-                  <TouchableOpacity onPress={() => navigate('ContactUs')}>
+                  <TouchableOpacity style={{ flex: 1 }} onPress={() => navigate('ContactUs')}>
                     <Text p style={[ApplicationStyles.link]}>
                       { I18n.t('contactUs') }
                     </Text>
