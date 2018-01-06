@@ -84,9 +84,11 @@ class CausesList extends Component {
                 <Spacer size={10} />
               </View>
             </View>
-            <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}>
-              <Text style={[ApplicationStyles.nextLink, { textAlign: 'right' }]} onPress={() => { navigate('Cause', { cause: s }); }}>Mais sobre {s.name}</Text>
-            </View>
+            {(s.description !== "NULL") &&
+              <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}>
+                <Text style={[ApplicationStyles.nextLink, { textAlign: 'right' }]} onPress={() => { navigate('Cause', { cause: s }); }}>Mais sobre {s.name}</Text>
+              </View>
+            }
           </View>
         );
       });
