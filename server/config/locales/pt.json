@@ -1,14 +1,14 @@
 {
-	"Welcome": "Welcome",
-	"user.email.required": "Email is required",
-	"user.email.unique": "Email address is already taken",
-	"user.email.maxLength": "Username is too long (max: 32 characters).",
-	"user.email.isEmail": "O endereço de email fornecido é inválido.",
-	"user.username.required": "Username is required",
-	"user.username.unique": "Username is already taken",
-	"user.username.maxLength": "Username is too long (max: 32 characters).",
-	"user.password.required": "Password is required",
-	"user.password.maxLength": "Username is too long (max: 32 characters).",
-	"user.password.minLength": "Username is too short (max: 8 characters).",
-	"user.firstName.required": "user.firstName.required"
+  "Welcome": "Bem-vindo(a)",
+  "user.email.required": "O email é necessário",
+  "user.email.unique": "Endereço de email indisponível",
+  "user.email.maxLength": "Endereço de email é demasiado longo (max: 64 caracteres)",
+  "user.email.isEmail": "Endereço de email inválido",
+  "user.firstName.required": "O primeiro nome é necessário",
+  "user.firstName.maxLength": "Primeiro nome é demasiado longo (max: 64 caracteres)",
+  "user.lastName.required": "O último nome é necessário",
+  "user.lastName.maxLength": "Último nome é demasiado longo (max: 64 caracteres)",
+  "user.password.required": "A password é necessária",
+  "user.password.maxLength": "Password é demasiado longa (max: 32 caracteres)",
+  "user.password.minLength": "Password é demasiado curta (min: 8 caracteres)"
 }

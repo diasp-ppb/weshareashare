@@ -46,6 +46,7 @@
     "expo": "^23.0.4",
     "fetchival": "^0.3.2",
     "lodash": "^4.17.4",
+    "moment": "^2.20.1",
     "native-base": "^2.3.3",
     "node-fetch": "^1.7.3",
     "prop-types": "^15.6.0",
@@ -75,6 +76,6 @@
     "reduxsauce": "^0.7.0",
     "seamless-immutable": "^7.1.2",
     "tcomb-form-native": "^0.6.10",
-    "victory-native": "^0.16.0"
+    "victory-native": "^0.16.6"
   }
 }

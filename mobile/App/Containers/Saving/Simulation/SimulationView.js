@@ -12,10 +12,10 @@ export default class Simulation extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      initialInvestment: this.props.initialInvestment[0].value,
-      monthlyContribution: this.props.monthlyContribution[0].value,
-      yearPeriod: this.props.yearPeriod[0].value,
-      interestRate: this.props.interestRate[0].value,
+      initialInvestment: this.props.initialInvestment[2].value,
+      monthlyContribution: this.props.monthlyContribution[2].value,
+      yearPeriod: this.props.yearPeriod[6].value,
+      interestRate: this.props.interestRate[4].value,
       futureValue: 0,
     };
   }
@@ -63,8 +63,9 @@ export default class Simulation extends Component {
           <CustomText h1>Simulador</CustomText>
           <View style={[{ alignItems: 'center', justifyContent: 'center', paddingVertical: 20 }]}>
             <Text h2 style={[ApplicationStyles.textCenterAligned]}>
-                Em {this.state.yearPeriod} ano{(this.state.yearPeriod !== 1) ? 's' : ''} terá <Text h2 style={{ color: Colors.stoikBlue }}>{this.convertToCurrency()}</Text>
+              Em <Text h2 style={{color: Colors.stoikOrange}}>{this.state.yearPeriod} ano{(this.state.yearPeriod !== 1) ? 's' : ''}</Text> terá
             </Text>
+            <Text h1 style={{ color: Colors.stoikBlue, fontWeight: '800'}}>{this.convertToCurrency()}</Text>
           </View>
           <View style={[{ flexDirection: 'row' }]}>
             <View style={[{ flex: 1, flexDirection: 'column', marginRight: 5 }]}>

@@ -71,7 +71,7 @@ export default class Saving extends Component {
       <ScrollView style={ApplicationStyles.container}>
         <Card>
           <CustomText h3 style={[ApplicationStyles.paddingTop, { color: Colors.textSecondary }]}>
-            Bem-vindo!
+            Bem-vindo(a)!
           </CustomText>
           <Spacer size={10} />
           <CustomText h3 style={{ color: Colors.textSecondary, fontWeight: '500' }}>
@@ -88,7 +88,7 @@ export default class Saving extends Component {
             <BulletText bulletColor={Colors.stoikOrange} text={'3. Escolha a Causa a Apoiar'}/>
           </TouchableOpacity>
           { (this.state.cause !== null) ?
-            this.currentCause() : console.log('hello')
+            this.currentCause() : console.log('')
           }
         </Card>
         <AppStep index={3} {...this.props} />

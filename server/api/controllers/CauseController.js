@@ -24,7 +24,8 @@ module.exports = {
   },
   
   getAll(req, res) {
-    Cause.find().then((causes) => {
+    Cause.find()
+    .then((causes) => {
       res.ok(causes);
     }).catch((err) => {
       return res.serverError(err);

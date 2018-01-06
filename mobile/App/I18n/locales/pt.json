@@ -19,7 +19,7 @@
   "wallet": "Carteira",
   "onboarding": "Comece a Investir",
 
-  "riskWarnings": "Riscos",
+  "riskWarnings": "Advertências de Risco",
 
   "forgotPasswordQuestion": "Esqueceu-se da password?",
   "dontHasAccountQuestion": "Não está registado?",
@@ -76,6 +76,6 @@
 
   "benefitsSaving": "Possibilidade de automatização da poupança",
   "benefitsWallet": "Carteira diversificada e global",
-  "benefitsStructure": "Estrutura fisicamente eficiente",
+  "benefitsStructure": "Estrutura fiscalmente eficiente",
   "benefitsCause": "Possibilidade de apoiar uma causa"
 }

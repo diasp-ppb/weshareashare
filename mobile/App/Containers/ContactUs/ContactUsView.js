@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
   View,
-  KeyboardAvoidingView,
 } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import I18n from '@i18n/i18n';
 import FormValidation from 'tcomb-form-native';
 import Toast from 'react-native-root-toast';
@@ -71,22 +71,22 @@ class ContactUs extends Component {
           },
           FirstName: {
             template: TcombTextInput,
-            error: 'Please enter your first name',
+            error: 'Introduza o seu primeiro nome',
             clearButtonMode: 'while-editing',
           },
           LastName: {
             template: TcombTextInput,
-            error: 'Please enter your last name',
+            error: 'Introduza o seu último nome',
             clearButtonMode: 'while-editing',
           },
           Subject: {
             template: TcombTextInput,
-            error: 'Please enter your subject',
+            error: 'Introduza o assunto',
             clearButtonMode: 'while-editing',
           },
           Message: {
             template: TcombTextInput,
-            error: 'Please enter your message',
+            error: 'Introduza a sua mensagem',
             clearButtonMode: 'while-editing',
             multiline: true,
             numberOfLines: 4,
@@ -133,10 +133,11 @@ class ContactUs extends Component {
 
     return (
 
-      <KeyboardAvoidingView
+      <KeyboardAwareScrollView
         style={ApplicationStyles.container}
-        behavior="padding"
-      >
+        extraScrollHeight={100}
+        enableOnAndroid={true}
+        keyboardShouldPersistTaps='handled'>
         <Card>
 
           <Form
@@ -166,7 +167,7 @@ class ContactUs extends Component {
           }
 
         </Card>
-      </KeyboardAvoidingView>
+      </KeyboardAwareScrollView>
     );
   }
 }

@@ -1,10 +1,8 @@
 import { StyleSheet } from 'react-native';
 import { Colors } from '@theme/';
-import Metrics from '../../Themes/Metrics'
 
 export default StyleSheet.create({
   container: {
-    justifyContent: 'center',
     paddingTop: 20,
     backgroundColor: '#ffffff',
   },

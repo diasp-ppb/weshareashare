@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, StatusBar } from 'react-native';
+import moment from 'moment';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ReduxNavigation from '../Navigation/ReduxNavigation';
@@ -29,10 +30,17 @@ class RootContainer extends Component {
     }
 
     const session = this.props.session.session;
+
     if (session.client.id === null) {
       this.props.authorizeClient();
     } else if (session.user.id !== null) {
       this.props.navigateToUserStack();
+    }
+
+    if(session.client['createdAt'] !== null) {
+      if(moment(session.client['createdAt'] ).unix() < moment().subtract(4,  'hours').unix()) {
+        this.props.authorizeClient();
+      }
     }
   }
 

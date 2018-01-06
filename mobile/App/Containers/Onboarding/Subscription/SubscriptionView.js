@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import styles from '../OnboardingStyle';
 import SubscriptionFields from './SubscriptionFields';
 import { Container, Content, Card, CardItem, Body, Text } from 'native-base';
@@ -28,7 +29,10 @@ class SubscriptionView extends Component {
 
   render() {
     return (
-      <Container style={styles.container}>
+      <KeyboardAwareScrollView
+        extraScrollHeight={100}
+        enableOnAndroid={true}
+        keyboardShouldPersistTaps='handled'>
         <Content>
           <Card style={styles.messageBackground}>
             <CardItem style={styles.messageCard}>
@@ -57,7 +61,7 @@ class SubscriptionView extends Component {
             </TouchableOpacity>
           </View>
         </Content>
-      </Container>);
+      </KeyboardAwareScrollView>);
   }
 }
 

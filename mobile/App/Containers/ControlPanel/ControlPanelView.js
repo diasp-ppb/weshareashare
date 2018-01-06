@@ -37,7 +37,7 @@ class ControlPanel extends Component {
     const { navigate } = this.props.navigation;
     return (
       <ScrollView style={styles.container}>
-        <Text style={styles.company} onPress={() => navigate('Mainpage')}>WeShareAShare</Text>
+        <Text style={styles.company} onPress={() => navigate('Mainpage')}>Menu</Text>
         <View style={styles.profile}>
           <Icon name="account-circle" size={60} color="#fff" />
           <View>
