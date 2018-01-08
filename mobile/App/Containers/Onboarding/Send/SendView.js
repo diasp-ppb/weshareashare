@@ -13,25 +13,12 @@ export default class Finalizing extends Component {
 
   handleSubmit = () => {
       //const { navigate } = this.props.navigation;
-    if (this.props.submitParticipant) {
-        this.props.submitParticipant({ participant: this.props.onboarding.participant }, this.props.session).then(() => {
-            Toast.show("Dados pessoais submetidos com sucesso.", ApplicationStyles.toastSuccess);
-        }).catch(() => {
-            Toast.show('NÃ£o foi possÃ­vel enviar os dados pessoais.', ApplicationStyles.toastError);
-        });
-    }
-    if (this.props.submitSubscription) {
-      this.props.submitSubscription({ subscription: this.props.onboarding.subscription }, this.props.session).then(() => {
-        Toast.show("Dados de subscrição submetidos com sucesso.", ApplicationStyles.toastSuccess);
+
+    if (this.props.submitEmail) {
+      this.props.submitEmail(this.props.session).then(() => {
+        Toast.show("Dados submetidos com sucesso.", ApplicationStyles.toastSuccess);
       }).catch(() => {
         Toast.show('NÃ£o foi possÃ­vel enviar os dados de subscrição.', ApplicationStyles.toastError);
-      });
-    }
-    if (this.props.submitFatca) {
-      this.props.submitFatca({ fatca: this.props.onboarding.fatca }, this.props.session).then(() => {
-        Toast.show("FATCA submetido com sucesso.", ApplicationStyles.toastSuccess);
-      }).catch(() => {
-        Toast.show('NÃ£o foi possÃ­vel enviar o FATCA.', ApplicationStyles.toastError);
       });
     }
   }

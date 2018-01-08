@@ -9,9 +9,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  submitParticipant: Onboarding.participant,
-  submitFatca: Onboarding.fatca,
-  submitSubscription: Onboarding.subscription,
+  submitEmail: Onboarding.email,
 
 });
 

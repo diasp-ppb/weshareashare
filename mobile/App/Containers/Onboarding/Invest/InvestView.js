@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ScrollView, Image, TouchableOpacity } from 'react-native';
+import { View, ScrollView, Image, TouchableOpacity, Text } from 'react-native';
 import { ApplicationStyles, Colors, Fonts, Assets } from '@theme/';
 import { Card, Text as CustomText, Spacer } from '@ui/';
 import { Users } from '@services/API';
@@ -49,7 +49,7 @@ export default class Saving extends Component {
     return (
       <View>
         <CustomText h3 style={[ApplicationStyles.paddingTop, { color: Colors.textSecondary }]}>
-          Está a suportar a seguinte causa:
+          Estรก a suportar a seguinte causa:
         </CustomText>
         <Spacer size={10} />
         <CustomText h2 style={[ApplicationStyles.textCenterAligned]}>{this.state.cause.name}</CustomText>
@@ -75,7 +75,7 @@ export default class Saving extends Component {
           </CustomText>
           <Spacer size={10} />
           <CustomText h3 style={{ color: Colors.textSecondary, fontWeight: '500' }}>
-            Passos para começar a investir:
+            Passos para comeรงar a investir:
           </CustomText>
 
           <TouchableOpacity onPress={() => navigate('Participant', { formIndex: 2 })}>
@@ -91,6 +91,12 @@ export default class Saving extends Component {
             this.currentCause() : console.log('')
           }
         </Card>
+
+        <TouchableOpacity style={[ApplicationStyles.rightAligned]} onPress={() => navigate('SendForms')}>
+          <Text p style={[ApplicationStyles.nextLink]}>
+            Enviar e-mail >
+          </Text>
+        </TouchableOpacity>
         <AppStep index={3} {...this.props} />
       </ScrollView>
     );
