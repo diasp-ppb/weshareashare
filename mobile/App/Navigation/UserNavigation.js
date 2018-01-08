@@ -9,6 +9,7 @@ import Participant from '@containers/Onboarding/Participant/ParticipantContainer
 import Investor from '@containers/Onboarding/Investor/InvestorContainer';
 import Subscription from '@containers/Onboarding/Subscription/SubscriptionContainer';
 import Invest from '@containers/Onboarding/Invest/InvestContainer';
+import SendForms from '@containers/Onboarding/Send/SendContainer';
 
 // Saving Screens
 import Saving from '@containers/Saving/SavingView';
@@ -70,6 +71,7 @@ const UserNavigationStack = StackNavigator({
   Subscription: { screen: Subscription },
   FatcaForm: { screen: FatcaForm },
   FatcaInfo: { screen: FatcaInfo },
+  SendForms : { screen: SendForms },
 }, {
   headerMode: 'float',
   navigationOptions,

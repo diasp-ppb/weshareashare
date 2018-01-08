@@ -17,13 +17,9 @@ class ParticipantView extends Component {
     const choices = this.child.retrieveValues();
 
     if (this.props.submit) {
-      this.props.submit({ participant: choices }, this.props.session).then(() => {
         this.props.onSuccessfulSubmit(choices);
-        Toast.show("Dados pessoais submetidos com sucesso.", ApplicationStyles.toastSuccess);
+        //Toast.show("Dados pessoais submetidos com sucesso.", ApplicationStyles.toastSuccess);
         navigate('Subscription');
-      }).catch(() => {
-        Toast.show('Não foi possível enviar os dados pessoais.', ApplicationStyles.toastError);
-      });
     }
   }
 

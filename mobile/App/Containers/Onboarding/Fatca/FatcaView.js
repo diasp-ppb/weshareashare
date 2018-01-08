@@ -21,13 +21,9 @@ class FatcaView extends Component {
     }
 
     if (this.props.submit) {
-      this.props.submit({ FATCA: this.props.options[choice - 1].text }, this.props.session).then(() => {
         this.props.onSuccessfulSubmit(this.props.options[choice - 1].text);
-        Toast.show("FATCA submetido com sucesso.", ApplicationStyles.toastSuccess);
-        navigate('Investor', { index: 0 });
-      }).catch(() => {
-        Toast.show('Não foi possível submeter o FATCA', ApplicationStyles.toastError);
-      });
+        //Toast.show("FATCA submetido com sucesso.", ApplicationStyles.toastSuccess);
+        navigate('SendForms');
     }
   }
 
@@ -59,7 +55,7 @@ class FatcaView extends Component {
               style={styles.button}
               onPress={this.handleSubmit}
             >
-              <Text style={{ justifyContent: 'center' }}>Enviar</Text>
+              <Text style={{ justifyContent: 'center' }}>Próximo</Text>
             </TouchableOpacity>
           </View>
         </Content>

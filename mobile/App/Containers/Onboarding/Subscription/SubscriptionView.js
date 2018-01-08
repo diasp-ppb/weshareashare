@@ -17,13 +17,9 @@ class SubscriptionView extends Component {
     const choices = this.child.retrieveValues();
 
     if (this.props.submit) {
-      this.props.submit({ subscription: choices }, this.props.session).then(() => {
         this.props.onSuccessfulSubmit(choices);
-        Toast.show("Dados de subscrição submetidos com sucesso.", ApplicationStyles.toastSuccess);
+        //Toast.show("Dados de subscrição submetidos com sucesso.", ApplicationStyles.toastSuccess);
         navigate('FatcaForm')
-      }).catch(() => {
-        Toast.show('Não foi possível enviar os dados de subscrição.', ApplicationStyles.toastError);
-      });
     }
   }
 
