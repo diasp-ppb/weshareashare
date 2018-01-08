@@ -15,15 +15,23 @@ export default class Homepage extends Component {
     return (
       <View style={ApplicationStyles.mainContainer}>
         <Image
-          source={Assets.logo}
+          source={Assets.logoStoik}
           style={{
-            height: Metrics.DEVICE_HEIGHT / 4,
+            height: Metrics.DEVICE_HEIGHT / 6,
             alignSelf: 'center',
             alignItems: 'center',
             resizeMode: 'contain',
           }}
         />
-
+        <Image
+          source={Assets.logo}
+          style={{
+            height: Metrics.DEVICE_HEIGHT / 6,
+            alignSelf: 'center',
+            alignItems: 'center',
+            resizeMode: 'contain',
+          }}
+        />
         <View style={ApplicationStyles.container}>
           <ImageBackground source={Assets.background} style={styles.canvas}>
             <View style={styles.btnGroup}>
@@ -47,7 +55,7 @@ export default class Homepage extends Component {
                   </TouchableOpacity>
                 </View>
                 <View style={[{ flex: 1, alignItems: 'center', justifyContent: 'center' }]}>
-                  <TouchableOpacity style={{ flex: 2 , backgroundColor: Colors.stoikGrey}} onPress={() => navigate('AboutUs')}>
+                  <TouchableOpacity style={{ flex: 2, backgroundColor: Colors.stoikGrey }} onPress={() => navigate('AboutUs')}>
                     <Text p style={[ApplicationStyles.link]}>
                       { I18n.t('aboutUs') }
                     </Text>
@@ -55,7 +63,7 @@ export default class Homepage extends Component {
                 </View>
                 <View style={[{ flex: 1, alignItems: 'center', justifyContent: 'center' }]}>
                   <TouchableOpacity style={{ flex: 3, backgroundColor: Colors.stoikGrey }} onPress={() => navigate('RiskWarnings')}>
-                    <Text p style={[ApplicationStyles.link, {textAlign: 'center'}]}>
+                    <Text p style={[ApplicationStyles.link, { textAlign: 'center' }]}>
                       { I18n.t('riskWarnings') }
                     </Text>
                   </TouchableOpacity>

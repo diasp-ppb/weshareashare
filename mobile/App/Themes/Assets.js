@@ -10,6 +10,7 @@ const images = {
   logoCFAInstitute: require('@assets/Causes/logoCFAInstitute.gif'),
   logoWikipedia: require('@assets/Causes/logoWikipedia.png'),
   piechart: require('@assets/pieChart.png'),
+    logoStoik: require('@assets/logoStoik.png'),
 };
 
 const fonts = {
