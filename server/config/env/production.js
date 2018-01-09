@@ -64,7 +64,7 @@ module.exports = {
       },
       send: true,
       transport: {
-        host: 'smtp.zoho.com',
+        host: 'smtp.zoho.eu',
         port: 465,
         secure: true,
         auth: {
