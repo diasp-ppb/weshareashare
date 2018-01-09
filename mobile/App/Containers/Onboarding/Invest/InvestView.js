@@ -58,15 +58,21 @@ export default class Saving extends Component {
         </CustomText>
         <Spacer size={10} />
         <CustomText h2 style={[ApplicationStyles.textCenterAligned]}>{this.state.cause.name}</CustomText>
-  
+
         {(!this.state.userDefinedCause) &&
-          <Spacer size={10} /> &&
+          <Spacer size={10} />
+        }
+        {(!this.state.userDefinedCause) &&
           <Image
             style={ApplicationStyles.logo}
             resizeMode="contain"
             source={this.state.cause.image}
-          /> &&
-          <Spacer size={10} /> &&
+          />
+        }
+        {(!this.state.userDefinedCause) &&
+          <Spacer size={10} />
+        }
+        {(!this.state.userDefinedCause) &&
           <CustomText h3>{this.state.cause.shortDescription}</CustomText>
         }
       </View>
@@ -96,12 +102,14 @@ export default class Saving extends Component {
             <BulletText bulletColor={Colors.stoikOrange} text={'3. Escolha a Causa a Apoiar'}/>
           </TouchableOpacity>
           { (this.state.cause !== null) &&
-            this.currentCause() &&
             <TouchableOpacity style={[ApplicationStyles.rightAligned]} onPress={() => navigate('SendForms')}>
               <Text p style={[ApplicationStyles.nextLink]}>
                 Enviar e-mail >
               </Text>
             </TouchableOpacity>
+          }
+          { (this.state.cause !== null) ?
+            this.currentCause() : console.log('')
           }
         </Card>
         <AppStep index={3} {...this.props} />

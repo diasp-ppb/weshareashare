@@ -19,7 +19,7 @@ const formatTokenResponse = (accessToken, refreshToken, user) => ({
       value: accessToken.value,
       expiresIn: expiresIn(accessToken.expiresAt),
     },
-    
+
     refresh: {
       type: 'refresh',
       value: refreshToken.value,
@@ -76,7 +76,7 @@ module.exports = {
       });
     });
   },
-  
+
   selectCause(req, res) {
     let params = req.allParams();
     sails.log(params);
@@ -97,7 +97,7 @@ module.exports = {
       });
     });
   },
-  
+
   getCause(req, res) {
     let userId = req.param('userId');
     User.findOne({
@@ -105,15 +105,15 @@ module.exports = {
     }).exec(function (err, user){
       if (err)
       {return res.serverError(err);}
-      
+
       let causeId = user.cause;
       Cause.findOne({
         id: causeId
       }).exec(function (err, cause) {
         if (err)
         {return res.serverError(err);}
-        
-        if (cause === null) {
+
+        if (!cause) {
           if(user.causeName != null) {
             res.ok({
               name: user.causeName,
