@@ -22,10 +22,6 @@ stylesheet.textboxView.normal.borderBottomWidth = 1;
 stylesheet.textboxView.error.borderBottomWidth = 1;
 stylesheet.textboxView.normal.borderBottomColor = Colors.lightBlue;
 stylesheet.textboxView.error.borderBottomColor = Colors.lightBlue;
-stylesheet.textbox.normal.paddingBottom = 11;
-stylesheet.textbox.error.paddingBottom = 11;
-stylesheet.textbox.normal.marginBottom = -6;
-stylesheet.textbox.error.marginBottom = -6;
 stylesheet.textbox.normal.borderColor = Colors.lightBlue;
 stylesheet.textbox.error.borderColor = Colors.lightBlue;
 stylesheet.textbox.normal.borderBottomColor = Colors.lightBlue;
@@ -38,7 +34,22 @@ const types = t.struct({
 
 const options = {
   auto: 'placeholders',
-  stylesheet,
+  stylesheet: {
+          ...Form.stylesheet,
+          textbox: {
+            ...Form.stylesheet.textbox,
+            normal: {
+              ...Form.stylesheet.textbox.normal,
+              paddingBottom: 11,
+              marginBottom: -6
+            },
+            error: {
+              ...Form.stylesheet.textbox.error,
+              paddingBottom: 11,
+              marginBottom: -6
+          }
+        }
+      },
   fields: {
     CAUSE: {
       placeholder: 'Outra Causa',
