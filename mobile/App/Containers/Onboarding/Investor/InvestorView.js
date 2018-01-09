@@ -25,12 +25,11 @@ class InvestorView extends Component {
       this.props.saveAnswer(qa);
       let investor = { ...this.props.investor, ...qa };
       this.props.saveQuiz({investor: investor},this.props.session).then((res) => {
-          Toast.show(res.response, ApplicationStyles.toastSuccess);
-          navigate('Causes', { categoryIndex: 0, informative: false })
-      }).then(() => {
-        this.props.sendEmail(this.props.session).then(() => {
-          Toast.show("Email enviado com formulários preenchidos.", ApplicationStyles.toastSuccess);
-        });
+        toastConfig = ApplicationStyles.toastSuccess;
+        toastConfig.onHide = () => {
+          navigate('Causes', { categoryIndex: 0, informative: false });
+        };
+        Toast.show("Perfil de investidor submetido com sucesso.", toastConfig);
       }).catch((err) => {
         if (err.response) {
           Toast.show(err.response, ApplicationStyles.toastError);

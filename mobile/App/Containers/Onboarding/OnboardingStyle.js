@@ -1,10 +1,8 @@
 import { StyleSheet } from 'react-native';
 import { Colors } from '@theme/';
-import Metrics from '../../Themes/Metrics'
 
 export default StyleSheet.create({
   container: {
-    justifyContent: 'center',
     paddingTop: 20,
     backgroundColor: '#ffffff',
   },
@@ -34,6 +32,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
+    marginBottom: 40,
   },
   center: {
     marginLeft: 50,

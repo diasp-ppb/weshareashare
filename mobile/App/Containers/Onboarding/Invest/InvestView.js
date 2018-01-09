@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ScrollView, Image, TouchableOpacity } from 'react-native';
+import { View, ScrollView, Image, TouchableOpacity, Text } from 'react-native';
 import { ApplicationStyles, Colors, Fonts, Assets } from '@theme/';
 import { Card, Text as CustomText, Spacer } from '@ui/';
 import { Users } from '@services/API';
@@ -71,7 +71,7 @@ export default class Saving extends Component {
       <ScrollView style={ApplicationStyles.container}>
         <Card>
           <CustomText h3 style={[ApplicationStyles.paddingTop, { color: Colors.textSecondary }]}>
-            Bem-vindo!
+            Bem-vindo(a)!
           </CustomText>
           <Spacer size={10} />
           <CustomText h3 style={{ color: Colors.textSecondary, fontWeight: '500' }}>
@@ -88,9 +88,15 @@ export default class Saving extends Component {
             <BulletText bulletColor={Colors.stoikOrange} text={'3. Escolha a Causa a Apoiar'}/>
           </TouchableOpacity>
           { (this.state.cause !== null) ?
-            this.currentCause() : console.log('hello')
+            this.currentCause() : console.log('')
           }
         </Card>
+
+        <TouchableOpacity style={[ApplicationStyles.rightAligned]} onPress={() => navigate('SendForms')}>
+          <Text p style={[ApplicationStyles.nextLink]}>
+            Enviar e-mail >
+          </Text>
+        </TouchableOpacity>
         <AppStep index={3} {...this.props} />
       </ScrollView>
     );

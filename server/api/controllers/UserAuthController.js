@@ -34,7 +34,7 @@ module.exports = {
   signin(req, res) {
     passport.authenticate(['basic'], { session: false }, (authErr, user) => {
       if (authErr || !user) {
-        return res.unauthorized({'response': 'The email address or password you entered is not valid.'});
+        return res.unauthorized({'response': 'O email ou password introduzido não é válido.'});
       }
 
       Token.findOrAdd({
@@ -127,7 +127,7 @@ module.exports = {
     }
 
     if (!user) {
-      return res.badRequest({response: 'This email doesn\'t exist in our platform.'});
+      return res.badRequest({response: 'O email não existe na nossa plataforma.'});
     }
 
     try {
@@ -147,7 +147,7 @@ module.exports = {
         token: token.value,
       }
     }).then(() => {
-      return res.ok({response: 'An email with a token to reset the password was sent to this account.'});
+      return res.ok({response: 'Um email com o token para alterar a password foi enviado para o endereço introduzido.'});
     }).catch((err) => {
       return res.serverError(err);
     });
@@ -178,12 +178,12 @@ module.exports = {
     if(user.length !== 0) {
       Token.destroy({value: token.value})
         .then(() => {
-          res.ok({response: 'Password updated with success!'});
+          res.ok({response: 'Password alterada com sucesso.'});
         }).catch((err) => {
           res.serverError(err);
         });
     } else {
-      return res.badRequest({response: 'The selected email and reset token are not valid!'});
+      return res.badRequest({response: 'O email e token introduzidos são inválidos.'});
     }
   },
 };
