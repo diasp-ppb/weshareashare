@@ -192,7 +192,7 @@ class ParticipantFields extends Component {
       const PersonIOS = {
         NAME: (inputArea1["NAME"] != undefined) ? inputArea1["NAME"] : '',
         GENDER: (inputArea1["GENDER"] != undefined) ? inputArea1["GENDER"] : '',
-        BIRTHDAY: this.date.getFullYear() + '-' + this.date.getMonth() + '-' + this.date.getDate()+'T' + this.date.getHours() + ':' + this.date.getMinutes() + ':' + this.date.getSeconds()+ '.' + this.date.getMilliseconds() + 'z',
+        BIRTHDAY: this.date.toISOString(),
         TELEPHONE:  (inputArea2["TELEPHONE"] != undefined) ? inputArea2["TELEPHONE"] : '',
         CELLPHONE: (inputArea2["CELLPHONE"] != undefined) ? inputArea2["CELLPHONE"] : '',
         ADDRESS:  (inputArea2["ADDRESS"] != undefined) ? inputArea2["ADDRESS"] : '',
