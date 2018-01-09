@@ -15,6 +15,7 @@ export default class Saving extends Component {
     super(props);
     this.state = {
       cause: null,
+      userDefinedCause: false,
     };
   }
 
@@ -22,7 +23,11 @@ export default class Saving extends Component {
     Users.getUserCause(this.props.session).then((res) => {
       if (res.message !== null) {
         const cause = res;
-        cause.image = Assets[res.image];
+        if(cause.name != null && cause.id == null) {
+          this.setState({ userDefinedCause: true});
+        } else {
+          cause.image = Assets[res.image];
+        }
         this.setState({ cause });
       }
     }).catch((err) => {
@@ -53,14 +58,17 @@ export default class Saving extends Component {
         </CustomText>
         <Spacer size={10} />
         <CustomText h2 style={[ApplicationStyles.textCenterAligned]}>{this.state.cause.name}</CustomText>
-        <Spacer size={10} />
-        <Image
-          style={ApplicationStyles.logo}
-          resizeMode="contain"
-          source={this.state.cause.image}
-        />
-        <Spacer size={10} />
-        <CustomText h3>{this.state.cause.shortDescription}</CustomText>
+  
+        {(!this.state.userDefinedCause) &&
+          <Spacer size={10} /> &&
+          <Image
+            style={ApplicationStyles.logo}
+            resizeMode="contain"
+            source={this.state.cause.image}
+          /> &&
+          <Spacer size={10} /> &&
+          <CustomText h3>{this.state.cause.shortDescription}</CustomText>
+        }
       </View>
     );
   }
@@ -87,15 +95,14 @@ export default class Saving extends Component {
           <TouchableOpacity onPress={() => navigate('Causes', { categoryIndex: 0, informative: false })}>
             <BulletText bulletColor={Colors.stoikOrange} text={'3. Escolha a Causa a Apoiar'}/>
           </TouchableOpacity>
-          { (this.state.cause !== null) ?
-            this.currentCause() : console.log('')
+          { (this.state.cause !== null) &&
+            this.currentCause() &&
+            <TouchableOpacity style={[ApplicationStyles.rightAligned]} onPress={() => navigate('SendForms')}>
+              <Text p style={[ApplicationStyles.nextLink]}>
+                Enviar e-mail >
+              </Text>
+            </TouchableOpacity>
           }
-  
-          <TouchableOpacity style={[ApplicationStyles.rightAligned]} onPress={() => navigate('SendForms')}>
-            <Text p style={[ApplicationStyles.nextLink]}>
-              Enviar e-mail >
-            </Text>
-          </TouchableOpacity>
         </Card>
         <AppStep index={3} {...this.props} />
       </ScrollView>

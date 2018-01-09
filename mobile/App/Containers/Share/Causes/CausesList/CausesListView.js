@@ -102,10 +102,9 @@ class CausesList extends Component {
       "id": id
     }
 
+    let causeName = cause.name;
     if (id === '0') {
       causeName = this.refs.otherCauseForm.getValue().CAUSE;
-    } else {
-      causeName = cause.name;
     }
 
     causeParams.name = causeName;

@@ -19,7 +19,7 @@ const formatTokenResponse = (accessToken, refreshToken, user) => ({
       value: accessToken.value,
       expiresIn: expiresIn(accessToken.expiresAt),
     },
-
+    
     refresh: {
       type: 'refresh',
       value: refreshToken.value,
@@ -38,83 +38,66 @@ module.exports = {
   create(req, res) {
     let params = req.allParams();
     User.create({email: params.Email, firstName: params.FirstName, lastName: params.LastName, password: params.Password}).meta({fetch: true})
-      .then((user) => {
-        return user;
-      }).then((user) => {
-        let email = sails.config.custom.email;
-        email.send({
-          template: 'register',
-          message: {
-            to: user.email
-          },
-          locals: {
-            name: user.firstName + ' ' + user.lastName,
-            email: user.email,
-          }
-        });
-        return user;
-      }).then((user) => {
+    .then((user) => {
+      return user;
+    }).then((user) => {
+      let email = sails.config.custom.email;
+      email.send({
+        template: 'register',
+        message: {
+          to: user.email
+        },
+        locals: {
+          name: user.firstName + ' ' + user.lastName,
+          email: user.email,
+        }
+      });
+      return user;
+    }).then((user) => {
+      Token.findOrAdd({
+        user: user.id,
+        type: 'access',
+      }).then((accessToken) => {
         Token.findOrAdd({
           user: user.id,
-          type: 'access',
-        }).then((accessToken) => {
-          Token.findOrAdd({
-            user: user.id,
-            type: 'refresh',
-          }).then((refreshToken) => {
-            return res.ok(formatTokenResponse(accessToken, refreshToken, user));
-          }).catch((err) => {
-            return res.serverError(err);
-          });
+          type: 'refresh',
+        }).then((refreshToken) => {
+          return res.ok(formatTokenResponse(accessToken, refreshToken, user));
+        }).catch((err) => {
+          return res.serverError(err);
         });
-      }).catch((err) => {
-        sails.helpers.customValidation({model: User, err: err})
-          .then((customErrors) => {
-            return res.serverError(customErrors);
-          }).catch((error) => {
-            return res.serverError(error);
-          });
       });
+    }).catch((err) => {
+      sails.helpers.customValidation({model: User, err: err})
+      .then((customErrors) => {
+        return res.serverError(customErrors);
+      }).catch((error) => {
+        return res.serverError(error);
+      });
+    });
   },
-
+  
   selectCause(req, res) {
     let params = req.allParams();
     sails.log(params);
     let userId = req.param('userId');
     let causeId = req.param('causeId');
-    if (causeId !== '0') {
-      User.update({id: userId},{cause: causeId, causeName: req.param('causeName')}).exec(function afterwards(err) {
-        if (err)
-        {return res.serverError(err);}
-        User.findOne({
-          id: userId
-        }).exec(function (err, user){
-          if (err) {
-            console.log(err);
-            return res.serverError(err);
-          }
-          delete user.password;
-          res.ok({ 'message': 'Cause selected successfully.', 'user': user });
-        });
+    User.update({id: userId},{cause: causeId !== '0' ? causeId : null, causeName: req.param('causeName')}).exec(function afterwards(err) {
+      if (err)
+      {return res.serverError(err);}
+      User.findOne({
+        id: userId
+      }).exec(function (err, user){
+        if (err) {
+          console.log(err);
+          return res.serverError(err);
+        }
+        delete user.password;
+        res.ok({ 'message': 'Cause selected successfully.', 'user': user });
       });
-    } else {
-      User.update({id: userId}, {cause: causeId !== 0 ? causeId : null, causeName: req.param('causeName')}).exec(function afterwards(err) {
-        if (err)
-        {return res.serverError(err);}
-        User.findOne({
-          id: userId
-        }).exec(function (err, user){
-          if (err) {
-            return res.serverError(err);
-          }
-          delete user.password;
-          res.ok({ 'message': 'Cause selected successfully.', 'user': user });
-        });
-      });
-    }
-
+    });
   },
-
+  
   getCause(req, res) {
     let userId = req.param('userId');
     User.findOne({
@@ -122,18 +105,24 @@ module.exports = {
     }).exec(function (err, user){
       if (err)
       {return res.serverError(err);}
-
+      
       let causeId = user.cause;
       Cause.findOne({
         id: causeId
       }).exec(function (err, cause) {
         if (err)
         {return res.serverError(err);}
-
-        if (cause === null)
-        {res.ok({'message': 'User has not cause.'});}
-        else
-        {res.ok(cause);}
+        
+        if (cause === null) {
+          if(user.causeName != null) {
+            res.ok({
+              name: user.causeName,
+            })
+          } else res.ok({'message': 'User has not cause.'});
+        }
+        else {
+          res.ok(cause);
+        }
       });
     });
   },
