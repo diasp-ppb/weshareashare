@@ -57,7 +57,7 @@ module.exports = {
     safeEmailEnvironment: false,
     email: new Email({
       message: {
-        from: 'WeShareAShare  <noreply@weshareashare.org>',
+        from: 'developer@weshareashare.org',
       },
       views: {
         root: path.resolve('views/emails'),
