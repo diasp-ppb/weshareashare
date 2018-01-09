@@ -37,6 +37,7 @@ class CausesList extends Component {
   }
 
   handleSubmit = () => {
+    const { navigate } = this.props.navigation;
     const id = this.state.causeSelected;
     const cause = _.find(this.props.causes, ['id', id]);
     if (id !== -1 && this.props.submit) {
@@ -44,7 +45,11 @@ class CausesList extends Component {
         if (this.props.onSuccessfulSubmit) {
           this.props.onSuccessfulSubmit(res);
         }
-        Toast.show(`Causa ${cause.name} selecionada com sucesso!`, ApplicationStyles.toastSuccess);
+        toastConfig = ApplicationStyles.toastSuccess;
+        toastConfig.onHide = () => {
+          navigate('SendForms');
+        };
+        Toast.show(`Causa ${cause.name} selecionada com sucesso!`, toastConfig);
       }).catch(() => {
         Toast.show('Ocorreu um erro ao selecionar a causa desejada!', ApplicationStyles.toastError);
       });
@@ -56,7 +61,6 @@ class CausesList extends Component {
   }
 
   createCausesButtons = () => {
-    const { navigate } = this.props.navigation;
     if (this.props.causes && this.props.causes.length > 0) {
       return this.props.causes.map((s, i) => {
         return (

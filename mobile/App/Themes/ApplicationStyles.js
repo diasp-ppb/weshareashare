@@ -137,7 +137,7 @@ const ApplicationStyles = {
 
   // toast
   toastError: {
-    duration: Toast.durations.LONG,
+    duration: Toast.durations.SHORT,
     position: Toast.positions.BOTTOM,
     backgroundColor: '#F44336',
     shadow: true,
@@ -146,7 +146,7 @@ const ApplicationStyles = {
     delay: 0,
   },
   toastSuccess: {
-    duration: Toast.durations.LONG,
+    duration: Toast.durations.SHORT,
     position: Toast.positions.BOTTOM,
     backgroundColor: '#66BB6A',
     shadow: true,

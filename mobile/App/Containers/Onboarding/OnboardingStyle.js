@@ -32,6 +32,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
+    marginBottom: 40,
   },
   center: {
     marginLeft: 50,
