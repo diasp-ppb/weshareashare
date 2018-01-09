@@ -23,6 +23,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = () => ({
   submit: Users.updatePassword,
+  onSuccessfulSubmit: null,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormRender);

@@ -24,6 +24,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = () => ({
   submit: Users.resetPassword,
+  onSuccessfulSubmit: null,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormRender);
