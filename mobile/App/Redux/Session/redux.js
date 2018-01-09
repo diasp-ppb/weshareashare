@@ -29,6 +29,7 @@ export const initialState = {
     firstName: null,
     lastName: null,
     cause: null,
+    causeName: null
   },
   client: {
     id: null,

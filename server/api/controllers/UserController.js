@@ -82,19 +82,37 @@ module.exports = {
     sails.log(params);
     let userId = req.param('userId');
     let causeId = req.param('causeId');
-    User.update({id: userId},{cause: causeId}).exec(function afterwards(err) {
-      if (err)
-      {return res.serverError(err);}
-      User.findOne({
-        id: userId
-      }).exec(function (err, user){
-        if (err) {
-          return res.serverError(err);
-        }
-        delete user.password;
-        res.ok({ 'message': 'Cause selected successfully.', 'user': user });
+    if (causeId !== '0') {
+      User.update({id: userId},{cause: causeId, causeName: req.param('causeName')}).exec(function afterwards(err) {
+        if (err)
+        {return res.serverError(err);}
+        User.findOne({
+          id: userId
+        }).exec(function (err, user){
+          if (err) {
+            console.log(err);
+            return res.serverError(err);
+          }
+          delete user.password;
+          res.ok({ 'message': 'Cause selected successfully.', 'user': user });
+        });
       });
-    });
+    } else {
+      User.update({id: userId}, {cause: null, causeName: req.param('causeName')}).exec(function afterwards(err) {
+        if (err)
+        {return res.serverError(err);}
+        User.findOne({
+          id: userId
+        }).exec(function (err, user){
+          if (err) {
+            return res.serverError(err);
+          }
+          delete user.password;
+          res.ok({ 'message': 'Cause selected successfully.', 'user': user });
+        });
+      });
+    }
+
   },
 
   getCause(req, res) {
