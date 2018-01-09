@@ -98,7 +98,7 @@ module.exports = {
         });
       });
     } else {
-      User.update({id: userId}, {cause: null, causeName: req.param('causeName')}).exec(function afterwards(err) {
+      User.update({id: userId}, {cause: causeId !== 0 ? causeId : null, causeName: req.param('causeName')}).exec(function afterwards(err) {
         if (err)
         {return res.serverError(err);}
         User.findOne({

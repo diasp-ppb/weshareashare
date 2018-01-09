@@ -158,9 +158,11 @@ class CausesList extends Component {
                 <Spacer size={10} />
               </View>
             </View>
+            {(s.description !== "NULL") &&
             <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}>
               <Text style={[ApplicationStyles.nextLink, { textAlign: 'right' }]} onPress={() => { navigate('Cause', { cause: s }); }}>Mais sobre {s.name}</Text>
             </View>
+            }
           </View>
         );
       });
@@ -179,6 +181,7 @@ class CausesList extends Component {
         >
         <Card>
           {this.createCausesButtons()}
+          {(!this.props.informative) &&
           <View key='0' style={[ApplicationStyles.paddingBottom, { flexDirection: 'row', flex: 1 }]}>
             <View style={{ flex: 1 }}>
               <RadioButton currentValue={this.state.causeSelected} value='0' onPress={this.handleOnPress} outerCircleColor={Colors.stoikBlue} innerCircleColor={Colors.stoikBlue}></RadioButton>
@@ -192,6 +195,7 @@ class CausesList extends Component {
               />
             </View>
           </View>
+          }
           <Spacer size={25} />
 
           {(this.props.informative) &&

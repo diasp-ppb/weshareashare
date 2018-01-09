@@ -90,13 +90,13 @@ export default class Saving extends Component {
           { (this.state.cause !== null) ?
             this.currentCause() : console.log('')
           }
+  
+          <TouchableOpacity style={[ApplicationStyles.rightAligned]} onPress={() => navigate('SendForms')}>
+            <Text p style={[ApplicationStyles.nextLink]}>
+              Enviar e-mail >
+            </Text>
+          </TouchableOpacity>
         </Card>
-
-        <TouchableOpacity style={[ApplicationStyles.rightAligned]} onPress={() => navigate('SendForms')}>
-          <Text p style={[ApplicationStyles.nextLink]}>
-            Enviar e-mail >
-          </Text>
-        </TouchableOpacity>
         <AppStep index={3} {...this.props} />
       </ScrollView>
     );
