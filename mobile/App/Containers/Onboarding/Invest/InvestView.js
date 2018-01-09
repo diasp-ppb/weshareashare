@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ScrollView, Image, TouchableOpacity } from 'react-native';
+import { View, ScrollView, Image, TouchableOpacity, Text } from 'react-native';
 import { ApplicationStyles, Colors, Fonts, Assets } from '@theme/';
 import { Card, Text as CustomText, Spacer } from '@ui/';
 import { Users } from '@services/API';
@@ -91,6 +91,12 @@ export default class Saving extends Component {
             this.currentCause() : console.log('')
           }
         </Card>
+
+        <TouchableOpacity style={[ApplicationStyles.rightAligned]} onPress={() => navigate('SendForms')}>
+          <Text p style={[ApplicationStyles.nextLink]}>
+            Enviar e-mail >
+          </Text>
+        </TouchableOpacity>
         <AppStep index={3} {...this.props} />
       </ScrollView>
     );

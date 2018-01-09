@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { Item, Input, Text } from 'native-base';
 import { ApplicationStyles, Colors } from '@theme/';
-import { View, DatePickerIOS, Platform } from 'react-native';
+import { View, Platform } from 'react-native';
+import DatePicker from '@components/DatePicker';
 
 const t = require('tcomb-form-native');
 
 const Form = t.form.Form;
-let stylesheet = t.form.Form.stylesheet;
+const stylesheet = t.form.Form.stylesheet;
 stylesheet.textbox.normal.borderWidth = 0;
 stylesheet.textbox.error.borderWidth = 0;
 stylesheet.textbox.normal.marginBottom = 0;
@@ -169,9 +170,9 @@ class ParticipantFields extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      date: new Date('1980-01-01'),
-    };
+    this.date = new Date('1980-01-01');
+
+    this.updateDataIOS = this.updateDataIOS.bind(this);
   }
 
   componentDidMount() {
@@ -184,24 +185,36 @@ class ParticipantFields extends Component {
 
   retrieveValues() {
     if (Platform.OS === 'ios') {
-      var values = this.refs.form.getValue();
+      const inputArea1 = this.refs.form.getValue();
       const inputArea2 = this.refs.form2.getValue();
 
-      values.BIRTHDAY = this.state.date.toDateString();
-      for (let i = 0; i < inputArea2.length; i++) {
-        values.push(inputArea2[i]);
-      }
 
-      return values;
+      const PersonIOS = {
+        NAME: (inputArea1["NAME"] != undefined) ? inputArea1["NAME"] : '',
+        GENDER: (inputArea1["GENDER"] != undefined) ? inputArea1["GENDER"] : '',
+        BIRTHDAY: this.date.getFullYear() + '-' + this.date.getMonth() + '-' + this.date.getDate()+'T' + this.date.getHours() + ':' + this.date.getMinutes() + ':' + this.date.getSeconds()+ '.' + this.date.getMilliseconds() + 'z',
+        TELEPHONE:  (inputArea2["TELEPHONE"] != undefined) ? inputArea2["TELEPHONE"] : '',
+        CELLPHONE: (inputArea2["CELLPHONE"] != undefined) ? inputArea2["CELLPHONE"] : '',
+        ADDRESS:  (inputArea2["ADDRESS"] != undefined) ? inputArea2["ADDRESS"] : '',
+        POSTAL:  (inputArea2["POSTAL"] != undefined) ? inputArea2["POSTAL"] : '',
+        AREA:  (inputArea2["AREA"] != undefined) ? inputArea2["AREA"] : '',
+        ID: (inputArea2["ID"] != undefined) ? inputArea2["ID"] : '',
+        NIF: (inputArea2["NIF"] != undefined) ? inputArea2["NIF"] : '',
+        JOB:  (inputArea2["JOB"] != undefined) ? inputArea2["JOB"] : '',
+        EMPLOYER:  (inputArea2["EMPLOYER"] != undefined) ? inputArea2["EMPLOYER"] : '',
+      };
+
+      console.log(PersonIOS);
+      return PersonIOS;
     } else if (Platform.OS === 'android') {
     console.log(this.refs.formAndroid.getValue());
       return this.refs.formAndroid.getValue();
     }
   }
 
-  onDateChange(date) {
-    this.setState({ date });
-    console.log(this.state.date.toDateString());
+  updateDataIOS(date) {
+    this.date = date;
+    console.log(this.date);
   }
 
   render() {
@@ -214,14 +227,7 @@ class ParticipantFields extends Component {
             options={options}
             value={initialValue}
           />
-          <View>
-            <Text> Data de Nascimento </Text>
-            <DatePickerIOS
-              date={this.state.date}
-              onDateChange={(value) => this.onDateChange(value)}
-              mode="date"
-            />
-          </View>
+          <DatePicker update={this.updateDataIOS} />
           <Form
             ref="form2"
             type={Person2}
