@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import RadioButton from 'radio-button-react-native';
 import PropTypes from 'prop-types';
 import { View, TouchableOpacity, Image, ScrollView, TextInput } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Text } from 'native-base';
 import Toast from 'react-native-root-toast';
 import styles from './CausesListStyle';
@@ -71,7 +72,7 @@ class CausesList extends Component {
       if (causeName === null) {
         cause = -1;
       } else {
-        cause = 0;
+        cause = "0";
         causeName = this.props.session.user.causeName;
       }
     }
@@ -156,7 +157,12 @@ class CausesList extends Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <ScrollView style={ApplicationStyles.container}>
+      <KeyboardAwareScrollView
+        style={ApplicationStyles.container}
+        extraScrollHeight={100}
+        enableOnAndroid={true}
+        keyboardShouldPersistTaps='handled'
+        >
         <Card>
           {this.createCausesButtons()}
           <View key='0' style={[ApplicationStyles.paddingBottom, { flexDirection: 'row', flex: 1 }]}>
@@ -188,7 +194,7 @@ class CausesList extends Component {
             <Button title="Suporte a causa" onPress={this.handleSubmit} />
           }
         </Card>
-      </ScrollView>
+      </KeyboardAwareScrollView>
     );
   }
 }
