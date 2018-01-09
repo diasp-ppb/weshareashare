@@ -22,7 +22,7 @@ class ParticipantView extends Component {
         Toast.show("Dados pessoais submetidos com sucesso.", ApplicationStyles.toastSuccess);
         navigate('Subscription');
       }).catch(() => {
-        Toast.show('Não foi possível enviar os dados pessoais.', ApplicationStyles.toastError);
+        Toast.show('NÃ£o foi possÃ­vel enviar os dados pessoais.', ApplicationStyles.toastError);
       });
     }
   }
@@ -58,7 +58,7 @@ class ParticipantView extends Component {
           }}
           >
             <TouchableOpacity style={styles.button} onPress={this.handleSubmit}>
-              <Text style={{ justifyContent: 'center' }}>Próximo</Text>
+              <Text style={{ justifyContent: 'center' }}>PrÃ³ximo</Text>
             </TouchableOpacity>
           </View>
         </Content>

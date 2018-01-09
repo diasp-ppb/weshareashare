@@ -19,10 +19,10 @@ class SubscriptionView extends Component {
     if (this.props.submit) {
      this.props.submit({ participant: choices }, this.props.session).then(() => {
        this.props.onSuccessfulSubmit(choices);
-       Toast.show("Dados pessoais submetidos com sucesso.", ApplicationStyles.toastSuccess);
-       navigate('Subscription');
+       Toast.show("Dados de subscrição submetidos com sucesso.", ApplicationStyles.toastSuccess);
+       navigate('FatcaForm')
      }).catch(() => {
-       Toast.show('Não foi possível enviar os dados pessoais.', ApplicationStyles.toastError);
+       Toast.show('Não foi possível enviar os dados de subscrição.', ApplicationStyles.toastError);
      });
    }
   }
@@ -30,6 +30,7 @@ class SubscriptionView extends Component {
   render() {
     return (
       <KeyboardAwareScrollView
+        style={styles.container}
         extraScrollHeight={100}
         enableOnAndroid={true}
         keyboardShouldPersistTaps='handled'>

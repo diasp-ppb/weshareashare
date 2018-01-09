@@ -16,9 +16,9 @@ export default class Finalizing extends Component {
 
     if (this.props.submitEmail) {
       this.props.submitEmail(this.props.session).then(() => {
-        Toast.show("Dados submetidos com sucesso.", ApplicationStyles.toastSuccess);
+        Toast.show("Dados de subscrição submetidos com sucesso.", ApplicationStyles.toastSuccess);
       }).catch(() => {
-        Toast.show('NÃ£o foi possÃ­vel enviar os dados de subscrição.', ApplicationStyles.toastError);
+        Toast.show('Não foi possível enviar os dados de subscrição.', ApplicationStyles.toastError);
       });
     }
   }

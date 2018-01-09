@@ -49,7 +49,7 @@ export default class Saving extends Component {
     return (
       <View>
         <CustomText h3 style={[ApplicationStyles.paddingTop, { color: Colors.textSecondary }]}>
-          Estรก a suportar a seguinte causa:
+          Está a suportar a seguinte causa:
         </CustomText>
         <Spacer size={10} />
         <CustomText h2 style={[ApplicationStyles.textCenterAligned]}>{this.state.cause.name}</CustomText>
@@ -75,7 +75,7 @@ export default class Saving extends Component {
           </CustomText>
           <Spacer size={10} />
           <CustomText h3 style={{ color: Colors.textSecondary, fontWeight: '500' }}>
-            Passos para comeรงar a investir:
+            Passos para começar a investir:
           </CustomText>
 
           <TouchableOpacity onPress={() => navigate('Participant', { formIndex: 2 })}>
