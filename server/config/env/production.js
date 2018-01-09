@@ -20,7 +20,7 @@ module.exports = {
   datastores: {
     default: {
       adapter: 'sails-postgresql',
-      url: 'postgresql-production://weshareashare:ws_admin@127.0.0.1:5432/weshareashare',
+      url: 'postgresql://weshareashare:ws_admin@127.0.0.1:5432/weshareashare',
     },
   },
   models: {
@@ -57,19 +57,19 @@ module.exports = {
     safeEmailEnvironment: false,
     email: new Email({
       message: {
-        from: 'WeShareAShare  <noreply@stoik.com>',
+        from: 'WeShareAShare  <noreply@weshareashare.org>',
       },
       views: {
         root: path.resolve('views/emails'),
       },
       send: true,
       transport: {
-        host: 'smtp.gmail.com',
+        host: 'smtp.zoho.com',
         port: 465,
         secure: true,
         auth: {
-          user: 'weshareasharetest@gmail.com',
-          pass: 'ws_admin'
+          user: 'developer@weshareashare.org',
+          pass: 'WSAS2018'
         },
         tls: {
           rejectUnauthorized: false
