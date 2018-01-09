@@ -102,14 +102,13 @@ class CausesList extends Component {
     if (id !== -1 && this.props.submit) {
       this.props.submit(causeParams, this.props.session).then((res) => {
         if (this.props.onSuccessfulSubmit) {
-        console.log(res);
           this.props.onSuccessfulSubmit(res);
         }
         toastConfig = ApplicationStyles.toastSuccess;
         toastConfig.onHide = () => {
           navigate('SendForms');
         };
-        Toast.show(`Causa ${cause.name} selecionada com sucesso!`, toastConfig);
+        Toast.show(`Causa ${causeName} selecionada com sucesso!`, toastConfig);
       }).catch(() => {
         Toast.show('Ocorreu um erro ao selecionar a causa desejada!', ApplicationStyles.toastError);
       });
