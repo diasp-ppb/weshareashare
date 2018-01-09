@@ -5,6 +5,7 @@ import { Card, Text as CustomText } from '@ui/';
 import AppStep from '@components/AppStep';
 import BulletText from '@components/BulletText'
 import styles from '../OnboardingStyle';
+import Toast from 'react-native-root-toast';
 
 export default class Finalizing extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -15,6 +16,7 @@ export default class Finalizing extends Component {
     const { navigate } = this.props.navigation;
 
     if (this.props.submitEmail) {
+      Toast.show("Ser-lhe-á enviado um email com os formulários preenchidos.", ApplicationStyles.toastSuccess);
       this.props.submitEmail(this.props.session).then(() => {
         Toast.show("Email enviado com sucesso.", ApplicationStyles.toastSuccess);
       }).catch(() => {

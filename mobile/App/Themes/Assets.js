@@ -27,6 +27,7 @@ const images = {
   logoUnicef: require('@assets/Causes/logoUnicef.png'),
   logoZero: require('@assets/Causes/logoZero.png'),
   logoWorldWildFund: require('@assets/Causes/logoWorldWildFund.png'),
+    logoStoik: require('@assets/logoStoik.png'),
 };
 
 const fonts = {

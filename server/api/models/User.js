@@ -50,6 +50,9 @@ module.exports = {
     cause: {
       model: 'cause',
     },
+    causeName: {
+      type: 'string',
+    },
     documents: {
       collection: 'document',
       via: 'owner'
