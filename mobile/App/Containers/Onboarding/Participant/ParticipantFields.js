@@ -207,6 +207,7 @@ class ParticipantFields extends Component {
       console.log(PersonIOS);
       return PersonIOS;
     } else if (Platform.OS === 'android') {
+    console.log(this.refs.formAndroid.getValue());
       return this.refs.formAndroid.getValue();
     }
   }

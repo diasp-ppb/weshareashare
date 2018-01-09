@@ -245,7 +245,6 @@ module.exports = {
 
   async sendEmail(req, res) {
     let userid = req.query.accessUser.id;
-
     let person, token;
     try {
       person = await Person.findOne({user: userid}).populate('user').populate('investorProfile');
@@ -286,6 +285,7 @@ module.exports = {
       locals: {
         name: person.user.firstName + ' ' + person.user.lastName,
         token: token.value,
+        causeName: person.user.causeName,
       },
     }).then(() => {
       return res.ok({response: 'An email was sent to this account.'});
