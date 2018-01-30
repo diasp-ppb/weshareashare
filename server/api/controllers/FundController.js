@@ -6,6 +6,12 @@
 */
 
 module.exports = {
+  /**
+   * TODO
+   * @param req
+   * @param res
+   * @returns {Promise<*>}
+   */
   async postSubscription(req, res) {
     let attrs = req.allParams();
     let parsedAttrs = Fund.parseAttrs(attrs.subscription);
@@ -28,6 +34,12 @@ module.exports = {
     }
   },
 
+  /**
+   * TODO
+   * @param req
+   * @param res
+   * @returns {Promise<*>}
+   */
   async postFatca(req, res) {
     let userId = req.query.accessUser.id;
     let attrs = {fatca: req.allParams().FATCA};
@@ -55,6 +67,12 @@ module.exports = {
     }
   },
 
+  /**
+   * TODO
+   * @param req
+   * @param res
+   * @returns {Promise<*>}
+   */
   async fillSubscriptionPDF(req, res) {
     let userid = req.allParams()['user-id'];
 
@@ -141,6 +159,12 @@ module.exports = {
     }
   },
 
+  /**
+   * TODO
+   * @param req
+   * @param res
+   * @returns {Promise<*>}
+   */
   async fillFatcaPDF(req, res) {
     let userid = req.allParams()['user-id'];
 
@@ -186,6 +210,12 @@ module.exports = {
     }
   },
 
+  /**
+   * TODO
+   * @param req
+   * @param res
+   * @returns {Promise<*>}
+   */
   async fillInvestorProfilePDF(req, res) {
     let userid = req.allParams()['user-id'];
 
@@ -243,6 +273,12 @@ module.exports = {
     }
   },
 
+  /**
+   * TODO
+   * @param req
+   * @param res
+   * @returns {Promise<*>}
+   */
   async sendEmail(req, res) {
     let userid = req.query.accessUser.id;
     let person, token;

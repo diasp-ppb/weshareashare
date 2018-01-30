@@ -6,6 +6,12 @@
  */
 
 module.exports = {
+  /**
+   * Creates a new instance of contact us, created by an user (authenticated or not)
+   * @param req
+   * @param res
+   * @returns {Promise<*>}
+   */
   async create(req, res) {
     let params = req.allParams();
 

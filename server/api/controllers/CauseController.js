@@ -6,6 +6,11 @@
  */
 
 module.exports = {
+  /**
+   * Creates a new cause
+   * @param req
+   * @param res
+   */
   create(req, res) {
     let params = req.allParams();
     Cause.create(
@@ -23,6 +28,11 @@ module.exports = {
       });
   },
 
+  /**
+   * Returns all causes available
+   * @param req
+   * @param res
+   */
   getAll(req, res) {
     Cause.find()
     .then((causes) => {

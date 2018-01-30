@@ -6,6 +6,12 @@
  */
 
 module.exports = {
+  /**
+   * TODO
+   * @param req
+   * @param res
+   * @returns {Promise<*>}
+   */
   async upload(req, res) {
     // WARNING!!!!!!! When sending the parameters, the text param always comes first
     let params = req.allParams();
@@ -22,6 +28,12 @@ module.exports = {
     }
   },
 
+  /**
+   * TODO
+   * @param req
+   * @param res
+   * @returns {Promise<*>}
+   */
   async delete(req, res) {
     return res.ok();
   }

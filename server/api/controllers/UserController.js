@@ -12,6 +12,13 @@ const expiresIn = expiresAt =>
     moment(expiresAt).diff(moment())
   ).asSeconds());
 
+/**
+ * Formats the tokens with a proper structure
+ * @param accessToken
+ * @param refreshToken
+ * @param user
+ * @returns {{tokens: {access: {type: string, value, expiresIn: *}, refresh: {type: string, value}}, user: {id: *, email: *, firstName: *|null, lastName: *|null}}}
+ */
 const formatTokenResponse = (accessToken, refreshToken, user) => ({
   tokens: {
     access: {
@@ -35,6 +42,11 @@ const formatTokenResponse = (accessToken, refreshToken, user) => ({
 });
 
 module.exports = {
+  /**
+   * Creates a new user, using the basic passport policy
+   * @param req
+   * @param res
+   */
   create(req, res) {
     let params = req.allParams();
     User.create({email: params.Email, firstName: params.FirstName, lastName: params.LastName, password: params.Password}).meta({fetch: true})
@@ -77,6 +89,11 @@ module.exports = {
     });
   },
 
+  /**
+   * Selects a new cause that the user will now support
+   * @param req
+   * @param res
+   */
   selectCause(req, res) {
     let params = req.allParams();
     sails.log(params);
@@ -98,6 +115,11 @@ module.exports = {
     });
   },
 
+  /**
+   * Returns the current cause supported by the user
+   * @param req
+   * @param res
+   */
   getCause(req, res) {
     let userId = req.param('userId');
     User.findOne({

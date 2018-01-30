@@ -10,6 +10,13 @@ const expiresIn = expiresAt =>
     moment(moment()).diff(expiresAt)
   ).asSeconds());
 
+/**
+ * Formats the tokens with a proper structure
+ * @param accessToken
+ * @param refreshToken
+ * @param user
+ * @returns {{tokens: {access: {type: string, value, expiresIn: *}, refresh: {type: string, value}}, user: {id: *, email: *, firstName: *|null, lastName: *|null}}}
+ */
 const formatTokenResponse = (accessToken, refreshToken, user) => ({
   tokens: {
     access: {
@@ -31,6 +38,11 @@ const formatTokenResponse = (accessToken, refreshToken, user) => ({
 });
 
 module.exports = {
+  /**
+   * Authenticates an user following the passport basic policy
+   * @param req
+   * @param res
+   */
   signin(req, res) {
     passport.authenticate(['basic'], { session: false }, (authErr, user) => {
       if (authErr || !user) {
@@ -57,6 +69,11 @@ module.exports = {
     })(req, res);
   },
 
+  /**
+   * Refreshes the access tokens
+   * @param req
+   * @param res
+   */
   refresh(req, res) {
     const params = req.allParams();
 
@@ -90,6 +107,12 @@ module.exports = {
     });
   },
 
+  /**
+   * Revoke the tokens validity
+   * @param req
+   * @param res
+   * @returns {*}
+   */
   revoke(req, res) {
     const params = req.allParams();
     if (!params.tokens || !params.tokens.length) {
@@ -113,6 +136,12 @@ module.exports = {
     });
   },
 
+  /**
+   * Request to reset a password, which sends an email to the respective user with a unique token
+   * @param req
+   * @param res
+   * @returns {Promise<*>}
+   */
   async resetRequest(req, res) {
     const params = req.allParams();
     if(!params.Email) {
@@ -153,6 +182,12 @@ module.exports = {
     });
   },
 
+  /**
+   * Verifies if the given token is valid and then updates the user password
+   * @param req
+   * @param res
+   * @returns {Promise<*>}
+   */
   async resetPassword(req, res) {
     const params = req.allParams();
     if (!params.Password || !params.Email) {

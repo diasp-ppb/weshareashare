@@ -5,6 +5,12 @@
 * @help        :: See https://sailsjs.com/docs/concepts/actions
 */
 
+/**
+ * TODO
+ * @param profiles
+ * @param birthday
+ * @returns {string}
+ */
 const getScoreResponse = (profiles, birthday) => {
     let profile = profiles[0];
 
@@ -41,6 +47,12 @@ const getScoreResponse = (profiles, birthday) => {
 };
 
 module.exports = {
+  /**
+   * TODO
+   * @param req
+   * @param res
+   * @returns {Promise<*>}
+   */
   async postInvestorProfile(req, res) {
     let investorAttrs = Profile.parseAttrs(req.allParams().investor);
     let userId = req.query.accessUser.id;

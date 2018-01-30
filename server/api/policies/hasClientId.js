@@ -1,7 +1,10 @@
 /**
- * hasClientId policy
+ * Verifies if the user has a client id
+ * @param req
+ * @param res
+ * @param next
+ * @returns {*}
  */
-
 module.exports = (req, res, next) => {
   let clientID = req.headers['client-id'];
   if(!clientID){

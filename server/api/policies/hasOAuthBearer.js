@@ -4,6 +4,12 @@
 
 const passport = require('passport');
 
+/**
+ * @param req
+ * @param res
+ * @param next
+ * @returns {*}
+ */
 module.exports = (req, res, next) => {
   const userReq = Object.assign({}, req);
   delete userReq.query.accessToken;

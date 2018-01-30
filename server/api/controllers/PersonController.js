@@ -6,6 +6,12 @@
  */
 
 module.exports = {
+  /**
+   * TODO
+   * @param req
+   * @param res
+   * @returns {Promise<*>}
+   */
   async postParticipant(req, res) {
     let attrs = req.allParams();
     let parsedAttrs = Person.parseAttrs(attrs.participant);

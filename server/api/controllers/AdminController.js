@@ -13,6 +13,13 @@
      moment(expiresAt).diff(moment())
    ).asSeconds());
 
+/**
+ * Sends the user tokens properly formatted
+ * @param accessToken
+ * @param refreshToken
+ * @param admin
+ * @returns {{tokens: {access: {type: string, value, expiresIn: *}, refresh: {type: string, value}}, admin: {id: *, username: *, email: *}}}
+ */
  const formatTokenResponse = (accessToken, refreshToken, admin) => ({
    tokens: {
      access: {
@@ -35,6 +42,11 @@
 
  module.exports = {
 
+   /**
+    * Creates a new user with admin privileges
+    * @param req
+    * @param res
+    */
    create(req, res) {
      let params = req.allParams();
      params['isAdmin'] = true;
@@ -78,6 +90,11 @@
       });
    },
 
+   /**
+    * Authenticates an admin using passport and the basic policy
+    * @param req
+    * @param res
+    */
    signin(req, res) {
      passport.authenticate(['basic'], { session: false }, (authErr, user) => {
        if (authErr || !user) {
@@ -111,6 +128,4 @@
 
      })(req, res);
    },
-
-
  };
