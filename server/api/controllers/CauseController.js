@@ -7,7 +7,7 @@
 
 module.exports = {
   /**
-   * Creates a new cause
+   * Creates a new cause.
    * @param req
    * @param res
    */
@@ -18,8 +18,8 @@ module.exports = {
         name: params.name,
         category: params.category,
         image: params.image,
-        shortDescription: params.shortDescription,
-        description: params.description}).meta({fetch: true})
+        shortDescription: params.shortDescription, // short description to show on cause overview page
+        description: params.description}).meta({fetch: true}) // full description for detailed cause page
       .then((cause) => {
         return res.ok(cause);
       })

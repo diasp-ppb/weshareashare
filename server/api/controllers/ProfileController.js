@@ -6,7 +6,8 @@
 */
 
 /**
- * TODO
+ * Based on investor profile answers, calculates and returns a string indicating
+ * the investor score
  * @param profiles
  * @param birthday
  * @returns {string}
@@ -48,7 +49,7 @@ const getScoreResponse = (profiles, birthday) => {
 
 module.exports = {
   /**
-   * TODO
+   * Creates or updates the user's investor profile.
    * @param req
    * @param res
    * @returns {Promise<*>}

@@ -7,7 +7,7 @@
 
 module.exports = {
   /**
-   * TODO
+   * Creates or updates the user's personal details
    * @param req
    * @param res
    * @returns {Promise<*>}

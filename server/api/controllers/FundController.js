@@ -7,7 +7,7 @@
 
 module.exports = {
   /**
-   * TODO
+   * Creates or updates the user's subscription details
    * @param req
    * @param res
    * @returns {Promise<*>}
@@ -35,7 +35,7 @@ module.exports = {
   },
 
   /**
-   * TODO
+   * Updates the user's FACTA state
    * @param req
    * @param res
    * @returns {Promise<*>}
@@ -68,7 +68,7 @@ module.exports = {
   },
 
   /**
-   * TODO
+   * Fills and generates the subscription PDF
    * @param req
    * @param res
    * @returns {Promise<*>}
@@ -160,7 +160,7 @@ module.exports = {
   },
 
   /**
-   * TODO
+   * Fills and generates the FACTA form PDF
    * @param req
    * @param res
    * @returns {Promise<*>}
@@ -211,7 +211,7 @@ module.exports = {
   },
 
   /**
-   * TODO
+   * Fills and generates the investor profile PDF
    * @param req
    * @param res
    * @returns {Promise<*>}
@@ -274,7 +274,7 @@ module.exports = {
   },
 
   /**
-   * TODO
+   * sends e-mail with the autofilled PDFs
    * @param req
    * @param res
    * @returns {Promise<*>}
