@@ -22,7 +22,7 @@
     "rand-token": "^0.3.0",
     "sails": "^1.0.0-42",
     "sails-hook-orm": "^2.0.0-16",
-    "sails-hook-sockets": "^0.13.13",
+    "sails-hook-sockets": "^2.0.0",
     "sails-postgresql": "^1.0.0-11"
   },
   "devDependencies": {
